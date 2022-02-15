@@ -4,9 +4,9 @@ import React from 'react';
 const Header = () => {
   return (
     <Head>
-      <title>Obsidian Clipper</title>
+      <title>Obsidian Plugin Stats</title>
       <link rel="icon" href="/images/favicon.png" />
-      <meta name="description" content="Make Obsidian Clipper or Bookmark"></meta>
+      <meta name="description" content="Statistics about Obsidian Plugins. New, trending, favorite Obsidian Plugins."></meta>
       <script
         dangerouslySetInnerHTML={{
           __html: `
