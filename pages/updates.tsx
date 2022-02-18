@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
+import moment from 'moment';
 
 type Props = { };
 type State = { };
@@ -30,7 +31,7 @@ const Updates = (props) => {
                   </div>
                   <div>
                     <a href={`https://github.com/${newRelease.repo}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{newRelease.name}</a>
-                    <div className='text-sm'>by <span className='group-hover:text-violet-500'>{newRelease.author}</span></div>
+                    <div className='text-sm'>{moment(newRelease.latestReleaseAt).fromNow()} by <span className='group-hover:text-violet-500'>{newRelease.author}</span></div>
                     <div className='pr-5'>{newRelease.description}</div>
                   </div>
                 </div>
@@ -45,7 +46,7 @@ const Updates = (props) => {
 
 const daysAgo = (days: number) => Date.now() - (days * 24 * 60 * 60 * 1000)
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async () => {
   let prisma: PrismaClient;
 
   let newReleases = AppCache.get('new_releases') || [];
@@ -58,6 +59,7 @@ export const getServerSideProps = async (context) => {
         }
       }
     });
+    newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt)
     AppCache.set('new_releases', newReleases);
   }
 

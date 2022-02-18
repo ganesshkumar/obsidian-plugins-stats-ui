@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
+import moment from 'moment';
 
 type Props = { };
 type State = { };
@@ -27,7 +28,7 @@ const New = (props) => {
                   <div className='text-3xl font text-violet-900 px-5'>{String(idx+1).padStart(2, '0')}. </div>
                   <div>
                     <a href={`https://github.com/${newPlugin.repo}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{newPlugin.name}</a>
-                    <div className='text-sm'>by <span className='group-hover:text-violet-500'>{newPlugin.author}</span></div>
+                    <div className='text-sm'>{moment(newPlugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{newPlugin.author}</span></div>
                     <div >{newPlugin.description}</div>
                   </div>
                 </div>
@@ -42,7 +43,7 @@ const New = (props) => {
 
 const daysAgo = (days: number) => Date.now() - (days * 24 * 60 * 60 * 1000)
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async () => {
   let prisma: PrismaClient;
 
   let newPlugins: any[] = AppCache.get('new_plugins') || [];
@@ -55,6 +56,7 @@ export const getServerSideProps = async (context) => {
         }
       }
     });
+    newPlugins.sort((a, b) => b.createdAt - a.createdAt);
     AppCache.set('new_plugins', newPlugins);
   }
 

@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 
 import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
+import moment from 'moment';
 
 type Props = { };
 type State = { };
@@ -43,7 +44,7 @@ const Home = (props) => {
               return (
                 <a key={newPlugin.id} href={`https://github.com/${newPlugin.repo}`} target="_blank" rel="noreferrer" className='group basis-64 shrink-0 m-5 px-5 py-2 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110' >
                   <div className='text-xl font-medium uppercase tracking-wide text-violet-900'>{newPlugin.name}</div>
-                  <div  className='text-sm'>by <span className='group-hover:text-violet-500'>{newPlugin.author}</span></div>
+                  <div  className='text-sm'>{moment(newPlugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{newPlugin.author}</span></div>
                   <div className='mt-5 text-sm'>{newPlugin.description}</div>
                 </a>
               )
@@ -64,7 +65,7 @@ const Home = (props) => {
                     className='flex justify-between group basis-64 shrink-0 m-5 px-5 border rounded-md hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
                   <div className='py-2'>
                     <div className='text-lg uppercase tracking-wide text-violet-900'>{newRelease.name}</div>
-                    <div className='text-sm'>by <span className=''>{newRelease.author}</span></div>
+                    <div className='text-sm'>{moment(newRelease.latestReleaseAt).fromNow()} by <span className=''>{newRelease.author}</span></div>
                   </div>
                   <div className='text-3xl font-medium flex flex-col justify-center text-violet-900'>
                     <div>{newRelease.latestRelease}</div>
@@ -120,6 +121,7 @@ export const getServerSideProps = async (context) => {
         }
       }
     });
+    newPlugins.sort((a, b) => b.createdAt - a.createdAt);
     AppCache.set('new_plugins', newPlugins);
   }
 
@@ -140,6 +142,7 @@ export const getServerSideProps = async (context) => {
         }
       }
     });
+    newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
     AppCache.set('new_releases', newReleases);
   }
 
