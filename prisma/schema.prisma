@@ -9,11 +9,27 @@ generator client {
 }
 
 model Plugin {
-  id           String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
-  pluginId     String         @unique
-  name         String?
-  author       String?
-  description  String?
-  repo         String
-  createdAt    Int
+  id                String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  pluginId          String         @unique
+  name              String?
+  author            String?
+  description       String?
+  repo              String
+  createdAt         Int
+  nextUpdateAt      Int?
+  lastCommitAt      Int?
+  stargazers        Int?
+  subscribers       Int?
+  latestRelease     String?
+  latestReleaseDesc String?
+  latestReleaseAt   Int?
+  totalDownloads    Int?
+  zScoreTrending    Int?
+}
+
+model ReleaseDownloads {
+  id              String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  pluginId        String         @unique
+  timestamp       Int
+  deltaDownload   Int
 }
