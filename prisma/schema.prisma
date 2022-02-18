@@ -33,3 +33,9 @@ model ReleaseDownloads {
   timestamp       Int
   deltaDownload   Int
 }
+
+model PluginTags {
+  id               String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  tag              String
+  pluginId         String
+}

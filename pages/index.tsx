@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
@@ -14,18 +15,21 @@ const Home = (props) => {
     <div>
       <Header />
       {/* Header */}
-      {/* <div className='uppercase py-5 text-3xl text-purple-700 font-semibold flex justify-center tracking-wide'>
-        <div>Obsidian Plugin Stats</div>
-      </div> */}
       {/* Navbar */}
       <Navbar current='home' />
       {/* Tags */}
-      <div className='flex justify-center my-3'>
-        <div className="mx-3 border border-dashed border-violet-700 rounded px-2 py-1 text-violet-700">
+      <div className='flex justify-center py-3 bg-violet-900'>
+        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
           Total Plugins: {props.totalPluginsCount}
         </div>
-        <div className="mx-3 border border-dashed border-violet-700 rounded px-2 py-1 text-violet-700">
+        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
           New Plugins: {props.newPlugins.length}
+        </div>
+        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
+          Recently Updated Plugins: {props.newReleases.length}
+        </div>
+        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
+          Total tags: {props.tags.length}
         </div>
       </div>
       {/* New Plugins */}
@@ -61,7 +65,6 @@ const Home = (props) => {
                   <div className='py-2'>
                     <div className='text-lg uppercase tracking-wide text-violet-900'>{newRelease.name}</div>
                     <div className='text-sm'>by <span className=''>{newRelease.author}</span></div>
-                    <div className='mt-5 cursor-pointer underline text-violet-900 group-hover:text-violet-500'>Changelog</div>
                   </div>
                   <div className='text-3xl font-medium flex flex-col justify-center text-violet-900'>
                     <div>{newRelease.latestRelease}</div>
@@ -97,6 +100,7 @@ const Home = (props) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
@@ -151,7 +155,19 @@ export const getServerSideProps = async (context) => {
     AppCache.set('most_downloaded', mostDownloaded);
   }
 
-  return { props: { newPlugins, totalPluginsCount, newReleases, mostDownloaded } }
+  let tags = AppCache.get('tags') || [];
+  if (tags.length <= 0) {
+    if (!prisma) prisma = new PrismaClient();
+    const tagsData = await prisma.pluginTags.findMany();
+    
+    const tagSet = new Set();
+    tagsData.forEach(datum => tagSet.add(datum.tag));
+    tags = Array.from(tagSet);
+
+    AppCache.set('tags', tags);
+  }
+
+  return { props: { newPlugins, totalPluginsCount, newReleases, mostDownloaded, tags } }
 }
 
 

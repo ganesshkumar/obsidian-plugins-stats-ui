@@ -29,7 +29,7 @@ const MostDownloaded = (props) => {
       <div className='bg-violet-50 py-5'>
         <div className='container w-0 lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
-            🚀 Most Downloaded {props.mostDownloaded && `(${props.mostDownloaded.length})`} 
+            ⬇️ Most Downloaded {props.mostDownloaded && `(${props.mostDownloaded.length})`} 
           </div>
           <div className='flex-col'>
             {props.mostDownloaded.map((plugin, idx) => {
