@@ -2,16 +2,20 @@
 import React from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
 import moment from 'moment';
-import Footer from '../components/Footer';
+import showdown from 'showdown';
 
 type Props = { };
 type State = { };
 
 const Updates = (props) => {
+  const mdConverter = new showdown.Converter();
+  mdConverter.setFlavor('github');
+  
   return (
     <div>
       <Header />
@@ -33,7 +37,10 @@ const Updates = (props) => {
                   <div>
                     <a href={`https://github.com/${newRelease.repo}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{newRelease.name}</a>
                     <div className='text-sm'>{moment(newRelease.latestReleaseAt).fromNow()} by <span className='group-hover:text-violet-500'>{newRelease.author}</span></div>
-                    <div className='pr-5'>{newRelease.description}</div>
+                    <details>
+                      <summary className='text-violet-700'>Changelog</summary>
+                      <div dangerouslySetInnerHTML={{__html: mdConverter.makeHtml(newRelease.latestReleaseDesc)}} />
+                    </details>
                   </div>
                 </div>
               );

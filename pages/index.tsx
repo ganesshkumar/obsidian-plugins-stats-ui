@@ -7,11 +7,16 @@ import Footer from '../components/Footer';
 import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
 import moment from 'moment';
+import showdown from 'showdown';
 
 type Props = { };
 type State = { };
 
 const Home = (props) => {
+  const mdConverter = new showdown.Converter();
+  mdConverter.setFlavor('github');
+  
+
   return (
     <div className='w-screen'>
       <Header />
@@ -58,18 +63,23 @@ const Home = (props) => {
           <div className='text-2xl py-5 uppercase pl-5 text-gray-50'>
             🪴 New Versions {props.newReleases && `(${props.newReleases.length})`} 
           </div>
-          <div className='flex flex-wrap justify-center'>
+          <div className='flex flex-wrap'>
             {props.newReleases.map(newRelease => {
               return (
-                <a key={newRelease.id} href={`https://github.com/${newRelease.repo}/releases/tag/${newRelease.latestRelease}`} target="_blank" rel="noreferrer" 
-                    className='flex justify-between group basis-64 shrink-0 m-5 px-5 border rounded-md hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
-                  <div className='py-2'>
-                    <div className='text-lg uppercase tracking-wide text-violet-900'>{newRelease.name}</div>
-                    <div className='text-sm'>{moment(newRelease.latestReleaseAt).fromNow()} by <span className=''>{newRelease.author}</span></div>
+                <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer" 
+                    className='flex-col group basis-64 shrink-0 m-5 px-5 border rounded-md hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
+                  <div className='flex flex-none justify-between'>
+                    <div className='py-2'>
+                      <div className='text-lg uppercase tracking-wide text-violet-900'>{newRelease.name}</div>
+                      <div className='text-sm'>{moment(newRelease.latestReleaseAt).fromNow()} by <span className=''>{newRelease.author}</span></div>
+                    </div>
+                    <div className='text-3xl font-medium flex flex-col justify-center text-violet-900'>
+                      <div>{newRelease.latestRelease}</div>
+                    </div>
                   </div>
-                  <div className='text-3xl font-medium flex flex-col justify-center text-violet-900'>
-                    <div>{newRelease.latestRelease}</div>
-                  </div>
+                  {/* <div className='basis-48'>
+                    <div className='truncate' dangerouslySetInnerHTML={{ __html: newRelease.latestReleaseDesc.length > 40 ? newRelease.latestReleaseDesc.substring(0, 40): newRelease.latestReleaseDesc}} />
+                  </div> */}
                 </a>
               )
             })}
