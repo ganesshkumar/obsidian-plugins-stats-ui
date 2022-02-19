@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
 import moment from 'moment';
+import Footer from '../components/Footer';
 
 type Props = { };
 type State = { };
@@ -16,8 +17,8 @@ const New = (props) => {
       <Header />
       <Navbar current='new'/>
       {/* New Plugins */}
-      <div className='bg-violet-50 py-5'>
-        <div className='container w-0 lg:w-1/2 mx-auto'>
+      <div className='bg-violet-50 pt-5'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
             🌱 New Plugins {props.newPlugins && `(${props.newPlugins.length})`} 
           </div>
@@ -29,7 +30,7 @@ const New = (props) => {
                   <div>
                     <a href={`https://github.com/${newPlugin.repo}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{newPlugin.name}</a>
                     <div className='text-sm'>{moment(newPlugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{newPlugin.author}</span></div>
-                    <div >{newPlugin.description}</div>
+                    <div className='mr-5'>{newPlugin.description}</div>
                   </div>
                 </div>
               );
@@ -37,6 +38,7 @@ const New = (props) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

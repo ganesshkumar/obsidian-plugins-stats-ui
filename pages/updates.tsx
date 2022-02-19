@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
 import moment from 'moment';
+import Footer from '../components/Footer';
 
 type Props = { };
 type State = { };
@@ -16,8 +17,8 @@ const Updates = (props) => {
       <Header />
       <Navbar current='updates'/>
       {/* New Plugins */}
-      <div className='bg-violet-50 py-5'>
-        <div className='container w-0 lg:w-1/2 mx-auto'>
+      <div className='bg-violet-50 pt-5'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
             🪴 New Versions {props.newReleases && `(${props.newReleases.length})`} 
           </div>
@@ -25,8 +26,8 @@ const Updates = (props) => {
             {props.newReleases.map((newRelease, idx) => {
               return (
                 <div key={newRelease.id} className='group flex py-2 bg-gray-50 hover:bg-white text-gray-700'>
-                  <div className='text-3xl font text-gray-400 px-5'>{String(idx+1).padStart(2, '0')} </div>
-                  <div className='text-3xl font text-violet-900 px-5 py-2 basis-40 text-center shrink-0'>
+                  <div className='text-xl lg:text-3xl font text-gray-400 pl-5 lg:pr-5'>{String(idx+1).padStart(2, '0')} </div>
+                  <div className='text-xl lg:text-3xl font text-violet-900 px-5 py-1 lg:py-2 basis:28 lg:basis-40 text-center shrink-0'>
                     <span className='bg-violet-900 text-violet-100 px-2 rounded-md'>{newRelease.latestRelease}</span>
                   </div>
                   <div>
@@ -40,6 +41,7 @@ const Updates = (props) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

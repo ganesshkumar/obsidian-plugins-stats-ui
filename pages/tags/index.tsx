@@ -5,6 +5,7 @@ import Navbar from '../../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
+import Footer from '../../components/Footer';
 
 type Props = { };
 type State = { };
@@ -26,8 +27,8 @@ const Tags = (props) => {
       <Header />
       <Navbar current='tags' />
       {/* New Plugins */}
-      <div className='bg-violet-50 py-5'>
-        <div className='container w-0 lg:w-1/2 mx-auto'>
+      <div className='bg-violet-50 pt-5'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
             ☁️ Tags {props.tags && `(${props.tags.length})`} 
           </div>
@@ -45,6 +46,7 @@ const Tags = (props) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

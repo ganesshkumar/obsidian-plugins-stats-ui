@@ -14,7 +14,7 @@ const Trending = (props) => {
       <Navbar current='trending'/>
       {/* New Plugins */}
       <div className='bg-violet-50 py-5'>
-        <div className='container w-0 lg:w-1/2 mx-auto'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
             🔥 Trending {props.mostDownloaded && `(${props.mostDownloaded.length})`} 
           </div>

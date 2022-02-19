@@ -13,36 +13,36 @@ type State = { };
 
 const Home = (props) => {
   return (
-    <div>
+    <div className='w-screen'>
       <Header />
       {/* Header */}
       {/* Navbar */}
       <Navbar current='home' />
       {/* Tags */}
-      <div className='flex justify-center py-3 bg-violet-900'>
-        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
+      <div className='flex flex-wrap justify-center py-3 bg-violet-900'>
+        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
           Total Plugins: {props.totalPluginsCount}
         </div>
-        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
+        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
           New Plugins: {props.newPlugins.length}
         </div>
-        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
+        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
           Recently Updated Plugins: {props.newReleases.length}
         </div>
-        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
+        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
           Total tags: {props.tags.length}
         </div>
       </div>
       {/* New Plugins */}
       <div className='bg-violet-50 py-5'>
-        <div className='container w-0 lg:w-1/2 mx-auto'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5'>
             🌱 New Plugins {props.newPlugins && `(${props.newPlugins.length})`} 
           </div>
           <div className='flex flex-wrap'>
             {props.newPlugins.map(newPlugin => {
               return (
-                <a key={newPlugin.id} href={`https://github.com/${newPlugin.repo}`} target="_blank" rel="noreferrer" className='group basis-64 shrink-0 m-5 px-5 py-2 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110' >
+                <a key={newPlugin.id} href={`https://github.com/${newPlugin.repo}`} target="_blank" rel="noreferrer" className='mx-auto group basis-64 shrink-0 lg:mx-5 my-5 px-5 py-2 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110' >
                   <div className='text-xl font-medium uppercase tracking-wide text-violet-900'>{newPlugin.name}</div>
                   <div  className='text-sm'>{moment(newPlugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{newPlugin.author}</span></div>
                   <div className='mt-5 text-sm'>{newPlugin.description}</div>
@@ -54,11 +54,11 @@ const Home = (props) => {
       </div>
       {/* New Version */}
       <div className='bg-violet-900 py-5'>
-        <div className='container w-0 lg:w-1/2 mx-auto'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5 text-gray-50'>
             🪴 New Versions {props.newReleases && `(${props.newReleases.length})`} 
           </div>
-          <div className='flex flex-wrap'>
+          <div className='flex flex-wrap justify-center'>
             {props.newReleases.map(newRelease => {
               return (
                 <a key={newRelease.id} href={`https://github.com/${newRelease.repo}/releases/tag/${newRelease.latestRelease}`} target="_blank" rel="noreferrer" 
@@ -78,7 +78,7 @@ const Home = (props) => {
       </div>
       {/* Most Downloaded */}
       <div className='bg-violet-50 py-5'>
-        <div className='container w-0 lg:w-1/2 mx-auto'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5'>
             🚀 Most Downloaded {props.mostDownloaded && `(${props.mostDownloaded.length})`} 
           </div>
@@ -86,7 +86,7 @@ const Home = (props) => {
             {props.mostDownloaded.map(newRelease => {
               return (
                 <a key={newRelease.id} href={`https://github.com/${newRelease.repo}/releases/tag/${newRelease.latestRelease}`} target="_blank" rel="noreferrer" 
-                    className='flex-col justify-between group basis-64 shrink-0 m-5 pb-5 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
+                    className='flex-col justify-between group basis-64 shrink-0 mx-auto lg:mx-5 my-5 pb-5 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
                   <div className='flex flex-col justify-start text-violet-900 items-center bg-violet-900 py-2 rounded-t-md'>
                     <div className='text-3xl text-gray-100'>{newRelease.totalDownloads.toLocaleString("en-US")}</div>
                     <div className='text-sm text-gray-100'>downloads</div>
