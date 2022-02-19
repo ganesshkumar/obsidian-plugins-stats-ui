@@ -1,5 +1,5 @@
 # .github/workflows/scheduled-builds.yml
-name: Trigger Site Rebuild on a CRON Schedule
+name: Production Deployment
 
 on:
   schedule:
