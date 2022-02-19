@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
+import Footer from '../components/Footer';
 
 type Props = { };
 type State = { };
@@ -26,8 +27,8 @@ const MostDownloaded = (props) => {
       <Header />
       <Navbar current='most-downloaded'/>
       {/* New Plugins */}
-      <div className='bg-violet-50 py-5'>
-        <div className='container w-0 lg:w-1/2 mx-auto'>
+      <div className='bg-violet-50 pt-5'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
             ⬇️ Most Downloaded {props.mostDownloaded && `(${props.mostDownloaded.length})`} 
           </div>
@@ -36,7 +37,7 @@ const MostDownloaded = (props) => {
               return (
                 <div key={plugin.id} className='group flex py-2 bg-gray-50 hover:bg-white text-gray-700'>
                   <div className='text-3xl font text-gray-400 px-5'>{String(idx+1).padStart(2, '0')} </div>
-                  <div className='font bg-violet-900 text-violet-900 rounded px-5 mr-5 py-2 basis-40 text-center shrink-0'>
+                  <div className='font bg-violet-900 text-violet-900 rounded px-5 mr-5 py-2 basis-24 lg:basis-40 text-center shrink-0'>
                     <div className='text-3xl  text-violet-100 px-2 rounded-md'>{humanReadableNumbers(plugin.totalDownloads)}</div>
                     <div className='text-sm text-violet-100 px-2 rounded-md'>downloads</div>
                   </div>
@@ -51,6 +52,7 @@ const MostDownloaded = (props) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

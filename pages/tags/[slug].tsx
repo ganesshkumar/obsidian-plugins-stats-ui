@@ -21,7 +21,7 @@ const Tag = (props) => {
           </Link>
       </Navbar>
       <div className='bg-violet-50 py-5'>
-        <div className='container w-0 lg:w-1/2 mx-auto'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
             #{props.tag}
           </div>
@@ -33,7 +33,7 @@ const Tag = (props) => {
                   <div>
                     <a href={`https://github.com/${plugin.repo}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
                     <div className='text-sm'>by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-                    <div >{plugin.description}</div>
+                    <div className='mr-5'>{plugin.description}</div>
                   </div>
                 </div>
               );

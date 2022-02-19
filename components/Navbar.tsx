@@ -13,7 +13,7 @@ const NavBar = (props) => {
         <div className='font-bold text-3xl my-2'>
           <Link href="/"><a>Obsidian Plugin Stats</a></Link>
         </div>
-        <div className='flex flex-col lg:flex-row space-x-4 font-medium'>
+        <div className='flex flex-wrap space-x-2 lg:space-x-4 font-medium'>
           <Link href="/new">
             <a className={itemClasses(current, 'new')}>new</a>
           </Link>
@@ -22,12 +22,12 @@ const NavBar = (props) => {
             <a className={itemClasses(current, 'updates')}>updates</a>
           </Link>
           <div>|</div>
-          <Link href="/trending">
-            <a className={itemClasses(current, 'trending')}>trending</a>
-          </Link>
-          <div>|</div>
           <Link href="/most-downloaded">
             <a className={itemClasses(current, 'most-downloaded')}>most downloaded</a>
+          </Link>
+          <div>|</div>
+          <Link href="/trending">
+            <a className={itemClasses(current, 'trending')}>trending</a>
           </Link>
           <div>|</div>
           <Link href="/tags">
