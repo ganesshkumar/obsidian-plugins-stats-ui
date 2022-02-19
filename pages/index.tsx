@@ -13,29 +13,29 @@ type State = { };
 
 const Home = (props) => {
   return (
-    <div>
+    <div className='w-screen'>
       <Header />
       {/* Header */}
       {/* Navbar */}
       <Navbar current='home' />
       {/* Tags */}
-      <div className='flex justify-center py-3 bg-violet-900'>
-        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
+      <div className='flex flex-wrap justify-center py-3 bg-violet-900'>
+        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
           Total Plugins: {props.totalPluginsCount}
         </div>
-        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
+        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
           New Plugins: {props.newPlugins.length}
         </div>
-        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
+        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
           Recently Updated Plugins: {props.newReleases.length}
         </div>
-        <div className="mx-3 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
+        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
           Total tags: {props.tags.length}
         </div>
       </div>
       {/* New Plugins */}
       <div className='bg-violet-50 py-5'>
-        <div className='container w-0 lg:w-1/2 mx-auto'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl py-5 uppercase pl-5'>
             🌱 New Plugins {props.newPlugins && `(${props.newPlugins.length})`} 
           </div>

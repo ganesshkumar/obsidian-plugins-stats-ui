@@ -1,9 +1,9 @@
 html, body, #__next {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #__next > div {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 @tailwind base;
