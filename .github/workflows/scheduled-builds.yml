@@ -1,0 +1,15 @@
+# .github/workflows/scheduled-builds.yml
+name: Trigger Site Rebuild on a CRON Schedule
+
+on:
+  schedule:
+    # Runs "at minute 0" (see https://crontab.guru)
+    - cron: '0 * * * *'
+jobs:
+  build:
+    name: Trigger Site Rebuild
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Deploy master branch
+        run: curl ${{ secrets.deploy_master_branch }}
