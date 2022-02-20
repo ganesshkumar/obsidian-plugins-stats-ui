@@ -57,45 +57,32 @@ const Tag = (props) => {
 const prisma = new PrismaClient();
 
 export const getStaticPaths = async () => {
-  const pluginsByTags = {};
-  const tags = new Set();
+  const tagsData = await prisma.pluginTags.findMany({
+    select: { tag: true },
+    distinct: ['tag']
+  });
 
-  const tagsData = await prisma.pluginTags.findMany();
-  
-  tagsData.forEach(tagDatum => {
-    tags.add(tagDatum.tag);
-    if (!(tagDatum.tag in pluginsByTags)) {
-      pluginsByTags[tagDatum.tag] = [];
-    }
-    const plugins = pluginsByTags[tagDatum.tag];
-    pluginsByTags[tagDatum.tag] = [...plugins, tagDatum.pluginId];
-  })
+  const tags = tagsData.map(datum => datum.tag);
 
   return {
-    paths: Array.from(tags).map(tag => ({params: {slug: tag}})),
+    paths: tags.map(tag => ({params: {slug: tag}})),
     fallback: false,
   }
 };
 
 export const getStaticProps = async ({ params }) => {
-  const pluginsByTags = {};
-  const tags = new Set();
-
-  const tagsData = await prisma.pluginTags.findMany();
-  
-  tagsData.forEach(tagDatum => {
-    tags.add(tagDatum.tag);
-    if (!(tagDatum.tag in pluginsByTags)) {
-      pluginsByTags[tagDatum.tag] = [];
+  const tagsData = await prisma.pluginTags.findMany({
+    where: { tag: params.slug },
+    select: {
+      tag: true,
+      pluginId: true,
     }
-    const plugins = pluginsByTags[tagDatum.tag];
-    pluginsByTags[tagDatum.tag] = [...plugins, tagDatum.pluginId];
-  })
-
+  });
+  
   const plugins = await prisma.plugin.findMany({
     where: {
       pluginId: {
-        in: pluginsByTags[params.slug] 
+        in: tagsData.map(datum => datum.pluginId)
       }
     }
   })
@@ -103,7 +90,6 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       tag: params.slug,
-      pluginIds: pluginsByTags[params.slug],
       plugins,
     }
   }

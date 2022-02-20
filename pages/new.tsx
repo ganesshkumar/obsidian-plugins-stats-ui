@@ -9,6 +9,7 @@ import Footer from '../components/Footer';
 import { setFavorite, setupFavorites, unsetFavorite } from '../utils/favorites';
 import Favorites from '../components/Favorites';
 import NewPluginsList from '../components/NewPluginsList';
+import { daysAgo } from '../utils/datetime';
 
 
 
@@ -39,8 +40,6 @@ const New = (props) => {
     </div>
   )
 }
-
-const daysAgo = (days: number) => Date.now() - (days * 24 * 60 * 60 * 1000)
 
 export const getStaticProps = async () => {
   let prisma: PrismaClient = new PrismaClient();
