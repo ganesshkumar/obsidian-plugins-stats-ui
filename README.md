@@ -40,17 +40,22 @@ You can use [this tool](https://obsidian-plugin-stats.vercel.app/) to
 
 ## Screenshot
 
-Home Page
+**Home Page**
 ![Home Page](https://user-images.githubusercontent.com/2135089/154796389-814c4e49-6610-4309-b090-5be25d0fd859.jpeg)
 
-Favorited Plugin
+**Favorited Plugin**
+
+<img width="228" alt="image" src="https://user-images.githubusercontent.com/2135089/154842497-f36de782-161c-4221-91c2-a479849b9624.png">  
+<img width="355" alt="image" src="https://user-images.githubusercontent.com/2135089/154842524-505f304d-5ebe-455e-aba6-1e245063cebb.png">
+
+**Plugin updated/released in the last 24 hours**
+
+<img width="228" alt="image" src="https://user-images.githubusercontent.com/2135089/154842573-3734f130-6ea6-409e-ab9f-09dcfd1d7288.png">
 
 
-Plugin updated/released in the last 24 hours
+**How to favorite a plugin from new/updates/most downloaded/plugin page**
 
-
-How to favorite a plugin from new/updates/most downloaded/plugin page.
-
+![favorite](https://user-images.githubusercontent.com/2135089/154842659-fe815ff7-e580-45da-9e17-3e8e13a0b63d.gif)
 
 ## License
 [MIT](LICENSE)
