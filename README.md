@@ -3,6 +3,9 @@
 A tool to get plugin statistics of [Obsidian](https://obsidian.md) plugin ecosystem.  
 
 ![Obsidian Plugin Stats](https://user-images.githubusercontent.com/2135089/154796362-e80a56b4-1f0f-451b-8bf3-3ed435c6b23f.png)
+![Maintainability](https://img.shields.io/codeclimate/maintainability-percentage/ganesshkumar/obsidian-plugins-stats-ui)
+![Code Issues](https://img.shields.io/codeclimate/issues/ganesshkumar/obsidian-plugins-stats-ui?label=code%3Aissues)
+![Tech Debt](https://img.shields.io/codeclimate/tech-debt/ganesshkumar/obsidian-plugins-stats-ui)
 
 [![Tag 0.1.0](https://img.shields.io/badge/tag-0.1.0-blue)](https://github.com/ganesshkumar/obsidian-plugins-stats-ui) 
 [![MIT License](https://img.shields.io/github/license/ganesshkumar/obsidian-plugins-stats-ui)](LICENSE)
