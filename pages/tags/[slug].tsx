@@ -7,9 +7,7 @@ import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
-
-type Props = { };
-type State = { };
+import AuthorAndDescription from '../../components/AuthorAndDescription';
 
 const Tag = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -44,8 +42,7 @@ const Tag = (props) => {
                   <div>
                     <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
                     <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
-                    <div className='text-sm'>by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-                    <div className='mr-5'>{plugin.description}</div>
+                    <AuthorAndDescription author={plugin.author} description={plugin.description} />
                   </div>
                 </div>
               );

@@ -7,20 +7,6 @@ import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 
-type Props = { };
-type State = { };
-
-const humanReadableNumbers = (n: number) => {
-  const numString = n.toString();
-  if (numString.length > 9) {
-    return `${numString.split('').splice(0, numString.length - 6).join('')}B`
-  } if (numString.length > 6) {
-    return `${numString.split('').splice(0, numString.length - 6).join('')}M`
-  } else if (numString.length > 3) {
-    return `${numString.split('').splice(0, numString.length - 3).join('')}K`
-  }
-}
-
 const Tags = (props) => {
   return (
     <div>

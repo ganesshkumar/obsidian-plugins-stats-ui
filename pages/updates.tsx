@@ -10,8 +10,8 @@ import showdown from 'showdown';
 import { setupFavorites } from '../utils/favorites';
 import Favorites from '../components/Favorites';
 
-type Props = { };
-type State = { };
+
+
 
 const Updates = (props) => {
   const mdConverter = new showdown.Converter();

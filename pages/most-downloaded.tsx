@@ -8,9 +8,6 @@ import Footer from '../components/Footer';
 import { setupFavorites } from '../utils/favorites';
 import Favorites from '../components/Favorites';
 
-type Props = { };
-type State = { };
-
 const humanReadableNumbers = (n: number) => {
   const numString = n.toString();
   if (numString.length > 9) {
@@ -56,7 +53,7 @@ const MostDownloaded = (props) => {
                     <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
                     <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
                     <div className='text-sm'>by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-                    <div className='pr-5'>{plugin.description}</div>
+                    <div className='mr-5'>{plugin.description}</div>
                   </div>
                 </div>
               );

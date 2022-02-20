@@ -8,9 +8,8 @@ import { PrismaClient } from "@prisma/client";
 import moment from 'moment';
 import showdown from 'showdown';
 import { setupFavorites } from '../utils/favorites';
-
-type Props = { };
-type State = { };
+import NewPluginCard from '../components/NewPluginCard';
+import PluginEcosystemStats from '../components/PluginEcosystemStats';
 
 const Home = (props) => {
   const mdConverter = new showdown.Converter();
@@ -25,24 +24,13 @@ const Home = (props) => {
   return (
     <div className='w-screen'>
       <Header />
-      {/* Header */}
-      {/* Navbar */}
       <Navbar current='home' />
-      {/* Tags */}
-      <div className='flex flex-wrap justify-center py-3 bg-violet-900'>
-        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
-          Total Plugins: {props.totalPluginsCount}
-        </div>
-        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
-          New Plugins: {props.newPlugins.length}
-        </div>
-        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
-          Recently Updated Plugins: {props.newReleases.length}
-        </div>
-        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
-          Total tags: {props.tags.length}
-        </div>
-      </div>
+      <PluginEcosystemStats
+        totalPluginsCount={props.totalPluginsCount}
+        newPluginsCount={props.newPlugins.length}
+        newReleasesCount={props.newReleases.length}
+        totalTagsCount={props.totalTagsCount} />
+
       {/* New Plugins */}
       <div className='bg-violet-50 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
@@ -54,20 +42,10 @@ const Home = (props) => {
             </details> 
           </div>
           <div className='flex flex-wrap'>
-            {props.newPlugins.map(newPlugin => {
-              const isFavorite = favorites.includes(newPlugin.pluginId);
-              return (
-                <a key={newPlugin.id} href={`/plugins/${newPlugin.pluginId}`} target="_blank" rel="noreferrer" className='relative mx-auto group basis-64 shrink-0 lg:mx-5 my-5 px-5 py-2 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110' >
-                  <div className='text-xl font-medium uppercase tracking-wide text-violet-900'>{newPlugin.name}</div>
-                  <div  className='text-sm'>{moment(newPlugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{newPlugin.author}</span></div>
-                  <div className='mt-5 text-sm'>{newPlugin.description}</div>
-                  <div className='absolute -top-5 -left-5 text-3xl'>
-                    { newPlugin.createdAt > Date.now() - 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
-                    { isFavorite && <div title='Favorite plugin'>🤩</div> }
-                  </div>
-                </a>
-              )
-            })}
+            {
+              props.newPlugins.map(newPlugin => 
+                <NewPluginCard key={newPlugin.pluginId} plugin={newPlugin} isFavorite={favorites.includes(newPlugin.pluginId)} />)
+            }
           </div>
         </div>
       </div>
