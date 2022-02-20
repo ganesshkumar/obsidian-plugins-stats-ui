@@ -33,6 +33,10 @@ const NavBar = (props) => {
           <Link href="/tags">
             <a className={itemClasses(current, 'tags')}>tags</a>
           </Link>
+          <div>|</div>
+          <Link href="/plugins">
+            <a className={itemClasses(current, 'plugins')}>all</a>
+          </Link>
           {children && children}
         </div>
       </div>

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -8,6 +8,7 @@ import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
 import moment from 'moment';
 import showdown from 'showdown';
+import { setupFavorites } from '../utils/favorites';
 
 type Props = { };
 type State = { };
@@ -16,6 +17,11 @@ const Home = (props) => {
   const mdConverter = new showdown.Converter();
   mdConverter.setFlavor('github');
   
+  const [favorites, setFavorites] = useState([]);
+  
+  useEffect(() => {
+    setupFavorites(setFavorites);
+  }, []);
 
   return (
     <div className='w-screen'>
@@ -41,16 +47,25 @@ const Home = (props) => {
       {/* New Plugins */}
       <div className='bg-violet-50 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
-          <div className='text-2xl py-5 uppercase pl-5'>
-            🌱 New Plugins {props.newPlugins && `(${props.newPlugins.length})`} 
+          <div className=' py-5 pl-5'>
+            <div className='text-2xl uppercase'>🌱 New Plugins {props.newPlugins && `(${props.newPlugins.length})`}</div>
+            <details className='ml-2 text-gray-700 text-sm'>
+              <summary>info</summary>
+              <div className='ml-3'>• Plugins that are released in the last 10 days appear in this list. <br/>• Plugins that are released in the last 24 hours are tagged with 🥳 emoji. <br/> • Your favorite plugins are tagged with 🤩 emoji.</div>
+            </details> 
           </div>
           <div className='flex flex-wrap'>
             {props.newPlugins.map(newPlugin => {
+              const isFavorite = favorites.includes(newPlugin.pluginId);
               return (
-                <a key={newPlugin.id} href={`https://github.com/${newPlugin.repo}`} target="_blank" rel="noreferrer" className='mx-auto group basis-64 shrink-0 lg:mx-5 my-5 px-5 py-2 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110' >
+                <a key={newPlugin.id} href={`/plugins/${newPlugin.pluginId}`} target="_blank" rel="noreferrer" className='relative mx-auto group basis-64 shrink-0 lg:mx-5 my-5 px-5 py-2 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110' >
                   <div className='text-xl font-medium uppercase tracking-wide text-violet-900'>{newPlugin.name}</div>
                   <div  className='text-sm'>{moment(newPlugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{newPlugin.author}</span></div>
                   <div className='mt-5 text-sm'>{newPlugin.description}</div>
+                  <div className='absolute -top-5 -left-5 text-3xl'>
+                    { newPlugin.createdAt > Date.now() - 2 * 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
+                    { isFavorite && <div title='Favorite plugin'>🤩</div> }
+                  </div>
                 </a>
               )
             })}
@@ -60,14 +75,19 @@ const Home = (props) => {
       {/* New Version */}
       <div className='bg-violet-900 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
-          <div className='text-2xl py-5 uppercase pl-5 text-gray-50'>
-            🪴 New Versions {props.newReleases && `(${props.newReleases.length})`} 
+          <div className='py-5 pl-5 text-gray-50'>
+            <div className='text-2xl uppercase'>🪴 New Versions {props.newReleases && `(${props.newReleases.length})`}</div>
+            <details className='ml-2 text-violet-200 text-sm'>
+              <summary>info</summary>
+              <div className='ml-3'>• New versions that are released in the last 10 days appear in this list. <br/>• New versions that are released in the last 24 hours are tagged with 🥳 emoji. <br/> • Your favorite plugins are tagged with 🤩 emoji.</div>
+            </details> 
           </div>
           <div className='flex flex-wrap'>
             {props.newReleases.map(newRelease => {
+              const isFavorite = favorites.includes(newRelease.pluginId);
               return (
                 <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer" 
-                    className='flex-col group basis-64 shrink-0 m-5 px-5 border rounded-md hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
+                    className='relative flex-col group basis-64 shrink-0 m-5 px-5 border rounded-md hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
                   <div className='flex flex-none justify-between'>
                     <div className='py-2'>
                       <div className='text-lg uppercase tracking-wide text-violet-900'>{newRelease.name}</div>
@@ -76,6 +96,10 @@ const Home = (props) => {
                     <div className='text-3xl font-medium flex flex-col justify-center text-violet-900'>
                       <div>{newRelease.latestRelease}</div>
                     </div>
+                  </div>
+                  <div className='absolute -top-5 -left-5 text-3xl'>
+                    { newRelease.createdAt > Date.now() - 2 * 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
+                    { isFavorite && <div title='Favorite plugin'>🤩</div> }
                   </div>
                   {/* <div className='basis-48'>
                     <div className='truncate' dangerouslySetInnerHTML={{ __html: newRelease.latestReleaseDesc.length > 40 ? newRelease.latestReleaseDesc.substring(0, 40): newRelease.latestReleaseDesc}} />
@@ -89,21 +113,30 @@ const Home = (props) => {
       {/* Most Downloaded */}
       <div className='bg-violet-50 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
-          <div className='text-2xl py-5 uppercase pl-5'>
-            🚀 Most Downloaded {props.mostDownloaded && `(${props.mostDownloaded.length})`} 
+          <div className='py-5 pl-5'>
+            <div className='text-2xl uppercase'>🚀 Most Downloaded {props.mostDownloaded && `(${props.mostDownloaded.length})`}</div>
+            <details className='ml-2 text-gray-700 text-sm'>
+              <summary>info</summary>
+              <div className='ml-3'>• 25 most downloaded plugins in overall time appears in this list.  <br/> • Your favorite plugins are tagged with 🤩 emoji.</div>
+            </details> 
           </div>
           <div className='flex flex-wrap'>
-            {props.mostDownloaded.map(newRelease => {
+            {props.mostDownloaded.map(plugin => {
+              const isFavorite = favorites.includes(plugin.pluginId);
               return (
-                <a key={newRelease.id} href={`https://github.com/${newRelease.repo}/releases/tag/${newRelease.latestRelease}`} target="_blank" rel="noreferrer" 
-                    className='flex-col justify-between group basis-64 shrink-0 mx-auto lg:mx-5 my-5 pb-5 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
+                <a key={plugin.id} href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" 
+                    className='relative flex-col justify-between group basis-64 shrink-0 mx-auto lg:mx-5 my-5 pb-5 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
                   <div className='flex flex-col justify-start text-violet-900 items-center bg-violet-900 py-2 rounded-t-md'>
-                    <div className='text-3xl text-gray-100'>{newRelease.totalDownloads.toLocaleString("en-US")}</div>
+                    <div className='text-3xl text-gray-100'>{plugin.totalDownloads.toLocaleString("en-US")}</div>
                     <div className='text-sm text-gray-100'>downloads</div>
                   </div>
                   <div className='py-2 flex-col justify-center items-center'>
-                    <div className='text-lg uppercase tracking-wide text-violet-900 text-center'>{newRelease.name}</div>
-                    <div className='text-sm text-center'>by <span className=''>{newRelease.author}</span></div>
+                    <div className='text-lg uppercase tracking-wide text-violet-900 text-center'>{plugin.name}</div>
+                    <div className='text-sm text-center'>by <span className=''>{plugin.author}</span></div>
+                  </div>
+                  <div className='absolute -top-5 -left-5 text-3xl'>
+                    { plugin.createdAt > Date.now() - 2 * 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
+                    { isFavorite && <div title='Favorite plugin'>🤩</div> }
                   </div>
                 </a>
               )

@@ -1,16 +1,23 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Navbar, { itemClasses } from '../../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
+import { setupFavorites } from '../../utils/favorites';
+import Favorites from '../../components/Favorites';
 
 type Props = { };
 type State = { };
 
 const Tag = (props) => {
-  console.log(props)
+  const [favorites, setFavorites] = useState([]);
+  
+  useEffect(() => {
+    setupFavorites(setFavorites);
+  }, []);
+  
   return (
     <div>
       <Header />
@@ -27,11 +34,16 @@ const Tag = (props) => {
           </div>
           <div className='flex-col'>
             {props.plugins.map((plugin, idx) => {
+              const isFavorite = favorites.includes(plugin.pluginId);
               return (
-                <div key={plugin.id} className='group flex py-2 bg-gray-50 hover:bg-white text-gray-700'>
-                  <div className='text-3xl font text-violet-900 px-5'>{String(idx+1).padStart(2, '0')}. </div>
+                <div key={plugin.id} className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
+                  <div className='text-3xl font text-gray-400 px-5'>
+                    <div>{String(idx+1).padStart(2, '0')}.</div>
+                    {isFavorite && <div>🤩</div>}
+                  </div>
                   <div>
-                    <a href={`https://github.com/${plugin.repo}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
+                    <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
+                    <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
                     <div className='text-sm'>by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
                     <div className='mr-5'>{plugin.description}</div>
                   </div>

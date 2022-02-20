@@ -1,11 +1,13 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
 import AppCache from '../cache/appcache';
 import Footer from '../components/Footer';
+import { setupFavorites } from '../utils/favorites';
+import Favorites from '../components/Favorites';
 
 type Props = { };
 type State = { };
@@ -22,6 +24,12 @@ const humanReadableNumbers = (n: number) => {
 }
 
 const MostDownloaded = (props) => {
+  const [favorites, setFavorites] = useState([]);
+  
+  useEffect(() => {
+    setupFavorites(setFavorites);
+  }, []);
+  
   return (
     <div>
       <Header />
@@ -34,15 +42,20 @@ const MostDownloaded = (props) => {
           </div>
           <div className='flex-col'>
             {props.mostDownloaded.map((plugin, idx) => {
+              const isFavorite = favorites.includes(plugin.pluginId)
               return (
-                <div key={plugin.id} className='group flex py-2 bg-gray-50 hover:bg-white text-gray-700'>
-                  <div className='text-3xl font text-gray-400 px-5'>{String(idx+1).padStart(2, '0')} </div>
+                <div key={plugin.id} className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
+                  <div className='text-3xl font text-gray-400 px-5'>
+                    <div>{String(idx+1).padStart(2, '0')}.</div>
+                    {isFavorite && <div>🤩</div>}
+                  </div>
                   <div className='font bg-violet-900 text-violet-900 rounded px-5 mr-5 py-2 basis-24 lg:basis-40 text-center shrink-0'>
                     <div className='text-3xl  text-violet-100 px-2 rounded-md'>{humanReadableNumbers(plugin.totalDownloads)}</div>
                     <div className='text-sm text-violet-100 px-2 rounded-md'>downloads</div>
                   </div>
                   <div className=''>
-                    <a href={`https://github.com/${plugin.repo}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
+                    <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
+                    <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
                     <div className='text-sm'>by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
                     <div className='pr-5'>{plugin.description}</div>
                   </div>
