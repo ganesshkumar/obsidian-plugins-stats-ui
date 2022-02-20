@@ -4,7 +4,6 @@ import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
-import AppCache from '../cache/appcache';
 import moment from 'moment';
 import Footer from '../components/Footer';
 import { setFavorite, setupFavorites, unsetFavorite } from '../utils/favorites';
@@ -59,22 +58,17 @@ const New = (props) => {
 const daysAgo = (days: number) => Date.now() - (days * 24 * 60 * 60 * 1000)
 
 export const getStaticProps = async () => {
-  let prisma: PrismaClient;
+  let prisma: PrismaClient = new PrismaClient();
 
-  let newPlugins: any[] = AppCache.get('new_plugins') || [];
-  if (newPlugins.length <= 0) {
-    if (!prisma) prisma = new PrismaClient();
-    newPlugins = await prisma.plugin.findMany({
-      where: { 
-        createdAt: {
-          gt: daysAgo(10),
-        }
+  let newPlugins: any[] = await prisma.plugin.findMany({
+    where: { 
+      createdAt: {
+        gt: daysAgo(10),
       }
-    });
-    newPlugins.sort((a, b) => b.createdAt - a.createdAt);
-    AppCache.set('new_plugins', newPlugins);
-  }
-
+    }
+  });
+  newPlugins.sort((a, b) => b.createdAt - a.createdAt);
+  
   return { props: { newPlugins } };
 }
 

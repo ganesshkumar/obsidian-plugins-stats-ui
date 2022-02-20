@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 import { PrismaClient } from "@prisma/client";
-import AppCache from '../cache/appcache';
 import moment from 'moment';
 import showdown from 'showdown';
 import { setupFavorites } from '../utils/favorites';
@@ -63,7 +62,7 @@ const Home = (props) => {
                   <div  className='text-sm'>{moment(newPlugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{newPlugin.author}</span></div>
                   <div className='mt-5 text-sm'>{newPlugin.description}</div>
                   <div className='absolute -top-5 -left-5 text-3xl'>
-                    { newPlugin.createdAt > Date.now() - 2 * 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
+                    { newPlugin.createdAt > Date.now() - 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
                     { isFavorite && <div title='Favorite plugin'>🤩</div> }
                   </div>
                 </a>
@@ -98,7 +97,7 @@ const Home = (props) => {
                     </div>
                   </div>
                   <div className='absolute -top-5 -left-5 text-3xl'>
-                    { newRelease.createdAt > Date.now() - 2 * 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
+                    { newRelease.latestReleaseAt > Date.now() - 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
                     { isFavorite && <div title='Favorite plugin'>🤩</div> }
                   </div>
                   {/* <div className='basis-48'>
@@ -151,68 +150,41 @@ const Home = (props) => {
 
 const daysAgo = (days: number) => Date.now() - (days * 24 * 60 * 60 * 1000)
 
-export const getServerSideProps = async (context) => {
-  let prisma: PrismaClient;
+export const getStaticProps = async () => {
+  const prisma: PrismaClient = new PrismaClient();
 
-  let newPlugins: any[] = AppCache.get('new_plugins') || [];
-  if (newPlugins.length <= 0) {
-    if (!prisma) prisma = new PrismaClient();
-    newPlugins = await prisma.plugin.findMany({
-      where: { 
-        createdAt: {
-          gt: daysAgo(10),
-        }
+  const newPlugins: any[] = await prisma.plugin.findMany({
+    where: { 
+      createdAt: {
+        gt: daysAgo(10),
       }
-    });
-    newPlugins.sort((a, b) => b.createdAt - a.createdAt);
-    AppCache.set('new_plugins', newPlugins);
-  }
+    }
+  });
+  newPlugins.sort((a, b) => b.createdAt - a.createdAt);
 
-  let totalPluginsCount = AppCache.get('total_plugins') || -1;
-  if (totalPluginsCount < 0) {
-    if (!prisma) prisma = new PrismaClient();
-    totalPluginsCount = await prisma.plugin.count();
-    AppCache.set('total_plugins', totalPluginsCount)
-  }
+  const totalPluginsCount = await prisma.plugin.count();
 
-  let newReleases = AppCache.get('new_releases') || [];
-  if (newReleases.length <= 0) {
-    if (!prisma) prisma = new PrismaClient();
-    newReleases = await prisma.plugin.findMany({
-      where: {
-        latestReleaseAt: {
-          gt: daysAgo(10),
-        }
+  const newReleases = await prisma.plugin.findMany({
+    where: {
+      latestReleaseAt: {
+        gt: daysAgo(10),
       }
-    });
-    newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
-    AppCache.set('new_releases', newReleases);
-  }
+    }
+  });
+  newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
 
-  let mostDownloaded = AppCache.get('most_downloaded') || [];
-  if (mostDownloaded.length <= 0) {
-    if (!prisma) prisma = new PrismaClient();
-    mostDownloaded = await prisma.plugin.findMany({
-      orderBy: {
-        totalDownloads: 'desc',
-      },
-      take: 25
-    });
-    AppCache.set('most_downloaded', mostDownloaded);
-  }
+  let mostDownloaded = await prisma.plugin.findMany({
+    orderBy: {
+      totalDownloads: 'desc',
+    },
+    take: 25
+  });
 
-  let tags = AppCache.get('tags') || [];
-  if (tags.length <= 0) {
-    if (!prisma) prisma = new PrismaClient();
-    const tagsData = await prisma.pluginTags.findMany();
-    
-    const tagSet = new Set();
-    tagsData.forEach(datum => tagSet.add(datum.tag));
-    tags = Array.from(tagSet);
-
-    AppCache.set('tags', tags);
-  }
-
+  const tagSet = new Set();
+  const tagsData = await prisma.pluginTags.findMany();
+  tagsData.forEach(datum => tagSet.add(datum.tag));
+  const tags = Array.from(tagSet);
+  
   return { props: { newPlugins, totalPluginsCount, newReleases, mostDownloaded, tags } }
 }
 

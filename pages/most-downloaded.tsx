@@ -4,7 +4,6 @@ import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
-import AppCache from '../cache/appcache';
 import Footer from '../components/Footer';
 import { setupFavorites } from '../utils/favorites';
 import Favorites from '../components/Favorites';
@@ -70,22 +69,15 @@ const MostDownloaded = (props) => {
   )
 }
 
-const daysAgo = (days: number) => Date.now() - (days * 24 * 60 * 60 * 1000)
+export const getStaticProps = async (context) => {
+  let prisma: PrismaClient = new PrismaClient();
 
-export const getServerSideProps = async (context) => {
-  let prisma: PrismaClient;
-
-  let mostDownloaded = AppCache.get('most_downloaded') || [];
-  if (mostDownloaded.length <= 0) {
-    if (!prisma) prisma = new PrismaClient();
-    mostDownloaded = await prisma.plugin.findMany({
-      orderBy: {
-        totalDownloads: 'desc',
-      },
-      take: 25
-    });
-    AppCache.set('most_downloaded', mostDownloaded);
-  }
+  let mostDownloaded = await prisma.plugin.findMany({
+    orderBy: {
+      totalDownloads: 'desc',
+    },
+    take: 25
+  });
 
   return { props: { mostDownloaded } };
 }
