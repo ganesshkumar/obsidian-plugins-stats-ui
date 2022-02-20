@@ -11,12 +11,18 @@ import IndexWithAnnotations from '../components/IndexWithAnnotations';
 
 const humanReadableNumbers = (n: number) => {
   const numString = n.toString();
-  if (numString.length > 9) {
-    return `${numString.split('').splice(0, numString.length - 6).join('')}B`
-  } if (numString.length > 6) {
-    return `${numString.split('').splice(0, numString.length - 6).join('')}M`
-  } else if (numString.length > 3) {
-    return `${numString.split('').splice(0, numString.length - 3).join('')}K`
+
+  const formatter = (digits, char) => `${numString.split('').splice(0, numString.length - digits).join('')}${char}`
+  const formatMap = {
+    '9': 'B',
+    '6': 'M',
+    '3': 'K',
+  };
+
+  for (const key in formatMap) { 
+    if (numString.length > parseInt(key)) {
+      return formatter(parseInt(key), formatMap[key]);
+    }
   }
 }
 
