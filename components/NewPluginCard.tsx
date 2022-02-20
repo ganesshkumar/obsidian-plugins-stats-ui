@@ -1,5 +1,7 @@
 import React from 'react';
 import moment from "moment";
+import CardAnnotations from './CardAnnotations';
+import { isNotXDaysOld } from '../utils/datetime';
 
 const NewPluginCard = ({plugin, isFavorite}) => {
   return (
@@ -10,6 +12,7 @@ const NewPluginCard = ({plugin, isFavorite}) => {
       <div className='text-xl font-medium uppercase tracking-wide text-violet-900'>{plugin.name}</div>
       <div  className='text-sm'>{moment(plugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
       <div className='mt-5 text-sm'>{plugin.description}</div>
+      <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(plugin.createdAt, 1)}/>
       <div className='absolute -top-5 -left-5 text-3xl'>
         { plugin.createdAt > Date.now() - 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
         { isFavorite && <div title='Favorite plugin'>🤩</div> }

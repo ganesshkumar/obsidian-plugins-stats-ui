@@ -10,9 +10,7 @@ import showdown from 'showdown';
 import { setupFavorites } from '../utils/favorites';
 import Favorites from '../components/Favorites';
 import { daysAgo } from '../utils/datetime';
-
-
-
+import IndexWithAnnotations from '../components/IndexWithAnnotations';
 
 const Updates = (props) => {
   const mdConverter = new showdown.Converter();
@@ -24,6 +22,8 @@ const Updates = (props) => {
     setupFavorites(setFavorites);
   }, []);
   
+  const pad = props.newReleases.length.toString().length;
+
   return (
     <div>
       <Header />
@@ -39,10 +39,7 @@ const Updates = (props) => {
               const isFavorite = favorites.includes(newRelease.pluginId);
               return (
                 <div key={newRelease.id} className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
-                  <div className='text-3xl font text-gray-400 px-5'>
-                    <div>{String(idx+1).padStart(2, '0')}.</div>
-                    {isFavorite && <div>🤩</div>}
-                  </div>
+                  <IndexWithAnnotations isFavorite={isFavorite} idx={idx+1} pad={pad}/>
                   <div className='text-xl lg:text-3xl font text-violet-900 px-5 py-1 lg:py-2 basis:28 lg:basis-40 text-center shrink-0'>
                     <span className='bg-violet-900 text-violet-100 px-2 rounded-md'>{newRelease.latestRelease}</span>
                   </div>

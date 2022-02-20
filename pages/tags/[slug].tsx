@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
 import AuthorAndDescription from '../../components/AuthorAndDescription';
+import IndexWithAnnotations from '../../components/IndexWithAnnotations';
 
 const Tag = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -16,6 +17,8 @@ const Tag = (props) => {
     setupFavorites(setFavorites);
   }, []);
   
+  const pad = props.plugins.length.toString().length;
+
   return (
     <div>
       <Header />
@@ -35,10 +38,7 @@ const Tag = (props) => {
               const isFavorite = favorites.includes(plugin.pluginId);
               return (
                 <div key={plugin.id} className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
-                  <div className='text-3xl font text-gray-400 px-5'>
-                    <div>{String(idx+1).padStart(2, '0')}.</div>
-                    {isFavorite && <div>🤩</div>}
-                  </div>
+                  <IndexWithAnnotations isFavorite={isFavorite} idx={idx+1} pad={pad}/>
                   <div>
                     <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
                     <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />

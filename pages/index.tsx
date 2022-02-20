@@ -11,7 +11,8 @@ import { setupFavorites } from '../utils/favorites';
 import NewPluginCard from '../components/NewPluginCard';
 import PluginEcosystemStats from '../components/PluginEcosystemStats';
 import TitleWithInfo from '../components/TitleWithInfo';
-import { daysAgo } from '../utils/datetime';
+import { daysAgo, isNotXDaysOld } from '../utils/datetime';
+import CardAnnotations from '../components/CardAnnotations';
 
 const Home = (props) => {
   const mdConverter = new showdown.Converter();
@@ -85,10 +86,7 @@ const Home = (props) => {
                       <div>{newRelease.latestRelease}</div>
                     </div>
                   </div>
-                  <div className='absolute -top-5 -left-5 text-3xl'>
-                    { newRelease.latestReleaseAt > Date.now() - 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
-                    { isFavorite && <div title='Favorite plugin'>🤩</div> }
-                  </div>
+                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)}/>
                 </a>
               )
             })}
@@ -115,10 +113,7 @@ const Home = (props) => {
                     <div className='text-lg uppercase tracking-wide text-violet-900 text-center'>{plugin.name}</div>
                     <div className='text-sm text-center'>by <span className=''>{plugin.author}</span></div>
                   </div>
-                  <div className='absolute -top-5 -left-5 text-3xl'>
-                    { plugin.createdAt > Date.now() - 2 * 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
-                    { isFavorite && <div title='Favorite plugin'>🤩</div> }
-                  </div>
+                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(plugin.createdAt, 1)}/>
                 </a>
               )
             })}
