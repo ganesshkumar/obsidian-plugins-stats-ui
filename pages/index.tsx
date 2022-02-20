@@ -10,6 +10,7 @@ import showdown from 'showdown';
 import { setupFavorites } from '../utils/favorites';
 import NewPluginCard from '../components/NewPluginCard';
 import PluginEcosystemStats from '../components/PluginEcosystemStats';
+import TitleWithInfo from '../components/TitleWithInfo';
 
 const Home = (props) => {
   const mdConverter = new showdown.Converter();
@@ -20,6 +21,12 @@ const Home = (props) => {
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
+
+  const newPluginsInfoLine = [
+    'Plugins that are released in the last 10 days appear in this list.',
+    'Plugins that are released in the last 24 hours are tagged with 🥳 emoji.',
+    'Your favorite plugins are tagged with 🤩 emoji.',
+  ];
 
   return (
     <div className='w-screen'>
@@ -34,13 +41,7 @@ const Home = (props) => {
       {/* New Plugins */}
       <div className='bg-violet-50 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
-          <div className=' py-5 pl-5'>
-            <div className='text-2xl uppercase'>🌱 New Plugins {props.newPlugins && `(${props.newPlugins.length})`}</div>
-            <details className='ml-2 text-gray-700 text-sm'>
-              <summary>info</summary>
-              <div className='ml-3'>• Plugins that are released in the last 10 days appear in this list. <br/>• Plugins that are released in the last 24 hours are tagged with 🥳 emoji. <br/> • Your favorite plugins are tagged with 🤩 emoji.</div>
-            </details> 
-          </div>
+          <TitleWithInfo title='🌱 New Plugins' itemsCount={props.newPlugins?.length || 0}  infoLines={newPluginsInfoLine} />
           <div className='flex flex-wrap'>
             {
               props.newPlugins.map(newPlugin => 
