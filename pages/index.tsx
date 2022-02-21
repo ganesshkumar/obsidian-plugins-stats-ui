@@ -54,7 +54,7 @@ const Home = (props) => {
       {/* New Plugins */}
       <div className='bg-violet-50 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
-          <div className=' py-5 pl-5'>
+          <div className='py-5 pl-5 text-gray-700'>
             <TitleWithInfo title='🌱 New Plugins' itemsCount={props.newPlugins?.length || 0}  infoLines={newPluginsInfoLines} />
           </div>
           <div className='flex flex-wrap'>
@@ -96,8 +96,8 @@ const Home = (props) => {
       {/* Most Downloaded */}
       <div className='bg-violet-50 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
-          <div className='py-5 pl-5'>
-            <TitleWithInfo title='🚀 Most Downloaded' itemsCount={props.mostDownloaded?.length || 0} infoLines={mostDownloadedInfoLines} />
+          <div className='py-5 pl-5 text-gray-700'>
+            <TitleWithInfo title='🏆 Most Downloaded' itemsCount={props.mostDownloaded?.length || 0} infoLines={mostDownloadedInfoLines} />
           </div>
           <div className='flex flex-wrap'>
             {props.mostDownloaded.map(plugin => {

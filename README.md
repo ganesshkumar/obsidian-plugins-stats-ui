@@ -40,6 +40,7 @@ You can use [this tool](https://obsidian-plugin-stats.vercel.app/) to
 6. The **`tags`** page is a word cloud of all the tags that are found on the GitHub repositories of the plugins, along with the number of plugins belonging to that tag.
 7. The **`tags/{tag}`** page is a list view of all the plugins belonging to that tag.
 8. The **`plugins/{pluginId}`** page is a detailed view of the plugin. This contains description, changelog of the latest release etc.
+    1. This page also has **`similar plugins`** suggestion based on the their tags.
 
 ## Screenshot
 

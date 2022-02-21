@@ -10,6 +10,7 @@ import showdown from 'showdown';
 import Footer from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
+import NewPluginCard from '../../components/NewPluginCard';
 
 const Tag = (props) => {
   const mdConverter = new showdown.Converter();
@@ -75,6 +76,15 @@ const Tag = (props) => {
               </div>
             </div>
           </div>
+          { props.similarPlugins?.length > 0 && 
+            <>
+              <div className='mt-5 text-xl uppercase bg-violet-50'>💡 Similar Plugins</div>
+              <div className='flex flex-wrap bg-violet-50'>
+                  {props.similarPlugins.map(plugin => 
+                    <NewPluginCard key={plugin.pluginId} plugin={plugin} isFavorite={favorites.includes(plugin.pluginId)} />)}
+              </div>
+            </>
+          }
         </div>
       </div>
       <Footer />
@@ -95,19 +105,40 @@ export const getStaticPaths = async () => {
   }
 };
 
+const tagDenyList = ['obsidian', 'obsidian-plugin', 'obsidian-md', 'plugin']
 export const getStaticProps = async ({ params }) => {
+  const tagsData = await prisma.pluginTags.findMany({
+    where: { pluginId: params.slug }
+  });
+  const tags = tagsData.map(row => row.tag);
+  
   const plugin = await prisma.plugin.findFirst({
     where: { pluginId: params.slug }
   });
-
-  const tags = await prisma.pluginTags.findMany({
-    where: { pluginId: params.slug }
+  
+  const pluginIdsInTags = await prisma.pluginTags.findMany({
+    where: {
+      tag: {
+        in: tags.filter(tag => !tagDenyList.includes(tag))
+      }
+    },
+    select: { pluginId: true},
+    distinct: ['pluginId']
   });
-
+  
+  const similarPlugins = await prisma.plugin.findMany({
+    where: {
+      pluginId: {
+        in: pluginIdsInTags.map(pluginIdsInTag => pluginIdsInTag.pluginId)
+      }
+    }
+  });
+  
   return {
     props: {
       plugin,
-      tags: tags.map(row => row.tag),
+      tags: tags,
+      similarPlugins
     }
   }
 };
