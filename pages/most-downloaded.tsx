@@ -7,18 +7,22 @@ import { PrismaClient } from "@prisma/client";
 import Footer from '../components/Footer';
 import { setupFavorites } from '../utils/favorites';
 import Favorites from '../components/Favorites';
-
-type Props = { };
-type State = { };
+import IndexWithAnnotations from '../components/IndexWithAnnotations';
 
 const humanReadableNumbers = (n: number) => {
   const numString = n.toString();
-  if (numString.length > 9) {
-    return `${numString.split('').splice(0, numString.length - 6).join('')}B`
-  } if (numString.length > 6) {
-    return `${numString.split('').splice(0, numString.length - 6).join('')}M`
-  } else if (numString.length > 3) {
-    return `${numString.split('').splice(0, numString.length - 3).join('')}K`
+
+  const formatter = (digits, char) => `${numString.split('').splice(0, numString.length - digits).join('')}${char}`
+  const formatMap = {
+    '9': 'B',
+    '6': 'M',
+    '3': 'K',
+  };
+
+  for (const key in formatMap) { 
+    if (numString.length > parseInt(key)) {
+      return formatter(parseInt(key), formatMap[key]);
+    }
   }
 }
 
@@ -29,6 +33,8 @@ const MostDownloaded = (props) => {
     setupFavorites(setFavorites);
   }, []);
   
+  const pad = props.mostDownloaded.length.toString().length;
+
   return (
     <div>
       <Header />
@@ -44,10 +50,7 @@ const MostDownloaded = (props) => {
               const isFavorite = favorites.includes(plugin.pluginId)
               return (
                 <div key={plugin.id} className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
-                  <div className='text-3xl font text-gray-400 px-5'>
-                    <div>{String(idx+1).padStart(2, '0')}.</div>
-                    {isFavorite && <div>🤩</div>}
-                  </div>
+                  <IndexWithAnnotations isFavorite={isFavorite} idx={idx+1} pad={pad}/>
                   <div className='font bg-violet-900 text-violet-900 rounded px-5 mr-5 py-2 basis-24 lg:basis-40 text-center shrink-0'>
                     <div className='text-3xl  text-violet-100 px-2 rounded-md'>{humanReadableNumbers(plugin.totalDownloads)}</div>
                     <div className='text-sm text-violet-100 px-2 rounded-md'>downloads</div>
@@ -56,7 +59,7 @@ const MostDownloaded = (props) => {
                     <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
                     <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
                     <div className='text-sm'>by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-                    <div className='pr-5'>{plugin.description}</div>
+                    <div className='mr-5'>{plugin.description}</div>
                   </div>
                 </div>
               );

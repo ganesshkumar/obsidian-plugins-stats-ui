@@ -8,9 +8,11 @@ import { PrismaClient } from "@prisma/client";
 import moment from 'moment';
 import showdown from 'showdown';
 import { setupFavorites } from '../utils/favorites';
-
-type Props = { };
-type State = { };
+import NewPluginCard from '../components/NewPluginCard';
+import PluginEcosystemStats from '../components/PluginEcosystemStats';
+import TitleWithInfo from '../components/TitleWithInfo';
+import { daysAgo, isNotXDaysOld } from '../utils/datetime';
+import CardAnnotations from '../components/CardAnnotations';
 
 const Home = (props) => {
   const mdConverter = new showdown.Converter();
@@ -22,52 +24,44 @@ const Home = (props) => {
     setupFavorites(setFavorites);
   }, []);
 
+  const newPluginsInfoLines = [
+    'Plugins that are released in the last 10 days appear in this list.',
+    'Plugins that are released in the last 24 hours are tagged with 🥳 emoji.',
+    'Your favorite plugins are tagged with 🤩 emoji.',
+  ];
+
+  const newReleasesInfoLines = [
+    'New versions that are released in the last 10 days appear in this list.',
+    'New versions that are released in the last 24 hours are tagged with 🥳 emoji.',
+    'Your favorite plugins are tagged with 🤩 emoji.',
+  ];
+
+  const mostDownloadedInfoLines = [
+    '25 most downloaded plugins in overall time appears in this list.',
+    'Your favorite plugins are tagged with 🤩 emoji.',
+  ];
+
   return (
     <div className='w-screen'>
       <Header />
-      {/* Header */}
-      {/* Navbar */}
       <Navbar current='home' />
-      {/* Tags */}
-      <div className='flex flex-wrap justify-center py-3 bg-violet-900'>
-        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
-          Total Plugins: {props.totalPluginsCount}
-        </div>
-        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
-          New Plugins: {props.newPlugins.length}
-        </div>
-        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
-          Recently Updated Plugins: {props.newReleases.length}
-        </div>
-        <div className="mx-3 my-1 border border-dashed border-violet-50 rounded px-2 py-1 text-violet-50">
-          Total tags: {props.tags.length}
-        </div>
-      </div>
+      <PluginEcosystemStats
+        totalPluginsCount={props.totalPluginsCount}
+        newPluginsCount={props.newPlugins.length}
+        newReleasesCount={props.newReleases.length}
+        totalTagsCount={props.totalTagsCount} />
+
       {/* New Plugins */}
       <div className='bg-violet-50 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
           <div className=' py-5 pl-5'>
-            <div className='text-2xl uppercase'>🌱 New Plugins {props.newPlugins && `(${props.newPlugins.length})`}</div>
-            <details className='ml-2 text-gray-700 text-sm'>
-              <summary>info</summary>
-              <div className='ml-3'>• Plugins that are released in the last 10 days appear in this list. <br/>• Plugins that are released in the last 24 hours are tagged with 🥳 emoji. <br/> • Your favorite plugins are tagged with 🤩 emoji.</div>
-            </details> 
+            <TitleWithInfo title='🌱 New Plugins' itemsCount={props.newPlugins?.length || 0}  infoLines={newPluginsInfoLines} />
           </div>
           <div className='flex flex-wrap'>
-            {props.newPlugins.map(newPlugin => {
-              const isFavorite = favorites.includes(newPlugin.pluginId);
-              return (
-                <a key={newPlugin.id} href={`/plugins/${newPlugin.pluginId}`} target="_blank" rel="noreferrer" className='relative mx-auto group basis-64 shrink-0 lg:mx-5 my-5 px-5 py-2 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110' >
-                  <div className='text-xl font-medium uppercase tracking-wide text-violet-900'>{newPlugin.name}</div>
-                  <div  className='text-sm'>{moment(newPlugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{newPlugin.author}</span></div>
-                  <div className='mt-5 text-sm'>{newPlugin.description}</div>
-                  <div className='absolute -top-5 -left-5 text-3xl'>
-                    { newPlugin.createdAt > Date.now() - 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
-                    { isFavorite && <div title='Favorite plugin'>🤩</div> }
-                  </div>
-                </a>
-              )
-            })}
+            {
+              props.newPlugins.map(newPlugin => 
+                <NewPluginCard key={newPlugin.pluginId} plugin={newPlugin} isFavorite={favorites.includes(newPlugin.pluginId)} />)
+            }
           </div>
         </div>
       </div>
@@ -75,11 +69,7 @@ const Home = (props) => {
       <div className='bg-violet-900 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='py-5 pl-5 text-gray-50'>
-            <div className='text-2xl uppercase'>🪴 New Versions {props.newReleases && `(${props.newReleases.length})`}</div>
-            <details className='ml-2 text-violet-200 text-sm'>
-              <summary>info</summary>
-              <div className='ml-3'>• New versions that are released in the last 10 days appear in this list. <br/>• New versions that are released in the last 24 hours are tagged with 🥳 emoji. <br/> • Your favorite plugins are tagged with 🤩 emoji.</div>
-            </details> 
+            <TitleWithInfo title='🪴 New Versions' itemsCount={props.newReleases?.length || 0} infoLines={newReleasesInfoLines} />
           </div>
           <div className='flex flex-wrap'>
             {props.newReleases.map(newRelease => {
@@ -96,13 +86,7 @@ const Home = (props) => {
                       <div>{newRelease.latestRelease}</div>
                     </div>
                   </div>
-                  <div className='absolute -top-5 -left-5 text-3xl'>
-                    { newRelease.latestReleaseAt > Date.now() - 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
-                    { isFavorite && <div title='Favorite plugin'>🤩</div> }
-                  </div>
-                  {/* <div className='basis-48'>
-                    <div className='truncate' dangerouslySetInnerHTML={{ __html: newRelease.latestReleaseDesc.length > 40 ? newRelease.latestReleaseDesc.substring(0, 40): newRelease.latestReleaseDesc}} />
-                  </div> */}
+                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)}/>
                 </a>
               )
             })}
@@ -113,11 +97,7 @@ const Home = (props) => {
       <div className='bg-violet-50 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='py-5 pl-5'>
-            <div className='text-2xl uppercase'>🚀 Most Downloaded {props.mostDownloaded && `(${props.mostDownloaded.length})`}</div>
-            <details className='ml-2 text-gray-700 text-sm'>
-              <summary>info</summary>
-              <div className='ml-3'>• 25 most downloaded plugins in overall time appears in this list.  <br/> • Your favorite plugins are tagged with 🤩 emoji.</div>
-            </details> 
+            <TitleWithInfo title='🚀 Most Downloaded' itemsCount={props.mostDownloaded?.length || 0} infoLines={mostDownloadedInfoLines} />
           </div>
           <div className='flex flex-wrap'>
             {props.mostDownloaded.map(plugin => {
@@ -133,10 +113,7 @@ const Home = (props) => {
                     <div className='text-lg uppercase tracking-wide text-violet-900 text-center'>{plugin.name}</div>
                     <div className='text-sm text-center'>by <span className=''>{plugin.author}</span></div>
                   </div>
-                  <div className='absolute -top-5 -left-5 text-3xl'>
-                    { plugin.createdAt > Date.now() - 2 * 24 * 60 * 60 * 1000 &&  <div title='Less than a day old'>🥳</div> }
-                    { isFavorite && <div title='Favorite plugin'>🤩</div> }
-                  </div>
+                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(plugin.createdAt, 1)}/>
                 </a>
               )
             })}
@@ -147,8 +124,6 @@ const Home = (props) => {
     </div>
   )
 }
-
-const daysAgo = (days: number) => Date.now() - (days * 24 * 60 * 60 * 1000)
 
 export const getStaticProps = async () => {
   const prisma: PrismaClient = new PrismaClient();
@@ -180,13 +155,12 @@ export const getStaticProps = async () => {
     take: 25
   });
 
-  const tagSet = new Set();
-  const tagsData = await prisma.pluginTags.findMany();
-  tagsData.forEach(datum => tagSet.add(datum.tag));
-  const tags = Array.from(tagSet);
+  const tags = await prisma.pluginTags.findMany({
+    select: { tag: true },
+    distinct: ['tag']
+  });
   
-  return { props: { newPlugins, totalPluginsCount, newReleases, mostDownloaded, tags } }
+  return { props: { newPlugins, totalPluginsCount, newReleases, mostDownloaded, totalTagsCount: tags.length } }
 }
-
 
 export default Home;

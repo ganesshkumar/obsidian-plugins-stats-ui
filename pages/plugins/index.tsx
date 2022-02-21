@@ -6,25 +6,26 @@ import Navbar, { itemClasses } from '../../components/Navbar';
 import { PrismaClient } from "@prisma/client";
 import moment from 'moment';
 import Footer from '../../components/Footer';
-import Favorites from '../../components/Favorites';
 import { setupFavorites } from '../../utils/favorites';
-
-type Props = { };
-type State = { };
+import NewPluginsList from '../../components/NewPluginsList';
 
 const Plugins = (props) => {
-
   const [filter, setFilter] = useState('');
-  const filteredPlugins = props.plugins
-                            .filter(plugin => plugin.name.split(' ')
-                                                .map((word: string) => word.trim())
-                                                .map((word: string) => word.toLowerCase().startsWith(filter.toLowerCase()))
-                                                .some(startWithFilter => startWithFilter))
   const [favorites, setFavorites] = useState([]);
+  const [filteredPlugins, setFilteredPlugins] = useState(props.plugins || [])
 
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
+
+  useEffect(() => {
+    const filtered = props.plugins
+      .filter(plugin => plugin.name.split(' ')
+                        .map((word: string) => word.trim())
+                        .map((word: string) => word.toLowerCase().startsWith(filter.toLowerCase()))
+                        .some(startWithFilter => startWithFilter));
+    setFilteredPlugins(filtered);
+  }, [props.plugins, filter])
   
   return (
     <div>
@@ -44,25 +45,7 @@ const Plugins = (props) => {
             </div>
             <input type='text' className='text-xl pl-8 w-full border border-violet-200 outline-violet-200 rounded h-9' placeholder='Search for plugins' onChange={e => setFilter(e.target.value)}/>
           </div>
-          <div className='flex-col'>
-            {filteredPlugins.map((plugin, idx) => {
-              const isFavorite = favorites.includes(plugin.pluginId);
-              return (
-                <div key={plugin.id} className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
-                  <div className='text-3xl font text-gray-400 px-5'>
-                    <div>{String(idx+1).padStart(3, '0')}.</div>
-                    {isFavorite && <div>🤩</div>}
-                  </div>
-                  <div>
-                    <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
-                    <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
-                    <div className='text-sm'>{moment(plugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-                    <div className='mr-5'>{plugin.description}</div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <NewPluginsList plugins={filteredPlugins} favorites={favorites} setFavorites={setFavorites} />
         </div>
       </div>
       <Footer />

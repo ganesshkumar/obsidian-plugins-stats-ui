@@ -11,9 +11,6 @@ import Footer from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
 
-type Props = { };
-type State = { };
-
 const Tag = (props) => {
   const mdConverter = new showdown.Converter();
   mdConverter.setFlavor('github');

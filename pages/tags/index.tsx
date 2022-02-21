@@ -7,20 +7,6 @@ import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 
-type Props = { };
-type State = { };
-
-const humanReadableNumbers = (n: number) => {
-  const numString = n.toString();
-  if (numString.length > 9) {
-    return `${numString.split('').splice(0, numString.length - 6).join('')}B`
-  } if (numString.length > 6) {
-    return `${numString.split('').splice(0, numString.length - 6).join('')}M`
-  } else if (numString.length > 3) {
-    return `${numString.split('').splice(0, numString.length - 3).join('')}K`
-  }
-}
-
 const Tags = (props) => {
   return (
     <div>
@@ -38,7 +24,7 @@ const Tags = (props) => {
                 <Link key={tag} href={`/tags/${tag}`}>
                   <a className='group mx-1 my-1 flex transition hover:scale-110 cursor-pointer'>
                     <div className='border border-dotted border-r-0 rounded-l-md border-violet-700 bg-violet-100 group-hover:bg-violet-900 px-1 pb-1 mr-1/2 group-hover:text-gray-100'>{tag}</div>
-                    <div className='border border-dotted rounded-r-2xl border-violet-700 px-1 group-hover:bg-violet-100 px-1 pb-1 mr-1/2 transition'>{props.pluginsByTags[tag].length}</div>
+                    <div className='border border-dotted rounded-r-2xl border-violet-700 px-1 group-hover:bg-violet-100 px-1 pb-1 mr-1/2 transition'>{props.pluginCountByTags[tag]}</div>
                   </a>
                 </Link>
               );
@@ -51,27 +37,20 @@ const Tags = (props) => {
   )
 }
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async () => {
   const prisma = new PrismaClient();
-
-  const pluginsByTags = {};
-  const tags = new Set();
-
-  const tagsData = await prisma.pluginTags.findMany();
   
-  tagsData.forEach(tagDatum => {
-    tags.add(tagDatum.tag);
-    if (!(tagDatum.tag in pluginsByTags)) {
-      pluginsByTags[tagDatum.tag] = [];
+  const tagsData = await prisma.pluginTags.groupBy({
+    by: ['tag'],
+    _count: {
+      pluginId: true
     }
-    const plugins = pluginsByTags[tagDatum.tag];
-    pluginsByTags[tagDatum.tag] = [...plugins, tagDatum.pluginId];
-  })
+  });
 
   return {
     props: {
-      tags: Array.from(tags),
-      pluginsByTags
+      tags: tagsData.map(datum => datum.tag),
+      pluginCountByTags: tagsData.reduce((acc, value) => {acc[value.tag] = value['_count'].pluginId; return acc;}, {})
     }
   }
 }

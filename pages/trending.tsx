@@ -4,8 +4,8 @@ import React from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 
-type Props = { };
-type State = { };
+
+
 
 const Trending = (props) => {
   return (

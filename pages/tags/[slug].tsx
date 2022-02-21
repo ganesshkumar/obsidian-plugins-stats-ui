@@ -7,9 +7,8 @@ import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
-
-type Props = { };
-type State = { };
+import AuthorAndDescription from '../../components/AuthorAndDescription';
+import IndexWithAnnotations from '../../components/IndexWithAnnotations';
 
 const Tag = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -18,6 +17,8 @@ const Tag = (props) => {
     setupFavorites(setFavorites);
   }, []);
   
+  const pad = props.plugins.length.toString().length;
+
   return (
     <div>
       <Header />
@@ -37,15 +38,11 @@ const Tag = (props) => {
               const isFavorite = favorites.includes(plugin.pluginId);
               return (
                 <div key={plugin.id} className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
-                  <div className='text-3xl font text-gray-400 px-5'>
-                    <div>{String(idx+1).padStart(2, '0')}.</div>
-                    {isFavorite && <div>🤩</div>}
-                  </div>
+                  <IndexWithAnnotations isFavorite={isFavorite} idx={idx+1} pad={pad}/>
                   <div>
                     <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
                     <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
-                    <div className='text-sm'>by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-                    <div className='mr-5'>{plugin.description}</div>
+                    <AuthorAndDescription author={plugin.author} description={plugin.description} />
                   </div>
                 </div>
               );
@@ -60,45 +57,32 @@ const Tag = (props) => {
 const prisma = new PrismaClient();
 
 export const getStaticPaths = async () => {
-  const pluginsByTags = {};
-  const tags = new Set();
+  const tagsData = await prisma.pluginTags.findMany({
+    select: { tag: true },
+    distinct: ['tag']
+  });
 
-  const tagsData = await prisma.pluginTags.findMany();
-  
-  tagsData.forEach(tagDatum => {
-    tags.add(tagDatum.tag);
-    if (!(tagDatum.tag in pluginsByTags)) {
-      pluginsByTags[tagDatum.tag] = [];
-    }
-    const plugins = pluginsByTags[tagDatum.tag];
-    pluginsByTags[tagDatum.tag] = [...plugins, tagDatum.pluginId];
-  })
+  const tags = tagsData.map(datum => datum.tag);
 
   return {
-    paths: Array.from(tags).map(tag => ({params: {slug: tag}})),
+    paths: tags.map(tag => ({params: {slug: tag}})),
     fallback: false,
   }
 };
 
 export const getStaticProps = async ({ params }) => {
-  const pluginsByTags = {};
-  const tags = new Set();
-
-  const tagsData = await prisma.pluginTags.findMany();
-  
-  tagsData.forEach(tagDatum => {
-    tags.add(tagDatum.tag);
-    if (!(tagDatum.tag in pluginsByTags)) {
-      pluginsByTags[tagDatum.tag] = [];
+  const tagsData = await prisma.pluginTags.findMany({
+    where: { tag: params.slug },
+    select: {
+      tag: true,
+      pluginId: true,
     }
-    const plugins = pluginsByTags[tagDatum.tag];
-    pluginsByTags[tagDatum.tag] = [...plugins, tagDatum.pluginId];
-  })
-
+  });
+  
   const plugins = await prisma.plugin.findMany({
     where: {
       pluginId: {
-        in: pluginsByTags[params.slug] 
+        in: tagsData.map(datum => datum.pluginId)
       }
     }
   })
@@ -106,7 +90,6 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       tag: params.slug,
-      pluginIds: pluginsByTags[params.slug],
       plugins,
     }
   }
