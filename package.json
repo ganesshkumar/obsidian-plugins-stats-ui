@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@prisma/client": "3.9.2",
+    "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "10.4.2",
+    "daisyui": "^2.1.0",
     "moment": "2.29.1",
     "next": "12.1.0",
     "postcss": "8.4.6",
