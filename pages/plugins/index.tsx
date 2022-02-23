@@ -42,7 +42,7 @@ const Plugins = (props) => {
       <Navbar current='plugins' />
       {/* New Plugins */}
       <div className='bg-violet-50 pt-5'>
-        <div className='container w-full lg:w-1/2 mx-auto'>
+        <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
           <div className='text-2xl pt-5 uppercase pl-5 bg-gray-50'>
             🌳 ALL Plugins {props.plugins && `(${props.plugins.length})`} 
           </div>

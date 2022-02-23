@@ -34,8 +34,8 @@ const Tag = (props) => {
           <a className={itemClasses('plugin', 'plugin')}>{`plugin:${props.plugin.pluginId}`}</a>
         </Link>
       </Navbar>
-      <div className='bg-violet-50 py-5'>
-        <div className='container w-full lg:w-1/2 mx-auto'>
+      <div className='bg-violet-50 pt-5'>
+        <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
           <div className='flex-col bg-gray-50 pb-3'>
             <div className={`text-2xl py-5 px-5 uppercase ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} mb-2`}>
               {isFavorite ? <span>🤩</span> : <span>🔗</span>}  {props.plugin.name}
