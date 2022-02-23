@@ -10,7 +10,7 @@ import showdown from 'showdown';
 import { setupFavorites } from '../utils/favorites';
 import NewPluginCard from '../components/NewPluginCard';
 import PluginEcosystemStats from '../components/PluginEcosystemStats';
-import TitleWithInfo from '../components/TitleWithInfo';
+import InfoBar from '../components/InfoBar';
 import { daysAgo, isNotXDaysOld } from '../utils/datetime';
 import CardAnnotations from '../components/CardAnnotations';
 
@@ -55,12 +55,12 @@ const Home = (props) => {
       <div className='bg-violet-50 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='py-5 pl-5 text-gray-700'>
-            <TitleWithInfo title='🌱 New Plugins' itemsCount={props.newPlugins?.length || 0}  infoLines={newPluginsInfoLines} />
+            <InfoBar title='🌱 New Plugins' itemsCount={props.newPlugins?.length || 0}  infoLines={newPluginsInfoLines} />
           </div>
           <div className='flex flex-wrap'>
             {
               props.newPlugins.map(newPlugin => 
-                <NewPluginCard key={newPlugin.pluginId} plugin={newPlugin} isFavorite={favorites.includes(newPlugin.pluginId)} />)
+                <NewPluginCard key={newPlugin.pluginId} plugin={newPlugin} isFavorite={favorites.includes(newPlugin.pluginId)} isTrending={newPlugin.zScoreTrending > 10} />)
             }
           </div>
         </div>
@@ -69,11 +69,12 @@ const Home = (props) => {
       <div className='bg-violet-900 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='py-5 pl-5 text-gray-50'>
-            <TitleWithInfo title='🪴 New Versions' itemsCount={props.newReleases?.length || 0} infoLines={newReleasesInfoLines} />
+            <InfoBar title='🪴 New Versions' itemsCount={props.newReleases?.length || 0} infoLines={newReleasesInfoLines} />
           </div>
           <div className='flex flex-wrap'>
             {props.newReleases.map(newRelease => {
               const isFavorite = favorites.includes(newRelease.pluginId);
+              const isTrending = newRelease.zScoreTrending > 10;
               return (
                 <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer" 
                     className='relative flex-col justify-between group basis-64 shrink-0 mx-auto lg:mx-5 my-5 px-5 border rounded-md hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
@@ -86,7 +87,7 @@ const Home = (props) => {
                       <div>{newRelease.latestRelease}</div>
                     </div>
                   </div>
-                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)}/>
+                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)} isTrending={isTrending} />
                 </a>
               )
             })}
@@ -97,7 +98,7 @@ const Home = (props) => {
       <div className='bg-violet-50 py-5'>
         <div className='container w-full lg:w-1/2 mx-auto'>
           <div className='py-5 pl-5 text-gray-700'>
-            <TitleWithInfo title='🏆 Most Downloaded' itemsCount={props.mostDownloaded?.length || 0} infoLines={mostDownloadedInfoLines} />
+            <InfoBar title='🏆 Most Downloaded' itemsCount={props.mostDownloaded?.length || 0} infoLines={mostDownloadedInfoLines} />
           </div>
           <div className='flex flex-wrap'>
             {props.mostDownloaded.map(plugin => {
@@ -113,7 +114,7 @@ const Home = (props) => {
                     <div className='text-lg uppercase tracking-wide text-violet-900 text-center'>{plugin.name}</div>
                     <div className='text-sm text-center'>by <span className=''>{plugin.author}</span></div>
                   </div>
-                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(plugin.createdAt, 1)}/>
+                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(plugin.createdAt, 1)} isTrending={plugin.zScoreTrending > 10}/>
                 </a>
               )
             })}

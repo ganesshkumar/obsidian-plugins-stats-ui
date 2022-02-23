@@ -10,7 +10,8 @@ import showdown from 'showdown';
 import { setupFavorites } from '../utils/favorites';
 import Favorites from '../components/Favorites';
 import { daysAgo } from '../utils/datetime';
-import IndexWithAnnotations from '../components/IndexWithAnnotations';
+import PluginListItem from '../components/PluginListItem';
+import NewPluginsList from '../components/NewPluginsList';
 
 const Updates = (props) => {
   const mdConverter = new showdown.Converter();
@@ -35,26 +36,7 @@ const Updates = (props) => {
             🪴 New Versions {props.newReleases && `(${props.newReleases.length})`} 
           </div>
           <div className='flex-col'>
-            {props.newReleases.map((newRelease, idx) => {
-              const isFavorite = favorites.includes(newRelease.pluginId);
-              return (
-                <div key={newRelease.id} className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
-                  <IndexWithAnnotations isFavorite={isFavorite} idx={idx+1} pad={pad}/>
-                  <div className='text-xl lg:text-3xl font text-violet-900 px-5 py-1 lg:py-2 basis:28 lg:basis-40 text-center shrink-0'>
-                    <span className='bg-violet-900 text-violet-100 px-2 rounded-md'>{newRelease.latestRelease}</span>
-                  </div>
-                  <div>
-                    <a href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{newRelease.name}</a>
-                    <Favorites plugin={newRelease} isFavorite={isFavorite} setFavorites={setFavorites} />
-                    <div className='text-sm'>{moment(newRelease.latestReleaseAt).fromNow()} by <span className='group-hover:text-violet-500'>{newRelease.author}</span></div>
-                    <details>
-                      <summary className='text-sm'>Changelog</summary>
-                      <div dangerouslySetInnerHTML={{__html: mdConverter.makeHtml(newRelease.latestReleaseDesc)}} />
-                    </details>
-                  </div>
-                </div>
-              );
-            })}
+            <NewPluginsList plugins={props.newReleases} favorites={favorites} setFavorites={setFavorites} showLatestRelease={true} displayDate={plugin => plugin.latestReleaseAt}/>
           </div>
         </div>
       </div>

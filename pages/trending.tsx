@@ -29,8 +29,15 @@ const Trending = ({plugins}) => {
           <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
             🔥 Trending {plugins && `(${plugins.length})`}  
           </div>
-          <div className='text-2xl py-5 uppercase pl-5 text-center bg-yellow-50'>⚠️ 👨🏽‍💻 in progress ⚠️ </div>
-          <div className='text-xl pl-5 bg-gray-50 text-center bg-yellow-50'>The following results are experimental and might be far from accurate. </div>
+          <div className='flex justify-center'>
+            <div className="alert shadow-lg alert-warning w-4/5 z-10">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                <div>Warning: ⚠️ 👨🏽‍💻 in progress ⚠️</div>
+                <div>The following results are experimental and might be far from accurate.</div>
+              </div>
+            </div>
+          </div>
           <NewPluginsList plugins={plugins} favorites={favorites} setFavorites={setFavorites} />
         </div>
       </div>

@@ -16,7 +16,7 @@ const Footer = () => {
             <p>Copyright © 2022 - All right reserved by @ganesshkumar.</p>
           </div>
           <div>
-            <span>If you like this portal, you could consider buying me a coffee.</span>
+            <span>If you like this portal, you could consider supporting the development.</span>
             <a href="https://www.buymeacoffee.com/ganesshkumar" target="_blank" rel="noreferrer">
               <img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy Me A Coffee" className='w-40 mr-2' />
             </a>

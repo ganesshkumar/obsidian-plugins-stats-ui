@@ -12,6 +12,7 @@ import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
 import NewPluginCard from '../../components/NewPluginCard';
 import { tagDenyList } from '../../utils/plugins';
+import { isNotXDaysOld } from '../../utils/datetime';
 
 const Tag = (props) => {
   const mdConverter = new showdown.Converter();
@@ -24,7 +25,7 @@ const Tag = (props) => {
   }, []);
 
   const isFavorite = favorites.includes(props.plugin.pluginId);
-
+  const isNotADayOld = isNotXDaysOld(props.plugin.createdAt, 1);
   return (
     <div>
       <Header />
@@ -38,7 +39,7 @@ const Tag = (props) => {
         <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
           <div className='flex-col bg-gray-50 pb-3'>
             <div className={`text-2xl py-5 px-5 uppercase ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} mb-2`}>
-              {isFavorite ? <span>🤩</span> : <span>🔗</span>}  {props.plugin.name}
+              <span>🔗</span> {props.plugin.name}
             </div>
             <div className='px-5'>
               <div className='flex mb-2'>
@@ -52,6 +53,9 @@ const Tag = (props) => {
                   );
                 })}
               </div>
+              {isFavorite && <div className='cursor-default' title='Favorite plugin'>🤩</div>}
+              {isNotADayOld && <div className='cursor-default' title='Less than a day old'>🥳</div>}
+              {props.plugin.zScoreTrending > 10 && <div className='cursor-default' title='Trending plugin'>🔥</div>}
               <Favorites plugin={props.plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
               <div>
                 by <span>{props.plugin.author}</span>
@@ -92,7 +96,7 @@ const Tag = (props) => {
               </details> 
               <div className='flex flex-wrap bg-violet-50'>
                   {props.similarPlugins.map(plugin => 
-                      <NewPluginCard key={plugin.pluginId} plugin={plugin} isFavorite={favorites.includes(plugin.pluginId)} />)}
+                      <NewPluginCard key={plugin.pluginId} plugin={plugin} isFavorite={favorites.includes(plugin.pluginId)} isTrending={plugin.zScoreTrending > 10} />)}
               </div>
             </>
           }

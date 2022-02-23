@@ -1,4 +1,4 @@
-const TitleWithInfo = ({title, itemsCount, infoLines}) => {
+const InfoBar = ({title, itemsCount, infoLines}) => {
   return (
     <>
       <div className='text-2xl uppercase'>{title} {itemsCount >= 0 && `(${itemsCount})`}</div>
@@ -12,4 +12,4 @@ const TitleWithInfo = ({title, itemsCount, infoLines}) => {
   );
 }
 
-export default TitleWithInfo;
+export default InfoBar;

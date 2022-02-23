@@ -59,7 +59,7 @@ const Plugins = (props) => {
               <div className='mr-5 label-text'>Filters: </div>
             </label>
             <label className="cursor-pointer label">
-              <span className="label-text mr-2">Favorites</span> 
+              <span className="label-text mr-2">Favorites 🤩</span> 
               <input type="checkbox" checked={favoritesFilter} onChange={_ => setFavoritesFilter(!favoritesFilter)} className="accent-violet-700" />
             </label>
           </div>

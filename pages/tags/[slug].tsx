@@ -6,10 +6,8 @@ import Navbar, { itemClasses } from '../../components/Navbar';
 import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
 import { setupFavorites } from '../../utils/favorites';
-import Favorites from '../../components/Favorites';
-import AuthorAndDescription from '../../components/AuthorAndDescription';
-import IndexWithAnnotations from '../../components/IndexWithAnnotations';
 import Footer from '../../components/Footer';
+import NewPluginsList from '../../components/NewPluginsList';
 
 const Tag = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -35,19 +33,7 @@ const Tag = (props) => {
             #{props.tag}
           </div>
           <div className='flex-col'>
-            {props.plugins.map((plugin, idx) => {
-              const isFavorite = favorites.includes(plugin.pluginId);
-              return (
-                <div key={plugin.id} className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
-                  <IndexWithAnnotations isFavorite={isFavorite} idx={idx+1} pad={pad}/>
-                  <div>
-                    <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
-                    <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
-                    <AuthorAndDescription author={plugin.author} description={plugin.description} />
-                  </div>
-                </div>
-              );
-            })}
+            <NewPluginsList plugins={props.plugins} favorites={favorites} setFavorites={setFavorites} />
           </div>
         </div>
       </div>
