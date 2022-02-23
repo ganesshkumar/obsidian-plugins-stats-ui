@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar';
 import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
 import Footer from '../../components/Footer';
+import { tagDenyList } from '../../utils/plugins';
 
 const Tags = (props) => {
   return (
@@ -40,8 +41,13 @@ const Tags = (props) => {
 export const getStaticProps = async () => {
   const prisma = new PrismaClient();
   
-  const tagsData = await prisma.pluginTags.groupBy({
+  let tagsData = await prisma.pluginTags.groupBy({
     by: ['tag'],
+    where: {
+      tag: {
+        notIn: tagDenyList
+      }
+    },
     _count: {
       pluginId: true
     }

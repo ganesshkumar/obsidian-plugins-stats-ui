@@ -49,7 +49,7 @@ const NavBar = (props) => {
   return (
     <div className={`lg:py-2 ${containerClasses(current)}`}>
       <div className='container w-full lg:w-1/2 mx-auto flex flex-col items-center align-center'>
-        <div className='font-bold text-3xl mt-2'>
+        <div className='font-bold text-3xl mt-2 hover:text-violet-700'>
           <Link href="/"><a>Obsidian Plugin Stats</a></Link>
         </div>
         <div className="navbar bg-violet-50 rounded-box">
@@ -59,7 +59,7 @@ const NavBar = (props) => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
               </label>
               <ul className="p-2 menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                <Content>
+                <Content current={current}>
                   {children}
                 </Content>
               </ul>

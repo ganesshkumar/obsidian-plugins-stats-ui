@@ -1,0 +1,1 @@
+export const tagDenyList = ['obsidian', 'obsidian-plugin', 'obsidian-md', 'plugin', 'hacktoberfest', 'obsidianmd'];

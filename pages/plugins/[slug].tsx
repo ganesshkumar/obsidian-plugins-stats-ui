@@ -11,6 +11,7 @@ import Footer from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
 import NewPluginCard from '../../components/NewPluginCard';
+import { tagDenyList } from '../../utils/plugins';
 
 const Tag = (props) => {
   const mdConverter = new showdown.Converter();
@@ -43,7 +44,11 @@ const Tag = (props) => {
               <div className='flex mb-2'>
                 {props.tags?.map(tag => {
                   return (
-                    <div key={tag} className='mr-1 px-2 text-sm bg-violet-200 rounded-xl'>{tag}</div>
+                    <div key={tag} className='mr-1 px-2 text-sm bg-violet-200 rounded-xl'>
+                      <Link href={`/tags/${tag}`}>
+                        <a>{tag}</a>
+                      </Link>
+                    </div>
                   );
                 })}
               </div>
@@ -79,9 +84,15 @@ const Tag = (props) => {
           { props.similarPlugins?.length > 0 && 
             <>
               <div className='mt-5 text-xl uppercase bg-violet-50'>💡 Similar Plugins</div>
+              <details className='ml-2 text-sm'>
+                <summary>info</summary>
+                <div className='ml-3'>
+                  • Similar plugins are suggested based on the common tags between the plugins.
+                </div>
+              </details> 
               <div className='flex flex-wrap bg-violet-50'>
                   {props.similarPlugins.map(plugin => 
-                    <NewPluginCard key={plugin.pluginId} plugin={plugin} isFavorite={favorites.includes(plugin.pluginId)} />)}
+                      <NewPluginCard key={plugin.pluginId} plugin={plugin} isFavorite={favorites.includes(plugin.pluginId)} />)}
               </div>
             </>
           }
@@ -105,7 +116,6 @@ export const getStaticPaths = async () => {
   }
 };
 
-const tagDenyList = ['obsidian', 'obsidian-plugin', 'obsidian-md', 'plugin']
 export const getStaticProps = async ({ params }) => {
   const tagsData = await prisma.pluginTags.findMany({
     where: { pluginId: params.slug }
@@ -120,9 +130,12 @@ export const getStaticProps = async ({ params }) => {
     where: {
       tag: {
         in: tags.filter(tag => !tagDenyList.includes(tag))
+      },
+      pluginId: {
+        not: plugin.pluginId
       }
     },
-    select: { pluginId: true},
+    select: { pluginId: true },
     distinct: ['pluginId']
   });
   
@@ -131,14 +144,14 @@ export const getStaticProps = async ({ params }) => {
       pluginId: {
         in: pluginIdsInTags.map(pluginIdsInTag => pluginIdsInTag.pluginId)
       }
-    }
+    },
   });
   
   return {
     props: {
       plugin,
       tags: tags,
-      similarPlugins
+      similarPlugins,
     }
   }
 };

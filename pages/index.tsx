@@ -76,7 +76,7 @@ const Home = (props) => {
               const isFavorite = favorites.includes(newRelease.pluginId);
               return (
                 <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer" 
-                    className='relative flex-col group basis-64 shrink-0 m-5 px-5 border rounded-md hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
+                    className='relative flex-col justify-between group basis-64 shrink-0 mx-auto lg:mx-5 my-5 px-5 border rounded-md hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'>
                   <div className='flex flex-none justify-between'>
                     <div className='py-2'>
                       <div className='text-lg uppercase tracking-wide text-violet-900'>{newRelease.name}</div>
