@@ -44,7 +44,7 @@ const MostDownloaded = (props) => {
       {/* New Plugins */}
       <div className='bg-violet-50 pt-5'>
         <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
-          <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
+          <div className='text-2xl py-5 uppercase pl-5 bg-gray-50 cursor-context-menu'>
             🏆 Most Downloaded {props.mostDownloaded && `(${props.mostDownloaded.length})`} 
           </div>
           <div className='flex-col'>

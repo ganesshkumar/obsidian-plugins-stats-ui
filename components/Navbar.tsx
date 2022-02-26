@@ -38,7 +38,7 @@ const Content = (props) => {
           <a>all</a>
         </Link>
       </li>
-      {children && children.map((child, idx) => <li key={child.idx}>{child}</li>)}
+      {children}
     </>
   )
 }

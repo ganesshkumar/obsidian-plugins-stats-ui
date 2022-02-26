@@ -22,7 +22,7 @@ const Trending = ({plugins}) => {
       {/* New Plugins */}
       <div className='bg-violet-50 py-5'>
         <div className='pb-5 container w-full lg:w-1/2 mx-auto  bg-gray-50'>
-          <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
+          <div className='text-2xl py-5 uppercase pl-5 bg-gray-50 cursor-context-menu'>
             🔥 Trending {plugins && `(${plugins.length})`}  
           </div>
           <div className='flex justify-center'>

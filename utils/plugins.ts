@@ -1,1 +1,1 @@
-export const tagDenyList = ['obsidian', 'obsidian-plugin', 'obsidian-md', 'plugin', 'hacktoberfest', 'obsidianmd'];
+export const tagDenyList = ['obsidian', 'obsidian-plugin', 'obsidian-md', 'plugin', 'hacktoberfest', 'obsidianmd', 'typescript'];

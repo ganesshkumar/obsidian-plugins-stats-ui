@@ -43,7 +43,7 @@ const Plugins = (props) => {
       {/* New Plugins */}
       <div className='bg-violet-50 pt-5'>
         <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
-          <div className='text-2xl pt-5 uppercase pl-5 bg-gray-50'>
+          <div className='text-2xl pt-5 uppercase pl-5 bg-gray-50 cursor-context-menu'>
             🌳 ALL Plugins {props.plugins && `(${props.plugins.length})`} 
           </div>
           <div className='px-5 pt-2 bg-gray-50 relative'>

@@ -22,10 +22,9 @@ const Tag = (props) => {
     <div>
       <Header />
       <Navbar current={`tag:${props.tag}`}>
-          <div>|</div>
-          <Link href={`/tags/${props.tag}`}>
-            <a className={itemClasses('tag', 'tag')}>{`tag:${props.tag}`}</a>
-          </Link>
+        <Link href={`/tags/${props.tag}`}>
+          <a className={itemClasses('tag', 'tag')}>{`tag:${props.tag}`}</a>
+        </Link>
       </Navbar>
       <div className='bg-violet-50 pt-5'>
         <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
