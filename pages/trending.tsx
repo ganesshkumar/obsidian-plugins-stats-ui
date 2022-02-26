@@ -14,11 +14,7 @@ const Trending = ({plugins}) => {
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
-
-  console.group('zScore');
-  console.log(plugins.map(p => ({name: p.name, pluginId: p.pluginId, zScore: p.zScoreTrending})));
-  console.groupEnd();
-
+  
   return (
     <div>
       <Header />

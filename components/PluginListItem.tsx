@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import Favorites from './Favorites';
+import showdown from 'showdown';
 
 const humanReadableNumbers = (n: number) => {
   const numString = n.toString();
@@ -19,7 +20,10 @@ const humanReadableNumbers = (n: number) => {
   }
 }
 
-const PluginListItem = ({ plugin, isFavorite, isNotADayOld, idx, pad, setFavorites, showDownloadStat, showLatestRelease, displayDate }) => {
+const PluginListItem = ({ plugin, isFavorite, isNotADayOld, idx, pad, setFavorites, showDownloadStat, showLatestRelease, displayDate, showChangelog, showDescription }) => {
+  const mdConverter = new showdown.Converter();
+  mdConverter.setFlavor('github');
+
   return (
     <div className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
       <div className='flex text-3xl font text-gray-400 px-5'>
@@ -47,7 +51,17 @@ const PluginListItem = ({ plugin, isFavorite, isNotADayOld, idx, pad, setFavorit
         </div>
         <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
         <div className='text-sm'>{moment(displayDate(plugin)).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-        <div className='mr-5'>{plugin.description}</div>
+        {showDescription && <div className='mr-5'>{plugin.description}</div>}
+        {showChangelog &&
+          <details>
+            <summary className='text-sm text-violet-800'>Changelog</summary>
+            {!plugin.latestReleaseDesc || !plugin.latestReleaseDesc.trim() ?
+                <div>No Changelog was added</div> :
+                <div dangerouslySetInnerHTML={{__html: mdConverter.makeHtml(plugin.latestReleaseDesc)}} />
+            }
+            
+          </details>
+        }
       </div>
     </div>
   );

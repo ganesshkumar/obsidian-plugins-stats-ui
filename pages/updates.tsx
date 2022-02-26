@@ -5,18 +5,11 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 import { PrismaClient } from "@prisma/client";
-import moment from 'moment';
-import showdown from 'showdown';
 import { setupFavorites } from '../utils/favorites';
-import Favorites from '../components/Favorites';
 import { daysAgo } from '../utils/datetime';
-import PluginListItem from '../components/PluginListItem';
 import NewPluginsList from '../components/NewPluginsList';
 
-const Updates = (props) => {
-  const mdConverter = new showdown.Converter();
-  mdConverter.setFlavor('github');
-  
+const Updates = (props) => {  
   const [favorites, setFavorites] = useState([]);
   
   useEffect(() => {
@@ -36,7 +29,14 @@ const Updates = (props) => {
             🪴 New Versions {props.newReleases && `(${props.newReleases.length})`} 
           </div>
           <div className='flex-col'>
-            <NewPluginsList plugins={props.newReleases} favorites={favorites} setFavorites={setFavorites} showLatestRelease={true} displayDate={plugin => plugin.latestReleaseAt}/>
+            <NewPluginsList 
+                plugins={props.newReleases} 
+                favorites={favorites} 
+                setFavorites={setFavorites} 
+                showLatestRelease={true} 
+                displayDate={plugin => plugin.latestReleaseAt} 
+                showChangelog={true} 
+                showDescription={false} />
           </div>
         </div>
       </div>
