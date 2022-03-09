@@ -49,9 +49,11 @@ const PluginListItem = ({ plugin, isFavorite, isNotADayOld, idx, pad, setFavorit
           {isNotADayOld && <div className='cursor-default' title='Less than a day old'>🥳</div>}
           {plugin.zScoreTrending > 10 && <div className='cursor-default' title='Trending plugin'>🔥</div>}
         </div>
-        <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
-        <div className='text-sm'>{moment(displayDate(plugin)).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-        {showDescription && <div className='mr-5'>{plugin.description}</div>}
+        {showDescription && <div className='mr-5'>{plugin.description}</div>}        
+        <div className='mt-1'>
+          <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
+          <div className='text-xs'>{moment(displayDate(plugin)).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
+        </div>
         {showChangelog &&
           <details>
             <summary className='text-sm text-violet-800'>Changelog</summary>

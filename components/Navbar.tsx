@@ -38,7 +38,9 @@ const Content = (props) => {
           <a>all</a>
         </Link>
       </li>
-      {children}
+      <li>
+        {children}
+      </li>
     </>
   )
 }
