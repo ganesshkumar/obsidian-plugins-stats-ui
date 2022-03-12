@@ -1,8 +1,15 @@
+import App from 'next/app';
+import { withApplicationInsights } from '../telemetry/next-applicationInsights';
 import '../styles/globals.css'
-import type { AppProps } from 'next/app';
 
-function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+class ObsidianPluginStatsApp extends App {
+  render() {
+    const { Component, pageProps } = this.props
+    return <Component {...pageProps} />
+  }
 }
 
-export default App
+export default withApplicationInsights({ 
+  instrumentationKey: '2be98941-c606-4873-919f-76230001fe3c',
+  isEnabled: true //process.env.NODE_ENV === 'production'
+})(ObsidianPluginStatsApp);

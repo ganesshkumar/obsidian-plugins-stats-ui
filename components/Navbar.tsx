@@ -52,7 +52,9 @@ const NavBar = (props) => {
     <div className={`lg:py-2 ${containerClasses(current)}`}>
       <div className='container w-full lg:w-1/2 mx-auto flex flex-col items-center align-center'>
         <div className='font-bold text-3xl mt-2 hover:text-violet-700'>
-          <Link href="/"><a>Obsidian Plugin Stats</a></Link>
+          <Link href="/">
+            <a>Obsidian Plugin Stats</a>
+          </Link>
         </div>
         <div className="navbar bg-violet-50 rounded-box">
           <div className="navbar-start">

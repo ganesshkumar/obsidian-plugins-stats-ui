@@ -9,10 +9,14 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@microsoft/applicationinsights-clickanalytics-js": "^2.7.4",
+    "@microsoft/applicationinsights-react-js": "^3.2.4",
+    "@microsoft/applicationinsights-web": "^2.7.4",
     "@prisma/client": "3.9.2",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "10.4.2",
     "daisyui": "^2.1.0",
+    "history": "^5.3.0",
     "moment": "2.29.1",
     "next": "12.1.0",
     "postcss": "8.4.6",

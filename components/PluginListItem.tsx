@@ -55,13 +55,12 @@ const PluginListItem = ({ plugin, isFavorite, isNotADayOld, idx, pad, setFavorit
           <div className='text-xs'>{moment(displayDate(plugin)).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
         </div>
         {showChangelog &&
-          <details>
-            <summary className='text-sm text-violet-800'>Changelog</summary>
+          <details id='changelog-details-expand' data-details-id='d-changelog-details-expand'>
+            <summary className='text-sm text-violet-800' id='changelog-expand' data-summary-id='d-changelog-expand'>Changelog</summary>
             {!plugin.latestReleaseDesc || !plugin.latestReleaseDesc.trim() ?
                 <div>No Changelog was added</div> :
                 <div dangerouslySetInnerHTML={{__html: mdConverter.makeHtml(plugin.latestReleaseDesc)}} />
             }
-            
           </details>
         }
       </div>
