@@ -1,17 +1,21 @@
-const PluginEcosystemStats = ({totalPluginsCount, newPluginsCount, newReleasesCount, totalTagsCount}) => {
+const PluginEcosystemStats = ({ totalPluginsCount, newPluginsCount, newReleasesCount, totalTagsCount }) => {
   return (
-    <div className='flex flex-wrap justify-center py-3 bg-violet-900'>
-      <div className="mx-3 my-1 px-2 py-1 text-violet-50 cursor-context-menu">
-        Total Plugins: {totalPluginsCount}
+    <div className='flex flex-wrap justify-center pt-16 bg-violet-50'>
+      <div className="mx-3 my-1 border rounded-md cursor-context-menu basis-64 text-center bg-white">
+        <div className='py-2 font-bold text-violet-900 text-gray-50 text-4xl'>{totalPluginsCount}</div>
+        <div className='pb-2 text-xl'>Total Plugins</div>
       </div>
-      <div className="mx-3 my-1 px-2 py-1 text-violet-50 cursor-context-menu">
-        New Plugins: {newPluginsCount}
+      <div className="mx-3 my-1 border rounded-md cursor-context-menu basis-64 text-center bg-white">
+        <div className='py-2 font-bold text-violet-900 text-gray-50 text-4xl'>{newPluginsCount}</div>
+        <div className='pb-2 text-xl'>New Plugins</div>
       </div>
-      <div className="mx-3 my-1 px-2 py-1 text-violet-50 cursor-context-menu">
-        Recently Updated Plugins: {newReleasesCount}
+      <div className="mx-3 my-1 border rounded-md cursor-context-menu basis-64 text-center bg-white">
+        <div className='py-2 font-bold text-violet-900 text-gray-50 text-4xl'>{newReleasesCount}</div>
+        <div className='pb-2 text-xl'>Recently Updated Plugins</div>
       </div>
-      <div className="mx-3 my-1 px-2 py-1 text-violet-50 cursor-context-menu">
-        Total tags: {totalTagsCount}
+      <div className="mx-3 my-1 border rounded-md cursor-context-menu basis-64 text-center bg-white">
+        <div className='py-2 font-bold text-violet-900 text-gray-50 text-4xl'>{totalTagsCount}</div>
+        <div className='pb-2 text-xl'>Total tags</div>
       </div>
     </div>
   )
