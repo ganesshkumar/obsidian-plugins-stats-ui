@@ -14,6 +14,7 @@ import InfoBar from '../components/InfoBar';
 import { daysAgo, isNotXDaysOld } from '../utils/datetime';
 import CardAnnotations from '../components/CardAnnotations';
 import Link from 'next/link';
+import Faq from '../components/Faq';
 
 const Home = (props) => {
   const mdConverter = new showdown.Converter();
@@ -145,6 +146,16 @@ const Home = (props) => {
                 <div className='text-xl font-medium uppercase tracking-wide text-violet-900'>View top 25 downloaded plugins ⟶</div>
               </div>
             </Link>
+          </div>
+        </div>
+      </div>
+      <div className='bg-violet-900 py-20'>
+        <div className='container w-full lg:w-1/2 mx-auto'>
+          <div className='py-5 pl-5 text-gray-50'>
+            <InfoBar title='🤔 FAQ for plugin developers' itemsCount={-1} infoLines={[]} />
+          </div>
+          <div className='ml-5'>
+            <Faq />
           </div>
         </div>
       </div>
