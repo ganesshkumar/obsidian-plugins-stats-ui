@@ -5,7 +5,7 @@ const PluginEcosystemStats = ({ totalPluginsCount, newPluginsCount, newReleasesC
     <div className='flex flex-wrap justify-center py-16 bg-violet-900'>
 
       <div className="mx-3 my-1 border rounded-md cursor-pointer basis-64 text-center bg-white">
-        <Link href='/all' passHref>
+        <Link href='/plugins' passHref>
           <a>
             <div className='py-2 font-bold text-violet-900 text-4xl'>{totalPluginsCount}</div>
             <div className='pb-2 text-xl'>Total Plugins</div>
