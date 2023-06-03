@@ -1,6 +1,8 @@
 # Obsidian Plugin Stats
 
-A tool to get plugin statistics of [Obsidian](https://obsidian.md) plugin ecosystem.  
+Are you obsessed with Obsidian plugins? Do you want to know which ones are hot and which ones are not? Do you want to keep track of your favorite plugins and get notified when they get updated? If you answered yes to any of these questions, then this tool is for you!
+
+This tool lets you explore the [Obsidian](https://obsidian.md) plugin ecosystem and get statistics on various plugins. 
 
 ![Obsidian Plugin Stats](https://user-images.githubusercontent.com/2135089/154796362-e80a56b4-1f0f-451b-8bf3-3ed435c6b23f.png)
 ![Maintainability](https://img.shields.io/codeclimate/maintainability-percentage/ganesshkumar/obsidian-plugins-stats-ui)
@@ -11,13 +13,15 @@ A tool to get plugin statistics of [Obsidian](https://obsidian.md) plugin ecosys
 [![MIT License](https://img.shields.io/github/license/ganesshkumar/obsidian-plugins-stats-ui)](LICENSE)
 
 ## Usage 
+
 You can use [this tool](https://obsidian-plugin-stats.vercel.app/) to  
-- see the plugins that has hit community plugin list (in the last 10 days).
-- see the plugins for which a latest version has been released (in the last 10 days).
-- see the top 25 most downloaded plugins of all time.
-- see the tags that the developer has annotated the GitHub repository with.
-  - see the plugins that being to a particular tag.
-- favorite a plugin and see it highlighted when a new version is available.
+- see all the plugins that are available for the community. These are the ones that you can install and use in your Obsidian vaults.
+- see the plugins that have made it to the community plugin list (in the last 10 days). These are the new kids on the block that you might want to check out.
+- see the plugins for which a latest version has been released (in the last 10 days). These are the oldies but goodies that have been improved or fixed by their awesome developers.
+- see the top 25 most downloaded plugins of all time. These are the legends that have conquered the hearts and minds of Obsidian users.
+- see the tags that the developer has annotated the GitHub repository with. These are the keywords that describe what the plugin does or who it is for.
+  - see the plugins that belong to a particular tag. These are the ones that share a common theme or purpose with other plugins.
+- favorite a plugin and see it highlighted when a new version is available. This is how you show some love and support to your favorite plugins and never miss an update.
 
 ## Pages
 

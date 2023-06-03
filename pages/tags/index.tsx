@@ -20,7 +20,7 @@ const Tags = (props) => {
             ☁️ Tags {props.tags && `(${props.tags.length})`} 
           </div>
           <div className='flex flex-wrap bg-gray-50 px-5 py-5'>
-            {props.tags.map((tag) => {
+            {props.tags.sort().map((tag) => {
               return (
                 <Link key={tag} href={`/tags/${tag}`}>
                   <a className='group mx-1 my-1 flex transition hover:scale-110 cursor-pointer'>
