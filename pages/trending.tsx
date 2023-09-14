@@ -27,7 +27,7 @@ const Trending = ({plugins}) => {
             <details className='ml-2 text-sm'>
               <summary>info</summary>
               <div className='ml-3'>
-                • Trending is calculated using the z-score based on the downlaod count for the past N days.
+                • Trending is calculated using the z-score based on the download count for the past N days.
               </div>
             </details> 
           </div>
