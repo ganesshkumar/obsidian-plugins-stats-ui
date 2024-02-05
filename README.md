@@ -26,7 +26,7 @@ You can use [this tool](https://obsidian-plugin-stats.vercel.app/) to
 ## Pages
 
 1. The **`home`** page is a card view of new plugins released in the last 10 days, latest versions released in the last 10 days and the 25 most downloaded plugins of all time.
-    1. The pluins that are released or updated in the last 24 hours are annotated with the 🥳 emoji on the top left corner of the card.
+    1. The plugins that are released or updated in the last 24 hours are annotated with the 🥳 emoji on the top left corner of the card.
     2. The plugins that are favorited are annotated with 🤩 on the top left corner of the card.
 2. The **`new`** page is a list view of new plugins released in the last 10 days.
     1. The plugins that are released in the last 24 hours are annotated with the 🥳 emoji on the left.
