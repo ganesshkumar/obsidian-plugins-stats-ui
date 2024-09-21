@@ -64,8 +64,8 @@ const Home = (props) => {
                 );
               })
             }
-            <Link href='/new' passHref>
-              <div className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer'>View all {props.newPlugins?.length || 0} new plugins ⟶</div>
+            <Link href='/new' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer'>
+              View all {props.newPlugins?.length || 0} new plugins ⟶
             </Link>
           </div>
         </div>
@@ -99,8 +99,8 @@ const Home = (props) => {
                 </a>
               )
             })}
-            <Link href='/updates' passHref>
-              <div className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer'>View all {props.newReleases?.length || 0} updated plugins ⟶</div>
+            <Link href='/updates' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer'>
+              View all {props.newReleases?.length || 0} updated plugins ⟶
             </Link>
           </div>
         </div>
@@ -132,8 +132,8 @@ const Home = (props) => {
                 </a>
               )
             })}
-            <Link href='/updates' passHref>
-              <div className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer'>View top 25 downloaded plugins ⟶</div>
+            <Link href='/updates' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer'>
+              View top 25 downloaded plugins ⟶
             </Link>
           </div>
         </div>

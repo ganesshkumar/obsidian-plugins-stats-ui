@@ -22,11 +22,9 @@ const Tags = (props) => {
           <div className='flex flex-wrap bg-white px-5 py-5'>
             {props.tags.sort().map((tag) => {
               return (
-                <Link key={tag} href={`/tags/${tag}`}>
-                  <a className='group mx-1 my-1 flex transition hover:scale-110 cursor-pointer'>
-                    <div className='border border-dotted border-r-0 rounded-l-md border-violet-700 bg-violet-100 group-hover:bg-violet-900 px-1 pb-1 mr-1/2 group-hover:text-gray-100'>{tag}</div>
-                    <div className='border border-dotted rounded-r-2xl border-violet-700 px-1 group-hover:bg-violet-100 px-1 pb-1 mr-1/2 transition'>{props.pluginCountByTags[tag]}</div>
-                  </a>
+                <Link key={tag} href={`/tags/${tag}`} className='group mx-1 my-1 flex transition hover:scale-110 cursor-pointer'>
+                  <div className='border border-dotted border-r-0 rounded-l-md border-violet-700 bg-violet-100 group-hover:bg-violet-900 px-1 pb-1 mr-1/2 group-hover:text-gray-100'>{tag}</div>
+                  <div className='border border-dotted rounded-r-2xl border-violet-700 px-1 group-hover:bg-violet-100 px-1 pb-1 mr-1/2 transition'>{props.pluginCountByTags[tag]}</div>
                 </Link>
               );
             })}

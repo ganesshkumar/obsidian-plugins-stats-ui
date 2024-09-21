@@ -61,10 +61,11 @@ export const withApplicationInsights = (config: IConfiguration & IConfig & ICust
         if (IS_BROWSER && config.isEnabled && !appInsights) {
           const browserHistory = createBrowserHistory({ window });
 
-          if (!config.extensions) config.extensions = [];
           if (!config.extensionConfig) config.extensionConfig = {};
-          
-          config.extensions = [...config.extensions, this.reactPlugin, this.clickPluginInstance];
+
+          config.extensions.push(this.reactPlugin);
+          config.extensions.push(this.clickPluginInstance);
+
           config.extensionConfig[this.reactPlugin.identifier] = { history: browserHistory };
           config.extensionConfig[this.clickPluginInstance.identifier] = { 
             autoCapture: true, 

@@ -6,22 +6,23 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "postbuild": "next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
-    "@microsoft/applicationinsights-clickanalytics-js": "^2.7.4",
-    "@microsoft/applicationinsights-react-js": "^3.2.4",
-    "@microsoft/applicationinsights-web": "^2.7.4",
-    "@prisma/client": "3.9.2",
+    "@microsoft/applicationinsights-clickanalytics-js": "3.3.2",
+    "@microsoft/applicationinsights-react-js": "17.3.2",
+    "@microsoft/applicationinsights-web": "3.3.2",
+    "@prisma/client": "5.19.1",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "10.4.2",
-    "daisyui": "^2.1.0",
     "history": "^5.3.0",
     "moment": "2.29.2",
-    "next": "12.1.0",
+    "next": "14.2.13",
+    "next-sitemap": "^4.2.3",
     "postcss": "8.4.6",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-fast-marquee": "^1.6.5",
     "react-feather": "^2.0.9",
     "react-icons": "^5.3.0",
@@ -29,12 +30,12 @@
     "tailwindcss": "3.0.19"
   },
   "devDependencies": {
-    "@types/node": "17.0.16",
-    "@types/react": "17.0.39",
-    "cssnano": "5.0.17",
-    "eslint": "8.8.0",
-    "eslint-config-next": "12.0.10",
-    "prisma": "3.9.2",
-    "typescript": "4.5.5"
+    "@types/node": "22.5.5",
+    "@types/react": "18.3.8",
+    "cssnano": "7.0.6",
+    "eslint": "9.11.0",
+    "eslint-config-next": "14.2.13",
+    "prisma": "5.19.1",
+    "typescript": "5.6.2"
   }
 }

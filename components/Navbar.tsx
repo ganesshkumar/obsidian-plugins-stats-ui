@@ -25,30 +25,30 @@ const NavBar = ({ current }: INavbarProps) => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/">
-              <a className="text-3xl font-bold">Obsidian Plugin Stats</a>
+            <Link className="text-3xl font-bold" href="/">
+              Obsidian Plugin Stats
             </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-4 text-xl">
-            <Link href="/new">
-              <a className={getClasses('new')}>New</a>
+            <Link href="/new" className={getClasses('new')}>
+              New
             </Link>
-            <Link href="/updates">
-              <a className={getClasses('updates')}>Updates</a>
+            <Link href="/updates" className={getClasses('updates')}>
+              Updates
             </Link>
-            <Link href="/most-downloaded">
-              <a className={getClasses('most-downloaded')}>Most Downloaded</a>
+            <Link href="/most-downloaded" className={getClasses('most-downloaded')}>
+              Downloaded
             </Link>
-            <Link href="/trending">
-              <a className={getClasses('trending')}>Trending</a>
+            <Link href="/trending" className={getClasses('trending')}>
+              Trending
             </Link>
-            <Link href="/tags">
-              <a className={getClasses('tags')}>Tags</a>
+            <Link href="/tags" className={getClasses('tags')}>
+              Tags
             </Link>
-            <Link href="/plugins">
-              <a className={getClasses('all')}>All</a>
+            <Link href="/plugins" className={getClasses('all')}>
+              All
             </Link>
           </div>
 
@@ -81,23 +81,23 @@ const NavBar = ({ current }: INavbarProps) => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden flex flex-col pl-4 pb-4 gap-y-2 text-xl text-gray-800 shadow-md py-4">
-          <Link href="/new">
-            <a className={getClasses('new')}>New</a>
+          <Link href="/new" className={getClasses('new')}>
+            New
           </Link>
-          <Link href="/updates">
-            <a className={getClasses('updates')}>Updates</a>
+          <Link href="/updates" className={getClasses('updates')}>
+            Updates
           </Link>
-          <Link href="/most-downloaded">
-            <a className={getClasses('most-downloaded')}>Most Downloaded</a>
+          <Link href="/most-downloaded" className={getClasses('most-downloaded')}>
+            Downloaded
           </Link>
-          <Link href="/trending">
-            <a className={getClasses('trending')}>Trending</a>
+          <Link href="/trending" className={getClasses('trending')}>
+            Trending
           </Link>
-          <Link href="/tags">
-            <a className={getClasses('tags')}>Tags</a>
+          <Link href="/tags" className={getClasses('tags')}>
+            Tags
           </Link>
-          <Link href="/plugins">
-            <a className={getClasses('all')}>All</a>
+          <Link href="/plugins" className={getClasses('all')}>
+            All
           </Link>
         </div>
       )}

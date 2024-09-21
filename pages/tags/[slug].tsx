@@ -20,8 +20,8 @@ const Tag = (props) => {
     <div>
       <Header />
       <Navbar current={`tag:${props.tag}`}>
-        <Link href={`/tags/${props.tag}`}>
-          <a className={itemClasses('tag', 'tag')}>{`tag:${props.tag}`}</a>
+        <Link href={`/tags/${props.tag}`} className={itemClasses('tag', 'tag')}>
+          {`tag:${props.tag}`}
         </Link>
       </Navbar>
       <div className='bg-white pt-5'>

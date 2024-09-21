@@ -33,8 +33,8 @@ const Tag = (props) => {
     <div>
       <Header />
       <Navbar current={`tag:${props.plugin.pluginId}`}>
-        <Link href={`/tags/${props.plugin.pluginId}`}>
-          <a className={itemClasses('plugin', 'plugin')}>{`plugin: ${props.plugin.pluginId}`}</a>
+        <Link href={`/tags/${props.plugin.pluginId}`} className={itemClasses('plugin', 'plugin')}>
+          {`plugin: ${props.plugin.pluginId}`}
         </Link>
       </Navbar>
       <div className='bg-white pt-5'>
@@ -50,7 +50,7 @@ const Tag = (props) => {
                     return (
                       <div key={tag} className='px-2 mr-1 mb-1 text-sm bg-violet-200 rounded-xl' title={`tag: ${tag}`}>
                         <Link href={`/tags/${tag}`}>
-                          <a>{tag}</a>
+                          {tag}
                         </Link>
                       </div>
                     )

@@ -5,11 +5,10 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
 }
 
 model Plugin {
-  id                String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id                String         @id @default(auto()) @map("_id") @db.ObjectId
   pluginId          String         @unique
   name              String?
   author            String?
@@ -28,14 +27,14 @@ model Plugin {
 }
 
 model ReleaseDownloads {
-  id              String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
   pluginId        String         @unique
   timestamp       Int
   deltaDownload   Int
 }
 
 model PluginTags {
-  id               String         @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
   tag              String
   pluginId         String
 }

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://obsidian-plugin-stats.ganesshkumar.com/
+
+# Sitemaps
+Sitemap: https://obsidian-plugin-stats.ganesshkumar.com/sitemap.xml
