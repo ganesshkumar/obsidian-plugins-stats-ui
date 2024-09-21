@@ -9,7 +9,9 @@ class ObsidianPluginStatsApp extends App {
   }
 }
 
-export default withApplicationInsights({ 
-  instrumentationKey: 'f34222fa-b4e2-4961-be30-1bfd720292bb',
-  isEnabled: true //process.env.NODE_ENV === 'production'
-})(ObsidianPluginStatsApp);
+// export default withApplicationInsights({ 
+//   instrumentationKey: 'f34222fa-b4e2-4961-be30-1bfd720292bb',
+//   isEnabled: true //process.env.NODE_ENV === 'production'
+// })(ObsidianPluginStatsApp);
+
+export default ObsidianPluginStatsApp;
