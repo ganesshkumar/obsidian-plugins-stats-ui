@@ -1,87 +1,108 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link'
 
-export const itemClasses = (current: string, target: string) => target === current ? 'text-violet-500': ''
-const containerClasses = (current: string) => current === 'home' ? 'bg-violet-50' : 'bg-violet-50'
-
-const Content = (props) => {
-  const {current, children} = props;
-  return (
-    <>
-      <li className={itemClasses(current, 'new')}>
-        <Link href="/new">
-          <a>new</a>
-        </Link>
-      </li>
-      <li className={itemClasses(current, 'updates')}>
-        <Link href="/updates">
-          <a>updates</a>
-        </Link>
-      </li>
-      <li className={itemClasses(current, 'most-downloaded')}>
-        <Link href="/most-downloaded">
-          <a>most-downloaded</a>
-        </Link>
-      </li>
-      <li className={itemClasses(current, 'trending')}>
-        <Link href="/trending">
-          <a>trending</a>
-        </Link>
-      </li>
-      <li className={itemClasses(current, 'tags')}>
-        <Link href="/tags">
-          <a>tags</a>
-        </Link>
-      </li>
-      <li className={itemClasses(current, 'plugins')}>
-        <Link href="/plugins">
-          <a>all</a>
-        </Link>
-      </li>
-      <li>
-        {children}
-      </li>
-    </>
-  )
+interface INavbarProps {
+  current?: string;
+  children?: React.ReactNode;
 }
 
-const NavBar = (props) => {
-  const {current, children} = props;
-  
+export const itemClasses = (current: string, target: string) => target === current ? 'text-violet-500': ''
+
+const NavBar = ({ current }: INavbarProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const getClasses = (page: string) => {
+    return current === page ? 'font-bold underline underline-offset-4 hover:text-violet-300' : 'hover:text-violet-300 no-underline';
+  }
+
   return (
-    <div className={`lg:py-2 ${containerClasses(current)}`}>
-      <div className='container w-full lg:w-1/2 mx-auto flex flex-col items-center align-center'>
-        <div className='font-bold text-3xl mt-2 hover:text-violet-700'>
-          <Link href="/">
-            <a>Obsidian Plugin Stats</a>
-          </Link>
-        </div>
-        <div className="navbar bg-violet-50 rounded-box">
-          <div className="navbar-start">
-            <div className="dropdown md:hidden">
-              <label tabIndex={0} className="btn btn-ghost btn-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-              </label>
-              <ul className="p-2 menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-                <Content current={current}>
-                  {children}
-                </Content>
-              </ul>
-            </div>
+    <nav className=" text-gray-50">
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-violet-900'>
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link href="/">
+              <a className="text-3xl font-bold">Obsidian Plugin Stats</a>
+            </Link>
           </div>
-          <div className='navbar-center'>
-            <ul className="hidden md:flex p-2 menu menu-horizontal bg-violet-50 rounded-box">
-              <Content current={current}>
-                {children}
-              </Content>
-            </ul>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex space-x-4 text-xl">
+            <Link href="/new">
+              <a className={getClasses('new')}>New</a>
+            </Link>
+            <Link href="/updates">
+              <a className={getClasses('updates')}>Updates</a>
+            </Link>
+            <Link href="/most-downloaded">
+              <a className={getClasses('most-downloaded')}>Most Downloaded</a>
+            </Link>
+            <Link href="/trending">
+              <a className={getClasses('trending')}>Trending</a>
+            </Link>
+            <Link href="/tags">
+              <a className={getClasses('tags')}>Tags</a>
+            </Link>
+            <Link href="/plugins">
+              <a className={getClasses('all')}>All</a>
+            </Link>
           </div>
-          <div className="navbar-end">
+
+          {/* Hamburger Icon for Mobile */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={toggleMenu}
+              aria-label="Navigation Menu"
+              className="hover:text-gray-600 focus:outline-none"
+            >
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}
+                />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  )
-}
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden flex flex-col pl-4 pb-4 gap-y-2 text-xl text-gray-800 shadow-md py-4">
+          <Link href="/new">
+            <a className={getClasses('new')}>New</a>
+          </Link>
+          <Link href="/updates">
+            <a className={getClasses('updates')}>Updates</a>
+          </Link>
+          <Link href="/most-downloaded">
+            <a className={getClasses('most-downloaded')}>Most Downloaded</a>
+          </Link>
+          <Link href="/trending">
+            <a className={getClasses('trending')}>Trending</a>
+          </Link>
+          <Link href="/tags">
+            <a className={getClasses('tags')}>Tags</a>
+          </Link>
+          <Link href="/plugins">
+            <a className={getClasses('all')}>All</a>
+          </Link>
+        </div>
+      )}
+    </nav>
+  );
+};
 
 export default NavBar;

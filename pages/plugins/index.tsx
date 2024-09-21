@@ -41,12 +41,12 @@ const Plugins = (props) => {
       <Header />
       <Navbar current='plugins' />
       {/* New Plugins */}
-      <div className='bg-violet-50 pt-5'>
-        <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
-          <div className='text-2xl pt-5 uppercase pl-5 bg-gray-50 cursor-context-menu'>
-            🌳 ALL Plugins {props.plugins && `(${props.plugins.length})`} 
+      <div className='bg-white pt-5'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='text-2xl py-5 uppercase pl-5 bg-white cursor-context-menu'>
+            ALL Plugins {props.plugins && `(${props.plugins.length})`} 
           </div>
-          <div className='px-5 pt-2 bg-gray-50 relative'>
+          <div className='px-5 py-2 bg-white relative'>
             <div className="absolute pointer-events-auto">
               <svg className="absolute text-slate-400 top-2 left-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
@@ -54,7 +54,7 @@ const Plugins = (props) => {
             </div>
             <input type='text' className='text-xl pl-8 w-full border border-violet-200 outline-violet-200 rounded h-9' placeholder='Search for plugins' onChange={e => setFilter(e.target.value)}/>
           </div>
-          <div className='pl-5 bg-gray-50 flex'>
+          <div className='pl-5 mb-4 bg-white flex'>
             <label className="cursor-pointer label">
               <div className='mr-5 label-text'>Filters: </div>
             </label>

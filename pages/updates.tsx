@@ -23,10 +23,10 @@ const Updates = (props) => {
       <Header />
       <Navbar current='updates'/>
       {/* New Plugins */}
-      <div className='bg-violet-50 pt-5'>
-        <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
-          <div className='text-2xl py-5 uppercase pl-5 bg-gray-50 cursor-context-menu'>
-            🪴 New Versions {props.newReleases && `(${props.newReleases.length})`} 
+      <div className='bg-white pt-5'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='text-3xl py-5 pl-5 text-bold text-violet-900'>
+            New Versions {props.newReleases && `(${props.newReleases.length})`} 
           </div>
           <div className='flex-col'>
             <NewPluginsList 

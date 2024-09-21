@@ -14,12 +14,12 @@ const Tags = (props) => {
       <Header />
       <Navbar current='tags' />
       {/* New Plugins */}
-      <div className='bg-violet-50 pt-5'>
-        <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
-          <div className='text-2xl py-5 uppercase pl-5 bg-gray-50 cursor-context-menu'>
+      <div className='bg-white pt-5'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='text-3xl py-5 pl-5 text-bold text-violet-900'>
             ☁️ Tags {props.tags && `(${props.tags.length})`} 
           </div>
-          <div className='flex flex-wrap bg-gray-50 px-5 py-5'>
+          <div className='flex flex-wrap bg-white px-5 py-5'>
             {props.tags.sort().map((tag) => {
               return (
                 <Link key={tag} href={`/tags/${tag}`}>

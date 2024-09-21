@@ -29,7 +29,7 @@ const faqs = [
 
 const Faq = () => {
   return (
-    <div className='flex flex-col border border-violet-200 bg-violet-100 divide-y divide-violet-200 first:rounded-t-xl last:rounded-b-xl overflow-hidden'>
+    <div className='flex flex-col border border-violet-200 bg-violet-50 divide-y divide-violet-200 first:rounded-t-xl last:rounded-b-xl overflow-hidden'>
       {faqs && faqs.map((faq, idx) => (
         <details key={idx} className='relative group open:bg-white'>
           <summary className="before:absolute before:right-0 before:content-['+'] group-open:before:content-['-'] before:mr-2 cursor-pointer list-none py-2 px-2 text-xl group-open:font-medium">

@@ -20,10 +20,10 @@ const Trending = ({plugins}) => {
       <Header />
       <Navbar current='trending'/>
       {/* New Plugins */}
-      <div className='bg-violet-50 py-5'>
-        <div className='pb-5 container w-full lg:w-1/2 mx-auto  bg-gray-50'>
-          <div className='text-2xl py-5 pl-5 bg-gray-50 cursor-context-menu'>
-            <div className='uppercase'>🔥 Trending {plugins && `(${plugins.length})`}  </div>
+      <div className='bg-white py-5'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='text-3xl py-5 pl-5 text-bold text-violet-900'>
+            <div>🔥 Trending {plugins && `(${plugins.length})`}  </div>
             <details className='ml-2 text-sm'>
               <summary>info</summary>
               <div className='ml-3'>

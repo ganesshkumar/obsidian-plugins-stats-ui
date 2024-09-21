@@ -15,8 +15,6 @@ const Tag = (props) => {
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
-  
-  const pad = props.plugins.length.toString().length;
 
   return (
     <div>
@@ -26,9 +24,9 @@ const Tag = (props) => {
           <a className={itemClasses('tag', 'tag')}>{`tag:${props.tag}`}</a>
         </Link>
       </Navbar>
-      <div className='bg-violet-50 pt-5'>
-        <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
-          <div className='text-2xl py-5 uppercase pl-5 bg-gray-50'>
+      <div className='bg-white pt-5'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='text-3xl py-5 pl-5 text-bold text-violet-900'>
             #{props.tag}
           </div>
           <div className='flex-col'>

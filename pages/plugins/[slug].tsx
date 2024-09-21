@@ -37,10 +37,10 @@ const Tag = (props) => {
           <a className={itemClasses('plugin', 'plugin')}>{`plugin: ${props.plugin.pluginId}`}</a>
         </Link>
       </Navbar>
-      <div className='bg-violet-50 pt-5'>
-        <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
+      <div className='bg-white pt-5'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex-col bg-gray-50 pb-3 relative'>
-            <div className={`text-2xl font-semibold py-5 px-5 uppercase cursor-context-menu ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} mb-2`}>
+            <div className={`text-2xl font-semibold py-5 px-5 uppercase cursor-context-menu text-violet-900 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} mb-2`}>
               <span>🔗</span> {props.plugin.name}
             </div>
             <div className='px-5'>
@@ -57,10 +57,15 @@ const Tag = (props) => {
                   })}
                 </div>
               }
-              <div className='flex space-x-1'>
+              {/* <div className='flex space-x-1'>
                 {isFavorite && <div className='cursor-default text-xl' title='Favorite plugin'>🤩</div>}
                 {isNotADayOld && <div className='cursor-default text-xl' title='Less than a day old'>🥳</div>}
                 {props.plugin.zScoreTrending > 10 && <div className='cursor-default text-xl' title='Trending plugin'>🔥</div>}
+              </div> */}
+              <div className='flex gap-x-2 my-2'>
+                {isFavorite && <div title='Favorite plugin' className='text-xs bg-red-600 flex justify-center items-center gap-x-1 py-1 px-2 text-white font-bold rounded-xl'>Favorite</div>}
+                {isNotADayOld && <div title='Less than a day old' className='text-xs bg-violet-800 flex justify-center items-center gap-x-1 py-1 px-2 text-white font-bold rounded-xl'>New Plugin</div>}
+                {props.plugin.zScoreTrending > 10 && <div title='Trending plugin' className='text-xs bg-yellow-300 flex justify-center items-center gap-x-1 py-1 px-2 text-gray-700 font-bold rounded-xl'>Trending</div>}
               </div>
               <div className='text-lg mb-5'>{props.plugin.description}</div>
               <Favorites plugin={props.plugin} isFavorite={isFavorite} setFavorites={setFavorites} />

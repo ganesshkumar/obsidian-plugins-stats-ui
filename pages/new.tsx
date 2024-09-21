@@ -12,8 +12,6 @@ import NewPluginsList from '../components/NewPluginsList';
 import { daysAgo } from '../utils/datetime';
 
 
-
-
 const New = (props) => {
   const [favorites, setFavorites] = useState([]);
   
@@ -26,11 +24,11 @@ const New = (props) => {
       <Header />
       <Navbar current='new'/>
       {/* New Plugins */}
-      <div className='bg-violet-50 pt-5'>
-        <div className='pb-5 container w-full lg:w-1/2 mx-auto'>
-          <div className='text-2xl py-5 uppercase pl-5 bg-gray-50 cursor-context-menu'>
-            🌱 New Plugins {props.newPlugins && `(${props.newPlugins.length})`} 
-          </div>
+      <div className='bg-white pt-5'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <h1 className='text-3xl py-5 pl-5 text-bold text-violet-900'>
+            New Plugins {props.newPlugins && `(${props.newPlugins.length})`} 
+          </h1>
           <div className='flex-col'>
             <NewPluginsList plugins={props.newPlugins} favorites={favorites} setFavorites={setFavorites} />
           </div>

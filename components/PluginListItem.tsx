@@ -25,7 +25,7 @@ const PluginListItem = ({ plugin, isFavorite, isNotADayOld, idx, pad, setFavorit
   mdConverter.setFlavor('github');
 
   return (
-    <div className={`group flex py-2 ${isFavorite ? 'bg-violet-100' : 'bg-gray-50'} hover:bg-white text-gray-700`}>
+    <div className={`group border-b flex py-2 ${idx %2 === 0 ? 'bg-violet-50' : 'bg-slate-50'} text-gray-700`}>
       <div className='flex text-3xl font text-gray-400 px-5'>
         <div>{String(idx).padStart(pad, '0')}.</div>
       </div>
@@ -44,13 +44,18 @@ const PluginListItem = ({ plugin, isFavorite, isNotADayOld, idx, pad, setFavorit
       }
       <div>
         <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
-        <div className='flex text-xl'>  
+        {/* <div className='flex text-xl'>  
           {isFavorite && <div className='cursor-default' title='Favorite plugin'>🤩</div>}
           {isNotADayOld && <div className='cursor-default' title='Less than a day old'>🥳</div>}
           {plugin.zScoreTrending > 10 && <div className='cursor-default' title='Trending plugin'>🔥</div>}
-        </div>
+        </div> */}
         {showDescription && <div className='mr-5'>{plugin.description}</div>}        
-        <div className='mt-1'>
+        <div className='flex gap-x-2 my-2'>
+          {isFavorite && <div title='Favorite plugin' className='text-xs bg-red-600 flex justify-center items-center gap-x-1 py-1 px-2 text-white font-bold rounded-xl'>Favorite</div>}
+          {isNotADayOld && <div title='Less than a day old' className='text-xs bg-violet-800 flex justify-center items-center gap-x-1 py-1 px-2 text-white font-bold rounded-xl'>New Plugin</div>}
+          {plugin.zScoreTrending > 10 && <div title='Trending plugin' className='text-xs bg-yellow-300 flex justify-center items-center gap-x-1 py-1 px-2 text-gray-700 font-bold rounded-xl'>Trending</div>}
+        </div>
+        <div className='mt-1 flex gap-x-2'>
           <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
           <div className='text-xs'>{moment(displayDate(plugin)).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
         </div>
