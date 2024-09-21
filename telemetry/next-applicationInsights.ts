@@ -63,8 +63,8 @@ export const withApplicationInsights = (config: IConfiguration & IConfig & ICust
 
           if (!config.extensionConfig) config.extensionConfig = {};
 
-          config.extensions.push(this.reactPlugin);
-          config.extensions.push(this.clickPluginInstance);
+          // config.extensions.push(this.reactPlugin);
+          // config.extensions.push(this.clickPluginInstance);
 
           config.extensionConfig[this.reactPlugin.identifier] = { history: browserHistory };
           config.extensionConfig[this.clickPluginInstance.identifier] = { 
