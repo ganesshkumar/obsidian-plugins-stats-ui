@@ -32,7 +32,7 @@ const NavBar = ({ current }: INavbarProps) => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-4 text-lg">
-            <Link href="/home" className={getClasses('home')}>
+            <Link href="/" className={getClasses('home')}>
               Home
             </Link>
             <Link href="/new" className={getClasses('new')}>
@@ -87,11 +87,17 @@ const NavBar = ({ current }: INavbarProps) => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden flex flex-col pl-4 pb-4 gap-y-2 text-xl text-gray-800 shadow-md py-4">
+          <Link href="/" className={getClasses('home')}>
+            Home
+          </Link>
           <Link href="/new" className={getClasses('new')}>
             New
           </Link>
           <Link href="/updates" className={getClasses('updates')}>
             Updates
+          </Link>
+          <Link href="/favorites" className={getClasses('favorites')}>
+            Favorites
           </Link>
           <Link href="/most-downloaded" className={getClasses('most-downloaded')}>
             Downloaded
