@@ -31,12 +31,18 @@ const NavBar = ({ current }: INavbarProps) => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-4 text-xl">
+          <div className="hidden md:flex space-x-4 text-lg">
+            <Link href="/home" className={getClasses('home')}>
+              Home
+            </Link>
             <Link href="/new" className={getClasses('new')}>
               New
             </Link>
             <Link href="/updates" className={getClasses('updates')}>
               Updates
+            </Link>
+            <Link href="/favorites" className={getClasses('favorites')}>
+              Favorites
             </Link>
             <Link href="/most-downloaded" className={getClasses('most-downloaded')}>
               Downloaded

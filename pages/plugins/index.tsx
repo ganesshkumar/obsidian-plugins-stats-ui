@@ -39,7 +39,7 @@ const Plugins = (props) => {
   return (
     <div>
       <Header />
-      <Navbar current='plugins' />
+      <Navbar current='all' />
       {/* New Plugins */}
       <div className='bg-white pt-5'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>

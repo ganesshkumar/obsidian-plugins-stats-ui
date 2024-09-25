@@ -3,7 +3,7 @@ import Link from 'next/link';
 const PluginEcosystemStats = ({ totalPluginsCount, newPluginsCount, newReleasesCount, totalTagsCount }) => {
   return (
     <section className="bg-transparent text-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-around py-16 gap-y-8">
+      <div className="max-w-7xl mx-auto mt-10 px-4 sm:px-6 lg:px-8 flex flex-wrap justify-around py-16 gap-y-8">
         <div className="mx-3 my-1 border rounded-md cursor-pointer basis-96 md:basis-80 lg:basis-64 text-center bg-white shadow hover:scale-110 transition transform flex flex-col items-center justify-center">
           <Link href='/new' passHref className='w-full'>
             <div className='py-2 font-bold text-violet-900 text-7xl'>{newPluginsCount}</div>
@@ -33,9 +33,6 @@ const PluginEcosystemStats = ({ totalPluginsCount, newPluginsCount, newReleasesC
         </div>
       </div>
     </section>
-    // <div className='flex flex-wrap justify-center py-16 bg-violet-900'>
-
-    // </div>
   )
 }
 

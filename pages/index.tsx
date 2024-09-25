@@ -43,12 +43,12 @@ const Home = (props) => {
 
       {/* Updates for your favorite plugins */}
       { updatesForFavPlugins && (updatesForFavPlugins.length > 0) && 
-        <div className='bg-transparent mt-32'>
+        <div className='bg-transparent mt-20'>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
             <div className='pt-5 pl-5 ml-5'>
               <InfoBar title='New Versions for your favorite plugins' />
             </div>
-            <div className='text-center'>There are {updatesForFavPlugins?.length || 0} new updates from the last 10 days</div>
+            <div className='px-10'>There are {updatesForFavPlugins?.length || 0} new updates from the last 10 days</div>
             <div className='flex flex-wrap gap-4 pt-5 mx-10'>
               {updatesForFavPlugins.slice(0, 6).map(newRelease => {
                 const isFavorite = favorites.includes(newRelease.pluginId);
