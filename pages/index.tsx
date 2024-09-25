@@ -26,6 +26,8 @@ const Home = (props) => {
     setupFavorites(setFavorites);
   }, []);
 
+  const updatesForFavPlugins = props.newReleases.filter(newRelease => favorites.includes(newRelease.pluginId));
+
   return (
     <div className='relative'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 top-0 bg-yellow-200 pt-2'>
@@ -39,13 +41,48 @@ const Home = (props) => {
         newReleasesCount={props.newReleases.length}
         totalTagsCount={props.totalTagsCount} />
 
+      {/* Updates for your favorite plugins */}
+      { updatesForFavPlugins && (updatesForFavPlugins.length > 0) && 
+        <div className='bg-transparent'>
+          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+            <div className='py-5 pl-5 flex justify-center'>
+              <InfoBar title='New Versions for your favorite plugins' />
+            </div>
+            <div className='px-10'>There are {updatesForFavPlugins?.length || 0} new updates from the last 10 days</div>
+            <div className='flex gap-4 pt-5 mx-10'>
+              {updatesForFavPlugins.slice(0, 6).map(newRelease => {
+                const isFavorite = favorites.includes(newRelease.pluginId);
+                const isTrending = newRelease.zScoreTrending > 10;
+                return (
+                  <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer"
+                    className='flex-col group rounded-md shrink-0 w-48 px-5 py-2 text-gray-700 transition hover:-translate-y-1 hover:scale-105 border shadow-lg'
+                  >
+                    <div className='flex flex-none justify-between'>
+                      <div className='py-2'>
+                        <div className='text-lg font-semibold tracking-wide text-violet-900'>{newRelease.name}</div>
+                        <div className='text-sm text-gray-700'>
+                          v<span className='text-violet-900 text-base font-semibold'>{newRelease.latestRelease}</span>
+                        </div>
+                        <div className='text-sm'>released {moment(newRelease.latestReleaseAt).fromNow()}</div>
+                        <div className='text-sm'>by {newRelease.author}</div>
+                      </div>
+                    </div>
+                    <CardAnnotations isFavorite={false} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)} isTrending={isTrending} category='Update' />
+                  </a>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      }
+
       {/* New Plugins */}
       <div className='bg-transparent py-20'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='py-5 pl-5 flex justify-center'>
             <InfoBar title='New Plugins' />
           </div>
-          <div className='pl-8'>There are {props.newPlugins?.length || 0} new plugins from the last 10 days</div>
+          <div className='px-10'>There are {props.newPlugins?.length || 0} new plugins from the last 10 days</div>
           <div className='grid grid-cols-1 md:grid-cols-2 pt-5'>
             {
               props.newPlugins.slice(0, 6).map(plugin => {
@@ -77,7 +114,7 @@ const Home = (props) => {
           <div className='py-5 pl-5 flex justify-center'>
             <InfoBar title='New Versions' />
           </div>
-          <div className='pl-8'>There are {props.newReleases?.length || 0} new plugins from the last 10 days</div>
+          <div className='px-10'>There are {props.newReleases?.length || 0} new plugins from the last 10 days</div>
           <div className='grid grid-cols-1 md:grid-cols-2 pt-5'>
             {props.newReleases.slice(0, 6).map(newRelease => {
               const isFavorite = favorites.includes(newRelease.pluginId);
@@ -139,6 +176,7 @@ const Home = (props) => {
         </div>
       </div>
 
+      {/* FAQ */}
       <div className='py-20'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='py-5 pl-5 flex justify-center'>
