@@ -43,13 +43,13 @@ const Home = (props) => {
 
       {/* Updates for your favorite plugins */}
       { updatesForFavPlugins && (updatesForFavPlugins.length > 0) && 
-        <div className='bg-transparent'>
+        <div className='bg-transparent mt-32'>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='py-5 pl-5 flex justify-center'>
+            <div className='pt-5 pl-5 ml-5'>
               <InfoBar title='New Versions for your favorite plugins' />
             </div>
-            <div className='px-10'>There are {updatesForFavPlugins?.length || 0} new updates from the last 10 days</div>
-            <div className='flex gap-4 pt-5 mx-10'>
+            <div className='text-center'>There are {updatesForFavPlugins?.length || 0} new updates from the last 10 days</div>
+            <div className='flex flex-wrap gap-4 pt-5 mx-10'>
               {updatesForFavPlugins.slice(0, 6).map(newRelease => {
                 const isFavorite = favorites.includes(newRelease.pluginId);
                 const isTrending = newRelease.zScoreTrending > 10;
@@ -76,10 +76,40 @@ const Home = (props) => {
         </div>
       }
 
+      {
+        updatesForFavPlugins && (updatesForFavPlugins.length == 0) &&
+        <div className='bg-transparent mt-32'>
+          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+            <div className='py-5 pl-5 ml-5'>
+              <InfoBar title='New Versions for your favorite plugins' />
+            </div>
+            { favorites.length == 0 ?
+              <div className='flex pt-5 mx-10 flex-wrap'>
+                <div className='w-full lg:w-1/2 flex justify-center'>
+                  <img src='/images/empty.svg' alt='No favorites' className='w-72 h-72' />
+                </div>
+                <div className='m-4 lg:m-0 flex-grow flex flex-col justify-center items-center text-gray-800'>
+                  <div className='text-2xl'>You don't have any favorite plugins yet.</div>
+                  <div className='text-lg mt-2'>Mark plugins as favorite to get updates here.</div>
+                </div>
+              </div> : 
+              <div className='flex pt-5 mx-10 flex-wrap'>
+                <div className='w-full lg:w-1/2 flex justify-center'>
+                  <img src='/images/empty.svg' alt='No favorites' className='w-72 h-72' />
+                </div>
+                <div className='m-4 lg:m-0 flex-grow flex flex-col justify-center items-center text-gray-800'>
+                  <div className='text-2xl'>All your favorite plugins are up-to-date.</div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
       {/* New Plugins */}
-      <div className='bg-transparent py-20'>
+      <div className='bg-transparent mt-32'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='py-5 pl-5 flex justify-center'>
+          <div className='pt-5 pl-5 ml-5'>
             <InfoBar title='New Plugins' />
           </div>
           <div className='px-10'>There are {props.newPlugins?.length || 0} new plugins from the last 10 days</div>
@@ -109,9 +139,9 @@ const Home = (props) => {
       </div>
 
       {/* New Version */}
-      <div className='bg-transparent'>
+      <div className='bg-transparent mt-32'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='py-5 pl-5 flex justify-center'>
+          <div className='pt-5 pl-5 ml-5'>
             <InfoBar title='New Versions' />
           </div>
           <div className='px-10'>There are {props.newReleases?.length || 0} new plugins from the last 10 days</div>
@@ -144,12 +174,12 @@ const Home = (props) => {
       </div>
 
       {/* Most Downloaded */}
-      <div className='bg-transparent py-20'>
+      <div className='bg-transparent mt-32'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='py-5 pl-5 flex justify-center'>
+          <div className='pt-5 pl-5 ml-5'>
             <InfoBar title='Most Downloaded' />
           </div>
-          <div className='pl-8'>Here are the 25 most downloaded plugins ever since the beginning of Obsidian Editor.</div>
+          <div className='pl-10'>Here are the 25 most downloaded plugins ever since the beginning of Obsidian Editor.</div>
           <div className='grid grid-cols-1 pt-5'>
             {props.mostDownloaded.slice(0, 5).map((plugin, index) => {
               return (
@@ -179,7 +209,7 @@ const Home = (props) => {
       {/* FAQ */}
       <div className='py-20'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='py-5 pl-5 flex justify-center'>
+          <div className='py-5 pl-5 ml-5'>
             <InfoBar title='FAQ for plugin developers' />
           </div>
           <div className='ml-5'>

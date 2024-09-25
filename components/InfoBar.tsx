@@ -1,5 +1,12 @@
-const InfoBar = ({ title }) => {
-  return <Highlight text={title} />;
+const InfoBar = ({ title, highlight=true }) => {
+  if (highlight) {
+    return <Highlight text={title} />;
+  }
+  return (
+    <span className="inline-block text-4xl font-bold cursor-context-menu">
+      <h1>{title}</h1>
+    </span>
+  )
 }
 
 const Highlight = ({ text }) => {
