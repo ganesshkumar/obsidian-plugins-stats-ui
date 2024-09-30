@@ -16,12 +16,12 @@ const NavBar = ({ current }: INavbarProps) => {
   };
 
   const getClasses = (page: string) => {
-    return current === page ? 'font-bold underline underline-offset-4 hover:text-violet-300' : 'hover:text-violet-300 no-underline';
+    return current === page ? 'font-bold underline underline-offset-4 cursor-context-menu' : 'hover:text-violet-600 no-underline';
   }
 
   return (
-    <nav className=" text-gray-50">
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-violet-900'>
+    <nav className=" text-gray-700">
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -86,7 +86,7 @@ const NavBar = ({ current }: INavbarProps) => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden flex flex-col pl-4 pb-4 gap-y-2 text-xl text-gray-800 shadow-md py-4">
+        <div className="md:hidden flex flex-col pl-4 pb-4 gap-y-2 text-xl text-gray-700 shadow-md py-4">
           <Link href="/" className={getClasses('home')}>
             Home
           </Link>

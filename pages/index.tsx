@@ -30,20 +30,17 @@ const Home = (props) => {
 
   return (
     <div className='relative'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 top-0 bg-yellow-200 pt-2'>
-        <Marquee>There was an issue with the DB. We lost few of the plugin data. The count of new plugins and updates plugins will be incorrect(higher than the actual number) until 30 September.&nbsp; </Marquee>
-      </div>
-      <Header />
+      <Header current='home' />
       <Navbar current='home' />
       <PluginEcosystemStats
         totalPluginsCount={props.totalPluginsCount}
-        newPluginsCount={props.newPlugins.length}
-        newReleasesCount={props.newReleases.length}
+        newPluginsCount={props.newPluginsCount}
+        newReleasesCount={props.newReleasesCount}
         totalTagsCount={props.totalTagsCount} />
 
       {/* Updates for your favorite plugins */}
       { updatesForFavPlugins && (updatesForFavPlugins.length > 0) && 
-        <div className='bg-transparent mt-20'>
+        <div className='bg-transparent mt-16'>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
             <div className='pt-5 pl-5 ml-5'>
               <InfoBar title='New Versions for your favorite plugins' />
@@ -78,7 +75,7 @@ const Home = (props) => {
 
       {
         updatesForFavPlugins && (updatesForFavPlugins.length == 0) &&
-        <div className='bg-transparent mt-32'>
+        <div className='bg-transparent mt-16'>
           <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
             <div className='py-5 pl-5 ml-5'>
               <InfoBar title='New Versions for your favorite plugins' />
@@ -257,7 +254,10 @@ export const getStaticProps = async () => {
     distinct: ['tag']
   });
 
-  return { props: { newPlugins, totalPluginsCount, newReleases, mostDownloaded, totalTagsCount: tags.length } }
+  const newPluginsCount = newPlugins.length;
+  const newReleasesCount = newReleases.length;
+
+  return { props: { newPlugins, newPluginsCount, totalPluginsCount, newReleases, newReleasesCount, mostDownloaded, totalTagsCount: tags.length } }
 }
 
 export default Home;

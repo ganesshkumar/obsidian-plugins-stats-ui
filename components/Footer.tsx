@@ -18,7 +18,7 @@ const Footer = () => {
           <div className='mt-12'>
             <span>If you like this portal, you could consider supporting the development.</span>
             <a href="https://www.buymeacoffee.com/ganesshkumar" target="_blank" rel="noreferrer" className='flex justify-center text-center'>
-              <img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy Me A Coffee" className='w-40 mr-2 mt-2' />
+              <img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy Me A Coffee" className='w-40 mr-2 mt-2' width="160" height="45" />
             </a>
           </div> 
         </footer>

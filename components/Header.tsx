@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React from 'react';
 
-const ldJsonSchema =   {
+const homeLdJsonSchema =   {
   "@context": "https://schema.org",
   "@graph":[
     {
@@ -63,7 +63,17 @@ const ldJsonSchema =   {
   ]
 }
 
-const Header = () => {
+const Header = (props) => {
+  const { current } = props;
+  let ldJsonSchema: any = undefined;
+  switch (current) {
+    case 'home':
+      ldJsonSchema = homeLdJsonSchema;
+      break;
+    default:
+      ldJsonSchema = undefined;
+  }
+
   return (
     <Head>
       <title>Obsidian Plugin Stats - Explore New, Updated, Trending and Most Downloaded Obsidian Plugins</title>
@@ -82,7 +92,7 @@ const Header = () => {
       <meta name="twitter:url" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
       <meta name="twitter:card" content="Discover all Obsidian plugins with the latest updates, trending plugins, and the most downloaded ones. Stay informed about the best plugins to enhance your Obsidian experience." />
       {/* JSON-LD Schema */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJsonSchema) }} />
+      {current && current === 'home' && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJsonSchema) }} />}
       {/* Font: Google Nato Sans and Lato */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com"  />
