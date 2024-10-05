@@ -176,7 +176,7 @@ const Home = (props) => {
             <div className='text-center px-8 text-2xl font-bold text-white'>Subscribe to our newsletter<br/>to get weekly updates about new plugins and plugin updates</div>
           </div>
           <div className='flex justify-center mb-12'>
-            <iframe src="https://obsidianpluginstats.substack.com/embed" width="480" height="320" style={{background: "#FF0000"}} frameborder="0" scrolling="no"></iframe>
+            <iframe src="https://obsidianpluginstats.substack.com/embed" width="480" height="320" style={{background: "#FF0000"}} frameBorder="0" scrolling="no"></iframe>
           </div>
         </div>
       </div>
