@@ -8,7 +8,7 @@ class ObsidianPluginStatsApp extends App {
     return (
       <>
         <Component {...pageProps} />
-        <GoogleTagManager gtmId="GTM-WVDJN395" />
+        <GoogleTagManager gtmId="GTM-M52TKF4M" />
       </>
     )
   }
