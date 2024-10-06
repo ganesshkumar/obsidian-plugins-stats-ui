@@ -7,8 +7,12 @@ class ObsidianPluginStatsApp extends App {
     const { Component, pageProps } = this.props
     return (
       <>
+        {/* Google Tag Manager */}
+        <noscript>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M52TKF4M" height="0" width="0" style={{display:"none",visibility:"hidden"}}></iframe>
+        </noscript>
+        {/* End Google Tag Manager */}
         <Component {...pageProps} />
-        <GoogleTagManager gtmId="GTM-M52TKF4M" />
       </>
     )
   }
