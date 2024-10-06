@@ -1,11 +1,16 @@
 import App from 'next/app';
-import { withApplicationInsights } from '../telemetry/next-applicationInsights';
 import '../styles/globals.css'
+import { GoogleTagManager } from '@next/third-parties/google'
 
 class ObsidianPluginStatsApp extends App {
   render() {
     const { Component, pageProps } = this.props
-    return <Component {...pageProps} />
+    return (
+      <>
+        <Component {...pageProps} />
+        <GoogleTagManager gtmId="GTM-WVDJN395" />
+      </>
+    )
   }
 }
 
