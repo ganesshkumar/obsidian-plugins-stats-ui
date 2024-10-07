@@ -47,11 +47,11 @@ const Home = (props) => {
             </div>
             <div className='px-10'>There are {updatesForFavPlugins?.length || 0} new updates from the last 10 days</div>
             <div className='flex flex-wrap gap-4 pt-5 mx-10'>
-              {updatesForFavPlugins.slice(0, 6).map(newRelease => {
+              {updatesForFavPlugins.slice(0, 6).map((newRelease, idx) => {
                 const isFavorite = favorites.includes(newRelease.pluginId);
                 const isTrending = newRelease.zScoreTrending > 10;
                 return (
-                  <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer"
+                  <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer" id={`fav-plugin-update-${idx}`}
                     className='flex-col group rounded-md shrink-0 w-48 px-5 py-2 text-gray-700 transition hover:-translate-y-1 hover:scale-105 border shadow-lg'
                   >
                     <div className='flex flex-none justify-between'>
@@ -112,12 +112,13 @@ const Home = (props) => {
           <div className='px-10'>There are {props.newPlugins?.length || 0} new plugins from the last 10 days</div>
           <div className='grid grid-cols-1 md:grid-cols-2 pt-5'>
             {
-              props.newPlugins.slice(0, 6).map(plugin => {
+              props.newPlugins.slice(0, 6).map((plugin, idx) => {
                 const isFavorite = favorites.includes(plugin.pluginId);
                 return (
                   <a key={plugin.id}
                     href={`/plugins/${plugin.pluginId}`}
                     target="_blank" rel="noreferrer"
+                    id={`new-plugin-${idx}`}
                     className='flex-col group rounded-md shrink-0 my-3 mx-10 px-5 py-2 text-gray-700 transition hover:-translate-y-1 hover:scale-105 border shadow-lg'
                   >
                     <div className='text-xl font-semibold tracking-wide text-violet-900'>{plugin.name}</div>
@@ -128,7 +129,7 @@ const Home = (props) => {
                 );
               })
             }
-            <Link href='/new' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer'>
+            <Link href='/new' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='new-plugin-all'>
               View all {props.newPlugins?.length || 0} new plugins ⟶
             </Link>
           </div>
@@ -143,11 +144,11 @@ const Home = (props) => {
           </div>
           <div className='px-10'>There are {props.newReleases?.length || 0} new plugins from the last 10 days</div>
           <div className='grid grid-cols-1 md:grid-cols-2 pt-5'>
-            {props.newReleases.slice(0, 6).map(newRelease => {
+            {props.newReleases.slice(0, 6).map((newRelease, idx) => {
               const isFavorite = favorites.includes(newRelease.pluginId);
               const isTrending = newRelease.zScoreTrending > 10;
               return (
-                <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer"
+                <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer" id={`plugin-update-${idx}`}
                   className='flex-col group rounded-md shrink-0 my-3 mx-10 px-5 py-2 text-gray-700 transition hover:-translate-y-1 hover:scale-105 border shadow-lg'
                 >
                   <div className='flex flex-none justify-between'>
@@ -163,7 +164,7 @@ const Home = (props) => {
                 </a>
               )
             })}
-            <Link href='/updates' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer'>
+            <Link href='/updates' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='plugin-update-all'>
               View all {props.newReleases?.length || 0} updated plugins ⟶
             </Link>
           </div>
@@ -191,7 +192,7 @@ const Home = (props) => {
           <div className='grid grid-cols-1 pt-5'>
             {props.mostDownloaded.slice(0, 5).map((plugin, index) => {
               return (
-                <a key={plugin.id} href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer"
+                <a key={plugin.id} href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" id={`most-downloaded-${index}`}
                   className='relative flex flex-col md:flex-row group shrink-0 mx-10 my-3 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'
                 >
                   <div className='flex flex-col w-full md:w-24 justify-center items-center text-5xl bg-violet-50'>{index + 1}</div>
@@ -203,11 +204,10 @@ const Home = (props) => {
                     <div className='text-3xl text-gray-100'>{plugin.totalDownloads.toLocaleString("en-US")}</div>
                     <div className='text-lg text-gray-100'>downloads</div>
                   </div>
-
                 </a>
               )
             })}
-            <Link href='/updates' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer'>
+            <Link href='/updates' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='most-downloaded-all'>
               View top 25 downloaded plugins ⟶
             </Link>
           </div>

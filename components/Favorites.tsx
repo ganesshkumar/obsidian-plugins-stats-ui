@@ -27,20 +27,20 @@ const Favorites = ({isFavorite, plugin, setFavorites}) => {
       {isFavorite ? 
         <div className='flex items-center text-violet-500 space-x-1'>
           <Minus size={8}/>
-          <div className='text-xs cursor-pointer hover:underline' onClick={_ => unsetFavorite(plugin.pluginId, setFavorites)}>
+          <div className='text-xs cursor-pointer hover:underline' onClick={_ => unsetFavorite(plugin.pluginId, setFavorites)} id={`favorite-${plugin.pluginId}`}>
             unfavorite
           </div>
         </div> :
         <div className='flex items-center text-violet-500 space-x-1'>
           <Plus size={8} />
-          <div className='text-xs cursor-pointer hover:underline' onClick={_ => setFavorite(plugin.pluginId, setFavorites)}>
+          <div className='text-xs cursor-pointer hover:underline' onClick={_ => setFavorite(plugin.pluginId, setFavorites)} id={`unfavorite-${plugin.pluginId}`}>
             favorite
           </div>
         </div>
       }
       <div className='flex items-center text-violet-500 space-x-1'>
         <Share2 size={8} />
-        <div className='text-xs cursor-pointer hover:underline' onClick={shareClicked}>
+        <div className='text-xs cursor-pointer hover:underline' onClick={shareClicked} id={`share-${plugin.pluginId}`}>
           {shareText}
         </div>
       </div>

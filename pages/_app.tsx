@@ -1,6 +1,5 @@
 import App from 'next/app';
 import '../styles/globals.css'
-import { GoogleTagManager } from '@next/third-parties/google'
 
 class ObsidianPluginStatsApp extends App {
   render() {
