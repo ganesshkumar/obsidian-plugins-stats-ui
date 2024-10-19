@@ -2,33 +2,33 @@ import Head from 'next/head'
 import React from 'react';
 
 const Header = (props) => {
-  const { pluginId, name, desscription, author, latestVersion, latestUpdatedAt } = props;
+  const { pluginId, name, description, author, latestVersion, latestUpdatedAt } = props;
   const ldJsonSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": `Obsidian Plugin: ${name} - ${desscription}`,
-    "description": `Obsidian Plugin: ${name} - ${desscription} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`,
+    "name": `Obsidian Plugin: ${name} - ${description}`,
+    "description": `Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`,
     "url": `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}`,
     "image": "https://obsidian-plugin-stats.ganesshkumar.com/favicon.png"
   };
 
   return (
     <Head>
-      <title>{`Obsidian Plugin: ${name} - ${desscription}`}</title>
+      <title>{`Obsidian Plugin: ${name} - ${description}`}</title>
       <link rel="icon" href="/images/favicon.png" />
-      <meta name="description" content={`Obsidian Plugin: ${name} - ${desscription} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
+      <meta name="description" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
       <link rel="canonical" href="https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}" />
       <link rel="sitemap" href="/sitemap.xml" />
       {/* Open Graph Tags */}
-      <meta property="og:title" content={`Obsidian Plugin: ${name} - ${desscription}`} />
-      <meta property="og:description" content={`Obsidian Plugin: ${name} - ${desscription} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
+      <meta property="og:title" content={`Obsidian Plugin: ${name} - ${description}`} />
+      <meta property="og:description" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}" />
       <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
       {/* Twitter Tags */}
-      <meta name="twitter:card" content={`Obsidian Plugin: ${name} - ${desscription} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
-      <meta name="twitter:title" content={`Obsidian Plugin: ${name} - ${desscription}`} />
-      <meta name="twitter:description" content={`Obsidian Plugin: ${name} - ${desscription} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
+      <meta name="twitter:card" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
+      <meta name="twitter:title" content={`Obsidian Plugin: ${name} - ${description}`} />
+      <meta name="twitter:description" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
       <meta name="twitter:image" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
 
       {/* JSON-LD Schema */}
