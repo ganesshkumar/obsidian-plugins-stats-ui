@@ -1,6 +1,6 @@
 
-import React, { use, useEffect, useState } from 'react';
-import Header from '../../components/Header';
+import React, { useEffect, useState } from 'react';
+import Header from '../../components/HeaderPlugin';
 import Navbar, { itemClasses } from '../../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
@@ -40,7 +40,14 @@ const Tag = (props) => {
 
   return (
     <div>
-      <Header />
+      <Header
+        pluginId={props.plugin.pluginId}
+        name={props.plugin.name}
+        description={props.plugin.description}
+        author={props.plugin.author}
+        latestVersion={props.plugin.latestRelease}
+        latestUpdatedAt={moment(props.plugin.latestReleaseAt).fromNow()}
+      />
       <Navbar current={`tag:${props.plugin.pluginId}`}>
         <Link href={`/tags/${props.plugin.pluginId}`} className={itemClasses('plugin', 'plugin')}>
           {`plugin: ${props.plugin.pluginId}`}

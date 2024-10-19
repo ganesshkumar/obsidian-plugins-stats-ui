@@ -1,13 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
+import Header from '../components/HeaderNew';
 import Navbar from '../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
-import moment from 'moment';
 import Footer from '../components/Footer';
-import { setFavorite, setupFavorites, unsetFavorite } from '../utils/favorites';
-import Favorites from '../components/Favorites';
+import { setupFavorites } from '../utils/favorites';
 import NewPluginsList from '../components/NewPluginsList';
 import { daysAgo } from '../utils/datetime';
 

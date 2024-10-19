@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/Header';
+import Header from '../../components/HeaderAll';
 import Navbar from '../../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
