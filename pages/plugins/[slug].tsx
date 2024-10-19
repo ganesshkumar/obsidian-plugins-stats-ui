@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Navbar, { itemClasses } from '../../components/Navbar';
 
@@ -14,16 +14,25 @@ import NewPluginCard from '../../components/NewPluginCard';
 import { tagDenyList } from '../../utils/plugins';
 import { isNotXDaysOld } from '../../utils/datetime';
 
-import { Download, DownloadCloud, Star, GitHub } from 'react-feather';
+import { Download, DownloadCloud, Star, GitHub, Edit2 } from 'react-feather';
 
 const Tag = (props) => {
   const mdConverter = new showdown.Converter();
   mdConverter.setFlavor('github');
 
   const [favorites, setFavorites] = useState([]);
+  const [readmeContent, setReadmeContent] = useState('');
 
   useEffect(() => {
     setupFavorites(setFavorites);
+    fetch(`https://api.github.com/repos/${props.plugin.repo}`)
+      .then(response => response.json())
+      .then(data => {
+        const defaultBranch = data.default_branch;
+        return fetch(`https://raw.githubusercontent.com/${props.plugin.repo}/${defaultBranch}/README.md`);
+      })
+      .then(response => response.text())
+      .then(data => setReadmeContent(data));
   }, []);
 
   const isFavorite = favorites.includes(props.plugin.pluginId);
@@ -72,10 +81,11 @@ const Tag = (props) => {
               <div className='text-sm mb-5'>
                 by <span>{props.plugin.author}</span>
               </div>
-              <div className='mt-1 absolute top-5 right-6' title='Github Repo'>
+              <div className='mt-1 absolute top-5 right-6 flex gap-x-2' title='Github Repo'>
                 <a href={`https://github.com/${props.plugin.repo}`} target='_blank' rel="noreferrer">
                   <GitHub className='text-violet-500' />
                 </a>
+                <AuthorHelper readmeContent={readmeContent}/>
               </div>
               <div className='flex flex-wrap space-x-4'>
                 <div className='flex justify-center items-center space-x-1 cursor-default' title='Stargazers'>
@@ -109,6 +119,17 @@ const Tag = (props) => {
                   <a className='hover:underline text-violet-700' href={`https://github.com/${props.plugin.repo}/releases`} target='_blank' rel='noreferrer'>See all version on GitHub</a>
                 </div>
               </div>
+              {readmeContent &&
+                <div className='flex-col border border-violet-900 my-2 p-2'>
+                  <div className='flex items-center gap-x-1 text-lg'>
+                    <div>README file from</div>
+                    <div>
+                      <a className='hover:underline text-violet-700' href={`https://github.com/${props.plugin.repo}#readme`} target='_blank' rel='noreferrer'>Github</a>
+                    </div>
+                  </div>
+                  <div className='prose mt-4' dangerouslySetInnerHTML={{__html: mdConverter.makeHtml(readmeContent)}} />
+                </div>
+              }
             </div>
           </div>
           { props.similarPlugins?.length > 0 && 
@@ -129,6 +150,42 @@ const Tag = (props) => {
         </div>
       </div>
       <Footer />
+    </div>
+  )
+}
+
+const AuthorHelper = ({ readmeContent }: {readmeContent: string}) => {
+  const [author, setAuthor] = useState('');
+  const [prompt, setPrompt] = useState('');
+  
+  useEffect(() => {
+    if (window && window.localStorage) {
+      const author = localStorage.getItem('author');
+      const prompt = localStorage.getItem('prompt');
+      setAuthor(author);
+      setPrompt(prompt);
+    }
+  }, []);
+
+  if (!author && !prompt) {
+    return undefined;
+  }
+
+  const handleClicked = () => {
+    const content = prompt.replace('{{READMECONTENT}}', readmeContent);
+    navigator.clipboard.writeText(content)
+      .then(() => {
+        alert('Copied to clipboard');
+      })
+      .catch(() => {
+        alert('Failed to copy to clipboard');
+      });
+  }
+
+
+  return (
+    <div onClick={handleClicked} className='cursor-pointer'>
+      <Edit2 className='text-violet-500'/>
     </div>
   )
 }
