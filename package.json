@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 4000",
     "build": "next build",
     "start": "next start",
     "postinstall": "prisma generate",
@@ -17,6 +17,7 @@
     "@prisma/client": "5.19.1",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "10.4.2",
+    "flowbite-react": "^0.10.2",
     "history": "^5.3.0",
     "moment": "2.29.2",
     "next": "^14.2.14",
@@ -28,6 +29,7 @@
     "react-fast-marquee": "^1.6.5",
     "react-feather": "^2.0.9",
     "react-icons": "^5.3.0",
+    "react-window": "^1.8.10",
     "showdown": "^2.0.0",
     "tailwindcss": "3.0.19"
   },

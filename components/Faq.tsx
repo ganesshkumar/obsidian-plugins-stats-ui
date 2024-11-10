@@ -1,3 +1,4 @@
+import { Accordion } from 'flowbite-react';
 import React from 'react';
 
 const faqs = [
@@ -29,17 +30,23 @@ const faqs = [
 
 const Faq = () => {
   return (
-    <div className='flex flex-col border border-violet-200 bg-violet-50 divide-y divide-violet-200 first:rounded-t-xl last:rounded-b-xl overflow-hidden'>
+    <div className='w-auto'>
+      <Accordion>
       {faqs && faqs.map((faq, idx) => (
-        <details key={idx} className='relative group open:bg-white'>
-          <summary className="before:absolute before:right-0 before:content-['+'] group-open:before:content-['-'] before:mr-2 cursor-pointer list-none py-2 px-2 text-xl group-open:font-medium" id={`faq-${idx}`}>
-            {faq.question}
-          </summary>
-          <div className='ml-3 pl-2 pb-2'>
-            {faq.answer}
-          </div>
-        </details>
+        <Accordion.Panel key={idx}>
+          <Accordion.Title>
+            <div className="text-gray-700 group-open:font-medium">
+              {faq.question}
+            </div>
+          </Accordion.Title>
+          <Accordion.Content>
+            <div className='text-gray-500 dark:text-gray-400'>
+              {faq.answer}
+            </div>
+          </Accordion.Content>
+        </Accordion.Panel>
       ))}
+      </Accordion>
     </div>
   )
 }

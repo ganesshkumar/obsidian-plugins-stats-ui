@@ -14,7 +14,19 @@ import { daysAgo, isNotXDaysOld } from '../utils/datetime';
 import CardAnnotations from '../components/CardAnnotations';
 import Link from 'next/link';
 import Faq from '../components/Faq';
-import Marquee from 'react-fast-marquee';
+import { Button, Card, CustomFlowbiteTheme, HR } from "flowbite-react";
+
+const customCardTheme: CustomFlowbiteTheme["card"] = {
+  root: {
+    children: "flex h-full flex-col justify-center gap-0 p-4"
+  },
+};
+
+const mostDownloadedCardTheme: CustomFlowbiteTheme["card"] = {
+  root: {
+    children: "flex h-full justify-center gap-0"
+  },
+};
 
 const Home = (props) => {
   const mdConverter = new showdown.Converter();
@@ -32,19 +44,20 @@ const Home = (props) => {
     <div className='relative'>
       <Header current='home' />
       <Navbar current='home' />
-      <PluginEcosystemStats
-        totalPluginsCount={props.totalPluginsCount}
-        newPluginsCount={props.newPluginsCount}
-        newReleasesCount={props.newReleasesCount}
-        totalTagsCount={props.totalTagsCount} />
+
+      <div className='bg-gray-50'>
+        <PluginEcosystemStats
+          totalPluginsCount={props.totalPluginsCount}
+          newPluginsCount={props.newPluginsCount}
+          newReleasesCount={props.newReleasesCount}
+          totalTagsCount={props.totalTagsCount} />
+      </div>
 
       {/* Updates for your favorite plugins */}
       { updatesForFavPlugins && (updatesForFavPlugins.length > 0) && 
         <div className='bg-transparent mt-16'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='pt-5 pl-5 ml-5'>
-              <InfoBar title='New Versions for your favorite plugins' />
-            </div>
+          <div className='max-w-6xl mx-auto'>
+            <InfoBar title='New Versions for your favorite plugins' />
             <div className='px-10'>There are {updatesForFavPlugins?.length || 0} new updates from the last 10 days</div>
             <div className='flex flex-wrap gap-4 pt-5 mx-10'>
               {updatesForFavPlugins.slice(0, 6).map((newRelease, idx) => {
@@ -76,18 +89,16 @@ const Home = (props) => {
       {
         updatesForFavPlugins && (updatesForFavPlugins.length == 0) &&
         <div className='bg-transparent mt-16'>
-          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='py-5 pl-5 ml-5'>
-              <InfoBar title='New Versions for your favorite plugins' />
-            </div>
+          <div className='max-w-6xl mx-auto px-2'>
+            <InfoBar title='New Versions for your favorite plugins' />
             { favorites.length == 0 ?
               <div className='flex pt-5 mx-10 flex-wrap'>
                 <div className='w-full lg:w-1/2 flex justify-center'>
                   <img src='/images/empty.svg' alt='No favorites' className='w-72 h-72' />
                 </div>
                 <div className='m-4 lg:m-0 flex-grow flex flex-col justify-center items-center text-gray-800'>
-                  <div className='text-2xl'>You don't have any favorite plugins yet.</div>
-                  <div className='text-lg mt-2'>Mark plugins as favorite to get updates here.</div>
+                  <div className='text-2xl text-center'>You don't have any favorite plugins yet.</div>
+                  <div className='text-lg mt-2 text-center'>Mark plugins as favorite to get updates here.</div>
                 </div>
               </div> : 
               <div className='flex pt-5 mx-10 flex-wrap'>
@@ -103,68 +114,75 @@ const Home = (props) => {
         </div>
       }
 
+      <div className='max-w-6xl mx-auto'>
+        <HR.Trimmed />
+      </div>
+
       {/* New Plugins */}
-      <div className='bg-transparent mt-32'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='pt-5 pl-5 ml-5'>
-            <InfoBar title='New Plugins' />
-          </div>
-          <div className='px-10'>There are {props.newPlugins?.length || 0} new plugins from the last 10 days</div>
-          <div className='grid grid-cols-1 md:grid-cols-2 pt-5'>
+      <div className='bg-transparent mt-8'>
+        <div className='max-w-6xl mx-auto px-2'>
+          <InfoBar title='New Plugins' />
+          <div>There are {props.newPlugins?.length || 0} new plugins from the last 10 days</div>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 pt-5'>
             {
               props.newPlugins.slice(0, 6).map((plugin, idx) => {
                 const isFavorite = favorites.includes(plugin.pluginId);
                 return (
-                  <a key={plugin.id}
+                  <Card
+                    theme={customCardTheme}
+                    key={plugin.id}
                     href={`/plugins/${plugin.pluginId}`}
-                    target="_blank" rel="noreferrer"
                     id={`new-plugin-${idx}`}
-                    className='flex-col group rounded-md shrink-0 my-3 mx-10 px-5 py-2 text-gray-700 transition hover:-translate-y-1 hover:scale-105 border shadow-lg'
                   >
                     <div className='text-xl font-semibold tracking-wide text-violet-900'>{plugin.name}</div>
                     <div className='text-sm'>{moment(plugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
                     <div className='mt-5 text-sm'>{plugin.description}</div>
-                    <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(plugin.createdAt, 1)} isTrending={plugin.zScoreTrending > 10} category='Plugin' />
-                  </a>
+                    {/* <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(plugin.createdAt, 1)} isTrending={plugin.zScoreTrending > 10} category='Plugin' /> */}
+                  </Card>
                 );
               })
             }
-            <Link href='/new' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='new-plugin-all'>
+            <Link href='/new' passHref className='text-xl font-medium mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='new-plugin-all'>
               View all {props.newPlugins?.length || 0} new plugins ⟶
             </Link>
           </div>
         </div>
       </div>
 
+      <div className='max-w-6xl mx-auto my-4'>
+        <HR.Trimmed />
+      </div>
+
       {/* New Version */}
-      <div className='bg-transparent mt-32'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='pt-5 pl-5 ml-5'>
-            <InfoBar title='New Versions' />
-          </div>
-          <div className='px-10'>There are {props.newReleases?.length || 0} new plugins from the last 10 days</div>
-          <div className='grid grid-cols-1 md:grid-cols-2 pt-5'>
-            {props.newReleases.slice(0, 6).map((newRelease, idx) => {
-              const isFavorite = favorites.includes(newRelease.pluginId);
-              const isTrending = newRelease.zScoreTrending > 10;
+      <div className='bg-transparent'>
+        <div className='max-w-6xl mx-auto px-2'>
+          <InfoBar title='New Versions' />
+          <div>There are {props.newReleases?.length || 0} new plugins from the last 10 days</div>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 pt-5'>
+            {props.newReleases.slice(0, 12).map((newRelease, idx) => {
+              // const isFavorite = favorites.includes(newRelease.pluginId);
+              // const isTrending = newRelease.zScoreTrending > 10;
               return (
-                <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer" id={`plugin-update-${idx}`}
-                  className='flex-col group rounded-md shrink-0 my-3 mx-10 px-5 py-2 text-gray-700 transition hover:-translate-y-1 hover:scale-105 border shadow-lg'
+                <Card
+                  theme={customCardTheme}
+                  key={newRelease.id}
+                  href={`/plugins/${newRelease.pluginId}`}
+                  id={`plugin-update-${idx}`}
                 >
                   <div className='flex flex-none justify-between'>
-                    <div className='py-2'>
-                      <div className='text-lg font-semibold tracking-wide text-violet-900'>{newRelease.name}</div>
-                      <div className='text-sm text-gray-700'>{moment(newRelease.latestReleaseAt).fromNow()} by <span className=''>{newRelease.author}</span></div>
-                    </div>
-                    <div className='text-3xl font-medium flex flex-col justify-center'>
-                      <div className='text-violet-900'>{newRelease.latestRelease}</div>
-                    </div>
-                  </div>
-                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)} isTrending={isTrending} category='Update' />
-                </a>
+                   <div className='py-2'>
+                     <div className='text-lg font-semibold tracking-wide text-violet-900'>{newRelease.name}</div>
+                     <div className='text-sm text-gray-700'>{moment(newRelease.latestReleaseAt).fromNow()} by <span className=''>{newRelease.author}</span></div>
+                   </div>
+                   <div className='text-2xl font-medium flex flex-col justify-center'>
+                     <div className='text-violet-900'>{newRelease.latestRelease}</div>
+                   </div>
+                   {/* <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)} isTrending={isTrending} category='Update' /> */}
+                 </div>
+                </Card>
               )
             })}
-            <Link href='/updates' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='plugin-update-all'>
+            <Link href='/updates' passHref className='text-xl font-medium mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='plugin-update-all'>
               View all {props.newReleases?.length || 0} updated plugins ⟶
             </Link>
           </div>
@@ -172,7 +190,7 @@ const Home = (props) => {
       </div>
 
       <div className='bg-transparent mt-32'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col rounded rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-800'>
+        <div className='max-w-6xl mx-auto px-2 flex flex-col rounded rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-800'>
           <div className='flex flex-col justify-center items-center my-12 '>
             <div className='text-center px-8 text-2xl font-bold text-white'>Subscribe to our newsletter<br/>to get weekly updates about new plugins and plugin updates</div>
           </div>
@@ -184,17 +202,13 @@ const Home = (props) => {
 
       {/* Most Downloaded */}
       <div className='bg-transparent mt-32'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='pt-5 pl-5 ml-5'>
-            <InfoBar title='Most Downloaded' />
-          </div>
-          <div className='pl-10'>Here are the 25 most downloaded plugins ever since the beginning of Obsidian Editor.</div>
-          <div className='grid grid-cols-1 pt-5'>
+        <div className='max-w-6xl mx-auto px-2'>
+          <InfoBar title='Most Downloaded' />
+          <div>Here are the 25 most downloaded plugins ever since the beginning of Obsidian Editor.</div>
+          <div className='grid grid-cols-1 pt-5 gap-y-2'>
             {props.mostDownloaded.slice(0, 5).map((plugin, index) => {
               return (
-                <a key={plugin.id} href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" id={`most-downloaded-${index}`}
-                  className='relative flex flex-col md:flex-row group shrink-0 mx-10 my-3 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 bg-gray-50 hover:bg-white text-gray-700 transition hover:-translate-y-1 hover:scale-110'
-                >
+                <Card key={plugin.id} href={`/plugins/${plugin.pluginId}`} id={`most-downloaded-${index}`} theme={mostDownloadedCardTheme}>
                   <div className='flex flex-col w-full md:w-24 justify-center items-center text-5xl bg-violet-50'>{index + 1}</div>
                   <div className='flex flex-col md:flex-row items-center gap-x-2 my-4 rounded-tr-md grow pl-8'>
                     <div className='text-xl uppercase tracking-wide text-violet-900 text-left'>{plugin.name}</div>
@@ -204,27 +218,30 @@ const Home = (props) => {
                     <div className='text-3xl text-gray-100'>{plugin.totalDownloads.toLocaleString("en-US")}</div>
                     <div className='text-lg text-gray-100'>downloads</div>
                   </div>
-                </a>
+                </Card>
               )
             })}
-            <Link href='/updates' passHref className='text-xl font-medium mx-10 mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='most-downloaded-all'>
+            <Link href='/updates' passHref className='text-xl font-medium mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='most-downloaded-all'>
               View top 25 downloaded plugins ⟶
             </Link>
           </div>
         </div>
       </div>
 
+      <div className='max-w-6xl mx-auto my-4'>
+        <HR.Trimmed />
+      </div>
+
       {/* FAQ */}
-      <div className='py-20'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='py-5 pl-5 ml-5'>
-            <InfoBar title='FAQ for plugin developers' />
-          </div>
-          <div className='ml-5'>
-            <Faq />
-          </div>
+      <div className='bg-transparent'>
+      <div className='max-w-6xl mx-auto px-2'>
+        <InfoBar title='FAQ for plugin developers' />
+        <div className='mt-4'>
+          <Faq />
         </div>
       </div>
+      </div>
+
       <Footer />
     </div >
   )

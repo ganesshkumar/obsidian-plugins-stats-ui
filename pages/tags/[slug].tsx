@@ -1,13 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
-import Navbar, { itemClasses } from '../../components/Navbar';
+import AppNavbar from '../../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
 import { setupFavorites } from '../../utils/favorites';
 import Footer from '../../components/Footer';
 import NewPluginsList from '../../components/NewPluginsList';
+import { Navbar } from 'flowbite-react';
 
 const Tag = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -19,13 +20,13 @@ const Tag = (props) => {
   return (
     <div>
       <Header />
-      <Navbar current={`tag:${props.tag}`}>
-        <Link href={`/tags/${props.tag}`} className={itemClasses('tag', 'tag')}>
+      <AppNavbar current={`tag:${props.tag}`}>
+        <Navbar.Link href={`/tags/${props.tag}`} active={true} className='text-lg'>
           {`tag:${props.tag}`}
-        </Link>
-      </Navbar>
+        </Navbar.Link>
+      </AppNavbar>
       <div className='bg-white pt-5'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='max-w-6xl mx-auto px-2'>
           <div className='text-3xl py-5 pl-5 text-bold text-violet-900'>
             #{props.tag}
           </div>
