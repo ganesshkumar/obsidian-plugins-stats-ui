@@ -24,6 +24,7 @@ model Plugin {
   latestReleaseAt   Int?
   totalDownloads    Int?
   zScoreTrending    Int?
+  aiDescription     String?
 }
 
 model ReleaseDownloads {
