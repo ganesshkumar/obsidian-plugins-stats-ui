@@ -6,7 +6,7 @@ import Navbar from '../../components/Navbar';
 import { PrismaClient } from "@prisma/client";
 import Footer from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
-import NewPluginsList from '../../components/NewPluginsList';
+import AllPluginsList from '../../components/AllPluinsList';
 
 const Plugins = (props) => {
   const [filter, setFilter] = useState('');
@@ -31,12 +31,12 @@ const Plugins = (props) => {
   }, [props.plugins, filter, favoritesFilter]);
   
   return (
-    <div>
+    <div className='flex flex-col h-screen'>
       <Header />
       <Navbar current='all' />
       {/* New Plugins */}
-      <div className='bg-white pt-5'>
-        <div className='max-w-6xl mx-auto px-2'>
+      <div className='bg-white pt-5 grow'>
+        <div className='max-w-6xl mx-auto px-2 flex flex-col h-full'>
           <div className='text-2xl py-5 uppercase pl-5 bg-white cursor-context-menu'>
             ALL Plugins {props.plugins && `(${props.plugins.length})`} 
           </div>
@@ -57,7 +57,7 @@ const Plugins = (props) => {
               <input type="checkbox" checked={favoritesFilter} onChange={_ => setFavoritesFilter(!favoritesFilter)} className="accent-violet-700" />
             </label>
           </div>
-          <NewPluginsList plugins={filteredPlugins} favorites={favorites} setFavorites={setFavorites} />
+          <AllPluginsList plugins={filteredPlugins} favorites={favorites} setFavorites={setFavorites} />
         </div>
       </div>
       <Footer />

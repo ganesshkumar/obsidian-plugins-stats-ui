@@ -5,7 +5,6 @@ import Link from "next/link";
 import moment from "moment";
 import Favorites from "./Favorites";
 import { memo } from "react";
-import { areEqual } from "react-window";
 
 const NewPluginsList = ({plugins, favorites, setFavorites, showDownloadStat=false, showLatestRelease=false, displayDate=(plugin => plugin.createdAt), showChangelog=false, showDescription=true}) => {
   const pad = plugins.length.toString().length;
@@ -14,7 +13,7 @@ const NewPluginsList = ({plugins, favorites, setFavorites, showDownloadStat=fals
     <div className='flex-col stripped'>
       <List unstyled className="w-full divide-y divide-gray-200 dark:divide-gray-700">
         {plugins.map((plugin, idx) => 
-          <MemoizedUnindexedPlugin key={plugin.pluginId} plugin={plugin} favorites={favorites} setFavorites={setFavorites} />
+          <Plugin idx={idx} pad={pad}  key={plugin.pluginId} plugin={plugin} favorites={favorites} setFavorites={setFavorites} />
         )}
       </List>
     </div>
@@ -34,7 +33,6 @@ const Plugin = (props) => {
 }
 
 const UnindexedPlugin = (props) => {
-  console.log('UnindexedPlugin');
   const { key, plugin, favorites, setFavorites } = props;
   return (
     <div key={key} className="flex flex-col">
@@ -56,6 +54,6 @@ const UnindexedPlugin = (props) => {
   )
 }
 
-const MemoizedUnindexedPlugin = memo(UnindexedPlugin, areEqual);
+const MemoizedUnindexedPlugin = memo(UnindexedPlugin);
 
 export default NewPluginsList;
