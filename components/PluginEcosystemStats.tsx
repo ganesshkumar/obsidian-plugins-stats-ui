@@ -4,7 +4,7 @@ const PluginEcosystemStats = ({ totalPluginsCount, newPluginsCount, newReleasesC
   return (
     <section className='max-w-6xl mx-auto text-gray-800 py-8'>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mx-2">
-        <PluginEcosystemStat title='New Plugins' count={newPluginsCount} href='/news' />
+        <PluginEcosystemStat title='New Plugins' count={newPluginsCount} href='/new' />
         <PluginEcosystemStat title='Recently Updated Plugins' count={newReleasesCount} href='/updates' />
         <PluginEcosystemStat title='All Plugins' count={totalPluginsCount} href='/plugins' />
       </div>
