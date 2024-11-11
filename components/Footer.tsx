@@ -4,7 +4,7 @@ import Constants from '../constants';
 
 const AppFooter = () => {
   return (
-    <Footer container className='mt-16 bg-gray-100'>
+    <Footer container className='mt-4 bg-gray-100'>
       <div className='max-w-6xl mx-auto '>
         <div className='text-sm text-gray-500 dark:text-gray-400 text-center'>
           Made with 💜 by <a className='underline' href='https://twitter.com/ganesshkumar'>@ganesshkumar</a> and <a className='underline' href='https://www.codebuss.com'>Codebuss</a> | Find the source code at&nbsp;

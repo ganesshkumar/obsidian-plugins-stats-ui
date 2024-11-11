@@ -6,7 +6,8 @@ import Navbar from '../../components/Navbar';
 import { PrismaClient } from "@prisma/client";
 import Footer from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
-import NewPluginsList from '../../components/NewPluginsList';
+import AllPluginsList from '../../components/AllPluinsList';
+import { Checkbox, Label, TextInput } from 'flowbite-react';
 
 const Plugins = (props) => {
   const [filter, setFilter] = useState('');
@@ -31,14 +32,17 @@ const Plugins = (props) => {
   }, [props.plugins, filter, favoritesFilter]);
   
   return (
-    <div>
+    <div className='flex flex-col h-screen'>
       <Header />
       <Navbar current='all' />
       {/* New Plugins */}
-      <div className='bg-white pt-5'>
-        <div className='max-w-6xl mx-auto px-2'>
-          <div className='text-2xl py-5 uppercase pl-5 bg-white cursor-context-menu'>
-            ALL Plugins {props.plugins && `(${props.plugins.length})`} 
+      <div className='bg-white pt-5 grow'>
+        <div className='max-w-6xl mx-auto px-2 flex flex-col h-full'>
+          <div className='text-2xl py-2 px-2 text-bold text-violet-900'>
+            All Plugins 
+          </div>
+          <div className='text-xl py-2 px-2 text-semibold text-gray-800'>
+            There are {props.plugins.length} plugins available from the community.
           </div>
           <div className='px-2 py-2 bg-white relative'>
             <div className="absolute pointer-events-auto">
@@ -46,18 +50,18 @@ const Plugins = (props) => {
                 <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
               </svg>
             </div>
-            <input type='text' className='text-xl pl-8 w-full border border-violet-200 outline-violet-200 rounded h-9' placeholder='Search for plugins' onChange={e => setFilter(e.target.value)}/>
+            <TextInput id="search" type="text" placeholder="Search for plugins" color="purple" shadow />
           </div>
           <div className='pl-5 mb-4 bg-white flex'>
             <label className="cursor-pointer label">
               <div className='mr-5 label-text'>Filters: </div>
             </label>
-            <label className="cursor-pointer label">
-              <span className="label-text mr-2">Favorites 🤩</span> 
-              <input type="checkbox" checked={favoritesFilter} onChange={_ => setFavoritesFilter(!favoritesFilter)} className="accent-violet-700" />
-            </label>
+            <div>
+              <Checkbox id="filter-favorites" className='mr-2 cursor-pointer' onClick={() => setFavoritesFilter(!favoritesFilter)} color="purple" />
+              <Label htmlFor="filter-favorites" className='cursor-pointer'>Favorites</Label>
+            </div>
           </div>
-          <NewPluginsList plugins={filteredPlugins} favorites={favorites} setFavorites={setFavorites} />
+          <AllPluginsList plugins={filteredPlugins} favorites={favorites} setFavorites={setFavorites} />
         </div>
       </div>
       <Footer />

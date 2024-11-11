@@ -2,32 +2,40 @@ import Head from 'next/head'
 import React from 'react';
 
 const Header = (props) => {
+  const { current, title, description, date, slug } = props;
   const ldJsonSchema = {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Obsidian Plugins Updates from Last 10 Days",
-    "description": "Discover the latest updates to Obsidian plugins in the past 10 days. Take your note-taking to the next level with enhanced features and functionalities.",
-    "url": "https://obsidian-plugin-stats.ganesshkumar.com/updates",
+    "@type": "BlogPosting",
+    "author": {
+        name: "Ganessh Kumar R P",
+        "@type": "Person",
+        url: "https://ganesshkumar.com",
+        datePublished: date,
+        dateModified: date
+    },
+    "name": title,
+    "description": description,
+    "url": `https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`,
     "image": "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
   };
 
   return (
     <Head>
-      <title>Obsidian Plugins Updates from Last 10 Days</title>
+      <title>{title}</title>
       <link rel="icon" href="/images/favicon.png" />
-      <meta name="description" content="Discover the latest updates to Obsidian plugins in the past 10 days. Take your note-taking to the next level with enhanced features and functionalities." />
-      <link rel="canonical" href="https://obsidian-plugin-stats.ganesshkumar.com/updates" />
+      <meta name="description" content={description} />
+      <link rel="canonical" href={`https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`} />
       <link rel="sitemap" href="/sitemap.xml" />
       {/* Open Graph Tags */}
-      <meta property="og:title" content="Obsidian Plugins Updates from Last 10 Days" />
-      <meta property="og:description" content="Discover the latest updates to Obsidian plugins in the past 10 days. Take your note-taking to the next level with enhanced features and functionalities." />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://obsidian-plugin-stats.ganesshkumar.com/updates" />
+      <meta property="og:url" content={`https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`} />
       <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
       {/* Twitter Tags */}
-      <meta name="twitter:card" content="Discover the latest updates to Obsidian plugins in the past 10 days. Take your note-taking to the next level with enhanced features and functionalities." />
-      <meta name="twitter:title" content="Obsidian Plugins Updates from Last 10 Days" />
-      <meta name="twitter:description" content="Discover the latest updates to Obsidian plugins in the past 10 days. Take your note-taking to the next level with enhanced features and functionalities." />
+      <meta name="twitter:card" content={description} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
 
       {/* JSON-LD Schema */}

@@ -9,7 +9,7 @@ const Header = (props) => {
     "name": "All Obsidian Plugins Released to Date",
     "description": "Discover all the Obsidian plugins that have ever been released. Enhance your note-taking experience with a comprehensive list of features and functionalities.",
     "url": "https://obsidian-plugin-stats.ganesshkumar.com/all",
-    "image": "https://obsidian-plugin-stats.ganesshkumar.com/favicon.png"
+    "image": "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
   };
 
   return (
@@ -24,12 +24,12 @@ const Header = (props) => {
       <meta property="og:description" content="Discover all the Obsidian plugins that have ever been released. Enhance your note-taking experience with a comprehensive list of features and functionalities." />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://obsidian-plugin-stats.ganesshkumar.com/all" />
-      <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
+      <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
       {/* Twitter Tags */}
       <meta name="twitter:card" content="Discover all the Obsidian plugins that have ever been released. Enhance your note-taking experience with a comprehensive list of features and functionalities." />
       <meta name="twitter:title" content="All Obsidian Plugins Released to Date" />
       <meta name="twitter:description" content="Discover all the Obsidian plugins that have ever been released. Enhance your note-taking experience with a comprehensive list of features and functionalities." />
-      <meta name="twitter:image" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
+      <meta name="twitter:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
 
       {/* JSON-LD Schema */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJsonSchema) }} />

@@ -56,10 +56,10 @@ const Home = (props) => {
       {/* Updates for your favorite plugins */}
       { updatesForFavPlugins && (updatesForFavPlugins.length > 0) && 
         <div className='bg-transparent mt-16'>
-          <div className='max-w-6xl mx-auto'>
+          <div className='max-w-6xl mx-auto px-2'>
             <InfoBar title='New Versions for your favorite plugins' />
-            <div className='px-10'>There are {updatesForFavPlugins?.length || 0} new updates from the last 10 days</div>
-            <div className='flex flex-wrap gap-4 pt-5 mx-10'>
+            <div>There are {updatesForFavPlugins?.length || 0} new updates from the last 10 days</div>
+            <div className='flex flex-wrap gap-4 pt-5 mx-4'>
               {updatesForFavPlugins.slice(0, 6).map((newRelease, idx) => {
                 const isFavorite = favorites.includes(newRelease.pluginId);
                 const isTrending = newRelease.zScoreTrending > 10;
