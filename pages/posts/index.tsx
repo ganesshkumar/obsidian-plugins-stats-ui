@@ -1,7 +1,10 @@
-// pages/blog/index.tsx
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { getSortedPostsData } from '../../lib/posts';
+import Header from '../../components/Header';
+import Navbar from '../../components/Navbar';
+import { Footer } from 'flowbite-react';
+import moment from 'moment';
 
 interface Post {
   id: string;
@@ -23,21 +26,45 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
+  const postsByYear = allPostsData.reduce((acc, post) => {
+    const year = post.date.split('-')[0];
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(post);
+    return acc;
+  }, {});
+
   return (
     <div>
-      <h1>Blog</h1>
-      <ul>
-        {allPostsData.map(({ id, date, title }) => (
-          <li key={id}>
-            <Link href={`/blog/${id}`}>
-              <a>{title}</a>
-            </Link>
-            <br />
-            <small>{date}</small>
-          </li>
-        ))}
-      </ul>
+    <Header />
+    <Navbar current='posts' />
+    <div className='bg-white pt-5'>
+      <div className='max-w-6xl mx-auto px-2'>
+        <h1 className='text-2xl py-5 text-bold text-violet-900'>
+          Posts
+        </h1>
+        <ul>
+          {Object.keys(postsByYear).map((year) => (
+            <li key={year}>
+              <h2 className='text-xl mb-2 font-semibold'>{year}</h2>
+              <ul className='flex flex-col divide-y'>
+                {postsByYear[year].map((post) => (
+                  <li key={post.id}>
+                    <Link href={`/posts/${post.id}`} className='flex justify-between'>
+                      <div className='text-lg'>{post.title}</div>
+                      <div className='text-medium font-mono text-gray-700'>{moment(post.date).format('MMMM DD, YYYY')}</div>
+                    </Link>           
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
+    <Footer />
+  </div>
   );
 };
 

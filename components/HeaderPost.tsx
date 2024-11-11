@@ -16,7 +16,7 @@ const Header = (props) => {
     "name": title,
     "description": description,
     "url": `https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`,
-    "image": "https://obsidian-plugin-stats.ganesshkumar.com/favicon.png"
+    "image": "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
   };
 
   return (
@@ -31,12 +31,12 @@ const Header = (props) => {
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`} />
-      <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
+      <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
       {/* Twitter Tags */}
       <meta name="twitter:card" content={description} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
+      <meta name="twitter:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
 
       {/* JSON-LD Schema */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJsonSchema) }} />

@@ -9,7 +9,7 @@ const Header = (props) => {
     "name": `Obsidian Plugin: ${name} - ${description}`,
     "description": `Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`,
     "url": `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}`,
-    "image": "https://obsidian-plugin-stats.ganesshkumar.com/favicon.png"
+    "image": "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
   };
 
   return (
@@ -24,12 +24,12 @@ const Header = (props) => {
       <meta property="og:description" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}" />
-      <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
+      <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
       {/* Twitter Tags */}
       <meta name="twitter:card" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
       <meta name="twitter:title" content={`Obsidian Plugin: ${name} - ${description}`} />
       <meta name="twitter:description" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
-      <meta name="twitter:image" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
+      <meta name="twitter:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
 
       {/* JSON-LD Schema */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJsonSchema) }} />

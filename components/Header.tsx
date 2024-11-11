@@ -84,12 +84,12 @@ const Header = (props) => {
       {/* Open Graph Tags */}
       <meta property="og:title" content="Obsidian Plugin Stats - Explore New, Updated, Trending and Most Downloaded Obsidian Plugins" />
       <meta property="og:description" content="Discover all Obsidian plugins with the latest updates, trending plugins, and the most downloaded ones. Stay informed about the best plugins to enhance your Obsidian experience." />
-      <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
+      <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
       <meta property="og:url" content="https://obsidian-plugin-stats.ganesshkumar.com" />
       {/* Twitter Tags */}
       <meta name="twitter:title" content="Obsidian Plugin Stats - Explore New, Updated, Trending and Most Downloaded Obsidian Plugins" />
       <meta name="twitter:description" content="Discover all Obsidian plugins with the latest updates, trending plugins, and the most downloaded ones. Stay informed about the best plugins to enhance your Obsidian experience." />
-      <meta name="twitter:url" content="https://obsidian-plugin-stats.ganesshkumar.com/favicon.png" />
+      <meta name="twitter:url" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
       <meta name="twitter:card" content="Discover all Obsidian plugins with the latest updates, trending plugins, and the most downloaded ones. Stay informed about the best plugins to enhance your Obsidian experience." />
       {/* JSON-LD Schema */}
       {current && current === 'home' && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJsonSchema) }} />}
