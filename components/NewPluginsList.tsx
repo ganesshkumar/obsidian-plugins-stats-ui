@@ -13,7 +13,7 @@ const NewPluginsList = ({plugins, favorites, setFavorites, showDownloadStat=fals
     <div className='flex-col stripped'>
       <List unstyled className="w-full divide-y divide-gray-200 dark:divide-gray-700">
         {plugins.map((plugin, idx) => 
-          <Plugin idx={idx} pad={pad}  key={plugin.pluginId} plugin={plugin} favorites={favorites} setFavorites={setFavorites} />
+          <Plugin idx={idx + 1} pad={pad}  key={plugin.pluginId} plugin={plugin} favorites={favorites} setFavorites={setFavorites} />
         )}
       </List>
     </div>

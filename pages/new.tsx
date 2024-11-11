@@ -24,7 +24,7 @@ const New = (props) => {
       {/* New Plugins */}
       <div className='bg-white pt-5'>
         <div className='max-w-6xl mx-auto px-2'>
-          <h1 className='text-3xl py-5 text-bold text-violet-900'>
+          <h1 className='text-xl py-5 text-bold text-violet-900'>
             New Plugins {props.newPlugins && `(${props.newPlugins.length})`} 
           </h1>
           <div className='flex-col'>

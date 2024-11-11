@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomFlowbiteTheme, Navbar } from 'flowbite-react';
+import { CustomFlowbiteTheme, Dropdown, Navbar } from 'flowbite-react';
 import Constants from '../constants';
 
 interface INavbarProps {
@@ -29,11 +29,15 @@ const NavBar = ({ current, children }: INavbarProps) => {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link href="/new" active={current === 'new'} className='text-lg'>New</Navbar.Link>
-          <Navbar.Link href="/updates" active={current === 'updates'}  className='text-lg'>Updates</Navbar.Link>
+          <Dropdown inline label={<div className="block font-medium py-2 pl-3 pr-4 md:p-0 border-b border-gray-100 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:hover:text-purple-700 md:dark:hover:bg-transparent md:dark:hover:text-white text-lg">
+            Plugins
+          </div>}>
+            <Dropdown.Item><Navbar.Link href="/new" active={current === 'new'} className='text-lg'>New Plugins</Navbar.Link></Dropdown.Item>
+            <Dropdown.Item><Navbar.Link href="/updates" active={current === 'updates'}  className='text-lg'>Latest Updates</Navbar.Link></Dropdown.Item>
+            <Dropdown.Item><Navbar.Link href="/most-downloaded" active={current === 'most-downloaded'}  className='text-lg'>Most Downloaded</Navbar.Link></Dropdown.Item>
+            <Dropdown.Item><Navbar.Link href="/trending" active={current === 'trending'}  className='text-lg'>Trending</Navbar.Link></Dropdown.Item>
+          </Dropdown>
           <Navbar.Link href="/favorites" active={current === 'favorites'}  className='text-lg'>Favoties</Navbar.Link>
-          <Navbar.Link href="/most-downloaded" active={current === 'most-downloaded'}  className='text-lg'>Most Downloaded</Navbar.Link>
-          <Navbar.Link href="/trending" active={current === 'trending'}  className='text-lg'>Trending</Navbar.Link>
           <Navbar.Link href="/tags" active={current === 'tags'}  className='text-lg'>Tags</Navbar.Link>
           <Navbar.Link href="/plugins" active={current === 'all'}  className='text-lg'>All Plugins</Navbar.Link>
           {children && children}
