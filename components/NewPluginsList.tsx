@@ -1,6 +1,4 @@
-import { List, Table } from "flowbite-react";
-import { isNotXDaysOld } from "../utils/datetime";
-import PluginListItem from "./PluginListItem";
+import { List } from "flowbite-react";
 import Link from "next/link";
 import moment from "moment";
 import Favorites from "./Favorites";
