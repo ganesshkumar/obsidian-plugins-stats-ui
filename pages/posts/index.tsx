@@ -38,7 +38,9 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
   return (
     <div>
     <Header />
-    <Navbar current='posts' />
+    <div className='bg-gray-800'>
+      <Navbar current='posts' />
+    </div>
     <div className='bg-white pt-5'>
       <div className='max-w-6xl mx-auto px-2'>
         <h1 className='text-2xl py-5 text-bold text-violet-900'>

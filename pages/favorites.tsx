@@ -20,7 +20,9 @@ const Favorites = (props) => {
   return (
     <div>
       <Header />
-      <Navbar current='favorites'/>
+      <div className='bg-gray-800'>
+        <Navbar current='favorites'/>
+      </div>
       {/* New Plugins */}
       <div className='bg-white pt-5'>
         <div className='max-w-6xl mx-auto px-2'>

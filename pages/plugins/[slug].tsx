@@ -55,11 +55,13 @@ const Tag = (props) => {
         latestVersion={props.plugin.latestRelease}
         latestUpdatedAt={moment(props.plugin.latestReleaseAt).fromNow()}
       />
-      <AppNavbar current={`tag:${props.plugin.pluginId}`}>
-        <Navbar.Link href={`/tags/${props.plugin.pluginId}`} active={true} className='text-lg'>
-          {`plugin: ${props.plugin.pluginId}`}
-        </Navbar.Link>
-      </AppNavbar>
+      <div className='bg-gray-800'>
+        <AppNavbar current={`tag:${props.plugin.pluginId}`}>
+          <Navbar.Link href={`/tags/${props.plugin.pluginId}`} active={true} className='text-lg'>
+            {`plugin: ${props.plugin.pluginId}`}
+          </Navbar.Link>
+        </AppNavbar>
+      </div>
       <div className='bg-white pt-5'>
         <div className='max-w-6xl mx-auto px-2'>
           <Card theme={customCardTheme} className='relative'>

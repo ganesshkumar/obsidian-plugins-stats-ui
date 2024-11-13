@@ -43,8 +43,9 @@ const Home = (props) => {
   return (
     <div className='relative'>
       <Header current='home' />
-      <Navbar current='home' />
-
+      <div className='bg-gray-800'>
+        <Navbar current='home' />
+      </div>
       <div className='bg-gray-50'>
         <PluginEcosystemStats
           totalPluginsCount={props.totalPluginsCount}

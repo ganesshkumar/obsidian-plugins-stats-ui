@@ -29,13 +29,15 @@ const Updates = (props) => {
   return (
     <div>
       <Header />
-      <Navbar current='updates'/>
+      <div className='bg-gray-800'>
+        <Navbar current='updates'/>
+      </div>
       {/* New Plugins */}
       <div className='bg-white pt-5'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <List unstyled className="w-full divide-y divide-gray-200 dark:divide-gray-700">
             {props.newReleases.map((plugin, idx) => 
-              <List.Item className="!mt-0 py-2 px-2 w-full hover:bg-slate-50">
+              <List.Item key={idx+1} className="!mt-0 py-2 px-2 w-full hover:bg-slate-50">
                 <div className="flex items-start space-x-4 rtl:space-x-reverse">
                   <div className='text-xl'>{String(idx).padStart(pad, '0')}.</div>
                   <div className="flex flex-col">

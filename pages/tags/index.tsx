@@ -12,7 +12,9 @@ const Tags = (props) => {
   return (
     <div>
       <Header />
-      <Navbar current='tags' />
+      <div className='bg-gray-800'>
+        <Navbar current='tags' />
+      </div>
       {/* New Plugins */}
       <div className='bg-white pt-5'>
         <div className='max-w-6xl mx-auto px-2'>

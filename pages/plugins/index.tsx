@@ -34,7 +34,9 @@ const Plugins = (props) => {
   return (
     <div className='flex flex-col h-screen'>
       <Header />
-      <Navbar current='all' />
+      <div className='bg-gray-800'>
+        <Navbar current='all' />
+      </div>
       {/* New Plugins */}
       <div className='bg-white pt-5 grow'>
         <div className='max-w-6xl mx-auto px-2 flex flex-col h-full'>

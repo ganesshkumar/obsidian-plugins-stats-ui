@@ -20,11 +20,13 @@ const Tag = (props) => {
   return (
     <div>
       <Header />
-      <AppNavbar current={`tag:${props.tag}`}>
-        <Navbar.Link href={`/tags/${props.tag}`} active={true} className='text-lg'>
-          {`tag:${props.tag}`}
-        </Navbar.Link>
-      </AppNavbar>
+      <div className='bg-gray-800'>
+        <AppNavbar current={`tag:${props.tag}`}>
+          <Navbar.Link href={`/tags/${props.tag}`} active={true} className='text-lg'>
+            {`tag:${props.tag}`}
+          </Navbar.Link>
+        </AppNavbar>
+      </div>
       <div className='bg-white pt-5'>
         <div className='max-w-6xl mx-auto px-2'>
           <div className='text-3xl py-5 pl-5 text-bold text-violet-900'>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { CustomFlowbiteTheme, Dropdown, Navbar } from 'flowbite-react';
 import Constants from '../constants';
+import Image from 'next/image';
 
 interface INavbarProps {
   current?: string;
@@ -10,8 +11,8 @@ interface INavbarProps {
 const customTheme: CustomFlowbiteTheme["navbar"] = {
   link: {
     active: {
-      on: 'bg-cyan-700 text-white dark:text-white md:bg-transparent md:text-purple-700',
-      off: "border-b border-gray-100 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:hover:text-purple-700 md:dark:hover:bg-transparent md:dark:hover:text-white"
+      on: 'bg-cyan-700 text-white dark:text-white md:bg-transparent md:text-purple-500',
+      off: "border-b border-gray-100 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:hover:text-purple-400 md:dark:hover:bg-transparent md:dark:hover:text-white"
     },
   }
 };
@@ -19,28 +20,36 @@ const customTheme: CustomFlowbiteTheme["navbar"] = {
 
 const NavBar = ({ current, children }: INavbarProps) => {
   return (
-    <div className='max-w-6xl mx-auto w-full'>
-      <Navbar fluid rounded theme={customTheme}>
+    <div className='max-w-6xl mx-auto w-full text-gray-100'>
+      <Navbar fluid rounded theme={customTheme} className='bg-gray-800 rounded-none'>
         <Navbar.Brand href="/">
-          <img src="/logo-64.png" className="mr-3 h-6 sm:h-9" alt={`${Constants.AppName} logo`} />
+          <Image src="/logo-64.png" width={36} height={36} className="rounded mr-3 h-6 sm:h-9" alt={`${Constants.AppName} logo`} />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             {Constants.AppName}
             </span>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <li><Dropdown inline label={<div className="block font-medium py-2 pl-3 pr-4 md:p-0 border-b border-gray-100 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:hover:bg-transparent md:hover:text-purple-700 md:dark:hover:bg-transparent md:dark:hover:text-white text-lg">
+          <li><Dropdown inline className="bg-gray-800 border border-gray-400" label={<div className="block font-medium py-2 pl-3 pr-4 md:p-0 text-gray-100 text-lg">
             Plugins
           </div>}>
-            <Dropdown.Item><Navbar.Link href="/new" active={current === 'new'} className='text-lg'>New Plugins</Navbar.Link></Dropdown.Item>
-            <Dropdown.Item><Navbar.Link href="/updates" active={current === 'updates'}  className='text-lg'>Latest Updates</Navbar.Link></Dropdown.Item>
-            <Dropdown.Item><Navbar.Link href="/most-downloaded" active={current === 'most-downloaded'}  className='text-lg'>Most Downloaded</Navbar.Link></Dropdown.Item>
-            <Dropdown.Item><Navbar.Link href="/trending" active={current === 'trending'}  className='text-lg'>Trending</Navbar.Link></Dropdown.Item>
+            <Dropdown.Item className='group'>
+              <Navbar.Link href="/new" active={current === 'new'} className='text-lg text-gray-100 group-hover:text-violet-800'>New Plugins</Navbar.Link>
+            </Dropdown.Item>
+            <Dropdown.Item className="group">
+              <Navbar.Link href="/updates" active={current === 'updates'}  className='text-lg text-gray-100 roup-hover:text-violet-800'>Latest Updates</Navbar.Link>
+            </Dropdown.Item>
+            <Dropdown.Item className="group">
+              <Navbar.Link href="/most-downloaded" active={current === 'most-downloaded'}  className='text-lg text-gray-100 group-hover:text-violet-800'>Most Downloaded</Navbar.Link>
+            </Dropdown.Item>
+            <Dropdown.Item className="group">
+              <Navbar.Link href="/trending" active={current === 'trending'}  className='text-lg text-gray-100 group-hover:text-violet-800'>Trending</Navbar.Link>
+            </Dropdown.Item>
           </Dropdown></li>
-          <Navbar.Link href="/posts" active={current === 'posts'}  className='text-lg'>Posts</Navbar.Link>
-          <Navbar.Link href="/favorites" active={current === 'favorites'}  className='text-lg'>Favoties</Navbar.Link>
-          <Navbar.Link href="/tags" active={current === 'tags'}  className='text-lg'>Tags</Navbar.Link>
-          <Navbar.Link href="/plugins" active={current === 'all'}  className='text-lg'>All Plugins</Navbar.Link>
+          <Navbar.Link href="/posts" active={current === 'posts'}  className='text-lg text-gray-100'>Posts</Navbar.Link>
+          <Navbar.Link href="/favorites" active={current === 'favorites'}  className='text-lg text-gray-100'>Favoties</Navbar.Link>
+          <Navbar.Link href="/tags" active={current === 'tags'}  className='text-lg text-gray-100'>Tags</Navbar.Link>
+          <Navbar.Link href="/plugins" active={current === 'all'}  className='text-lg text-gray-100'>All Plugins</Navbar.Link>
           {children && children}
         </Navbar.Collapse>
       </Navbar>
