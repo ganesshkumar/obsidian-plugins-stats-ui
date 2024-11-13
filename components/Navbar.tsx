@@ -19,7 +19,7 @@ const customTheme: CustomFlowbiteTheme["navbar"] = {
 
 const NavBar = ({ current, children }: INavbarProps) => {
   return (
-    <div className='max-w-6xl mx-auto'>
+    <div className='max-w-6xl mx-auto w-full'>
       <Navbar fluid rounded theme={customTheme}>
         <Navbar.Brand href="/">
           <img src="/logo-64.png" className="mr-3 h-6 sm:h-9" alt={`${Constants.AppName} logo`} />

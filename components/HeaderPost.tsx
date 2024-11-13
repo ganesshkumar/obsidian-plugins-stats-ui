@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react';
 
 const Header = (props) => {
-  const { current, title, description, date, slug } = props;
+  const { current, title, description, publishedDate, modifiedDate, slug } = props;
   const ldJsonSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -10,13 +10,13 @@ const Header = (props) => {
         name: "Ganessh Kumar R P",
         "@type": "Person",
         url: "https://ganesshkumar.com",
-        datePublished: date,
-        dateModified: date
     },
     "name": title,
     "description": description,
     "url": `https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`,
-    "image": "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+    "image": "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png",
+    "datePublished": publishedDate,
+    "dateModified": modifiedDate,
   };
 
   return (

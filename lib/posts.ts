@@ -8,7 +8,8 @@ const postsDirectory = path.join(process.cwd(), 'posts');
 interface PostData {
   id: string;
   title: string;
-  date: string;
+  publishedDate: string;
+  modifiedDate: string;
   description?: string;
   contentHtml?: string;
   content: string;
@@ -29,7 +30,7 @@ export function getSortedPostsData(): PostData[] {
     } as PostData;
   });
 
-  return allPostsData.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return allPostsData.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
 }
 
 export function getPostData(id: string): PostData {

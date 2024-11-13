@@ -8,7 +8,7 @@ import moment from 'moment';
 
 interface Post {
   id: string;
-  date: string;
+  publishedDate: string;
   title: string;
 }
 
@@ -27,7 +27,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
   const postsByYear = allPostsData.reduce((acc, post) => {
-    const year = post.date.split('-')[0];
+    const year = post.publishedDate.split('-')[0];
     if (!acc[year]) {
       acc[year] = [];
     }
@@ -53,7 +53,7 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
                   <li key={post.id}>
                     <Link href={`/posts/${post.id}`} className='flex justify-between'>
                       <div className='text-lg'>{post.title}</div>
-                      <div className='text-medium font-mono text-gray-700'>{moment(post.date).format('MMMM DD, YYYY')}</div>
+                      <div className='text-medium font-mono text-gray-700'>{moment(post.publishedDate).format('MMMM DD, YYYY')}</div>
                     </Link>           
                   </li>
                 ))}

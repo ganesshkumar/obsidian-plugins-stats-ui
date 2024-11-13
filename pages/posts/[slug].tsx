@@ -10,7 +10,8 @@ interface PostData {
   id: string;
   title: string;
   description: string;
-  date: string;
+  publishedDate: string;
+  modifiedDate: string;
   contentHtml: string;
   content: string;
 }
@@ -45,14 +46,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 const Post: React.FC<PostProps> = ({ postData }) => {
   return (
     <div>
-     <Header title={postData.title} description={postData.description} date={postData.date} slug={postData.id} />
+     <Header title={postData.title} description={postData.description} publishedDate={postData.publishedDate} modifiedDate={postData.modifiedDate} slug={postData.id} />
      <Navbar current='posts' />
      {/* New Plugins */}
      <div className='bg-white pt-5'>
        <div className='max-w-6xl mx-auto px-2'>
         <article className='prose !max-w-none'>
           <h1>{postData.title}</h1>
-          <p>{postData.date}</p>
+          <p>{postData.publishedDate}</p>
           <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
         </article>
        </div>
