@@ -29,7 +29,7 @@ const Updates = (props) => {
   return (
     <div>
       <Header />
-      <div className='bg-gray-800'>
+      <div>
         <Navbar current='updates'/>
       </div>
       {/* New Plugins */}

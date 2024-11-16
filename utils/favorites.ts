@@ -1,4 +1,5 @@
 export const setupFavorites = (setFavorites => {
+  console.log('window', !!window)
   if (window && window.localStorage) {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     setFavorites(favorites);

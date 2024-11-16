@@ -18,7 +18,7 @@ const MostDownloaded = (props) => {
   return (
     <div>
       <Header />
-      <div className='bg-gray-800'>
+      <div>
         <Navbar current='most-downloaded'/>
       </div>
       {/* New Plugins */}

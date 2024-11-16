@@ -2,7 +2,7 @@ import { Card } from 'flowbite-react';
 
 const PluginEcosystemStats = ({ totalPluginsCount, newPluginsCount, newReleasesCount, totalTagsCount }) => {
   return (
-    <section className='max-w-6xl mx-auto text-gray-800 py-8'>
+    <section className="max-w-6xl mx-auto text-gray-800 py-8">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mx-2">
         <PluginEcosystemStat title='New Plugins' count={newPluginsCount} href='/new' />
         <PluginEcosystemStat title='Recently Updated Plugins' count={newReleasesCount} href='/updates' />

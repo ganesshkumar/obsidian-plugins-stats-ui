@@ -7,7 +7,7 @@ const Favorites = ({isFavorite, plugin, setFavorites}) => {
   const [shareText, setShareText] = React.useState('share');
 
   const hostname = process.env.hostname || process.env.VERCEL_URL || 
-    process.env.NODE_ENV === 'production' ? 'https://obsidian-plugin-stats.ganesshkumar.app' : 'http://localhost:3000';
+    process.env.NODE_ENV === 'production' ? 'https://obsidian-plugin-stats.ganesshkumar.app' : 'http://localhost:4000';
 
   const shareClicked = () => {
     if (navigator) {

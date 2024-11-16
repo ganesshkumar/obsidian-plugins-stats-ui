@@ -4,7 +4,7 @@ import { getSortedPostsData } from '../../lib/posts';
 import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
 import { Footer } from 'flowbite-react';
-import moment from 'moment';
+import moment, { now } from 'moment';
 
 interface Post {
   id: string;
@@ -26,19 +26,26 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
-  const postsByYear = allPostsData.reduce((acc, post) => {
-    const year = post.publishedDate.split('-')[0];
-    if (!acc[year]) {
-      acc[year] = [];
-    }
-    acc[year].push(post);
-    return acc;
-  }, {});
+  const nowMs = moment().valueOf();
+  const postsByYear = allPostsData
+    .map(post => {
+      console.log(moment(post.publishedDate).valueOf(), nowMs, moment(post.publishedDate).valueOf() > nowMs);
+      return post;
+    })
+    .filter(post => moment(post.publishedDate).valueOf() < nowMs )
+    .reduce((acc, post) => {
+      const year = post.publishedDate.split('-')[0];
+      if (!acc[year]) {
+        acc[year] = [];
+      }
+      acc[year].push(post);
+      return acc;
+    }, {});
 
   return (
     <div>
     <Header />
-    <div className='bg-gray-800'>
+    <div>
       <Navbar current='posts' />
     </div>
     <div className='bg-white pt-5'>

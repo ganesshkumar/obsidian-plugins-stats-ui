@@ -20,7 +20,7 @@ const New = (props) => {
   return (
     <div>
       <Header />
-      <div className='bg-gray-800'>
+      <div>
         <Navbar current='new'/>
       </div>
       {/* New Plugins */}

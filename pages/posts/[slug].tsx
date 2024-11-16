@@ -47,7 +47,7 @@ const Post: React.FC<PostProps> = ({ postData }) => {
   return (
     <div>
      <Header title={postData.title} description={postData.description} publishedDate={postData.publishedDate} modifiedDate={postData.modifiedDate} slug={postData.id} />
-     <div className='bg-gray-800'>
+     <div>
       <Navbar current='posts' />
      </div>
      {/* New Plugins */}

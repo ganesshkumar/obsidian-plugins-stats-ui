@@ -20,7 +20,7 @@ const Tag = (props) => {
   return (
     <div>
       <Header />
-      <div className='bg-gray-800'>
+      <div>
         <AppNavbar current={`tag:${props.tag}`}>
           <Navbar.Link href={`/tags/${props.tag}`} active={true} className='text-lg'>
             {`tag:${props.tag}`}

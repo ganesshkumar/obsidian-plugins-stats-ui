@@ -1,15 +1,15 @@
 ---
 title: Obsidian Plugin Updates 2024-11-10 to 2024-11-16
 description: new obsidian plugins from 2024-11-10 to 2024-11-16 - Automatic Renumbering, IOC Lens, Typezen, Daily Random Note, Perplexity Converter, Check and Delete, Markdown Timeline, Brain Dump Mode, Activity Heatmap, Textgrams, Edge TTS, Daily notes calendar, Featured Image, Masking Type, Todos sort, NeuroVox, Superstition, Workout Tracker, SVG Style Editor, Text Finder, Unearthed (Kindle Sync), Hexo Toolkit, Tree Search
-publishedDate: "2024-11-16"
-modifiedDate: "2024-11-16"
+publishedDate: "2024-11-17"
+modifiedDate: "2024-11-17"
 tags: 
   - weekly-plugin-updates
 ---
 
 ![Weekly Updates](https://placehold.co/1200x300/5b21b6/white?text=Weekly%20Plugin%20Updates%20\n2024%20Week%2046)
 
-> There are 23 new plugins and %%PLUGIN_UPDATES%% plugin updates in the last one week's time.
+> There are 23 new plugins and 76 plugin updates in the last one week's time.
 
 ## ⭐ New Plugins: We have 23 new plugins.
 
@@ -245,5 +245,5 @@ The **Obsidian TreeSearch Plugin** enhances navigation within your vault by allo
 
 ## 🔁 Plugin Updates
 
-We got %%PLUGIN_UPDATES%% plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
+We got 76 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
 

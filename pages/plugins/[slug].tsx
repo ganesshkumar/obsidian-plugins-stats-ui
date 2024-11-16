@@ -55,7 +55,7 @@ const Tag = (props) => {
         latestVersion={props.plugin.latestRelease}
         latestUpdatedAt={moment(props.plugin.latestReleaseAt).fromNow()}
       />
-      <div className='bg-gray-800'>
+      <div>
         <AppNavbar current={`tag:${props.plugin.pluginId}`}>
           <Navbar.Link href={`/tags/${props.plugin.pluginId}`} active={true} className='text-lg'>
             {`plugin: ${props.plugin.pluginId}`}

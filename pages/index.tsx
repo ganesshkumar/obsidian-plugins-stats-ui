@@ -1,5 +1,6 @@
+'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, {  } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -7,14 +8,13 @@ import Footer from '../components/Footer';
 import { PrismaClient } from "@prisma/client";
 import moment from 'moment';
 import showdown from 'showdown';
-import { setupFavorites } from '../utils/favorites';
 import PluginEcosystemStats from '../components/PluginEcosystemStats';
 import InfoBar from '../components/InfoBar';
-import { daysAgo, isNotXDaysOld } from '../utils/datetime';
-import CardAnnotations from '../components/CardAnnotations';
+import { daysAgo } from '../utils/datetime';
 import Link from 'next/link';
 import Faq from '../components/Faq';
-import { Button, Card, CustomFlowbiteTheme, HR } from "flowbite-react";
+import { Card, CustomFlowbiteTheme, HR } from "flowbite-react";
+import FavPluginUpdates from '../components/FavPluginUpdates';
 
 const customCardTheme: CustomFlowbiteTheme["card"] = {
   root: {
@@ -32,21 +32,13 @@ const Home = (props) => {
   const mdConverter = new showdown.Converter();
   mdConverter.setFlavor('github');
 
-  const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    setupFavorites(setFavorites);
-  }, []);
-
-  const updatesForFavPlugins = props.newReleases.filter(newRelease => favorites.includes(newRelease.pluginId));
-
   return (
     <div className='relative'>
       <Header current='home' />
-      <div className='bg-gray-800'>
+      <div>
         <Navbar current='home' />
       </div>
-      <div className='bg-gray-50'>
+      <div className="bg-gray-50 lg:py-10 bg-[url('/images/confetti-doodles.svg')]">
         <PluginEcosystemStats
           totalPluginsCount={props.totalPluginsCount}
           newPluginsCount={props.newPluginsCount}
@@ -54,66 +46,7 @@ const Home = (props) => {
           totalTagsCount={props.totalTagsCount} />
       </div>
 
-      {/* Updates for your favorite plugins */}
-      { updatesForFavPlugins && (updatesForFavPlugins.length > 0) && 
-        <div className='bg-transparent mt-16'>
-          <div className='max-w-6xl mx-auto px-2'>
-            <InfoBar title='New Versions for your favorite plugins' />
-            <div>There are {updatesForFavPlugins?.length || 0} new updates from the last 10 days</div>
-            <div className='flex flex-wrap gap-4 pt-5 mx-4'>
-              {updatesForFavPlugins.slice(0, 6).map((newRelease, idx) => {
-                const isFavorite = favorites.includes(newRelease.pluginId);
-                const isTrending = newRelease.zScoreTrending > 10;
-                return (
-                  <a key={newRelease.id} href={`/plugins/${newRelease.pluginId}`} target="_blank" rel="noreferrer" id={`fav-plugin-update-${idx}`}
-                    className='flex-col group rounded-md shrink-0 w-48 px-5 py-2 text-gray-700 transition hover:-translate-y-1 hover:scale-105 border shadow-lg'
-                  >
-                    <div className='flex flex-none justify-between'>
-                      <div className='py-2'>
-                        <div className='text-lg font-semibold tracking-wide text-violet-900'>{newRelease.name}</div>
-                        <div className='text-sm text-gray-700'>
-                          v<span className='text-violet-900 text-base font-semibold'>{newRelease.latestRelease}</span>
-                        </div>
-                        <div className='text-sm'>released {moment(newRelease.latestReleaseAt).fromNow()}</div>
-                        <div className='text-sm'>by {newRelease.author}</div>
-                      </div>
-                    </div>
-                    <CardAnnotations isFavorite={false} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)} isTrending={isTrending} category='Update' />
-                  </a>
-                )
-              })}
-            </div>
-          </div>
-        </div>
-      }
-
-      {
-        updatesForFavPlugins && (updatesForFavPlugins.length == 0) &&
-        <div className='bg-transparent mt-16'>
-          <div className='max-w-6xl mx-auto px-2'>
-            <InfoBar title='New Versions for your favorite plugins' />
-            { favorites.length == 0 ?
-              <div className='flex pt-5 mx-10 flex-wrap'>
-                <div className='w-full lg:w-1/2 flex justify-center'>
-                  <img src='/images/empty.svg' alt='No favorites' className='w-72 h-72' />
-                </div>
-                <div className='m-4 lg:m-0 flex-grow flex flex-col justify-center items-center text-gray-800'>
-                  <div className='text-2xl text-center'>You don't have any favorite plugins yet.</div>
-                  <div className='text-lg mt-2 text-center'>Mark plugins as favorite to get updates here.</div>
-                </div>
-              </div> : 
-              <div className='flex pt-5 mx-10 flex-wrap'>
-                <div className='w-full lg:w-1/2 flex justify-center'>
-                  <img src='/images/empty.svg' alt='No favorites' className='w-72 h-72' />
-                </div>
-                <div className='m-4 lg:m-0 flex-grow flex flex-col justify-center items-center text-gray-800'>
-                  <div className='text-2xl'>All your favorite plugins are up-to-date.</div>
-                </div>
-              </div>
-            }
-          </div>
-        </div>
-      }
+      <FavPluginUpdates newReleases={props.newReleases} />
 
       <div className='max-w-6xl mx-auto'>
         <HR.Trimmed />
@@ -127,7 +60,7 @@ const Home = (props) => {
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4 pt-5'>
             {
               props.newPlugins.slice(0, 6).map((plugin, idx) => {
-                const isFavorite = favorites.includes(plugin.pluginId);
+                // const isFavorite = favorites.includes(plugin.pluginId);
                 return (
                   <Card
                     theme={customCardTheme}

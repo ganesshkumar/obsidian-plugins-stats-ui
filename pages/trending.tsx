@@ -18,7 +18,7 @@ const Trending = ({plugins}) => {
   return (
     <div>
       <Header />
-      <div className='bg-gray-800'>
+      <div>
         <Navbar current='trending'/>
       </div>
       {/* New Plugins */}
