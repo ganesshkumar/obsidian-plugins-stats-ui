@@ -38,38 +38,39 @@ async function generateRSS() {
       title: plugin.name,
       description: plugin.description,
       link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
-      pubDate: new Date(plugin.createdAt),
+      pubDate: new Date(plugin.createdAt)
     })),
     ...newReleases.map((plugin) => ({
       title: plugin.name,
       description: `New version ${plugin.latestRelease} was released for ${plugin.name} on ${new Date(
         plugin.latestReleaseAt
-      ).toISOString().split('T')[0]}${plugin.latestReleaseDesc ? ` - ${plugin.latestReleaseDesc}` : ''}`,
+      ).toISOString().split('T')[0]}`,
       link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}?version=${plugin.latestRelease}`,
-      pubDate: new Date(plugin.latestReleaseAt),
+      pubDate: new Date(plugin.latestReleaseAt)
     })),
   ];
 
-  return `<?xml version="1.0" encoding="UTF-8" ?>
-  <rss version="2.0">
-    <channel>
-      <title>Obsidian Plugin Stats</title>
-      <link>https://obsidian-plugin-stats.ganesshkumar.com</link>
-      <description>Latest updates on Obsidian plugins</description>
-      <language>en-us</language>
-      ${items
-        .map(
-          (item) => `
-      <item>
-        <title>${item.title}</title>
-        <description>${item.description}</description>
-        <link>${item.link}</link>
-        <pubDate>${item.pubDate.toUTCString()}</pubDate>
-      </item>`
-        )
-        .join('')}
-    </channel>
-  </rss>`;
+  return `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Obsidian Plugin Stats</title>
+    <link>https://obsidian-plugin-stats.ganesshkumar.com</link>
+    <description>Latest updates on Obsidian plugins</description>
+    <language>en-us</language>
+    <atom:link href="https://obsidian-plugin-stats.ganesshkumar.com/rss.xml" rel="self" type="application/rss+xml" />
+    ${items
+      .map(
+        (item) => `
+    <item>
+      <title>${item.title}</title>
+      <description>${item.description}</description>
+      <link>${item.link}</link>
+      <pubDate>${item.pubDate.toUTCString()}</pubDate>
+      <guid>${item.link}</guid>
+    </item>`
+      )
+      .join('')}
+  </channel>
+</rss>`;
 }
 
 async function saveRSSFeed() {
