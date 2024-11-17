@@ -28,10 +28,6 @@ export const getStaticProps: GetStaticProps = async () => {
 const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
   const nowMs = moment().valueOf();
   const postsByYear = allPostsData
-    .map(post => {
-      console.log(moment(post.publishedDate).valueOf(), nowMs, moment(post.publishedDate).valueOf() > nowMs);
-      return post;
-    })
     .filter(post => moment(post.publishedDate).valueOf() < nowMs )
     .reduce((acc, post) => {
       const year = post.publishedDate.split('-')[0];
