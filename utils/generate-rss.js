@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
 const PrismaClient = require('@prisma/client').PrismaClient;
 
 const daysAgo = (days) => Date.now() - (days * 24 * 60 * 60 * 1000);
@@ -28,10 +29,30 @@ async function getNewReleases(prisma) {
   return newReleases;
 }
 
+async function getSortedPostsData() {
+  const postsDirectory = path.join(process.cwd(), 'posts');
+  const fileNames = fs.readdirSync(postsDirectory);
+  
+  const allPostsData = fileNames.map((fileName) => {
+    const id = fileName.replace(/\.md$/, '');
+    const fullPath = path.join(postsDirectory, fileName);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const matterResult = matter(fileContents);
+
+    return {
+      id,
+      ...matterResult.data,
+    };
+  });
+
+  return allPostsData.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
+}
+
 async function generateRSS() {
   const prisma = new PrismaClient();
   const newPlugins = await getNewPlugins(prisma);
   const newReleases = await getNewReleases(prisma);
+  const allPostsData = await getSortedPostsData();
 
   const items = [
     ...newPlugins.map((plugin) => ({
@@ -48,6 +69,12 @@ async function generateRSS() {
       link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}?version=${plugin.latestRelease}`,
       pubDate: new Date(plugin.latestReleaseAt)
     })),
+    ...allPostsData.map((post) => ({
+      title: post.title,
+      description: post.description,
+      link: `https://obsidian-plugin-stats.ganesshkumar.com/posts/${post.id}`,
+      pubDate: new Date(post.publishedDate)
+    }))
   ];
 
   return `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -58,13 +85,14 @@ async function generateRSS() {
     <language>en-us</language>
     <atom:link href="https://obsidian-plugin-stats.ganesshkumar.com/rss.xml" rel="self" type="application/rss+xml" />
     ${items
+      .filter((item) => item.pubDate < new Date())
       .map(
         (item) => `
     <item>
       <title>${item.title}</title>
       <description>${item.description}</description>
       <link>${item.link}</link>
-      <pubDate>${item.pubDate.toUTCString()}</pubDate>
+      <pubDate>${item.pubDate?.toUTCString()}</pubDate>
       <guid>${item.link}</guid>
     </item>`
       )
