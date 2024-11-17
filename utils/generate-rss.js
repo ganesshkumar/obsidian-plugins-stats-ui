@@ -8,7 +8,7 @@ async function getNewPlugins(prisma) {
   const newPlugins = await prisma.plugin.findMany({
     where: {
       createdAt: {
-        gt: daysAgo(10),
+        gt: daysAgo(30),
       },
     },
   });
@@ -20,7 +20,7 @@ async function getNewReleases(prisma) {
   const newReleases = await prisma.plugin.findMany({
     where: {
       latestReleaseAt: {
-        gt: daysAgo(10),
+        gt: daysAgo(30),
       },
     },
   });
