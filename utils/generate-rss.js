@@ -56,13 +56,13 @@ async function generateRSS() {
 
   const items = [
     ...newPlugins.map((plugin) => ({
-      title: plugin.name,
+      title: `New Obsidian Plugin - ${plugin.name}`,
       description: plugin.description,
       link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
       pubDate: new Date(plugin.createdAt)
     })),
     ...newReleases.map((plugin) => ({
-      title: plugin.name,
+      title: `New version for Obsidian plugin ${plugin.name}`,
       description: `New version ${plugin.latestRelease} was released for ${plugin.name} on ${new Date(
         plugin.latestReleaseAt
       ).toISOString().split('T')[0]}`,
