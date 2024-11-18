@@ -108,4 +108,52 @@ async function saveRSSFeed() {
   console.log('✅ RSS feed saved to public/rss.xml');
 }
 
+async function saveRSSFeedForWeeklyUpdates() {
+  const prisma = new PrismaClient();
+  const newPlugins = await getNewPlugins(prisma);
+  const newReleases = await getNewReleases(prisma);
+  const allPostsData = await getSortedPostsData();
+
+  const items = [
+    ...allPostsData
+      .filter((post) => post.tags.includes('weekly-plugin-updates'))
+      .filter((post) => new Date(post.publishedDate).getTime() > daysAgo(30) && new Date(post.publishedDate).getTime() < Date.now())
+      .map((post) => ({
+        title: post.title,
+        description: post.description,
+        link: `https://obsidian-plugin-stats.ganesshkumar.com/posts/${post.id}`,
+        pubDate: new Date(post.publishedDate)
+      }))
+  ];
+
+  const content = `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Obsidian Plugin Stats - Weekly Plugin Updates</title>
+    <link>https://obsidian-plugin-stats.ganesshkumar.com/posts</link>
+    <description>Weekly Obsidian Plugin Updates - listing new published plugins and plugin updates released over the past week</description>
+    <language>en-us</language>
+    <atom:link href="https://obsidian-plugin-stats.ganesshkumar.com/weekly-plugin-updates-rss.xml" rel="self" type="application/rss+xml" />
+    ${items
+      .filter((item) => item.pubDate < new Date())
+      .map(
+        (item) => `
+    <item>
+      <title>${item.title}</title>
+      <description>${item.description}</description>
+      <link>${item.link}</link>
+      <pubDate>${item.pubDate?.toUTCString()}</pubDate>
+      <guid>${item.link}</guid>
+    </item>`
+      )
+      .join('')}
+  </channel>
+</rss>`;
+
+  const rssPath = path.join(process.cwd(), 'public', 'weekly-plugin-updates-rss.xml');
+  fs.writeFileSync(rssPath, content, 'utf8');
+  console.log('✅ RSS feed saved to public/weekly-plugin-updates-rss.xml');
+}
+
+
 saveRSSFeed();
+saveRSSFeedForWeeklyUpdates();

@@ -37,3 +37,4 @@ yarn-error.log*
 public/rss.xml
 public/sitemap.xml
 public/sitemap-0.xml
+public/weekly-plugin-updates-rss.xml
