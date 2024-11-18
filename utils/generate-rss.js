@@ -61,14 +61,14 @@ async function generateRSS() {
       link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
       pubDate: new Date(plugin.createdAt)
     })),
-    ...newReleases.map((plugin) => ({
-      title: `New version for Obsidian plugin ${plugin.name}`,
-      description: `New version ${plugin.latestRelease} was released for ${plugin.name} on ${new Date(
-        plugin.latestReleaseAt
-      ).toISOString().split('T')[0]}`,
-      link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}?version=${plugin.latestRelease}`,
-      pubDate: new Date(plugin.latestReleaseAt)
-    })),
+    // ...newReleases.map((plugin) => ({
+    //   title: `New version for Obsidian plugin - ${plugin.name}`,
+    //   description: `New version ${plugin.latestRelease} was released for ${plugin.name} on ${new Date(
+    //     plugin.latestReleaseAt
+    //   ).toISOString().split('T')[0]}`,
+    //   link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}?version=${plugin.latestRelease}`,
+    //   pubDate: new Date(plugin.latestReleaseAt)
+    // })),
     ...allPostsData.map((post) => ({
       title: post.title,
       description: post.description,
@@ -81,7 +81,7 @@ async function generateRSS() {
   <channel>
     <title>Obsidian Plugin Stats</title>
     <link>https://obsidian-plugin-stats.ganesshkumar.com</link>
-    <description>Latest updates on Obsidian plugins</description>
+    <description>New Obsidiab plugins, weekly plugin update posts listing latest plugins updates, newly released plugins and posts realted to obsidian plugins</description>
     <language>en-us</language>
     <atom:link href="https://obsidian-plugin-stats.ganesshkumar.com/rss.xml" rel="self" type="application/rss+xml" />
     ${items
