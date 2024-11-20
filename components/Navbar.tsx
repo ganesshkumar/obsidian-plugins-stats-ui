@@ -27,16 +27,17 @@ const NavBar = ({ current, children }: INavbarProps) => {
           <Image src="/logo-64.png" width={36} height={36} className="rounded mr-3 h-6 sm:h-9" alt={`${Constants.AppName} logo`} />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             {Constants.AppName}
-            </span>
+          </span>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
+          <Navbar.Link href="/new" active={current === 'new'} className='text-lg group-hover:text-violet-800'>New Plugins</Navbar.Link>
+          <Navbar.Link href="/posts" active={current === 'posts'}  className='text-lg'>Posts</Navbar.Link>
+          <Navbar.Link href="/favorites" active={current === 'favorites'}  className='text-lg'>Favorites</Navbar.Link>
+          <Navbar.Link href="/plugins" active={current === 'all'}  className='text-lg'>All Plugins</Navbar.Link>
           <li><Dropdown inline className="" label={<div className="block font-medium py-2 pl-3 pr-4 md:p-0 text-lg">
-            Plugins
+            More
           </div>}>
-            <Dropdown.Item className='group'>
-              <Navbar.Link href="/new" active={current === 'new'} className='text-lg group-hover:text-violet-800'>New Plugins</Navbar.Link>
-            </Dropdown.Item>
             <Dropdown.Item className="group">
               <Navbar.Link href="/updates" active={current === 'updates'}  className='text-lg roup-hover:text-violet-800'>Latest Updates</Navbar.Link>
             </Dropdown.Item>
@@ -46,13 +47,12 @@ const NavBar = ({ current, children }: INavbarProps) => {
             <Dropdown.Item className="group">
               <Navbar.Link href="/trending" active={current === 'trending'}  className='text-lg group-hover:text-violet-800'>Trending</Navbar.Link>
             </Dropdown.Item>
+            <Dropdown.Item className='group'>
+              <Navbar.Link href="/tags" active={current === 'tags'}  className='text-lg'>Tags</Navbar.Link>
+            </Dropdown.Item>
           </Dropdown></li>
-          <Navbar.Link href="/posts" active={current === 'posts'}  className='text-lg'>Posts</Navbar.Link>
-          <Navbar.Link href="/favorites" active={current === 'favorites'}  className='text-lg'>Favorites</Navbar.Link>
-          <Navbar.Link href="/tags" active={current === 'tags'}  className='text-lg'>Tags</Navbar.Link>
-          <Navbar.Link href="/plugins" active={current === 'all'}  className='text-lg'>All Plugins</Navbar.Link>
           {children && children}
-          <Navbar.Link href="/rss.xml" active={false} className='text-lg'>
+          <Navbar.Link href="/rss.xml" active={false} className='text-lg' aria-label='RSS Feed'>
             <Rss className='text-violet-800'/>
           </Navbar.Link>
         </Navbar.Collapse>

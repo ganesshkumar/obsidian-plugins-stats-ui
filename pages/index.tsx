@@ -46,14 +46,8 @@ const Home = (props) => {
           totalTagsCount={props.totalTagsCount} />
       </div>
 
-      <FavPluginUpdates newReleases={props.newReleases} />
-
-      <div className='max-w-6xl mx-auto'>
-        <HR.Trimmed />
-      </div>
-
       {/* New Plugins */}
-      <div className='bg-transparent mt-8'>
+      <div className='bg-transparent mt-16'>
         <div className='max-w-6xl mx-auto px-2'>
           <InfoBar title='New Plugins' />
           <div>There are {props.newPlugins?.length || 0} new plugins from the last 10 days</div>
@@ -82,6 +76,12 @@ const Home = (props) => {
           </div>
         </div>
       </div>
+
+      <div className='max-w-6xl mx-auto'>
+        <HR.Trimmed />
+      </div>
+
+      <FavPluginUpdates newReleases={props.newReleases} />
 
       <div className='max-w-6xl mx-auto my-4'>
         <HR.Trimmed />

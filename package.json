@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 4000",
+    "dev": "next dev --port 5000",
     "generate-rss": "node utils/generate-rss.js",
     "build": "npm run generate-rss && next build",
     "start": "next start",
