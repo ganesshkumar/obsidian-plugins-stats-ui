@@ -60,13 +60,13 @@ const AppFooter = () => {
             <Footer.Brand
               href="https://obsidian-plugin-stats.ganesshkumar.com"
               src="/logo-64.png"
-              alt="Obsidian Plugin Stats"
+              alt="Obsidian Plugin Stats Logo"
               name="Obsidian Plugin Stats"
             />
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
-              <Footer.Title title="Plugins" />
+              <Footer.Title className='text-gray-900' title="Plugins" />
               <Footer.LinkGroup col>
                 <Footer.Link className='underline text-gray-900' href="/new">New Plugins</Footer.Link>
                 <Footer.Link className='underline text-gray-900' href="/updates">Latest Updates</Footer.Link>
@@ -82,7 +82,7 @@ const AppFooter = () => {
               </Footer.LinkGroup>
             </div>
             <div>
-              <Footer.Title className='' title="Posts" />
+              <Footer.Title className='text-gray-900' title="Posts" />
               <Footer.LinkGroup col>
                 <Footer.Link className='underline text-gray-900' href="/posts">All Posts</Footer.Link>
               </Footer.LinkGroup>

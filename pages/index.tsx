@@ -88,7 +88,7 @@ const Home = (props) => {
       </div>
 
       {/* New Version */}
-      <div className='bg-transparent'>
+      <main className='bg-transparent'>
         <div className='max-w-6xl mx-auto px-2'>
           <InfoBar title='New Versions' />
           <div>There are {props.newReleases?.length || 0} new plugins from the last 10 days</div>
@@ -121,7 +121,7 @@ const Home = (props) => {
             </Link>
           </div>
         </div>
-      </div>
+      </main>
 
       <div className='bg-transparent mt-32'>
         <div className='max-w-6xl mx-auto px-2 flex flex-col rounded rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-800'>
@@ -129,7 +129,7 @@ const Home = (props) => {
             <div className='text-center px-8 text-2xl font-bold text-white'>Subscribe to our newsletter<br/>to get weekly updates about new plugins and plugin updates</div>
           </div>
           <div className='flex justify-center mb-12'>
-            <iframe src="https://obsidianpluginstats.substack.com/embed" width="480" height="320" style={{background: "#FF0000"}} frameBorder="0" scrolling="no"></iframe>
+            <iframe title='substack-subscribe-form' src="https://obsidianpluginstats.substack.com/embed" width="480" height="320" style={{background: "#FF0000"}} frameBorder="0" scrolling="no"></iframe>
           </div>
         </div>
       </div>

@@ -25,14 +25,14 @@ const New = (props) => {
         <Navbar current='new'/>
       </div>
       {/* New Plugins */}
-      <div className='bg-white pt-5'>
+      <main className='bg-white pt-5'>
         <div className='max-w-6xl mx-auto px-2'>
           <InfoBar title={`New Plugins ${props.newPlugins && `(${props.newPlugins.length})`}` } />
           <div className='flex-col'>
             <NewPluginsList plugins={props.newPlugins} favorites={favorites} setFavorites={setFavorites} />
           </div>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   )
