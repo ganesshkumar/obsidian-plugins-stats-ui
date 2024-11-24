@@ -5,6 +5,7 @@ import html from 'remark-html';
 import Header from '../../components/HeaderPost';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import moment from 'moment';
 
 interface PostData {
   id: string;
@@ -54,8 +55,8 @@ const Post: React.FC<PostProps> = ({ postData }) => {
      <div className='bg-white pt-5'>
        <div className='max-w-6xl mx-auto px-2'>
         <article className='prose !max-w-none'>
-          <h1>{postData.title}</h1>
-          <p>{postData.publishedDate}</p>
+          <h1 className='my-2'>{postData.title}</h1>
+          <div>Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}</div>
           <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
         </article>
        </div>

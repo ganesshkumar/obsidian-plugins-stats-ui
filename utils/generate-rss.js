@@ -81,7 +81,7 @@ async function generateRSS() {
   <channel>
     <title>Obsidian Plugin Stats</title>
     <link>https://obsidian-plugin-stats.ganesshkumar.com</link>
-    <description>New Obsidiab plugins, weekly plugin update posts listing latest plugins updates, newly released plugins and posts realted to obsidian plugins</description>
+    <description>New Obsidian plugins, weekly plugin update posts listing latest plugins updates, newly released plugins and posts realted to obsidian plugins</description>
     <language>en-us</language>
     <atom:link href="https://obsidian-plugin-stats.ganesshkumar.com/rss.xml" rel="self" type="application/rss+xml" />
     ${items

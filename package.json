@@ -19,6 +19,7 @@
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "10.4.2",
     "flowbite-react": "^0.10.2",
+    "framer-motion": "^11.11.17",
     "gray-matter": "^4.0.3",
     "history": "^5.3.0",
     "moment": "2.29.4",
