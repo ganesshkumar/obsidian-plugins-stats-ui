@@ -48,6 +48,15 @@ async function getSortedPostsData() {
   return allPostsData.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
 }
 
+function escapeXmlEntities(str) {
+  return str.replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&apos;');
+}
+
+
 async function generateRSS() {
   const prisma = new PrismaClient();
   const newPlugins = await getNewPlugins(prisma);
@@ -56,8 +65,8 @@ async function generateRSS() {
 
   const items = [
     ...newPlugins.map((plugin) => ({
-      title: `New Obsidian Plugin - ${plugin.name}`,
-      description: plugin.description,
+      title: escapeXmlEntities(`New Obsidian Plugin - ${plugin.name}`),
+      description: escapeXmlEntities(plugin.description),
       link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
       pubDate: new Date(plugin.createdAt)
     })),
@@ -70,8 +79,8 @@ async function generateRSS() {
     //   pubDate: new Date(plugin.latestReleaseAt)
     // })),
     ...allPostsData.map((post) => ({
-      title: post.title,
-      description: post.description,
+      title: escapeXmlEntities(post.title),
+      description: escapeXmlEntities(post.description),
       link: `https://obsidian-plugin-stats.ganesshkumar.com/posts/${post.id}`,
       pubDate: new Date(post.publishedDate)
     }))
@@ -119,8 +128,8 @@ async function saveRSSFeedForWeeklyUpdates() {
       .filter((post) => post.tags.includes('weekly-plugin-updates'))
       .filter((post) => new Date(post.publishedDate).getTime() > daysAgo(30) && new Date(post.publishedDate).getTime() < Date.now())
       .map((post) => ({
-        title: post.title,
-        description: post.description,
+        title: escapeXmlEntities(post.title),
+        description: escapeXmlEntities(post.description),
         link: `https://obsidian-plugin-stats.ganesshkumar.com/posts/${post.id}`,
         pubDate: new Date(post.publishedDate)
       }))
