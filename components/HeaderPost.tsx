@@ -22,7 +22,7 @@ const Header = (props) => {
   return (
     <Head>
       <title>{title}</title>
-      <link rel="icon" href="/images/favicon.png" />
+      <link rel="icon" href="/favicon-64.png" />
       <meta name="description" content={description} />
       <link rel="canonical" href={`https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`} />
       <link rel="sitemap" href="/sitemap.xml" />

@@ -4,6 +4,7 @@ import moment from "moment";
 import Favorites from "./Favorites";
 import { memo } from "react";
 import { CategoryIcon } from "./Category";
+import { Download } from "react-feather";
 
 const NewPluginsList = ({plugins, favorites, setFavorites, showDownloadStat=false, showLatestRelease=false, displayDate=(plugin => plugin.createdAt), showChangelog=false, showDescription=true}) => {
   const pad = plugins.length.toString().length;
@@ -41,6 +42,9 @@ const UnindexedPlugin = (props) => {
       <div className="flex items-center space-x-2 text-sm text-gray-700">
         <span>{moment(plugin.createdAt).fromNow()} by <span className="text-gray-700">{plugin.author}</span></span>
         <Favorites plugin={plugin} isFavorite={favorites.includes(plugin.pluginId)} setFavorites={setFavorites} />
+      </div>
+      <div className="pt-4 text-gray-700 flex items-center gap-x-2">
+        <Download /> <span className="font-bold text-xl">{plugin.totalDownloads.toLocaleString()}</span>
       </div>
       <div className="flex mt-4 gap-x-4">
         <div>

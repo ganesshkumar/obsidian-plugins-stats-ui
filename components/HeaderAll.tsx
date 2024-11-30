@@ -15,7 +15,7 @@ const Header = (props) => {
   return (
     <Head>
       <title>All Obsidian Plugins Released to Date</title>
-      <link rel="icon" href="/images/favicon.png" />
+      <link rel="icon" href="/favicon-64.png" />
       <meta name="description" content="Discover all the Obsidian plugins that have ever been released. Enhance your note-taking experience with a comprehensive list of features and functionalities." />
       <link rel="canonical" href="https://obsidian-plugin-stats.ganesshkumar.com/all" />
       <link rel="sitemap" href="/sitemap.xml" />

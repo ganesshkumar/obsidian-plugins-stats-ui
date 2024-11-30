@@ -15,7 +15,7 @@ const Header = (props) => {
   return (
     <Head>
       <title>{`Obsidian Plugin: ${name} - ${description}`}</title>
-      <link rel="icon" href="/images/favicon.png" />
+      <link rel="icon" href="/favicon-64.png" />
       <meta name="description" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
       <link rel="canonical" href="https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}" />
       <link rel="sitemap" href="/sitemap.xml" />

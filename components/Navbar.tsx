@@ -24,7 +24,7 @@ const NavBar = ({ current, children }: INavbarProps) => {
     <div className='max-w-6xl mx-auto w-full text-gray-800'>
       <Navbar fluid rounded theme={customTheme} className='rounded-none'>
         <Navbar.Brand href="/">
-          <Image src="/logo-64.png" width={36} height={36} className="rounded mr-3 h-6 sm:h-9" alt={`${Constants.AppName} logo`} />
+          <Image src="/favicon-64.png" width={36} height={36} className="rounded mr-3 h-6 sm:h-9" alt={`${Constants.AppName} logo`} />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             {Constants.AppName}
           </span>

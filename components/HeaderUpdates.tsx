@@ -14,7 +14,7 @@ const Header = (props) => {
   return (
     <Head>
       <title>Obsidian Plugins Updates from Last 10 Days</title>
-      <link rel="icon" href="/images/favicon.png" />
+      <link rel="icon" href="/favicon-64.png" />
       <meta name="description" content="Discover the latest updates to Obsidian plugins in the past 10 days. Take your note-taking to the next level with enhanced features and functionalities." />
       <link rel="canonical" href="https://obsidian-plugin-stats.ganesshkumar.com/updates" />
       <link rel="sitemap" href="/sitemap.xml" />

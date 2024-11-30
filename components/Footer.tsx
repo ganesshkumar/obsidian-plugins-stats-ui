@@ -59,7 +59,7 @@ const AppFooter = () => {
           <div className='!text-red-50'>
             <Footer.Brand
               href="https://obsidian-plugin-stats.ganesshkumar.com"
-              src="/logo-64.png"
+              src="/favicon-64.png"
               alt="Obsidian Plugin Stats Logo"
               name="Obsidian Plugin Stats"
             />

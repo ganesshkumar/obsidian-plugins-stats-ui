@@ -1,6 +1,7 @@
 ---
 title: Obsidian Plugin Updates 2024-11-16 to 2024-11-23
 description: new obsidian plugins from 2024-11-17 to 2024-11-24 - Password Audit, Insta TOC, Link Preview, Blur Mode, Ridian, Paper Importer, Folder Canvas, Instant Above Divider, Markdown Tags, Folder Tabulation, AI bot, Bluesky, Auto switch themes between dark/light mode, Google Drive Sync, Proletarian Wizard Task Manager, Simple Focus, StandardForm, File Manager, Quick Share Note to gist, Trakt.tv Sync, BlazeJump, Beautiful Contact Cards, History Today, Task Director, Auto Tasks, Daily Summary, Gemini Scribe, Image Tools, Recently Added Files, Bottom to Top, HackMD Sync, Three Noun Prompts
+excerpt: There are 32 new plugins and 104 plugin updates in the last one week's time.
 publishedDate: "2024-11-24"
 modifiedDate: "2024-11-24"
 tags: 

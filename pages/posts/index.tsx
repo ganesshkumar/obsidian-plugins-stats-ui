@@ -5,11 +5,14 @@ import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
 import { Footer } from 'flowbite-react';
 import moment, { now } from 'moment';
+import { Calendar } from 'react-feather';
 
 interface Post {
   id: string;
   publishedDate: string;
   title: string;
+  excerpt: string;
+  tags: string[];
 }
 
 interface BlogProps {
@@ -54,9 +57,15 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
               <ul className='flex flex-col divide-y'>
                 {postsByYear[year].map((post) => (
                   <li key={post.id}>
-                    <Link href={`/posts/${post.id}`} className='flex justify-between'>
-                      <div className='text-lg'>{post.title}</div>
-                      <div className='text-medium font-mono text-gray-700'>{moment(post.publishedDate).format('MMMM DD, YYYY')}</div>
+                    <Link href={`/posts/${post.id}`} className='flex justify-between py-4 px-2 hover:bg-gray-200'>
+                      <div className="flex gap-x-2">
+                        <div className="grid place-items-center">{post.tags && post.tags.includes('weekly-plugin-updates') && <Calendar size={44} className="text-violet-700 p-1 rounded" />}</div>
+                        <div className="flex flex-col">
+                          <div className='text-xl'>{post.title}</div>
+                          <div className='text-medium text-gray-600'>{post.excerpt}</div>
+                        </div>
+                      </div>
+                      <div className='text-medium font-mono text-gray-700 flex items-end'>{moment(post.publishedDate).format('MMMM DD, YYYY')}</div>
                     </Link>           
                   </li>
                 ))}

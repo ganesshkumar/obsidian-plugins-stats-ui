@@ -77,7 +77,7 @@ const Header = (props) => {
   return (
     <Head>
       <title>Obsidian Plugin Stats - Explore New, Updated, Trending and Most Downloaded Obsidian Plugins</title>
-      <link rel="icon" href="/images/favicon.png" />
+      <link rel="icon" href="/favicon-64.png" />
       <meta name="description" content="Discover all Obsidian plugins with the latest updates, trending plugins, and the most downloaded ones. Stay informed about the best plugins to enhance your Obsidian experience." />
       <link rel="canonical" href="https://obsidian-plugin-stats.ganesshkumar.com/" />
       <link rel="sitemap" href="/sitemap.xml" />
