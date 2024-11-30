@@ -25,6 +25,8 @@ model Plugin {
   totalDownloads    Int?
   zScoreTrending    Int?
   aiDescription     String?
+  aiCategories      String?
+  aiTags            String?
 }
 
 model ReleaseDownloads {

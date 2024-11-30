@@ -25,20 +25,20 @@ const Favorites = ({isFavorite, plugin, setFavorites}) => {
   return (
     <div className='flex flex-wrap space-x-2'>
       {isFavorite ? 
-        <div className='flex items-center text-violet-700 space-x-1'>
+        <div className='flex items-center text-gray-700 underline space-x-1'>
           <Minus size={8}/>
           <div className='text-xs cursor-pointer hover:underline' onClick={_ => unsetFavorite(plugin.pluginId, setFavorites)} id={`favorite-${plugin.pluginId}`}>
             unfavorite
           </div>
         </div> :
-        <div className='flex items-center text-violet-700 space-x-1'>
+        <div className='flex items-center text-gray-700 underline space-x-1'>
           <Plus size={8} />
           <div className='text-xs cursor-pointer hover:underline' onClick={_ => setFavorite(plugin.pluginId, setFavorites)} id={`unfavorite-${plugin.pluginId}`}>
             favorite
           </div>
         </div>
       }
-      <div className='flex items-center text-violet-700 space-x-1'>
+      <div className='flex items-center text-gray-700 underline space-x-1'>
         <Share2 size={8} />
         <div className='text-xs cursor-pointer hover:underline' onClick={shareClicked} id={`share-${plugin.pluginId}`}>
           {shareText}
