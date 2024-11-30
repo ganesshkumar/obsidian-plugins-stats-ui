@@ -98,6 +98,6 @@ const CategoryAssets = {
 
 
 
-export const CategoryIcon = ({ category, className }: { category: string, className: string }) => {
+export const CategoryIcon = ({ category }: { category: string }) => {
   return CategoryAssets[category]?.icon || CategoryAssets.default.icon;
 };

@@ -15,6 +15,7 @@ import Link from 'next/link';
 import Faq from '../components/Faq';
 import { Card, CustomFlowbiteTheme, HR } from "flowbite-react";
 import FavPluginUpdates from '../components/FavPluginUpdates';
+import { CategoryIcon } from '../components/Category';
 
 const customCardTheme: CustomFlowbiteTheme["card"] = {
   root: {
@@ -64,7 +65,10 @@ const Home = (props) => {
                   >
                     <div className='text-xl font-semibold tracking-wide text-violet-900'>{plugin.name}</div>
                     <div className='text-sm'>{moment(plugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-                    <div className='mt-5 text-sm'>{plugin.description}</div>
+                    <div className='mt-5 text-sm flex gap-x-2'>
+                      <CategoryIcon category={plugin.aiCategories} />
+                      {plugin.description}
+                    </div>
                     {/* <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(plugin.createdAt, 1)} isTrending={plugin.zScoreTrending > 10} category='Plugin' /> */}
                   </Card>
                 );
