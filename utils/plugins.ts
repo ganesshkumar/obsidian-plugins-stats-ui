@@ -5,11 +5,20 @@ export const getDescription = (plugin) => {
     return '';
   }
 
-  if (plugin.aiDescription) {
-      if (!plugin.aiDescription.startsWith('I apologize, but it seems that there is no README file provided') || plugin.aiDescription.length < 500) {
-      return plugin.aiDescription.replaceAll('**', '');
-      }
+  const { aiDescription } = plugin;
+
+  if (aiDescription) {
+    if (!aiDescription.startsWith('I apologize') && !aiDescription.startsWith('Here is a 100-word summary') && getWordCount(aiDescription) < 500) {
+      return aiDescription.replaceAll('**', '');
+    }
   }
-  
+
   return plugin.description || '';
+}
+
+const getWordCount = (text) => {
+  if (!text) {
+    return 0;
+  }
+  return text.trim().split(/\s+/).length;
 }
