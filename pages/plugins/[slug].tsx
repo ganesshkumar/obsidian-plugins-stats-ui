@@ -11,7 +11,7 @@ import Footer from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
 import NewPluginCard from '../../components/NewPluginCard';
-import { tagDenyList } from '../../utils/plugins';
+import { getDescription, tagDenyList } from '../../utils/plugins';
 import { isNotXDaysOld } from '../../utils/datetime';
 
 import { Download, DownloadCloud, Star, GitHub, Edit2 } from 'react-feather';
@@ -118,7 +118,7 @@ const Tag = (props) => {
           </Card>
           <Card theme={customCardTheme} className='relative mt-4'>
             <div className='text-2xl'>Description</div>
-            <div className='prose mt-4 !max-w-none' dangerouslySetInnerHTML={{__html: mdConverter.makeHtml(props.plugin.aiDescription || props.plugin.description)}} />
+            <div className='prose mt-4 !max-w-none' dangerouslySetInnerHTML={{__html: mdConverter.makeHtml(getDescription(props.plugin))}} />
           </Card>
           <Card theme={customCardTheme} className='relative mt-4'>
             <div className='text-2xl'>Latest Version</div>

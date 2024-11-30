@@ -3,6 +3,7 @@ import moment from "moment";
 import Favorites from "./Favorites";
 import { memo } from "react";
 import { VList } from "virtua";
+import { getDescription } from "../utils/plugins";
 
 const AllPluginsList = ({plugins, favorites, setFavorites}) => {  
   return (
@@ -28,7 +29,7 @@ const UnindexedPlugin = (props) => {
         <Favorites plugin={plugin} isFavorite={favorites.includes(plugin.pluginId)} setFavorites={setFavorites} />
       </div>
       <div className='my-4'>
-        {plugin?.aiDescription?.replaceAll('**', '') || plugin.description}
+        {getDescription(plugin)}
       </div>
       <Link href={`/plugins/${plugin.pluginId}`}
         className='underline text-gray-600 font-seminbold'>
