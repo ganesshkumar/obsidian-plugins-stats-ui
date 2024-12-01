@@ -6,6 +6,7 @@ import { memo } from "react";
 import { CategoryIcon } from "./Category";
 import { Download } from "react-feather";
 import { getDescription } from "../utils/plugins";
+import LinkButton from "./LinkButton";
 
 const NewPluginsList = ({plugins, favorites, setFavorites, showDownloadStat=false, showLatestRelease=false, displayDate=(plugin => plugin.createdAt), showChangelog=false, showDescription=true}) => {
   const pad = plugins.length.toString().length;
@@ -65,10 +66,7 @@ const UnindexedPlugin = (props) => {
       <div className='my-4 text-gray-700'>
         {getDescription(plugin)}
       </div>
-      <Link href={`/plugins/${plugin.pluginId}`}
-        className=' font-medium w-48 border bg-gray-600 text-slate-100 px-2 py-1 rounded text-center'>
-          View Plugin Details
-      </Link> 
+      <LinkButton href={`/plugins/${plugin.pluginId}`} content="View Plugin Details" />
     </div>
   )
 }

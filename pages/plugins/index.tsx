@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar';
 
 import { PrismaClient } from "@prisma/client";
 import Footer from '../../components/Footer';
-import { setupFavorites } from '../../utils/favorites';
+   import { setupFavorites } from '../../utils/favorites';
 import AllPluginsList from '../../components/AllPluinsList';
 import { Checkbox, Dropdown, Label, TextInput } from 'flowbite-react';
 
@@ -17,11 +17,30 @@ const sortByOptions = {
   downloaded_desc: 'Most Downloaded'
 }
 
+const filterCategoryOptions = {
+  all: 'All Categories',
+  taskManagement: "Task Management", 
+  fileManagement: "File Management", 
+  noteEnhancements: "Note Enhancements", 
+  dataVisualization: "Data Visualization", 
+  thirdPartyIntegrations: "3rd Party Integrations", 
+  productivityTools: "Productivity Tools", 
+  codingAndTechnicalTools: "Coding & Technical Tools", 
+  creativeAndWritingTools: "Creative & Writing Tools", 
+  privacyAndSecurity: "Privacy & Security", 
+  customizationAndUI: "Customization & UI", 
+  collaborationAndSharing: "Collaboration & Sharing", 
+  learningAndknowledgeManagement: "Learning & Knowledge Management", 
+  miscellaneous: "Miscellaneous", 
+  uncategorized: "Uncategorized",
+}
+
 const Plugins = (props) => {
   const [filter, setFilter] = useState('');
   const [favoritesFilter, setFavoritesFilter] = useState(false);
   const [favorites, setFavorites] = useState([]);
-  const [sortby, setSortby] = useState('alphabet_asc');
+  const [sortby, setSortby] = useState('createdAt_desc');
+  const [filterCategory, setFilterCategory] = useState('all');
 
   useEffect(() => {
     setupFavorites(setFavorites);
@@ -32,10 +51,17 @@ const Plugins = (props) => {
     const plugins = [...props.plugins]
       .filter(plugin => favoritesFilter ? favorites.includes(plugin.pluginId) : true)
       .filter(plugin => {
+        if (filterCategory === 'all') {
+          return true;
+        }
+        return plugin.aiCategories === filterCategoryOptions[filterCategory];
+      })
+      .filter(plugin => {
         return (
           plugin.name.toLowerCase().includes(filterLowerCase) || plugin.description.toLowerCase().includes(filterLowerCase)
         );
       });
+
 
     plugins
       .sort((a, b) => {
@@ -52,7 +78,7 @@ const Plugins = (props) => {
       });
 
     return plugins;
-  }, [filter, favoritesFilter, sortby, favorites]);
+  }, [filter, favoritesFilter, sortby, favorites, filterCategory]);
   
   return (
     <div className='flex flex-col'>
@@ -79,13 +105,35 @@ const Plugins = (props) => {
               <TextInput id="search" type="text" placeholder="Search for plugins" color="purple" shadow onChange={e => setFilter(e.target.value)} />
             </div>
             <div className='pl-2 mb-4 bg-white flex justify-between'>
-              <div className='flex gap-x-2 items-center'>
-                <label className="cursor-pointer label">
-                  <div className='label-text'>Filters: </div>
-                </label>
-                <div>
-                  <Checkbox id="filter-favorites" className='mr-2 cursor-pointer' onClick={() => setFavoritesFilter(!favoritesFilter)} color="purple" />
-                  <Label htmlFor="filter-favorites" className='cursor-pointer'>Favorites</Label>
+              <div className="flex gap-x-4">
+                <div className='flex gap-x-2 items-center'>
+                  <label className="cursor-pointer label">
+                    <div className='label-text'>Filters: </div>
+                  </label>
+                  <div>
+                    <Checkbox id="filter-favorites" className='mr-2 cursor-pointer' onClick={() => setFavoritesFilter(!favoritesFilter)} color="purple" />
+                    <Label htmlFor="filter-favorites" className='cursor-pointer'>Favorites</Label>
+                  </div>
+                </div>
+                <div className='flex gap-x-2 items-center'>
+                  <Label htmlFor="filter-category" className='cursor-pointer'>Categories: </Label>
+                  <Dropdown id="filter-category" label={filterCategoryOptions[filterCategory]} inline size="sm">
+                    <Dropdown.Item onClick={() => setFilterCategory('all')}>{filterCategoryOptions['all']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('taskManagement')}>{filterCategoryOptions['taskManagement']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('fileManagement')}>{filterCategoryOptions['fileManagement']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('noteEnhancements')}>{filterCategoryOptions['noteEnhancements']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('dataVisualization')}>{filterCategoryOptions['dataVisualization']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('thirdPartyIntegrations')}>{filterCategoryOptions['thirdPartyIntegrations']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('productivityTools')}>{filterCategoryOptions['productivityTools']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('codingAndTechnicalTools')}>{filterCategoryOptions['codingAndTechnicalTools']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('creativeAndWritingTools')}>{filterCategoryOptions['creativeAndWritingTools']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('privacyAndSecurity')}>{filterCategoryOptions['privacyAndSecurity']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('customizationAndUI')}>{filterCategoryOptions['customizationAndUI']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('collaborationAndSharing')}>{filterCategoryOptions['collaborationAndSharing']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('learningAndknowledgeManagement')}>{filterCategoryOptions['learningAndknowledgeManagement']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('miscellaneous')}>{filterCategoryOptions['miscellaneous']}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setFilterCategory('uncategorized')}>{filterCategoryOptions['uncategorized']}</Dropdown.Item>
+                  </Dropdown>
                 </div>
               </div>
               <div className='flex gap-x-2 items-center'>

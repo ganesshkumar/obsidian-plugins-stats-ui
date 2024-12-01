@@ -17,6 +17,9 @@ import { Card, CustomFlowbiteTheme, HR } from "flowbite-react";
 import FavPluginUpdates from '../components/FavPluginUpdates';
 import { CategoryIcon } from '../components/Category';
 
+import { useInView } from "framer-motion";
+import LinkButton from '../components/LinkButton';
+
 const customCardTheme: CustomFlowbiteTheme["card"] = {
   root: {
     children: "flex h-full flex-col justify-center gap-0 p-4"
@@ -43,86 +46,12 @@ const Home = (props) => {
         <PluginEcosystemStats {...props} />
       </div>
 
-      {/* New Plugins */}
-      <div className='bg-transparent mt-16'>
-        <div className='max-w-6xl mx-auto px-2'>
-          <InfoBar title='New Plugins' />
-          <div>There are {props.newPlugins?.length || 0} new plugins from the last 10 days</div>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 pt-5'>
-            {
-              props.newPlugins.slice(0, 6).map((plugin, idx) => {
-                // const isFavorite = favorites.includes(plugin.pluginId);
-                return (
-                  <Card
-                    theme={customCardTheme}
-                    key={plugin.id}
-                    href={`/plugins/${plugin.pluginId}`}
-                    id={`new-plugin-${idx}`}
-                  >
-                    <div className='text-xl font-semibold tracking-wide text-violet-900'>{plugin.name}</div>
-                    <div className='text-sm'>{moment(plugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-                    <div className='mt-5 flex gap-x-2'>
-                      <div className='grid content-center'><CategoryIcon category={plugin.aiCategories} size={32} /></div>
-                      <div className='text-sm '>{plugin.description}</div>
-                    </div>
-                    {/* <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(plugin.createdAt, 1)} isTrending={plugin.zScoreTrending > 10} category='Plugin' /> */}
-                  </Card>
-                );
-              })
-            }
-            <Link href='/new' passHref className='text-xl font-medium mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='new-plugin-all'>
-              View all {props.newPlugins?.length || 0} new plugins ⟶
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      <div className='max-w-6xl mx-auto'>
-        <HR.Trimmed />
-      </div>
-
+      <NewPluginsSection newPlugins={props.newPlugins} />
+      <Divider />
       <FavPluginUpdates newReleases={props.newReleases} />
-
-      <div className='max-w-6xl mx-auto my-4'>
-        <HR.Trimmed />
-      </div>
-
-      {/* New Version */}
-      <main className='bg-transparent'>
-        <div className='max-w-6xl mx-auto px-2'>
-          <InfoBar title='New Versions' />
-          <div>There are {props.newReleases?.length || 0} new plugins from the last 10 days</div>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 pt-5'>
-            {props.newReleases.slice(0, 12).map((newRelease, idx) => {
-              // const isFavorite = favorites.includes(newRelease.pluginId);
-              // const isTrending = newRelease.zScoreTrending > 10;
-              return (
-                <Card
-                  theme={customCardTheme}
-                  key={newRelease.id}
-                  href={`/plugins/${newRelease.pluginId}`}
-                  id={`plugin-update-${idx}`}
-                >
-                  <div className='flex flex-none justify-between'>
-                   <div className='py-2'>
-                     <div className='text-lg font-semibold tracking-wide text-violet-900'>{newRelease.name}</div>
-                     <div className='text-sm text-gray-700'>{moment(newRelease.latestReleaseAt).fromNow()} by <span className=''>{newRelease.author}</span></div>
-                   </div>
-                   <div className='text-2xl font-medium flex flex-col justify-center'>
-                     <div className='text-violet-900'>{newRelease.latestRelease}</div>
-                   </div>
-                   {/* <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)} isTrending={isTrending} category='Update' /> */}
-                 </div>
-                </Card>
-              )
-            })}
-            <Link href='/updates' passHref className='text-xl font-medium mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='plugin-update-all'>
-              View all {props.newReleases?.length || 0} updated plugins ⟶
-            </Link>
-          </div>
-        </div>
-      </main>
-
+      <Divider />
+      <NewVersionsSection newReleases={props.newReleases} />
+      
       <div className='bg-transparent mt-32'>
         <div className='max-w-6xl mx-auto px-2 flex flex-col rounded rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-800'>
           <div className='flex flex-col justify-center items-center my-12 '>
@@ -155,7 +84,7 @@ const Home = (props) => {
                 </Card>
               )
             })}
-            <Link href='/updates' passHref className='text-xl font-medium mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='most-downloaded-all'>
+            <Link href='/most-downloaded' passHref className='text-xl font-medium mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer' id='most-downloaded-all'>
               View top 25 downloaded plugins ⟶
             </Link>
           </div>
@@ -180,6 +109,110 @@ const Home = (props) => {
     </div >
   )
 }
+
+const NewPluginsSection = ({ newPlugins }) => {
+  const linkRef = useRef(null);
+  const isInView = useInView(linkRef, { once: true });
+  return (
+    <div className='bg-transparent mt-16'>
+      <div className='max-w-6xl mx-auto px-2'>
+        <InfoBar title='New Plugins' />
+        <div>There are {newPlugins?.length || 0} new plugins from the last 10 days</div>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 pt-5'>
+          {
+            newPlugins.slice(0, 6).map((plugin, idx) => {
+              const ref = useRef(null);
+              const isInView = useInView(ref, { once: true });
+              return (
+                <Card
+                  ref={ref}
+                  theme={customCardTheme}
+                  key={plugin.id}
+                  href={`/plugins/${plugin.pluginId}`}
+                  id={`new-plugin-${idx}`}
+                  style={{
+                    transform: isInView ? "none" : idx % 2 === 0 ? "translateX(-200px)" : "translateX(200px)",
+                    opacity: isInView ? 1 : 0,
+                    transition: "all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s"
+                  }}
+                >
+                  <div className='text-xl font-semibold text-gray-800'>{plugin.name}</div>
+                  <div className='text-sm'>{moment(plugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
+                  <div className='mt-5 flex gap-x-2'>
+                    <div className='grid content-center'><CategoryIcon category={plugin.aiCategories} size={32} /></div>
+                    <div className='text-sm '>{plugin.description}</div>
+                  </div>
+                </Card>
+              );
+            })
+          }
+          <LinkButton ref={linkRef} href='/new' content={`View all ${newPlugins?.length || 0} new plugins ⟶`} style={{
+            transform: isInView ? "none" : "translateX(-200px)",
+            opacity: isInView ? 1 : 0,
+            transition: "all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s"
+          }}/>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const NewVersionsSection = ({ newReleases }) => {
+  const linkRef = useRef(null);
+  const isInView = useInView(linkRef, { once: true });
+  return (
+    <main className='bg-transparent'>
+      <div className='max-w-6xl mx-auto px-2'>
+        <InfoBar title='New Versions' />
+        <div>There are {newReleases?.length || 0} new plugins from the last 10 days</div>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 pt-5'>
+          {newReleases.slice(0, 12).map((newRelease, idx) => {
+            // const isFavorite = favorites.includes(newRelease.pluginId);
+            // const isTrending = newRelease.zScoreTrending > 10;
+            const ref = useRef(null);
+            const isInView = useInView(ref, { once: true });
+            return (
+              <Card
+                ref={ref}
+                theme={customCardTheme}
+                key={newRelease.id}
+                href={`/plugins/${newRelease.pluginId}`}
+                id={`plugin-update-${idx}`}
+                style={{
+                  transform: isInView ? "none" : idx % 2 === 0 ? "translateX(-200px)" : "translateX(200px)",
+                  opacity: isInView ? 1 : 0,
+                  transition: "all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s"
+                }}
+              >
+                <div className='flex flex-none justify-between'>
+                  <div className='py-2'>
+                    <div className='text-lg font-semibold text-gray-800'>{newRelease.name}</div>
+                    <div className='text-sm text-gray-700'>{moment(newRelease.latestReleaseAt).fromNow()} by <span className=''>{newRelease.author}</span></div>
+                  </div>
+                  <div className='text-2xl font-medium flex flex-col justify-center'>
+                    <div className='text-violet-900'>{newRelease.latestRelease}</div>
+                  </div>
+                  {/* <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)} isTrending={isTrending} category='Update' /> */}
+                </div>
+              </Card>
+            )
+          })}
+          <LinkButton ref={linkRef} href='/updates' content={`View all ${newReleases?.length || 0} updated plugins ⟶`} style={{
+            transform: isInView ? "none" : "translateX(-200px)",
+            opacity: isInView ? 1 : 0,
+            transition: "all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s"
+          }}/>
+        </div>
+      </div>
+    </main>
+  )
+}
+
+const Divider = () => (
+  <div className='max-w-6xl mx-auto my-4'>
+    <HR.Trimmed />
+  </div>
+);
 
 export const getStaticProps = async () => {
   const prisma: PrismaClient = new PrismaClient();
