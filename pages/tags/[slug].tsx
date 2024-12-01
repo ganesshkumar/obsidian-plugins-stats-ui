@@ -9,6 +9,7 @@ import { setupFavorites } from '../../utils/favorites';
 import Footer from '../../components/Footer';
 import NewPluginsList from '../../components/NewPluginsList';
 import { Navbar } from 'flowbite-react';
+import { sanitizeTag } from '../../utils/plugins';
 
 const Tag = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -42,15 +43,12 @@ const Tag = (props) => {
   )
 }
 
-const prisma = new PrismaClient();
-
 export const getStaticPaths = async () => {
-  const tagsData = await prisma.pluginTags.findMany({
-    select: { tag: true },
-    distinct: ['tag']
-  });
+  let prisma: PrismaClient = new PrismaClient();
 
-  const tags = tagsData.map(datum => datum.tag);
+  const plugins = await prisma.plugin.findMany({}); 
+  let tags = plugins.map(plugin => plugin.aiTags.split(',')).flat().map(tag => sanitizeTag(tag));
+  tags = Array.from(new Set(tags));
 
   return {
     paths: tags.map(tag => ({params: {slug: tag}})),
@@ -59,28 +57,19 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  const tagsData = await prisma.pluginTags.findMany({
-    where: { tag: params.slug },
-    select: {
-      tag: true,
-      pluginId: true,
-    }
-  });
-  
-  const plugins = await prisma.plugin.findMany({
-    where: {
-      pluginId: {
-        in: tagsData.map(datum => datum.pluginId)
-      }
-    }
-  })
+  let prisma: PrismaClient = new PrismaClient();
+
+  const plugins = await prisma.plugin.findMany({});
+  const pluginsWithTag = plugins.filter(plugin => plugin.aiTags.split(',').map(tag => sanitizeTag(tag)).includes(params.slug));
 
   return {
     props: {
       tag: params.slug,
-      plugins,
+      plugins: pluginsWithTag,
     }
   }
-};
+}
+
+
 
 export default Tag;

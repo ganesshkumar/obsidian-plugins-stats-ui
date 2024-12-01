@@ -1,4 +1,17 @@
-export const tagDenyList = ['obsidian', 'obsidian-plugin', 'obsidian-md', 'plugin', 'hacktoberfest', 'obsidianmd', 'typescript'];
+export const tagDenyList = [
+  'obsidian',
+  'obsidianmd',
+  'obsidianplugin',
+  'obsidianplugins',
+  'plugin',
+  'plugins',
+  'hacktoberfest',
+  'obsidianmd'
+];
+
+export const sanitizeTag = (tag) => {
+  return tag.toLowerCase().trim().replaceAll(' ', '').replaceAll('-', '');
+}
 
 export const getDescription = (plugin) => {
   if (!plugin) {

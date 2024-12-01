@@ -25,7 +25,7 @@ const NewPluginsList = ({plugins, favorites, setFavorites, showDownloadStat=fals
 const Plugin = (props) => {
   const { plugin, idx, pad, favorites, setFavorites, showDownloadStat } = props;
   return (
-    <List.Item className="!mt-0 py-8 px-2 w-full hover:bg-slate-50">
+    <List.Item className="!mt-0 py-3 px-2 w-full hover:bg-slate-50">
       <div className="flex items-start space-x-4 rtl:space-x-reverse">
         <div className='text-xl'>{String(idx).padStart(pad, '0')}.</div>
         <MemoizedUnindexedPlugin plugin={plugin} favorites={favorites} setFavorites={setFavorites} showDownloadStat={showDownloadStat} />
@@ -59,7 +59,7 @@ const UnindexedPlugin = (props) => {
             Category: <span className="font-bold">{plugin.aiCategories}</span>
           </div>
           <div className="flex gap-x-2 text-gray-700 cursor-pointer">
-            {plugin.aiTags?.split(',').map(tag => <span key={tag} className='px-2 bg-gray-200 rounded-md'><span className="text-gray-400">#</span>{tag}</span>)}
+            {plugin.aiTags?.split(',').map(tag => <Link href={`/tags/${tag}`} key={tag} className='px-2 bg-gray-200 rounded-md'><span className="text-gray-400">#</span>{tag}</Link>)}
           </div>
         </div>
       </div>

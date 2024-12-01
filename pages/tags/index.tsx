@@ -6,7 +6,7 @@ import Navbar from '../../components/Navbar';
 import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
 import Footer from '../../components/Footer';
-import { tagDenyList } from '../../utils/plugins';
+import { sanitizeTag, tagDenyList } from '../../utils/plugins';
 
 const Tags = (props) => {
   return (
@@ -39,26 +39,32 @@ const Tags = (props) => {
 }
 
 export const getStaticProps = async () => {
-  const prisma = new PrismaClient();
-  
-  let tagsData = await prisma.pluginTags.groupBy({
-    by: ['tag'],
-    where: {
-      tag: {
-        notIn: tagDenyList
+  let prisma: PrismaClient = new PrismaClient();
+
+  const tagsData: Record<string, number> = {};
+  const plugins = await prisma.plugin.findMany({});
+  plugins.forEach((plugin) => {
+    const tags = (plugin as any).aiTags.split(',');
+    tags.forEach((tag) => {
+      const sanitizedTag = sanitizeTag(tag);
+      
+      if (tagDenyList.includes(sanitizedTag)) {
+        return;
       }
-    },
-    _count: {
-      pluginId: true
-    }
+
+      if (tagsData[sanitizedTag] === undefined) {
+        tagsData[sanitizedTag] = 0;
+      }
+      tagsData[sanitizedTag]++;
+    });
   });
 
   return {
     props: {
-      tags: tagsData.map(datum => datum.tag),
-      pluginCountByTags: tagsData.reduce((acc, value) => {acc[value.tag] = value['_count'].pluginId; return acc;}, {})
+      tags: Object.keys(tagsData),
+      pluginCountByTags: tagsData
     }
-  }
+  };
 }
 
 export default Tags;
