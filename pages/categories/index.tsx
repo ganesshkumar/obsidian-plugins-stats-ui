@@ -10,6 +10,7 @@ import InfoBar from '../../components/InfoBar';
 import { CategoryIcon } from '../../components/Category';
 import LinkButton from '../../components/LinkButton';
 import { Card } from 'flowbite-react';
+import { PluginsCache } from '../../cache/plugins-cache';
 
 const Categories = (props) => {
   return (
@@ -63,10 +64,9 @@ const Categories = (props) => {
 }
 
 export const getStaticProps = async () => {
-  let prisma: PrismaClient = new PrismaClient();
-
+  const plugins = await PluginsCache.get();
   const categoriesData: Record<string, number> = {};
-  const plugins = await prisma.plugin.findMany({});
+  
   plugins.forEach((plugin) => {
     if (!plugin || !plugin.aiCategories) {
       return;

@@ -10,6 +10,9 @@ import Footer from '../../components/Footer';
 import NewPluginsList from '../../components/NewPluginsList';
 import { Navbar } from 'flowbite-react';
 import { sanitizeTag } from '../../utils/plugins';
+import App from 'next/app';
+import AppCache from '../../cache/appcache';
+import { PluginsCache } from '../../cache/plugins-cache';
 
 const Tag = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -44,9 +47,8 @@ const Tag = (props) => {
 }
 
 export const getStaticPaths = async () => {
-  let prisma: PrismaClient = new PrismaClient();
-
-  const plugins = await prisma.plugin.findMany({}); 
+  const plugins = await PluginsCache.get();
+  
   let tags = plugins.map(plugin => plugin.aiTags.split(',')).flat().map(tag => sanitizeTag(tag));
   tags = Array.from(new Set(tags));
 
@@ -57,9 +59,8 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  let prisma: PrismaClient = new PrismaClient();
+  const plugins = await PluginsCache.get();
 
-  const plugins = await prisma.plugin.findMany({});
   const pluginsWithTag = plugins.filter(plugin => plugin.aiTags.split(',').map(tag => sanitizeTag(tag)).includes(params.slug));
 
   return {

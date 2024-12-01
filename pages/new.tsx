@@ -9,6 +9,7 @@ import { setupFavorites } from '../utils/favorites';
 import NewPluginsList from '../components/NewPluginsList';
 import { daysAgo } from '../utils/datetime';
 import InfoBar from '../components/InfoBar';
+import { PluginsCache } from '../cache/plugins-cache';
 
 
 const New = (props) => {
@@ -39,15 +40,8 @@ const New = (props) => {
 }
 
 export const getStaticProps = async () => {
-  let prisma: PrismaClient = new PrismaClient();
-
-  let newPlugins: any[] = await prisma.plugin.findMany({
-    where: { 
-      createdAt: {
-        gt: daysAgo(10),
-      }
-    }
-  });
+  const plugins = await PluginsCache.get();
+  const newPlugins = plugins.filter(plugin => plugin.createdAt > daysAgo(10));
   newPlugins.sort((a, b) => b.createdAt - a.createdAt);
   
   return { props: { newPlugins } };

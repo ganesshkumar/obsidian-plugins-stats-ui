@@ -9,6 +9,7 @@ import Footer from '../../components/Footer';
 import NewPluginsList from '../../components/NewPluginsList';
 import { Navbar } from 'flowbite-react';
 import InfoBar from '../../components/InfoBar';
+import { PluginsCache } from '../../cache/plugins-cache';
 
 const Category = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -40,10 +41,9 @@ const Category = (props) => {
   )
 }
 
-export const getStaticPaths = async () => {
-  let prisma: PrismaClient = new PrismaClient();
 
-  const plugins = await prisma.plugin.findMany({}); 
+export const getStaticPaths = async () => {
+  const plugins = await PluginsCache.get();
   let categories = plugins.map(plugin => plugin.aiCategories).filter(category => !!category);
 
   return {
@@ -53,9 +53,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-  let prisma: PrismaClient = new PrismaClient();
-
-  const plugins = await prisma.plugin.findMany({});
+  const plugins = await PluginsCache.get();
   const pluginsWithCategory = plugins.filter(plugin => plugin.aiCategories === params.slug);
 
   return {

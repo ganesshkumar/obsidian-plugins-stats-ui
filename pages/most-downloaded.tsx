@@ -7,6 +7,7 @@ import { PrismaClient } from "@prisma/client";
 import Footer from '../components/Footer';
 import { setupFavorites } from '../utils/favorites';
 import NewPluginsList from '../components/NewPluginsList';
+import { PluginsCache } from '../cache/plugins-cache';
 
 const MostDownloaded = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -38,14 +39,8 @@ const MostDownloaded = (props) => {
 }
 
 export const getStaticProps = async (context) => {
-  let prisma: PrismaClient = new PrismaClient();
-
-  let mostDownloaded = await prisma.plugin.findMany({
-    orderBy: {
-      totalDownloads: 'desc',
-    },
-    take: 25
-  });
+  const plugins = await PluginsCache.get();
+  const mostDownloaded = plugins.sort((a, b) => b.totalDownloads - a.totalDownloads).slice(0, 25);
 
   return { props: { mostDownloaded } };
 }

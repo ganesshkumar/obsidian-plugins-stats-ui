@@ -13,6 +13,7 @@ import Link from 'next/link';
 import moment from 'moment';
 import Favorites from '../components/Favorites';
 import showdown from 'showdown';
+import { PluginsCache } from '../cache/plugins-cache';
 
 const mdConverter = new showdown.Converter();
 mdConverter.setFlavor('github');
@@ -79,15 +80,8 @@ const Updates = (props) => {
 }
 
 export const getStaticProps = async () => {
-  let prisma: PrismaClient = new PrismaClient();
-
-  let newReleases = await prisma.plugin.findMany({
-    where: {
-      latestReleaseAt: {
-        gt: daysAgo(10),
-      }
-    }
-  });
+  const plugins = await PluginsCache.get();
+  const newReleases = plugins.filter(plugin => plugin.latestReleaseAt > daysAgo(10));
   newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt)
   
   return { props: { newReleases } };

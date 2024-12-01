@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import NewPluginsList from '../components/NewPluginsList';
 import { setupFavorites } from '../utils/favorites';
+import { PluginsCache } from '../cache/plugins-cache';
 
 const Trending = ({plugins}) => {
   const [favorites, setFavorites] = useState([]);
@@ -42,23 +43,13 @@ const Trending = ({plugins}) => {
 }
 
 export const getStaticProps = async () => {
-  const prisma = new PrismaClient();
-  
-  let plugins = await prisma.plugin.findMany({
-    where: {
-      zScoreTrending: {
-        not: null
-      },
-    },
-    orderBy: {
-      zScoreTrending: 'desc'
-    },
-    take: 10
-  });
+  const plugins = await PluginsCache.get();
+  const trendingPlugins = plugins.filter(plugin => plugin.zScoreTrending > 10);
+  trendingPlugins.sort((a, b) => b.zScoreTrending - a.zScoreTrending);
 
   return {
     props: {
-      plugins
+      plugins: trendingPlugins
     }
   }
 }

@@ -8,6 +8,7 @@ import Footer from '../../components/Footer';
    import { setupFavorites } from '../../utils/favorites';
 import AllPluginsList from '../../components/AllPluinsList';
 import { Checkbox, Dropdown, Label, TextInput } from 'flowbite-react';
+import { PluginsCache } from '../../cache/plugins-cache';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -156,9 +157,7 @@ const Plugins = (props) => {
 }
 
 export const getStaticProps = async () => {
-  let prisma: PrismaClient = new PrismaClient();
-
-  const plugins = await prisma.plugin.findMany({});
+  const plugins = await PluginsCache.get();
   plugins.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
 
   return { props: { plugins } };

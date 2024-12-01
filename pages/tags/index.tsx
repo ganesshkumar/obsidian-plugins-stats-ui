@@ -7,6 +7,7 @@ import { PrismaClient } from "@prisma/client";
 import Link from 'next/link';
 import Footer from '../../components/Footer';
 import { sanitizeTag, tagDenyList } from '../../utils/plugins';
+import { PluginsCache } from '../../cache/plugins-cache';
 
 const Tags = (props) => {
   return (
@@ -39,10 +40,9 @@ const Tags = (props) => {
 }
 
 export const getStaticProps = async () => {
-  let prisma: PrismaClient = new PrismaClient();
+  const plugins = await PluginsCache.get();
 
   const tagsData: Record<string, number> = {};
-  const plugins = await prisma.plugin.findMany({});
   plugins.forEach((plugin) => {
     const tags = (plugin as any).aiTags.split(',');
     tags.forEach((tag) => {

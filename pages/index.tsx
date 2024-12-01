@@ -19,6 +19,8 @@ import { CategoryIcon } from '../components/Category';
 
 import { useInView } from "framer-motion";
 import LinkButton from '../components/LinkButton';
+import { PluginsCache } from '../cache/plugins-cache';
+import { sanitizeTag, tagDenyList } from '../utils/plugins';
 
 const customCardTheme: CustomFlowbiteTheme["card"] = {
   root: {
@@ -215,44 +217,28 @@ const Divider = () => (
 );
 
 export const getStaticProps = async () => {
-  const prisma: PrismaClient = new PrismaClient();
-
-  const newPlugins: any[] = await prisma.plugin.findMany({
-    where: {
-      createdAt: {
-        gt: daysAgo(10),
-      }
-    }
-  });
+  const plugins = await PluginsCache.get();
+  
+  const newPlugins = plugins.filter(plugin => plugin.createdAt > daysAgo(10));
   newPlugins.sort((a, b) => b.createdAt - a.createdAt);
 
-  const totalPluginsCount = await prisma.plugin.count();
-
-  const newReleases = await prisma.plugin.findMany({
-    where: {
-      latestReleaseAt: {
-        gt: daysAgo(10),
-      }
-    }
-  });
+  const newReleases = plugins.filter(plugin => plugin.latestReleaseAt > daysAgo(10));
   newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
 
-  let mostDownloaded = await prisma.plugin.findMany({
-    orderBy: {
-      totalDownloads: 'desc',
-    },
-    take: 25
+  const mostDownloaded = [...plugins].sort((a, b) => b.totalDownloads - a.totalDownloads).slice(0, 25);
+  
+  const tags = new Set<string>();
+  plugins.forEach((plugin) => {
+    plugin?.aiTags.split(',')
+      .map(tag => sanitizeTag(tag))
+      .forEach(tag => tags.add(tag));
   });
 
-  const tags = await prisma.pluginTags.findMany({
-    select: { tag: true },
-    distinct: ['tag']
-  });
-
+  const totalPluginsCount = plugins.length;
   const newPluginsCount = newPlugins.length;
   const newReleasesCount = newReleases.length;
 
-  return { props: { newPlugins, newPluginsCount, totalPluginsCount, newReleases, newReleasesCount, mostDownloaded, totalTagsCount: tags.length } }
+  return { props: { newPlugins, newPluginsCount, totalPluginsCount, newReleases, newReleasesCount, mostDownloaded, totalTagsCount: tags.size } }
 }
 
 export default Home;

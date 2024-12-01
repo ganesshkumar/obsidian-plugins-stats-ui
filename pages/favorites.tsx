@@ -12,6 +12,7 @@ import { daysAgo, isNotXDaysOld } from '../utils/datetime';
 import CardAnnotations from '../components/CardAnnotations';
 import InfoBar from '../components/InfoBar';
 import moment from 'moment';
+import { PluginsCache } from '../cache/plugins-cache';
 
 const Favorites = (props) => {  
   const [favorites, setFavorites] = useState([]);
@@ -89,18 +90,10 @@ const Favorites = (props) => {
 }
 
 export const getStaticProps = async () => {
-  let prisma: PrismaClient = new PrismaClient();
-
-  let plugins = await prisma.plugin.findMany({});
+  const plugins = await PluginsCache.get();
   plugins.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
   
-  const newReleases = await prisma.plugin.findMany({
-    where: {
-      latestReleaseAt: {
-        gt: daysAgo(10),
-      }
-    }
-  });
+  const newReleases = plugins.filter(plugin => plugin.latestReleaseAt > daysAgo(10));
   newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
 
   return { props: { plugins, newReleases } };

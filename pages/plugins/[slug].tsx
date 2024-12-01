@@ -11,11 +11,12 @@ import Footer from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
 import NewPluginCard from '../../components/NewPluginCard';
-import { getDescription, tagDenyList } from '../../utils/plugins';
+import { getDescription, sanitizeTag, tagDenyList } from '../../utils/plugins';
 import { isNotXDaysOld } from '../../utils/datetime';
 
 import { Download, DownloadCloud, Star, GitHub, Edit2 } from 'react-feather';
 import { Card, CustomFlowbiteTheme, Navbar } from 'flowbite-react';
+import { PluginsCache } from '../../cache/plugins-cache';
 
 const customCardTheme: CustomFlowbiteTheme["card"] = {
   root: {
@@ -205,54 +206,27 @@ const AuthorHelper = ({ readmeContent }: {readmeContent: string}) => {
   )
 }
 
-const prisma = new PrismaClient();
-
 export const getStaticPaths = async () => {
-  const plugins = await prisma.plugin.findMany({
-    select: { pluginId: true }
-  });
+  const plugins = await PluginsCache.get();
 
   return {
-    paths: Array.from(plugins).map(plugin => ({params: {slug: plugin.pluginId}})),
+    paths: Array.from(plugins).map((plugin: any) => ({params: {slug: plugin.pluginId}})),
     fallback: false,
   }
 };
 
 export const getStaticProps = async ({ params }) => {
-  const tagsData = await prisma.pluginTags.findMany({
-    where: { pluginId: params.slug }
-  });
-  const tags = tagsData.map(row => row.tag);
+  const plugins = await PluginsCache.get();
+
+  const plugin = plugins.find(plugin => plugin.pluginId === params.slug);
+  const tags = plugin.aiTags.split(',').map(tag => sanitizeTag(tag));
   
-  const plugin = await prisma.plugin.findFirst({
-    where: { pluginId: params.slug }
-  });
-  
-  const pluginIdsInTags = await prisma.pluginTags.findMany({
-    where: {
-      tag: {
-        in: tags.filter(tag => !tagDenyList.includes(tag))
-      },
-      pluginId: {
-        not: plugin.pluginId
-      }
-    },
-    select: { pluginId: true },
-    distinct: ['pluginId']
-  });
-  
-  const similarPlugins = await prisma.plugin.findMany({
-    where: {
-      pluginId: {
-        in: pluginIdsInTags.map(pluginIdsInTag => pluginIdsInTag.pluginId)
-      }
-    },
-  });
+  const similarPlugins = plugins.filter(p => p.pluginId !== plugin.pluginId && p.aiTags.split(',').map(tag => sanitizeTag(tag)).some(tag => tags.includes(tag)));
   
   return {
     props: {
       plugin,
-      tags: tags,
+      tags,
       similarPlugins,
     }
   }
