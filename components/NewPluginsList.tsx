@@ -51,7 +51,7 @@ const UnindexedPlugin = (props) => {
       }
       <div className="flex mt-4 gap-x-4">
         <div>
-          <CategoryIcon category={plugin.aiCategories} className="w-100" />
+          <CategoryIcon category={plugin.aiCategories} size={48} />
         </div>
         <div>
           <div className="text-gray-700">

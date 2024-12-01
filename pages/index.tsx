@@ -1,6 +1,6 @@
 'use client';
 
-import React, {  } from 'react';
+import React, { useRef } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -15,6 +15,7 @@ import Link from 'next/link';
 import Faq from '../components/Faq';
 import { Card, CustomFlowbiteTheme, HR } from "flowbite-react";
 import FavPluginUpdates from '../components/FavPluginUpdates';
+import { CategoryIcon } from '../components/Category';
 
 const customCardTheme: CustomFlowbiteTheme["card"] = {
   root: {
@@ -39,11 +40,7 @@ const Home = (props) => {
         <Navbar current='home' />
       </div>
       <div className="bg-gray-50 lg:py-10 bg-[url('/images/confetti-doodles.svg')]">
-        <PluginEcosystemStats
-          totalPluginsCount={props.totalPluginsCount}
-          newPluginsCount={props.newPluginsCount}
-          newReleasesCount={props.newReleasesCount}
-          totalTagsCount={props.totalTagsCount} />
+        <PluginEcosystemStats {...props} />
       </div>
 
       {/* New Plugins */}
@@ -64,7 +61,10 @@ const Home = (props) => {
                   >
                     <div className='text-xl font-semibold tracking-wide text-violet-900'>{plugin.name}</div>
                     <div className='text-sm'>{moment(plugin.createdAt).fromNow()} by <span className='group-hover:text-violet-500'>{plugin.author}</span></div>
-                    <div className='mt-5 text-sm'>{plugin.description}</div>
+                    <div className='mt-5 flex gap-x-2'>
+                      <div className='grid content-center'><CategoryIcon category={plugin.aiCategories} size={32} /></div>
+                      <div className='text-sm '>{plugin.description}</div>
+                    </div>
                     {/* <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(plugin.createdAt, 1)} isTrending={plugin.zScoreTrending > 10} category='Plugin' /> */}
                   </Card>
                 );
