@@ -1,7 +1,7 @@
 const HALF_AN_HOUR = 30 * 60 * 1000;
 
 class AppCache {
-  static data = {}
+  static data = {};
 
   static get(key) {
     console.log(`cache ${AppCache.data[key] ? 'hit' : 'miss'}: ${key}`);

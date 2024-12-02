@@ -1,22 +1,23 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import React from 'react';
 
 const Header = (props) => {
-  const { current, title, description, publishedDate, modifiedDate, slug } = props;
+  const { current, title, description, publishedDate, modifiedDate, slug } =
+    props;
   const ldJsonSchema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "author": {
-        name: "Ganessh Kumar R P",
-        "@type": "Person",
-        url: "https://ganesshkumar.com",
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    author: {
+      name: 'Ganessh Kumar R P',
+      '@type': 'Person',
+      url: 'https://ganesshkumar.com',
     },
-    "name": title,
-    "description": description,
-    "url": `https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`,
-    "image": "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png",
-    "datePublished": publishedDate,
-    "dateModified": modifiedDate,
+    name: title,
+    description: description,
+    url: `https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`,
+    image: 'https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png',
+    datePublished: publishedDate,
+    dateModified: modifiedDate,
   };
 
   return (
@@ -24,21 +25,36 @@ const Header = (props) => {
       <title>{title}</title>
       <link rel="icon" href="/favicon-64.png" />
       <meta name="description" content={description} />
-      <link rel="canonical" href={`https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`} />
+      <link
+        rel="canonical"
+        href={`https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`}
+      />
       <link rel="sitemap" href="/sitemap.xml" />
       {/* Open Graph Tags */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={`https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`} />
-      <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
+      <meta
+        property="og:url"
+        content={`https://obsidian-plugin-stats.ganesshkumar.com/posts/${slug}`}
+      />
+      <meta
+        property="og:image"
+        content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+      />
       {/* Twitter Tags */}
       <meta name="twitter:card" content={description} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
+      <meta
+        name="twitter:image"
+        content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+      />
       {/* JSON-LD Schema */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJsonSchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJsonSchema) }}
+      />
       {/* Google Tag Manager */}
       <script
         dangerouslySetInnerHTML={{
@@ -52,7 +68,7 @@ const Header = (props) => {
         }}
       />
     </Head>
-  )
-}
+  );
+};
 
 export default Header;

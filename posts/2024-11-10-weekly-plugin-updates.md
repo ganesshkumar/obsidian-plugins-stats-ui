@@ -2,9 +2,9 @@
 title: Obsidian Plugin Updates 2024-11-03 to 2024-11-09
 description: new obsidian plugins from 2024-11-03 to 2024-11-09 - Blue Star, Peekaboo, MOC Link Helper, Arweave Uploader, Nav Weight, Cursor Bridge, PromptCrafter, ExMemo Client, Transfer LaTeX from GPT, Hierarchical Backlinks, Open with Natural Language Dates, Jisage -Japanese Indentation-, Simple Code Formatter, Vault Review, Session Notes, Smart Composer, PDF2Image, BookNav, downloadPDF, Vault Full Statistics, Fold Properties, 复制图文 (Copy Image Text)
 excerpt: There are 22 new plugins and 127 plugin updates in the last one week's time.
-publishedDate: "2024-11-10"
-modifiedDate: "2024-11-10"
-tags: 
+publishedDate: '2024-11-10'
+modifiedDate: '2024-11-10'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -237,4 +237,3 @@ The **Copy Image Text** plugin for Obsidian simplifies the process of copying bo
 ## 🔁 Plugin Updates
 
 We got 127 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

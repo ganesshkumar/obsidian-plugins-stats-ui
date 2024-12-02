@@ -8,42 +8,70 @@ import Link from 'next/link';
 const humanReadableNumbers = (n: number) => {
   const numString = n.toString();
 
-  const formatter = (digits, char) => `${numString.split('').splice(0, numString.length - digits).join('')}${char}`
+  const formatter = (digits, char) =>
+    `${numString
+      .split('')
+      .splice(0, numString.length - digits)
+      .join('')}${char}`;
   const formatMap = {
     '9': 'B',
     '6': 'M',
     '3': 'K',
   };
 
-  for (const key in formatMap) { 
+  for (const key in formatMap) {
     if (numString.length > parseInt(key)) {
       return formatter(parseInt(key), formatMap[key]);
     }
   }
-}
+};
 
-const PluginListItem = ({ plugin, isFavorite, isNotADayOld, idx, pad, setFavorites, showDownloadStat, showLatestRelease, displayDate, showChangelog, showDescription }) => {
+const PluginListItem = ({
+  plugin,
+  isFavorite,
+  isNotADayOld,
+  idx,
+  pad,
+  setFavorites,
+  showDownloadStat,
+  showLatestRelease,
+  displayDate,
+  showChangelog,
+  showDescription,
+}) => {
   const mdConverter = new showdown.Converter();
   mdConverter.setFlavor('github');
 
   return (
     <List.Item className="!mt-0 py-2 px-2 w-full hover:bg-slate-50">
       <div className="flex items-start space-x-4 rtl:space-x-reverse">
-        <div className='text-xl'>{String(idx).padStart(pad, '0')}.</div>
+        <div className="text-xl">{String(idx).padStart(pad, '0')}.</div>
         <div className="flex flex-col">
-          <Link href={`/plugins/${plugin.pluginId}`} className='text-xl font-semibold text-violet-800'>
+          <Link
+            href={`/plugins/${plugin.pluginId}`}
+            className="text-xl font-semibold text-violet-800"
+          >
             {plugin.name}
           </Link>
           <div className="flex items-center space-x-2 text-sm text-gray-500">
-            <span>{moment(displayDate(plugin)).fromNow()} by <span className="text-gray-700">{plugin.author}</span></span>
-            <Favorites plugin={plugin} isFavorite={isFavorite} setFavorites={setFavorites} />
+            <span>
+              {moment(displayDate(plugin)).fromNow()} by{' '}
+              <span className="text-gray-700">{plugin.author}</span>
+            </span>
+            <Favorites
+              plugin={plugin}
+              isFavorite={isFavorite}
+              setFavorites={setFavorites}
+            />
           </div>
-          <div className='my-4'>
+          <div className="my-4">
             {plugin?.aiDescription?.replaceAll('**', '') || plugin.description}
           </div>
-          <Link href={`/plugins/${plugin.pluginId}`}
-            className='underline text-gray-600 font-seminbold'>
-              View Details
+          <Link
+            href={`/plugins/${plugin.pluginId}`}
+            className="underline text-gray-600 font-seminbold"
+          >
+            View Details
           </Link>
         </div>
       </div>
@@ -69,12 +97,12 @@ const PluginListItem = ({ plugin, isFavorite, isNotADayOld, idx, pad, setFavorit
   //     }
   //     <div>
   //       <a href={`/plugins/${plugin.pluginId}`} target="_blank" rel="noreferrer" className='text-xl font-medium text-violet-900'>{plugin.name}</a>
-  //       {/* <div className='flex text-xl'>  
+  //       {/* <div className='flex text-xl'>
   //         {isFavorite && <div className='cursor-default' title='Favorite plugin'>🤩</div>}
   //         {isNotADayOld && <div className='cursor-default' title='Less than a day old'>🥳</div>}
   //         {plugin.zScoreTrending > 10 && <div className='cursor-default' title='Trending plugin'>🔥</div>}
   //       </div> */}
-  //       {showDescription && <div className='mr-5'>{plugin.description}</div>}        
+  //       {showDescription && <div className='mr-5'>{plugin.description}</div>}
   //       <div className='flex gap-x-2 my-2'>
   //         {isFavorite && <div title='Favorite plugin' className='text-xs bg-red-600 flex justify-center items-center gap-x-1 py-1 px-2 text-white font-bold rounded-xl'>Favorite</div>}
   //         {isNotADayOld && <div title='Less than a day old' className='text-xs bg-violet-800 flex justify-center items-center gap-x-1 py-1 px-2 text-white font-bold rounded-xl'>New Plugin</div>}
@@ -96,6 +124,6 @@ const PluginListItem = ({ plugin, isFavorite, isNotADayOld, idx, pad, setFavorit
   //     </div>
   //   </div>
   // );
-}
+};
 
 export default PluginListItem;

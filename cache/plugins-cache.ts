@@ -1,5 +1,4 @@
-import { Plugin, PrismaClient } from "@prisma/client";
-
+import { Plugin, PrismaClient } from '@prisma/client';
 
 /**
  * Class representing a cache for plugins.

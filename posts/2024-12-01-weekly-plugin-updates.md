@@ -2,9 +2,9 @@
 title: Obsidian Plugin Updates 2024-11-24 to 2024-11-30
 description: new obsidian plugins from 2024-11-24 to 2024-11-30 - Image Uploader For Note, Visual Crossing Weather, Heatmap Tracker, Discord Timestamps, Todoist Context Bridge, LLM workspace, Abbrlink, Obsifetch, Mass Create, Setlist.fm Sync, Auto File Organizer, Folder Links, Simple Quiz, Post Webhook, Clear Todos, Chronos Timeline, Friday, Weekly Goal Tracker, Simple Todo, Snippetsaurus
 excerpt: There are 20 new plugins and 103 plugin updates in the last one week's time.
-publishedDate: "2024-12-01"
-modifiedDate: "2024-12-01"
-tags: 
+publishedDate: '2024-12-01'
+modifiedDate: '2024-12-01'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -178,7 +178,7 @@ The **Clear Todos** plugin is a game-changer for anyone struggling with cluttere
 
 Released on 2024-11-28 by [Claire Froelich](https://github.com/clairefro)
 
-The **Chronos Timeline** plugin introduces an elegant way to create interactive, visually rich timelines directly in your Obsidian notes using simple Markdown syntax. Whether you want to document historical events, track project milestones, or analyze complex narratives, this plugin makes it easy to represent dates, periods, and markers. Users can insert pre-designed templates or start from scratch with minimal setup. A standout feature is its AI-assisted timeline generation, which transforms highlighted text with date references into structured timelines. 
+The **Chronos Timeline** plugin introduces an elegant way to create interactive, visually rich timelines directly in your Obsidian notes using simple Markdown syntax. Whether you want to document historical events, track project milestones, or analyze complex narratives, this plugin makes it easy to represent dates, periods, and markers. Users can insert pre-designed templates or start from scratch with minimal setup. A standout feature is its AI-assisted timeline generation, which transforms highlighted text with date references into structured timelines.
 
 [View Details](/plugins/chronos), [Github](https://github.com/clairefro/obsidian-plugin-chronos)
 
@@ -220,7 +220,7 @@ One of the standout features is the ability to toggle task status with a single 
 
 Released on 2024-11-25 by [Christian Humbert](https://github.com/Chrstn67)
 
-The **Snippetsaurus plugin** allows you to create, manage, and  insert snippets of text or code into your notes with ease. With its user-friendly interface, you can quickly access your favorite snippets and insert them directly into your notes. But that's not all - Snippetsaurus also offers automatic insertion based on the last word typed, making it easy to reuse common phrases or code blocks.
+The **Snippetsaurus plugin** allows you to create, manage, and insert snippets of text or code into your notes with ease. With its user-friendly interface, you can quickly access your favorite snippets and insert them directly into your notes. But that's not all - Snippetsaurus also offers automatic insertion based on the last word typed, making it easy to reuse common phrases or code blocks.
 
 [View Details](/plugins/obsnippets), [Github](https://github.com/Chrstn67/obsidian-plugin-obsnippets)
 
@@ -229,4 +229,3 @@ The **Snippetsaurus plugin** allows you to create, manage, and  insert snippets 
 ## 🔁 Plugin Updates
 
 We got 103 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

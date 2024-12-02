@@ -1,5 +1,5 @@
 const Constants = {
-    AppName: 'Obsidian Plugin Stats'
-} 
+  AppName: 'Obsidian Plugin Stats',
+};
 
 export default Constants;

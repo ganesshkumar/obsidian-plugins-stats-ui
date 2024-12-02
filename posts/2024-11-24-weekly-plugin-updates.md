@@ -2,9 +2,9 @@
 title: Obsidian Plugin Updates 2024-11-16 to 2024-11-23
 description: new obsidian plugins from 2024-11-17 to 2024-11-24 - Password Audit, Insta TOC, Link Preview, Blur Mode, Ridian, Paper Importer, Folder Canvas, Instant Above Divider, Markdown Tags, Folder Tabulation, AI bot, Bluesky, Auto switch themes between dark/light mode, Google Drive Sync, Proletarian Wizard Task Manager, Simple Focus, StandardForm, File Manager, Quick Share Note to gist, Trakt.tv Sync, BlazeJump, Beautiful Contact Cards, History Today, Task Director, Auto Tasks, Daily Summary, Gemini Scribe, Image Tools, Recently Added Files, Bottom to Top, HackMD Sync, Three Noun Prompts
 excerpt: There are 32 new plugins and 104 plugin updates in the last one week's time.
-publishedDate: "2024-11-24"
-modifiedDate: "2024-11-24"
-tags: 
+publishedDate: '2024-11-24'
+modifiedDate: '2024-11-24'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -22,7 +22,7 @@ This week has been a whirlwind of activity for plugins! With an impressive 32 br
 
 Released on 2024-11-21 by [Sai Prashanth Pulisetti](https://github.com/prashanthpulisetti)
 
-The **Password Audit Plugin** for Obsidian is an essential tool for users who value digital security. This plugin offers a seamless way to evaluate the strength of your passwords, check if they’ve been exposed in known data breaches via *Have I Been Pwned*, and generate secure passwords on the fly. Its straightforward interface ensures quick access to these features directly within Obsidian, making password management less of a hassle. 
+The **Password Audit Plugin** for Obsidian is an essential tool for users who value digital security. This plugin offers a seamless way to evaluate the strength of your passwords, check if they’ve been exposed in known data breaches via _Have I Been Pwned_, and generate secure passwords on the fly. Its straightforward interface ensures quick access to these features directly within Obsidian, making password management less of a hassle.
 
 With the ability to create highly customizable passwords and copy them instantly to the clipboard, it’s a handy addition for anyone managing sensitive accounts or workflows. However, it’s important to note that this plugin is designed for password analysis and generation, not storage—users should rely on dedicated password managers for storing credentials securely. If you’re looking to reinforce your digital safety, this plugin is a practical and user-friendly choice.
 
@@ -46,7 +46,7 @@ Customization options allow you to tailor TOCs to your style, with settings for 
 
 Released on 2024-11-21 by [Felipe Tappata](https://github.com/felipetappata)
 
-The **Link Preview** plugin for Obsidian enhances your note-taking experience by offering quick previews of external links without ever leaving your workspace. Simply hover over a link to view a sleek, theme-matching preview of the webpage. This feature is perfect for users who want to quickly verify content or gather context without disrupting their workflow. 
+The **Link Preview** plugin for Obsidian enhances your note-taking experience by offering quick previews of external links without ever leaving your workspace. Simply hover over a link to view a sleek, theme-matching preview of the webpage. This feature is perfect for users who want to quickly verify content or gather context without disrupting their workflow.
 
 The plugin also offers customization options, such as adjustable hover delay and configurable preview window dimensions, allowing you to tailor it to your preferences. Its seamless integration with Obsidian’s interface ensures it feels like a native feature. If you frequently include external references in your notes, this plugin can save you time and improve your productivity by keeping everything within Obsidian’s clean environment.
 
@@ -160,7 +160,7 @@ Released on 2024-11-20 by [eharris128](https://github.com/eharris128)
 
 The **Bluesky Plugin** for Obsidian offers a seamless way to post directly to the Bluesky platform from within your vault. With a new "megaphone" icon conveniently added to the sidebar, users can easily compose posts or threads without leaving the app. Whether you want to share a quick thought or a detailed thread, this plugin streamlines the process.
 
-Setting up is simple: enter your Bluesky handle and app password (generated via the Bluesky settings). Once configured, you can use the sidebar icon or a command palette shortcut to open a dedicated Bluesky tab, draft your post, and share it instantly. 
+Setting up is simple: enter your Bluesky handle and app password (generated via the Bluesky settings). Once configured, you can use the sidebar icon or a command palette shortcut to open a dedicated Bluesky tab, draft your post, and share it instantly.
 
 For those actively engaging on Bluesky, this plugin is a great way to stay connected while focusing on your work in Obsidian, eliminating the need to switch between apps.
 
@@ -172,9 +172,9 @@ For those actively engaging on Bluesky, this plugin is a great way to stay conne
 
 Released on 2024-11-20 by [Robert Storlind](https://github.com/carlrobert)
 
-The **Double-Switch Plugin** brings seamless customization to Obsidian by allowing users to associate specific themes with light and dark modes. Once set up, toggling between modes automatically applies the corresponding theme, ensuring a personalized and visually appealing workspace without manual intervention. 
+The **Double-Switch Plugin** brings seamless customization to Obsidian by allowing users to associate specific themes with light and dark modes. Once set up, toggling between modes automatically applies the corresponding theme, ensuring a personalized and visually appealing workspace without manual intervention.
 
-Whether you prefer a minimal design for dark mode or a vibrant look for light mode, this plugin gives you full control over theme switching. Simply choose from the themes you’ve already installed, and the plugin handles the rest. It’s a straightforward yet effective solution for users who enjoy adapting their workspace to different lighting conditions. 
+Whether you prefer a minimal design for dark mode or a vibrant look for light mode, this plugin gives you full control over theme switching. Simply choose from the themes you’ve already installed, and the plugin handles the rest. It’s a straightforward yet effective solution for users who enjoy adapting their workspace to different lighting conditions.
 
 If you’re someone who frequently switches between light and dark modes, the Double-Switch Plugin makes the process more dynamic and tailored to your preferences, enhancing your overall Obsidian experience.
 
@@ -216,7 +216,7 @@ Released on 2024-11-20 by [Lin Qing](https://github.com/linqing24)
 
 The **Simple Focus** plugin for Obsidian offers a streamlined way to concentrate on specific files or folders by decluttering the file explorer. With a simple right-click, you can "focus" on a chosen file or folder, instantly hiding all other items from view. This feature is perfect for users who work on large projects and need to eliminate distractions when editing or organizing notes.
 
-Ideal for minimalists and productivity enthusiasts, the plugin helps maintain a clean workspace within Obsidian, allowing users to zero in on their current tasks. Whether you're drafting a document, managing a folder of resources, or working through a focused writing session, this plugin simplifies your workflow with an intuitive and efficient interface. 
+Ideal for minimalists and productivity enthusiasts, the plugin helps maintain a clean workspace within Obsidian, allowing users to zero in on their current tasks. Whether you're drafting a document, managing a folder of resources, or working through a focused writing session, this plugin simplifies your workflow with an intuitive and efficient interface.
 
 Installation is straightforward, and the plugin supports macOS and iOS platforms, making it accessible for a wide range of Obsidian users.
 
@@ -395,4 +395,3 @@ The **Three Noun Prompts** plugin for Obsidian is designed to inspire creativity
 ## 🔁 Plugin Updates
 
 We got 104 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

@@ -17,7 +17,7 @@ interface PostData {
 
 export function getSortedPostsData(): PostData[] {
   const fileNames = fs.readdirSync(postsDirectory);
-  
+
   const allPostsData = fileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, '');
     const fullPath = path.join(postsDirectory, fileName);
@@ -30,7 +30,10 @@ export function getSortedPostsData(): PostData[] {
     } as PostData;
   });
 
-  return allPostsData.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
+  return allPostsData.sort(
+    (a, b) =>
+      new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
+  );
 }
 
 export function getPostData(id: string): PostData {
