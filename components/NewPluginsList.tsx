@@ -88,28 +88,36 @@ const UnindexedPlugin = (props) => {
           </span>
         </div>
       )}
-      <div className="flex mt-4 gap-x-4">
-        <div>
-          <CategoryIcon category={plugin.aiCategories} size={48} />
-        </div>
-        <div>
-          <div className="text-gray-700">
-            Category: <span className="font-bold">{plugin.aiCategories}</span>
+      {(plugin.aiCategories || plugin.aiTags) && 
+        <div className="flex mt-4 gap-x-4">
+          {plugin.aiCategories &&
+            <div>
+              <CategoryIcon category={plugin.aiCategories} size={48} />
+            </div>
+          }
+          <div>
+            { plugin.aiCategories &&
+              <div className="text-gray-700">
+                Category: <span className="font-bold">{plugin.aiCategories}</span>
+              </div>
+            }
+            {plugin.aiTag &&
+              <div className="flex gap-x-2 text-gray-700 cursor-pointer">
+                {plugin.aiTags && plugin.aiTags?.split(',').map((tag) => (
+                  <Link
+                    href={`/tags/${tag}`}
+                    key={tag}
+                    className="px-2 bg-gray-200 rounded-md"
+                  >
+                    <span className="text-gray-400">#</span>
+                    {tag}
+                  </Link>
+                ))}
+              </div>
+            }
           </div>
-          <div className="flex gap-x-2 text-gray-700 cursor-pointer">
-            {plugin.aiTags?.split(',').map((tag) => (
-              <Link
-                href={`/tags/${tag}`}
-                key={tag}
-                className="px-2 bg-gray-200 rounded-md"
-              >
-                <span className="text-gray-400">#</span>
-                {tag}
-              </Link>
-            ))}
-          </div>
         </div>
-      </div>
+      }
       <div className="my-4 text-gray-700">{getDescription(plugin)}</div>
       <LinkButton
         href={`/plugins/${plugin.pluginId}`}

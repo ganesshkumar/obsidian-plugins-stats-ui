@@ -315,11 +315,12 @@ export const getStaticProps = async ({ params }) => {
   const plugins = await PluginsCache.get();
 
   const plugin = plugins.find((plugin) => plugin.pluginId === params.slug);
-  const tags = plugin.aiTags.split(',').map((tag) => sanitizeTag(tag));
+  const tags = plugin.aiTags ? plugin.aiTags.split(',').map((tag) => sanitizeTag(tag)) : [];
 
   const similarPlugins = plugins.filter(
     (p) =>
       p.pluginId !== plugin.pluginId &&
+      p.aiTags &&
       p.aiTags
         .split(',')
         .map((tag) => sanitizeTag(tag))

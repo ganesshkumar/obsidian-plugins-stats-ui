@@ -52,8 +52,12 @@ export const getStaticProps = async () => {
 
   const tagsData: Record<string, number> = {};
   plugins.forEach((plugin) => {
-    const tags = (plugin as any).aiTags.split(',');
+    const tags = plugin.aiTags?.split(',') || [];
     tags.forEach((tag) => {
+      if (!tag) {
+        return;
+      }
+
       const sanitizedTag = sanitizeTag(tag);
 
       if (tagDenyList.includes(sanitizedTag)) {

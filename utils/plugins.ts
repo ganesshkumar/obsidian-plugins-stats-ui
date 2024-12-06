@@ -1,4 +1,5 @@
 export const tagDenyList = [
+  '',
   'obsidian',
   'obsidianmd',
   'obsidianplugin',

@@ -53,7 +53,7 @@ export const getStaticPaths = async () => {
   const plugins = await PluginsCache.get();
 
   let tags = plugins
-    .map((plugin) => plugin.aiTags.split(','))
+    .map((plugin) => plugin.aiTags?.split(',') || [])
     .flat()
     .map((tag) => sanitizeTag(tag));
   tags = Array.from(new Set(tags));
@@ -68,10 +68,11 @@ export const getStaticProps = async ({ params }) => {
   const plugins = await PluginsCache.get();
 
   const pluginsWithTag = plugins.filter((plugin) =>
-    plugin.aiTags
-      .split(',')
-      .map((tag) => sanitizeTag(tag))
-      .includes(params.slug)
+    plugin.aiTags ?
+      plugin.aiTags?.split(',')
+        .map((tag) => sanitizeTag(tag))
+        .includes(params.slug) :
+      false
   );
 
   return {
