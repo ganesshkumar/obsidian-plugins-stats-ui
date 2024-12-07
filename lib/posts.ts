@@ -4,6 +4,7 @@ import path from 'path';
 import matter from 'gray-matter';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
+const postsJsxDirectory = path.join(process.cwd(), 'pages', 'posts');
 
 interface PostData {
   id: string;
@@ -50,12 +51,15 @@ export function getPostData(id: string): PostData {
 
 export function getAllPostIds() {
   const fileNames = fs.readdirSync(postsDirectory);
+  const jsxFileNames = fs.readdirSync(postsJsxDirectory).filter(fileName => fileName !== "[slug].tsx" && fileName !== "index.jsx").map(fileName => fileName.replace(/\.tsx$/, ''));
 
-  return fileNames.map((fileName) => {
-    return {
-      params: {
-        slug: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
+  return fileNames
+    .filter(fileName => !jsxFileNames.includes(fileName.replace(/\.md$/, '')))
+    .map((fileName) => {
+      return {
+        params: {
+          slug: fileName.replace(/\.md$/, ''),
+        },
+      };
+    });
 }

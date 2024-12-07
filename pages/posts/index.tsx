@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
 import { Footer } from 'flowbite-react';
 import moment, { now } from 'moment';
-import { Calendar } from 'react-feather';
+import { Calendar, Star } from 'react-feather';
 
 interface Post {
   id: string;
@@ -60,13 +60,7 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
                       >
                         <div className="flex gap-x-2">
                           <div className="grid place-items-center">
-                            {post.tags &&
-                              post.tags.includes('weekly-plugin-updates') && (
-                                <Calendar
-                                  size={44}
-                                  className="text-violet-700 p-1 rounded"
-                                />
-                              )}
+                            <PostIcon tags={post.tags} />
                           </div>
                           <div className="flex flex-col">
                             <div className="text-xl">{post.title}</div>
@@ -91,5 +85,21 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
     </div>
   );
 };
+
+const PostIcon = (props) => {
+  if (props.tags && props.tags.includes('weekly-plugin-updates')) {
+    return <Calendar
+      size={44}
+      className="text-violet-700 p-1 rounded fill-violet-200"
+    />
+  } else if (props.tags && props.tags.includes('wrapped-yearly-post')) {
+    return <Star
+      size={44}
+      className="text-yellow-400 p-1 rounded fill-yellow-200"
+    />
+  } else {
+    return undefined
+  }
+}
 
 export default Blog;

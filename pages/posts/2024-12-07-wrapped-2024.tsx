@@ -1,27 +1,31 @@
 'use client';
-import { animate, motion, useMotionValue, useScroll, useTransform } from "framer-motion";
+import { animate, motion, useInView, useMotionValue, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { ArrowDownCircle, Book, Box, CheckCircle, Clock, Code, Download, Edit, Folder, Frown, HelpCircle, PenTool, PieChart, PlusCircle, RefreshCw, Shield, User, Users } from "react-feather";
+import { ArrowDownCircle, ArrowUpCircle, Book, Box, CheckCircle, Clock, Code, Download, Edit, Folder, Frown, HelpCircle, PenTool, PieChart, PlusCircle, RefreshCw, Shield, User, Users } from "react-feather";
 import { Button, Popover } from "flowbite-react";
-import { useEffect, useState } from "react";
-import { CategoryIcon } from "../components/Category";
+import { useEffect, useRef, useState } from "react";
+import { CategoryIcon } from "../../components/Category";
+import Header from "../../components/HeaderPost";
 
 const Demo = (props) => {
-  const { scrollYProgress } = useScroll();
-  const position = useTransform(scrollYProgress, [0, 1], ["relative", "fixed"]);
-
   return (
     <>
+      <Header 
+        title="Obsidian Plugins Wrapped 2024 - Key Milestones, Top Plugins, and Developer Highlights"
+        description="Discover Obsidian Plugins journey in 2024! From new plugin releases and updates to standout developers and the most downloaded plugins, explore the milestones and community contributions that shaped the Obsidian ecosystem this year."
+        publishedDate="2024-12-07"
+        modifiedDate="2024-12-07"
+        slug="2024-12-07-wrapped-2024"
+      />
       <Intro />
       <MilestonesSection {...props} />
       <StatsSection {...props} />
       <MostDownloadedPluginsSection {...props} />
+      <MostUpdatedPluginsSection {...props} />
       <MostPluginsByAuthorSection {...props} />
     </>
   );
 }
-
-const transition = { duration: 4, yoyo: Infinity, ease: "easeInOut" };
 
 const Intro = () => {
   const { scrollYProgress } = useScroll();
@@ -60,7 +64,8 @@ const Intro = () => {
 
   const particles = Array.from({ length: 50 });
   return (
-    <div className="h-[180vh] flex flex-col items-center justify-center">
+    <div className="h-[180vh] flex flex-col items-center justify-center" id="start">
+      <div className="text-4xl font-bold text-violet-800 ">Obsidian Wrapped 2024</div>
       <div className="h-[80vh] w-full flex flex-col justify-center items-center fixed top-0">
         <motion.div
           style={{ scale }}
@@ -98,7 +103,7 @@ const Intro = () => {
                     ease: "easeInOut",
                   }}
                       >
-                  <CategoryIcon category={Categories[Math.floor(Math.random() * Categories.length)]} />
+                  <CategoryIcon category={Categories[Math.floor(Math.random() * Categories.length)]} size={12} />
                 </motion.div>
               );
             })}
@@ -118,39 +123,9 @@ const Intro = () => {
   )
 }
 
-const Nav = (props) => {
-  const { scrollYProgress } = useScroll();
-  const position = useTransform(scrollYProgress, [0, 1], ["relative", "sticky"]);
-  
-  const introText = "2024 was a landmark year for Obsidian plugins! The plugin ecosystem saw explosive growth. Let's celebrate the highlights, fun facts, and incredible creativity that made 2024 unforgettable!"
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) => Math.round(latest));
-  const displayText = useTransform(rounded, (latest) =>
-    introText.slice(0, latest)
-  );
-
-  useEffect(() => {
-    const controls = animate(count, introText.length, {
-      type: "tween",
-      duration: 1,
-      ease: "easeInOut",
-    });
-    return controls.stop;
-  }, []);
-
-  return (
-    <div>
-      <MilestonesSection {...props} />
-      <StatsSection {...props} />
-      <MostDownloadedPluginsSection {...props} />
-      <MostPluginsByAuthorSection {...props} />
-    </div>
-  )
-}
-
 const MilestonesSection = (props) => {
   return (
-    <Section {...props} sectionId="milestone" nextSectionId="stats" bgClasses="bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500">
+    <Section {...props} sectionId="milestone" nextSectionId="stats">
       <div className="flex flex-col lg:flex-row grow justify-center">
         <div className="w-1/2 lg:ml-8 grid content-center">
           <div className="text-4xl py-4 font-bold text-lime-500">Milestones achived in 2024</div>
@@ -168,34 +143,79 @@ const MilestonesSection = (props) => {
 }
 
 const StatsSection = (props) => {
+  const ref1 = useRef(null);
+  const isInView1 = useInView(ref1, { once: true });
+  const ref2 = useRef(null);
+  const isInView2 = useInView(ref2, { once: true });
+  const ref3 = useRef(null);
+  const isInView3 = useInView(ref3, { once: true });
+  const ref4 = useRef(null);
+  const isInView4 = useInView(ref4, { once: true });
   return (
     <Section {...props} sectionId="stats" nextSectionId="most-downloaded-plugins">
       <div className="flex flex-col lg:flex-row grow justify-center">
         <div className="w-1/2 lg:ml-8 grid content-center">
+          <div className="text-4xl py-4 font-bold text-lime-500">In 2024</div>
           <ul className="flex flex-col gap-y-4">
-            <li className="ml-5 text-2xl">
-              <div className="bg-lime-600 rounded-md text-left p-4 shadow-lime-600 cursor-context-menu">
+            <li className="text-2xl">
+              <motion.div className="bg-lime-600 rounded-md text-left p-4 shadow-lime-600 cursor-context-menu"
+                ref={ref1}
+                whileHover={{scale: 1.1}}
+                style={{
+                  transform: isInView1 ? 'translateX(0px)' : 'translateX(-200px)',
+                  opacity: isInView1 ? 1 : 0,
+                  transition:
+                    'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
+                }}
+              >
                 <div className="font-bold text-5xl mb-2">{props.authors2024.toLocaleString()}</div>
-                <div className="text-2xl flex gap-x-1"><User size={28} /> {" "} Developers</div>
-              </div>
+                <div className="text-2xl flex gap-x-1"><User size={28} /> {" "} Developers contributed</div>
+              </motion.div>
             </li>
-            <li className="ml-5 text-2xl">
-              <div className="bg-lime-600 rounded-md text-left p-4 shadow-lime-600 cursor-context-menu">
+            <li className="text-2xl">
+              <motion.div className="bg-lime-600 rounded-md text-left p-4 shadow-lime-600 cursor-context-menu"
+                ref={ref2}
+                whileHover={{scale: 1.1}}
+                style={{
+                  transform: isInView2 ? 'translateX(0px)' : 'translateX(-200px)',
+                  opacity: isInView2 ? 1 : 0,
+                  transition:
+                    'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
+                }}
+              >
                 <div className="font-bold text-5xl mb-2">{props.addedPlugins2024.toLocaleString()}</div>
                 <div className="text-2xl flex gap-x-1"><PlusCircle size={28} /> {" "} New Plugins</div>
-              </div>
+              </motion.div>
             </li>
-            <li className="ml-5 text-2xl">
-              <div className="bg-lime-600 rounded-md text-left p-4 shadow-lime-600 cursor-context-menu">
+            <li className="text-2xl">
+              <motion.div className="bg-lime-600 rounded-md text-left p-4 shadow-lime-600 cursor-context-menu"
+                ref={ref3}
+                whileHover={{scale: 1.1}}
+                style={{
+                  transform: isInView3 ? 'translateX(0px)' : 'translateX(-200px)',
+                  opacity: isInView3 ? 1 : 0,
+                  transition:
+                    'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
+                }}
+              >
                 <div className="font-bold text-5xl mb-2">{props.updatedPlugins2024.toLocaleString()}</div>
                 <div className="text-2xl flex gap-x-1"><RefreshCw size={28} /> {" "} Plugin Updates</div>
-              </div>
+              </motion.div>
             </li>
-            <li className="ml-5 text-2xl">
-              <div className="bg-lime-600 rounded-md text-left p-4 shadow-lime-600 cursor-context-menu">
+            <li className="text-2xl">
+              <motion.div className="bg-lime-600 rounded-md text-left p-4 shadow-lime-600 cursor-context-menu"
+                ref={ref4}
+                whileHover={{scale: 1.1}}
+                style={{
+                  transform: isInView4 ? 'translateX(0px)' : 'translateX(-200px)',
+                  opacity: isInView4 ? 1 : 0,
+                  transition:
+                    'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
+                }}
+              >
                 <div className="font-bold text-5xl mb-2">{props.downloads2024.toLocaleString()}</div>
-                <div className="text-2xl flex gap-x-1"><Download size={28} /> {" "} Downloads</div>
-              </div>
+                <div className="text-2xl flex gap-x-1"><Download size={28} /> {" "} Plugin Downloads</div>
+              </motion.div>
             </li>
           </ul>            
         </div>
@@ -209,24 +229,55 @@ const StatsSection = (props) => {
 
 const MostDownloadedPluginsSection = (props) => {
   return (
-    <Section {...props} sectionId="most-downloaded-plugins" nextSectionId="most-plugins-by-author" bgClasses="bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500">
+    <Section {...props} sectionId="most-downloaded-plugins" nextSectionId="most-updated-plugins">
       <div className="flex flex-col lg:flex-row grow justify-center h-full">
-      <ul className="flex flex-col justify-center gap-y-2">
-        {Object.keys(props.mostDownloaded2024).map((pludingId, idx) => {
-          return (
-            <li key={pludingId} className="text-2xl">
-              <div className="flex gap-x-4">
-                <span className="w-8 pr-2">{idx + 1}.</span>
-                <span><a href={`/plugins/${pludingId}`} className="cursor-pointer underline grow mr-8">{props.mostDownloaded2024[pludingId][0]}</a></span>
-                <span className="w-32 flex flex-col ml-auto items-center">
-                  <span>{props.mostDownloaded2024[pludingId][1].toLocaleString()}</span>
-                  <span className="text-sm">Downloads</span>
-                </span>
-              </div>
-            </li>
-          )
-        })}
-      </ul>
+        <ul className="flex flex-col justify-center gap-y-2">
+          <li>
+            <div className="text-4xl py-4 font-bold text-lime-500">Most downloaded plugins in 2024</div>
+          </li>
+          {Object.keys(props.mostDownloaded2024).map((pludingId, idx) => {
+            return (
+              <li key={pludingId} className="text-2xl">
+                <div className="flex items-center gap-x-4">
+                  <span className="w-8 pr-2">{idx + 1}.</span>
+                  <span><a href={`/plugins/${pludingId}`} className="cursor-pointer underline grow mr-8">{props.mostDownloaded2024[pludingId][0]}</a></span>
+                  <span className="w-32 flex flex-col ml-auto items-center">
+                    <span>{props.mostDownloaded2024[pludingId][1].toLocaleString()}</span>
+                    <span className="text-sm">Downloads</span>
+                  </span>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    </Section>
+  )
+}
+
+const MostUpdatedPluginsSection = (props) => {
+  return (
+    <Section {...props} sectionId="most-updated-plugins" nextSectionId="most-plugins-by-author">
+      <div className="flex flex-col lg:flex-row grow justify-center h-full">
+        <ul className="flex flex-col justify-center gap-y-2">
+          <li>
+            <div className="text-4xl py-4 font-bold text-lime-500">Plugins received most updates in 2024</div>
+          </li>
+          {props.mostUpdatedPlugins.map((plugin, idx) => {
+            return (
+              <li key={plugin[0]} className="text-2xl">
+                <div className="flex items-center gap-x-4">
+                  <span className="w-8 pr-2">{idx + 1}.</span>
+                  <span><a href={`/plugins/${plugin[0]}`} className="cursor-pointer underline grow mr-8">{plugin[0]}</a></span>
+                  <span className="w-32 flex flex-col ml-auto items-center">
+                    <span>{plugin[1].toLocaleString()}</span>
+                    <span className="text-sm">Updates</span>
+                  </span>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </Section>
   )
@@ -234,7 +285,7 @@ const MostDownloadedPluginsSection = (props) => {
 
 const MostPluginsByAuthorSection = (props) => {
   return (
-    <Section {...props} sectionId="most-plugins-by-author" nextSectionId={undefined} bgClasses="bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500">
+    <Section {...props} sectionId="most-plugins-by-author" nextSectionId={undefined}>
       <div className="h-full flex flex-col justify-center items-center">
       <div className="text-center text-4xl my-4 font-bold text-lime-500 mb-12">Developers who created most plugins</div>
       <div className="flex flex-col lg:flex-row gap-4">
@@ -247,7 +298,7 @@ const MostPluginsByAuthorSection = (props) => {
             return (
               <div key={index} className="flex py-2 mt-2">
                 <div className="text-xl flex gap-x-2 items-baseline text-left">
-                  <a href={`https://github.com/${data[1][0].repo.split('/')[0]}`} className="text-2xl text-lime-500 font-bold underline">{data[0]}</a>
+                  <motion.a href={`https://github.com/${data[1][0].repo.split('/')[0]}`} className="text-2xl text-lime-500 font-bold underline" whileHover={{scale: 1.1}}>{data[0]}</motion.a>
                   <span>created</span>
                   <Popover
                     aria-labelledby={`plugin-popover-${index}`}
@@ -257,7 +308,7 @@ const MostPluginsByAuthorSection = (props) => {
                           <div className="flex flex-wrap gap-x-2 mt-1">
                             {data[1].map((plugin, index) => {
                               return (
-                                <a className="text-sm underline" key={index} href={`https://github.com/${plugin.repo}`}>{plugin.name}</a>
+                                <a className="text-sm underline" key={index} href={`/plugins/${plugin.id}`}>{plugin.name}</a>
                               )
                             })}
                           </div>
@@ -280,8 +331,12 @@ const MostPluginsByAuthorSection = (props) => {
 
 const Section = (props) => {
   const handleNextSectionClick = () => {
-    if (document && props.nextSectionId) {
-      document.getElementById(props.nextSectionId)?.scrollIntoView({ behavior: "smooth" });
+    if (document) {
+      if (props.nextSectionId) {
+        document.getElementById(props.nextSectionId)?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        document.getElementById("milestone")?.scrollIntoView({ behavior: "smooth" });
+      }
     }
   }
 
@@ -307,12 +362,14 @@ const Section = (props) => {
           </div>
         </div>
         {props.children}
-        <motion.div className="flex justify-center pb-4" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
-          {/* <ButtonGroup> */}
-            {/* <Button color="gray"><ArrowUpCircle className="mr-2 h-5 w-5"/> Prev</Button> */}
-            <Button color="gray" onClick={handleNextSectionClick} ><ArrowDownCircle className={`mr-2 h-5 w-5 ${!props.nextSectionId ? "collapsed" : ""}`}/> Next</Button>
-          {/* </ButtonGroup> */}
-        </motion.div>
+        {props.nextSectionId ?
+          <motion.div className="flex justify-center pb-4" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+            <Button color="gray" onClick={handleNextSectionClick} ><ArrowDownCircle className={`mr-2 h-5 w-5 ${ !props.nextSectionId ? "collapsed" : ""}`}/> Next</Button>
+          </motion.div> : 
+          <motion.div className="flex justify-center pb-4" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+            <Button color="gray" onClick={handleNextSectionClick} ><ArrowUpCircle className={`mr-2 h-5 w-5 ${ !props.nextSectionId ? "collapsed" : ""}`}/>Go back to top</Button>
+          </motion.div>
+        }
       </div>
     </motion.div>
   );
@@ -349,7 +406,22 @@ export const Typewriter = ({ text, ...rest }) => (
 
 export const getStaticProps = async () => {
   // read data from data/wrapped-2024.json
-  const data = require('../data/plugin-history-aggregated-2024.json');
+  const data = require('../../data/plugin-history-aggregated-2024.json');
+
+  const pluginUpdateCount: Record<string, number> = data.updated
+  .reduce((acc, v) => {
+    const [pluginId, version] = v.split(':')
+    if (pluginId in acc) {
+      acc[pluginId] += 1
+    } else {
+      acc[pluginId] = 1
+    }
+    return acc;
+  }, {} as Record<string, number>);
+ const mostUpdatedPlugins = Object.entries(pluginUpdateCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+
   return {
     props: {
       totalPlugins: data.milestone.totalPlugins,
@@ -380,7 +452,8 @@ export const getStaticProps = async () => {
         .reduce((acc, v: [string, any[]]) => {
           acc[v[0]] = v[1]
           return acc
-        }, {} as Record<string, any[]>)
+        }, {} as Record<string, any[]>),
+        mostUpdatedPlugins,
     },
   };
 }
