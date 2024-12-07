@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import AppNavbar from '../../components/Navbar';
 
+import { PrismaClient } from '@prisma/client';
 import { setupFavorites } from '../../utils/favorites';
 import Footer from '../../components/Footer';
 import NewPluginsList from '../../components/NewPluginsList';
 import { Navbar } from 'flowbite-react';
-import { sanitizeTag } from '../../utils/plugins';
+import InfoBar from '../../components/InfoBar';
 import { PluginsCache } from '../../cache/plugins-cache';
 
-const Tag = (props) => {
+const Category = (props) => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -20,21 +21,19 @@ const Tag = (props) => {
     <div>
       <Header />
       <div>
-        <AppNavbar current={`tag:${props.tag}`}>
+        <AppNavbar current={`category:${props.category}`}>
           <Navbar.Link
-            href={`/tags/${props.tag}`}
+            href={`/categories/${props.category}`}
             active={true}
             className="text-lg"
           >
-            {`tag:${props.tag}`}
+            {`category:${props.category}`}
           </Navbar.Link>
         </AppNavbar>
       </div>
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
-          <div className="text-3xl py-5 pl-5 text-bold text-violet-900">
-            #{props.tag}
-          </div>
+          <InfoBar title={props.category} />
           <div className="flex-col">
             <NewPluginsList
               plugins={props.plugins}
@@ -51,36 +50,28 @@ const Tag = (props) => {
 
 export const getStaticPaths = async () => {
   const plugins = await PluginsCache.get();
-
-  let tags = plugins
-    .map((plugin) => plugin.aiTags?.split(',') || [])
-    .flat()
-    .map((tag) => sanitizeTag(tag));
-  tags = Array.from(new Set(tags));
+  let categories = plugins
+    .map((plugin) => plugin.aiCategories)
+    .filter((category) => !!category);
 
   return {
-    paths: tags.map((tag) => ({ params: { slug: tag } })),
+    paths: categories.map((category) => ({ params: { slug: category } })),
     fallback: false,
   };
 };
 
 export const getStaticProps = async ({ params }) => {
   const plugins = await PluginsCache.get();
-
-  const pluginsWithTag = plugins.filter((plugin) =>
-    plugin.aiTags ?
-      plugin.aiTags?.split(',')
-        .map((tag) => sanitizeTag(tag))
-        .includes(params.slug) :
-      false
+  const pluginsWithCategory = plugins.filter(
+    (plugin) => plugin.aiCategories === params.slug
   );
 
   return {
     props: {
-      tag: params.slug,
-      plugins: pluginsWithTag,
+      category: params.slug,
+      plugins: pluginsWithCategory,
     },
   };
 };
 
-export default Tag;
+export default Category;

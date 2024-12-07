@@ -1,38 +1,78 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import React from 'react';
 
 const Header = (props) => {
-  const { pluginId, name, description, author, latestVersion, latestUpdatedAt } = props;
+  const {
+    pluginId,
+    name,
+    description,
+    author,
+    latestVersion,
+    latestUpdatedAt,
+  } = props;
   const ldJsonSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": `Obsidian Plugin: ${name} - ${description}`,
-    "description": `Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`,
-    "url": `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}`,
-    "image": "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: `Obsidian Plugin: ${name} - ${description}`,
+    description: `Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`,
+    url: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}`,
+    image: 'https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png',
   };
 
   return (
     <Head>
       <title>{`Obsidian Plugin: ${name} - ${description}`}</title>
       <link rel="icon" href="/favicon-64.png" />
-      <meta name="description" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
-      <link rel="canonical" href="https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}" />
+      <meta
+        name="description"
+        content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`}
+      />
+      <link
+        rel="canonical"
+        href="https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}"
+      />
       <link rel="sitemap" href="/sitemap.xml" />
       {/* Open Graph Tags */}
-      <meta property="og:title" content={`Obsidian Plugin: ${name} - ${description}`} />
-      <meta property="og:description" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
+      <meta
+        property="og:title"
+        content={`Obsidian Plugin: ${name} - ${description}`}
+      />
+      <meta
+        property="og:description"
+        content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`}
+      />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}" />
-      <meta property="og:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
+      <meta
+        property="og:url"
+        content="https://obsidian-plugin-stats.ganesshkumar.com/plugins/${pluginId}"
+      />
+      <meta
+        property="og:image"
+        content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+      />
       {/* Twitter Tags */}
-      <meta name="twitter:card" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
-      <meta name="twitter:title" content={`Obsidian Plugin: ${name} - ${description}`} />
-      <meta name="twitter:description" content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`} />
-      <meta name="twitter:image" content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png" />
+      <meta
+        name="twitter:card"
+        content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`}
+      />
+      <meta
+        name="twitter:title"
+        content={`Obsidian Plugin: ${name} - ${description}`}
+      />
+      <meta
+        name="twitter:description"
+        content={`Obsidian Plugin: ${name} - ${description} by ${author}. Latest version: ${latestVersion} released on ${latestUpdatedAt}`}
+      />
+      <meta
+        name="twitter:image"
+        content="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+      />
 
       {/* JSON-LD Schema */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJsonSchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJsonSchema) }}
+      />
       {/* Google Tag Manager */}
       <script
         dangerouslySetInnerHTML={{
@@ -46,7 +86,7 @@ const Header = (props) => {
         }}
       />
     </Head>
-  )
-}
+  );
+};
 
 export default Header;

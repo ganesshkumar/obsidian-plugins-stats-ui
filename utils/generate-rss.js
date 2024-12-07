@@ -3,7 +3,7 @@ const path = require('path');
 const matter = require('gray-matter');
 const PrismaClient = require('@prisma/client').PrismaClient;
 
-const daysAgo = (days) => Date.now() - (days * 24 * 60 * 60 * 1000);
+const daysAgo = (days) => Date.now() - days * 24 * 60 * 60 * 1000;
 
 async function getNewPlugins(prisma) {
   const newPlugins = await prisma.plugin.findMany({
@@ -25,14 +25,16 @@ async function getNewReleases(prisma) {
       },
     },
   });
-  newReleases.sort((a, b) => new Date(b.latestReleaseAt) - new Date(a.latestReleaseAt));
+  newReleases.sort(
+    (a, b) => new Date(b.latestReleaseAt) - new Date(a.latestReleaseAt)
+  );
   return newReleases;
 }
 
 async function getSortedPostsData() {
   const postsDirectory = path.join(process.cwd(), 'posts');
   const fileNames = fs.readdirSync(postsDirectory);
-  
+
   const allPostsData = fileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, '');
     const fullPath = path.join(postsDirectory, fileName);
@@ -45,17 +47,20 @@ async function getSortedPostsData() {
     };
   });
 
-  return allPostsData.sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime());
+  return allPostsData.sort(
+    (a, b) =>
+      new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
+  );
 }
 
 function escapeXmlEntities(str) {
-  return str.replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&apos;');
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
 }
-
 
 async function generateRSS() {
   const prisma = new PrismaClient();
@@ -68,7 +73,7 @@ async function generateRSS() {
       title: escapeXmlEntities(`New Obsidian Plugin - ${plugin.name}`),
       description: escapeXmlEntities(plugin.description),
       link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
-      pubDate: new Date(plugin.createdAt)
+      pubDate: new Date(plugin.createdAt),
     })),
     // ...newReleases.map((plugin) => ({
     //   title: `New version for Obsidian plugin - ${plugin.name}`,
@@ -82,8 +87,8 @@ async function generateRSS() {
       title: escapeXmlEntities(post.title),
       description: escapeXmlEntities(post.description),
       link: `https://obsidian-plugin-stats.ganesshkumar.com/posts/${post.id}`,
-      pubDate: new Date(post.publishedDate)
-    }))
+      pubDate: new Date(post.publishedDate),
+    })),
   ];
 
   return `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -126,13 +131,17 @@ async function saveRSSFeedForWeeklyUpdates() {
   const items = [
     ...allPostsData
       .filter((post) => post.tags.includes('weekly-plugin-updates'))
-      .filter((post) => new Date(post.publishedDate).getTime() > daysAgo(30) && new Date(post.publishedDate).getTime() < Date.now())
+      .filter(
+        (post) =>
+          new Date(post.publishedDate).getTime() > daysAgo(30) &&
+          new Date(post.publishedDate).getTime() < Date.now()
+      )
       .map((post) => ({
         title: escapeXmlEntities(post.title),
         description: escapeXmlEntities(post.description),
         link: `https://obsidian-plugin-stats.ganesshkumar.com/posts/${post.id}`,
-        pubDate: new Date(post.publishedDate)
-      }))
+        pubDate: new Date(post.publishedDate),
+      })),
   ];
 
   const content = `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -158,11 +167,14 @@ async function saveRSSFeedForWeeklyUpdates() {
   </channel>
 </rss>`;
 
-  const rssPath = path.join(process.cwd(), 'public', 'weekly-plugin-updates-rss.xml');
+  const rssPath = path.join(
+    process.cwd(),
+    'public',
+    'weekly-plugin-updates-rss.xml'
+  );
   fs.writeFileSync(rssPath, content, 'utf8');
   console.log('✅ RSS feed saved to public/weekly-plugin-updates-rss.xml');
 }
-
 
 saveRSSFeed();
 saveRSSFeedForWeeklyUpdates();

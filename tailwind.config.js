@@ -1,4 +1,4 @@
-const flowbite = require("flowbite-react/tailwind");
+const flowbite = require('flowbite-react/tailwind');
 
 module.exports = {
   content: [
@@ -9,8 +9,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'body': ['"Noto sans"', 'system-ui', 'sans-serif'],
-        'heading': ['Lato', 'system-ui', 'sans-serif'],
+        body: ['"Noto sans"', 'system-ui', 'sans-serif'],
+        heading: ['Lato', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         shake: {
@@ -27,10 +27,7 @@ module.exports = {
     },
   },
   daisyui: {
-    themes: ["cupcake"],
+    themes: ['cupcake'],
   },
-  plugins: [
-    require("@tailwindcss/typography"),
-    flowbite.plugin()
-  ],
-}
+  plugins: [require('@tailwindcss/typography'), flowbite.plugin()],
+};

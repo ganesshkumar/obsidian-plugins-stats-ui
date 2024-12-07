@@ -1,4 +1,6 @@
-html, body, #__next {
+html,
+body,
+#__next {
   min-height: 100vh;
   max-width: 100vw;
 }
@@ -13,17 +15,44 @@ html, body, #__next {
 
 @layer utilities {
   .striped div:nth-child(even) {
-    @apply bg-red-100
+    @apply bg-red-100;
   }
 }
 
-h1,h2,h3,h4,h5,h6 {
-  font-family: 'Lato', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family:
+    'Lato',
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Fira Sans,
+    Droid Sans,
+    Helvetica Neue,
+    sans-serif;
 }
 
 * {
   box-sizing: border-box;
-  font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family:
+    'Noto Sans',
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Fira Sans,
+    Droid Sans,
+    Helvetica Neue,
+    sans-serif;
 }

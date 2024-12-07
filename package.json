@@ -8,7 +8,8 @@
     "build": "npm run generate-rss && next build",
     "start": "next start",
     "postinstall": "prisma generate",
-    "postbuild": "next-sitemap --config next-sitemap.config.js"
+    "postbuild": "next-sitemap --config next-sitemap.config.js",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@microsoft/applicationinsights-clickanalytics-js": "3.3.2",
@@ -39,12 +40,22 @@
     "virtua": "^0.36.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.16.0",
     "@types/node": "22.5.5",
     "@types/react": "18.3.8",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
     "cssnano": "^7.0.6",
-    "eslint": "9.11.0",
+    "eslint": "^9.16.0",
     "eslint-config-next": "^15.0.0-rc.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "globals": "^15.13.0",
+    "prettier": "^3.4.1",
     "prisma": "5.19.1",
-    "typescript": "5.6.2"
+    "typescript": "5.6.2",
+    "typescript-eslint": "^8.16.0"
   }
 }
