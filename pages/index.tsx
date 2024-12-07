@@ -17,7 +17,8 @@ import { Card, CustomFlowbiteTheme, HR } from 'flowbite-react';
 import FavPluginUpdates from '../components/FavPluginUpdates';
 import { CategoryIcon } from '../components/Category';
 
-import { useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import Image from 'next/image';
 import LinkButton from '../components/LinkButton';
 import { PluginsCache } from '../cache/plugins-cache';
 import { sanitizeTag, tagDenyList } from '../utils/plugins';
@@ -46,6 +47,24 @@ const Home = (props) => {
       </div>
       <div className="bg-gray-50 lg:py-10 bg-[url('/images/confetti-doodles.svg')]">
         <PluginEcosystemStats {...props} />
+      </div>
+
+      <div className="bg-transparent mt-16">
+        <Card className="max-w-6xl mx-auto px-4 bg-gradient-to-br from-violet-200 via-purple-300 to-rose-200">
+          <div className="text-center text-4xl font-bold">Obsidian Plugin - Wrapped 2024</div>
+          
+          <div className='flex justify-center gap-x-12'>
+            <div className='w-1/4'>
+              <Image src='/logo-512-removebg-preview.png' alt='logo' width={96} height={96} />
+            </div>
+            <div>2024 has been a monumental year for the Obsidian community, with over 750+ newly releaased plugins now shaping how we create, organize, and think. These incredible tools are a testament to the hard work, creativity, and meticulous care of our dedicated developers. Let’s take a moment to celebrate their passion and the transformative impact they've had on our workflows—this is your achievement! 🎉</div>
+          </div>
+          <div className='flex justify-center'>
+            <motion.div whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="grid content-center">
+              <Link className="text-center bg-gray-800 rounded text-white px-2 py-1" href="/posts/2024-12-07-wrapped-2024">See Wrapped 2024</Link>
+            </motion.div>
+          </div>
+        </Card>
       </div>
 
       <NewPluginsSection newPlugins={props.newPlugins} />
