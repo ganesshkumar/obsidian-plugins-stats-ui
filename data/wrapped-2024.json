@@ -1,0 +1,896 @@
+{
+  "milestone": {
+    "totalPlugins": 2052,
+    "totalDownloads": 63811620
+  },
+  "stats": {
+    "newPluginsCount": 775,
+    "newPluginsDevCount": 641,
+    "updatedPluginsCount": 12512,
+    "downloadCount": 27277167
+  },
+  "mostDownloaded": {
+    "obsidian-excalidraw-plugin": {
+      "name": "Excalidraw",
+      "delta": 1552806
+    },
+    "templater-obsidian": {
+      "name": "Templater",
+      "delta": 1055284
+    },
+    "dataview": {
+      "name": "Dataview",
+      "delta": 972872
+    },
+    "obsidian-tasks-plugin": {
+      "name": "Tasks",
+      "delta": 967681
+    },
+    "table-editor-obsidian": {
+      "name": "Table Editor",
+      "delta": 734731
+    },
+    "obsidian-icon-folder": {
+      "name": "Icon Folder",
+      "delta": 688124
+    },
+    "obsidian-style-settings": {
+      "name": "Style Settings",
+      "delta": 618704
+    },
+    "remotely-save": {
+      "name": "Remotely Save",
+      "delta": 589326
+    },
+    "calendar": {
+      "name": "Calendar",
+      "delta": 550243
+    },
+    "obsidian-git": {
+      "name": "Git",
+      "delta": 533165
+    }
+  },
+  "mostUpdated": {
+    "fileorganizer2000": {
+      "name": "AI File Organizer 2000",
+      "totalUpdated": 313
+    },
+    "pdf-plus": {
+      "name": "PDF++",
+      "totalUpdated": 235
+    },
+    "note-toolbar": {
+      "name": "Note Toolbar",
+      "totalUpdated": 233
+    },
+    "obsidian-memos": {
+      "name": "Obsidian Memos",
+      "totalUpdated": 180
+    },
+    "quadro": {
+      "name": "Quadro",
+      "totalUpdated": 172
+    },
+    "iron-vault": {
+      "name": "Iron Vault",
+      "totalUpdated": 158
+    },
+    "vault-explorer": {
+      "name": "Vault Explorer",
+      "totalUpdated": 150
+    },
+    "change-case": {
+      "name": "Change Case",
+      "totalUpdated": 139
+    },
+    "notes-to-strapi-export-article-ai": {
+      "name": "Strapi Exporter AI",
+      "totalUpdated": 125
+    },
+    "breadcrumbs": {
+      "name": "Breadcrumbs",
+      "totalUpdated": 118
+    }
+  },
+  "mostDownloadedFromNewPlugins": {
+    "obsidian-git": {
+      "name": "Git",
+      "delta": 533165
+    },
+    "obsidian-full-calendar": {
+      "name": "Full Calendar",
+      "delta": 100222
+    },
+    "obsidian-mindmap-nextgen": {
+      "name": "Mindmap Nextgen",
+      "delta": 14563
+    },
+    "obsidian-plugin-prettier": {
+      "name": "Prettier Format",
+      "delta": 4974
+    },
+    "obsidian-trello": {
+      "name": "Trello",
+      "delta": 3542
+    },
+    "obsidian-group-snippets": {
+      "name": "Group Snippets",
+      "delta": 2166
+    },
+    "obsidian-metacopy": {
+      "name": "Metacopy & URL",
+      "delta": 1849
+    },
+    "calendarium": {
+      "name": "Calendarium",
+      "delta": 153
+    },
+    "pexels-banner": {
+      "name": "Pexels Banner",
+      "delta": 130
+    },
+    "iconic": {
+      "name": "Iconic",
+      "delta": 91
+    }
+  },
+  "mostPluginsByAuthor": {
+    "Mara-Li": [
+      {
+        "id": "obsidian-metacopy",
+        "name": "Metacopy & URL",
+        "description": "Copy the value of a frontmatter key and create a link from it using various settings.",
+        "author": "Mara-Li",
+        "repo": "Mara-Li/obsidian-metacopy",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-snippet-downloader",
+        "name": "Snippet Downloader",
+        "author": "Mara-Li",
+        "description": "A obsidian's plugin to help to manage css snippets (download / update) from repository",
+        "repo": "Mara-Li/obsidian-snippet-downloader",
+        "publisedAt": "2022-08-27"
+      },
+      {
+        "id": "obsidian-mkdocs-publisher",
+        "name": "Mkdocs Publisher",
+        "author": "Mara-Li",
+        "description": "Obsidian's Mkdocs Publisher is an association between a github actions and a Material mkdocs template to get a personal wiki site based on your Obsidian Vault.",
+        "repo": "Mara-Li/obsidian-mkdocs-publisher-plugin",
+        "publisedAt": "2022-05-23"
+      },
+      {
+        "id": "obsidian-mkdocs-publisher",
+        "name": "Github Publisher",
+        "author": "Mara-Li",
+        "description": "Github Publisher is a plugin that help you to send file in a configured Github Repository, based on a frontmatter entry state.",
+        "repo": "Mara-Li/obsidian-github-publisher",
+        "publisedAt": "2022-06-05"
+      },
+      {
+        "id": "obsidian-mkdocs-publisher",
+        "name": "Github Publisher",
+        "author": "Mara-Li",
+        "description": "Github Publisher is a plugin that help you to send file in a configured Github Repository, based on a frontmatter entry state.",
+        "repo": "obsidianMkdocs/obsidian-github-publisher",
+        "publisedAt": "2023-01-31"
+      },
+      {
+        "id": "obsidian-group-snippets",
+        "name": "Group Snippets",
+        "author": "Mara-Li",
+        "description": "Create folder of snippets to activate them in one click!",
+        "repo": "Mara-Li/obsidian-group-snippets",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-metacopy",
+        "name": "Metacopy & URL",
+        "description": "Copy the value of a frontmatter key and create a link from it using various settings.",
+        "author": "Mara-Li",
+        "repo": "Lisandra-dev/obsidian-metacopy",
+        "publisedAt": "2024-05-24"
+      },
+      {
+        "id": "obsidian-snippet-downloader",
+        "name": "Snippet Downloader",
+        "author": "Mara-Li",
+        "description": "A Obsidian's plugin to help to manage CSS snippets (download / update) from repository.",
+        "repo": "Lisandra-dev/obsidian-snippet-downloader",
+        "publisedAt": "2023-08-10"
+      },
+      {
+        "id": "obsidian-group-snippets",
+        "name": "Group Snippets",
+        "author": "Mara-Li",
+        "description": "Create folder of snippets to activate them in one click!",
+        "repo": "Lisandra-dev/obsidian-group-snippets",
+        "publisedAt": "2024-05-24"
+      },
+      {
+        "id": "obsidian-mkdocs-publisher",
+        "name": "Github Publisher",
+        "author": "Mara-Li",
+        "description": "Publish your notes to a preconfigured GitHub repository.",
+        "repo": "ObsidianPublisher/obsidian-github-publisher",
+        "publisedAt": "2024-05-26"
+      },
+      {
+        "id": "create-note-in-folder",
+        "name": "Create Note in Folder",
+        "author": "Mara-Li",
+        "description": "Add commands to create a note in a specific folder.",
+        "repo": "Lisandra-dev/obsidian-create-note-in-folder",
+        "publisedAt": "2024-05-24"
+      },
+      {
+        "id": "open-plugin-settings",
+        "name": "Open Plugin Settings",
+        "author": "Mara-Li",
+        "description": "Create a command to open a specified plugin settings.",
+        "repo": "lisandra-dev/open-plugin-settings-commands",
+        "publisedAt": "2024-05-24"
+      },
+      {
+        "id": "better-canvas-lock",
+        "name": "Better Canvas Lock",
+        "author": "Mara-Li",
+        "description": "Enhance the read-only mode in Canvas with fully lock the scroll, zoom, drag-and-drop in read-only!",
+        "repo": "lisandra-dev/obsidian-better-canvas-lock",
+        "publisedAt": "2024-05-24"
+      },
+      {
+        "id": "enhanced-copy",
+        "name": "Enhanced Copy",
+        "author": "Mara-Li",
+        "description": "Copy your selection and add it some edit to paste in other markdown software. Allows to keep markdown in reading view, removing wikilinks in editing, copy from locked canvas, and more!",
+        "repo": "Lisandra-dev/obsidian-enhanced-copy",
+        "publisedAt": "2024-05-24"
+      },
+      {
+        "id": "canvas-css-class",
+        "name": "Canvas CSS class",
+        "description": "Add a CSS class to the canvas, but also other attributes.",
+        "author": "Mara-Li",
+        "repo": "Mara-Li/obsidian-canvas-css-class",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "create-note-in-folder",
+        "name": "Create Note in Folder",
+        "author": "Mara-Li",
+        "description": "Add commands to create a note in a specific folder.",
+        "repo": "Mara-Li/obsidian-create-note-in-folder",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "open-plugin-settings",
+        "name": "Open Plugin Settings",
+        "author": "Mara-Li",
+        "description": "Create a command to open a specified plugin settings.",
+        "repo": "Mara-Li/open-plugin-settings-commands",
+        "publisedAt": "2024-05-27"
+      },
+      {
+        "id": "better-canvas-lock",
+        "name": "Better Canvas Lock",
+        "author": "Mara-Li",
+        "description": "Enhance the read-only mode in Canvas with fully lock the scroll, zoom, drag-and-drop in read-only!",
+        "repo": "Mara-Li/obsidian-better-canvas-lock",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "enhanced-copy",
+        "name": "Enhanced Copy",
+        "author": "Mara-Li",
+        "description": "Copy your selection and add it some edit to paste in other markdown software. Allows to keep markdown in reading view, removing wikilinks in editing, copy from locked canvas, and more!",
+        "repo": "Mara-Li/obsidian-enhanced-copy",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-mkdocs-publisher",
+        "name": "Enveloppe",
+        "author": "Mara-Li",
+        "description": "Publish your notes to a preconfigured GitHub repository.",
+        "repo": "Enveloppe/obsidian-enveloppe",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "open-plugin-settings",
+        "name": "Open Plugin Settings",
+        "author": "Mara-Li",
+        "description": "Create a command to open a specified plugin settings.",
+        "repo": "Mara-Li/obsidian-open-settings",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "regex-mark",
+        "name": "Regex Mark",
+        "author": "Mara-Li",
+        "description": "Add custom CSS classes to text based on regular expressions.",
+        "repo": "Mara-Li/obsidian-regex-mark",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "explorer-hider",
+        "name": "Explorer Hider",
+        "author": "Mara-Li",
+        "description": "Hide a file or a folder from the explorer (and bookmarks) using a little bit of auto-managed CSS.",
+        "repo": "mara-li/obsidian-explorer-hider",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "shortcut-edit-mode",
+        "name": "Edit mode switch",
+        "author": "Mara-Li",
+        "description": "Add a button in the file header, in edit mode, to switch between source and live-preview.",
+        "repo": "Mara-Li/obsidian-edit-shortcut",
+        "publisedAt": "2024-12-03"
+      }
+    ],
+    "Benature": [
+      {
+        "id": "obsidian-underline",
+        "name": "Underline",
+        "description": "Add underline with shortcut.",
+        "author": "Benature",
+        "repo": "Benature/obsidian-underline",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-text-format",
+        "name": "Text Format",
+        "author": "Benature",
+        "description": "Format selected text upper/lower/capitalize.",
+        "repo": "Benature/obsidian-text-format",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "metadata-hider",
+        "name": "Metadata Hider",
+        "author": "Benature",
+        "description": "Hide specific metadata property or if its value is empty.",
+        "repo": "Benature/obsidian-metadata-hider",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "share-my-plugin-list",
+        "name": "Share my plugin list",
+        "author": "Benature",
+        "description": "Share the enabled plugins in list/table format.",
+        "repo": "Benature/obsidian-share-my-plugin-list",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "metadata-icon",
+        "name": "Metadata Icon",
+        "author": "Benature",
+        "description": "Set custom icons for your properties.",
+        "repo": "Benature/obsidian-metadata-icon",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "plugin-reloader",
+        "name": "Plugin Reloader",
+        "author": "Benature",
+        "description": "Manually reload plugins.",
+        "repo": "Benature/obsidian-plugin-reloader",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "default-query-in-backlink",
+        "name": "Default query in backlinks",
+        "author": "Benature",
+        "description": "Automatically input default query in search input of backlinks in document.",
+        "repo": "Benature/obsidian-default-query-in-backlink",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "automation",
+        "name": "Automation",
+        "author": "Benature",
+        "description": "Execute commands on specific events.",
+        "repo": "Benature/obsidian-automation",
+        "publisedAt": "2024-12-03"
+      }
+    ],
+    "Boninall": [
+      {
+        "id": "obsidian-memos",
+        "name": "Obsidian Memos",
+        "description": "Works perfect with your journal",
+        "author": "Boninall",
+        "repo": "quorafind/obsidian-memos",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "big-calendar",
+        "name": "Big Calendar",
+        "author": "Boninall",
+        "description": "A big calendar for Obsidian. All events from your daily notes OR tasks used TASKS/DATAVIEW/KANBAN format.",
+        "repo": "quorafind/obsidian-big-calendar",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "obsidian-expand-bullet",
+        "name": "Expand Bullet",
+        "author": "Boninall",
+        "description": "Transform bullet content into note.",
+        "repo": "quorafind/Obsidian-Expand-Bullet",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "obsidian-task-progress-bar",
+        "name": "Task Progress Bar",
+        "author": "Boninall",
+        "description": "A task progress bar plugin for tasks in Obsidian.",
+        "repo": "quorafind/obsidian-task-progress-bar",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "obsidian-table-generator",
+        "name": "Table Generator",
+        "author": "Boninall",
+        "description": "Generate Markdown tables quickly like Typora.",
+        "repo": "quorafind/obsidian-table-generator",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "obsidian-sakana-widget",
+        "name": "Sakana Widget",
+        "author": "Boninall",
+        "description": "Add the Sakana! widget.",
+        "repo": "Quorafind/obsidian-sakana-widget",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-sakana-widget",
+        "name": "Sakana Widget",
+        "author": "Boninall",
+        "description": "Add the Sakana! Widget to your own Obsidian!",
+        "repo": "quorafind/obsidian-sakana-widget",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "better-reading-mode",
+        "name": "Bionic Reading",
+        "author": "Boninall",
+        "description": "A plugin to enable bionic reading mode in Live preview mode of Obsidian.",
+        "repo": "quorafind/obsidian-bionic-reading",
+        "publisedAt": "2022-12-17"
+      },
+      {
+        "id": "obsidian-new-bullet-with-time",
+        "name": "New Bullet With Time",
+        "author": "Boninall",
+        "description": "Allows you to auto-add current time to new bullet lines.",
+        "repo": "quorafind/obisidna-new-bullet-with-time",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "double-click-tab",
+        "name": "Double Click Tab",
+        "author": "Boninall",
+        "description": "Modify the default behavior when you double click on the tab title, like close tab.",
+        "repo": "Quorafind/Obsidian-Double-Click-Tab",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "double-click-tab",
+        "name": "Double Click Tab",
+        "author": "Boninall",
+        "description": "Modify the default behavior when you double click on the tab title, like close tab.",
+        "repo": "quorafind/Obsidian-Double-Click-Tab",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "better-reading-mode",
+        "name": "Better Reading Mode",
+        "author": "Boninall",
+        "description": "Enable bionic reading mode in Live Preview mode of Obsidian.",
+        "repo": "quorafind/obsidian-better-reading-mode",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "surfing",
+        "name": "Surfing",
+        "author": "Boninall",
+        "description": "Surf the Net in Obsidian like a web browser.",
+        "repo": "quorafind/obsidian-surfing",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "canvas-presentation",
+        "name": "Canvas Presentation",
+        "description": "Helps you display cards based on sequence.",
+        "author": "Boninall",
+        "repo": "quorafind/obsidian-canvas-presentation",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "link-nodes-in-canvas",
+        "name": "Link Nodes in Canvas",
+        "description": "Add edges between notes in Canvas based on their links.",
+        "author": "Boninall",
+        "repo": "quorafind/obsidian-link-nodes-in-canvas",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "canvas-mindmap",
+        "name": "Canvas Mindmap",
+        "author": "Boninall",
+        "description": "Make your canvas work like a mindmap.",
+        "repo": "quorafind/obsidian-canvas-mindmap",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "float-search",
+        "name": "Floating Search",
+        "author": "Boninall",
+        "description": "Search text by using Obsidian default search view.",
+        "repo": "quorafind/obsidian-float-search",
+        "publisedAt": "2023-04-26"
+      },
+      {
+        "id": "obsidian-memos",
+        "name": "Memos",
+        "description": "Quickly capture memos and display them in the sidebar with a heatmap.",
+        "author": "Boninall",
+        "repo": "Quorafind/Obsidian-Memos",
+        "publisedAt": "2024-03-08"
+      },
+      {
+        "id": "big-calendar",
+        "name": "Big Calendar",
+        "author": "Boninall",
+        "description": "A big calendar for Obsidian. All events from your daily notes OR tasks used TASKS/DATAVIEW/KANBAN format.",
+        "repo": "Quorafind/Obsidian-Big-Calendar",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-expand-bullet",
+        "name": "Expand Bullet",
+        "author": "Boninall",
+        "description": "Transform bullet content into note.",
+        "repo": "Quorafind/Obsidian-Expand-Bullet",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-task-progress-bar",
+        "name": "Task Progress Bar",
+        "author": "Boninall",
+        "description": "A task progress bar for tasks.",
+        "repo": "Quorafind/Obsidian-Task-Progress-Bar",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-table-generator",
+        "name": "Table Generator",
+        "author": "Boninall",
+        "description": "Generate Markdown tables quickly like Typora.",
+        "repo": "Quorafind/Obsidian-Table-Generator",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "better-reading-mode",
+        "name": "Better Reading Mode",
+        "author": "Boninall",
+        "description": "Enable bionic reading mode in Live Preview mode.",
+        "repo": "Quorafind/Obsidian-Better-Reading-Mode",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-new-bullet-with-time",
+        "name": "New Bullet With Time",
+        "author": "Boninall",
+        "description": "Automatically add the current time to new bullet lines.",
+        "repo": "Quorafind/Obsidian-New-Bullet-With-Time",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "surfing",
+        "name": "Surfing",
+        "author": "Boninall",
+        "description": "Surf the net like a web browser.",
+        "repo": "PKM-er/Obsidian-Surfing",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "canvas-presentation",
+        "name": "Canvas Presentation",
+        "description": "Display cards based on sequence.",
+        "author": "Boninall",
+        "repo": "Quorafind/Obsidian-Canvas-Presentation",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "link-nodes-in-canvas",
+        "name": "Link Nodes in Canvas",
+        "description": "Add edges between notes in Canvas based on their links.",
+        "author": "Boninall",
+        "repo": "Quorafind/Obsidian-Link-Nodes-In-Canvas",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "canvas-mindmap",
+        "name": "Canvas Mindmap",
+        "author": "Boninall",
+        "description": "Make your canvas work like a mindmap.",
+        "repo": "Quorafind/Obsidian-Canvas-MindMap",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "float-search",
+        "name": "Floating Search",
+        "author": "Boninall",
+        "description": "Search text by using Obsidian default search view.",
+        "repo": "Quorafind/Obsidian-Float-Search",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "fold-anywhere",
+        "name": "Fold Anywhere",
+        "author": "Boninall",
+        "description": "Set start and end marker, and then fold any text anywhere in live preview mode.",
+        "repo": "quorafind/obsidian-fold-anywhere",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "file-property-enhancer",
+        "name": "File Property Enhancer",
+        "author": "Boninall",
+        "description": "Add icons to the file property, and customize the display of the file property.",
+        "repo": "quorafind/obsidian-file-property-enhancer",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "collapse-node",
+        "name": "Collapse Node",
+        "author": "Boninall",
+        "description": "Collapse node in canvas.",
+        "repo": "quorafind/obsidian-collapse-node",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "better-order-list",
+        "name": "Better Order List",
+        "author": "Boninall",
+        "description": "Support new line order list like 1、 or (1)., etc.",
+        "repo": "quorafind/obsidian-better-order-list",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-memos",
+        "name": "Thino",
+        "description": "Quickly capture memos and display them in the sidebar with a heatmap. (Closed source)",
+        "author": "Boninall",
+        "repo": "Quorafind/Obsidian-Thino",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "templify",
+        "name": "Templify",
+        "description": "Enables flexible conversion of note views into various layout (Closed source).",
+        "author": "Boninall",
+        "repo": "quorafind/obsidian-templify",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "search-in-canvas",
+        "name": "Search In Canvas",
+        "author": "Boninall",
+        "description": "Search text in canvas.",
+        "repo": "quorafind/obsidian-search-in-canvas",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "node-auto-resize",
+        "name": "Node Auto Resize",
+        "author": "Boninall",
+        "description": "Automatically resize the node when the content changes.",
+        "repo": "quorafind/obsidian-node-auto-resize",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "pdf-annotator",
+        "name": "Pdf Annotator",
+        "author": "Boninall",
+        "description": "Simple but powerful pdf annotator.",
+        "repo": "quorafind/obsidian-pdf-annotator",
+        "publisedAt": "2024-12-03"
+      }
+    ],
+    "Ryota Ushio": [
+      {
+        "id": "math-booster",
+        "name": "Math Booster",
+        "author": "Ryota Ushio",
+        "description": "Turn your Obsidian into LaTeX on steroids. Dynamically numbered theorem environments & equations, enhanced theorems/equations search & link auto-completion, and live-rendering of equations inside callouts & quotes.",
+        "repo": "RyotaUshio/obsidian-math-booster",
+        "publisedAt": "2023-12-29"
+      },
+      {
+        "id": "inline-math",
+        "name": "No more flickering inline math",
+        "author": "Ryota Ushio",
+        "description": "Remove flickering inline math.",
+        "repo": "RyotaUshio/obsidian-inline-math",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "auto-displaystyle-inline-math",
+        "name": "Auto-\\displaystyle Inline Math",
+        "author": "Ryota Ushio",
+        "description": "Automatically make all inline math \\displaystyle.",
+        "repo": "RyotaUshio/obsidian-auto-displaystyle-inline-math",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "rendered-block-link-suggestions",
+        "name": "Rendered Block Link Suggestions",
+        "author": "Ryota Ushio",
+        "description": "Upgrade Obsidian's built-in link suggestions with block Markdown rendering.",
+        "repo": "RyotaUshio/obsidian-rendered-block-link-suggestions",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "quick-preview",
+        "name": "Quick Preview",
+        "author": "Ryota Ushio",
+        "description": "Quickly preview a suggestion before selecting it in link suggestions & quick switcher.",
+        "repo": "RyotaUshio/obsidian-quick-preview",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "math-in-callout",
+        "name": "Better Math in Callouts & Blockquotes",
+        "author": "Ryota Ushio",
+        "description": "Add better Live Preview support for math rendering inside callouts & blockquotes.",
+        "repo": "RyotaUshio/obsidian-math-in-callout",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "dynamic-line-height-cjk",
+        "name": "Dynamic Line Height for CJK",
+        "author": "Ryota Ushio",
+        "description": "Dynamically adjust line height for lines & paragraphs containing CJK characters.",
+        "repo": "RyotaUshio/obsidian-dynamic-line-height-cjk",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "math-booster",
+        "name": "LaTeX-like Theorem & Equation Referencer",
+        "author": "Ryota Ushio",
+        "description": "A powerful indexing & referencing system for theorems & equations in your vault. Bring LaTeX-like workflow into Obsidian with theorem environments, automatic equation numbering, and more.",
+        "repo": "RyotaUshio/obsidian-latex-theorem-equation-referencer",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "font-size",
+        "name": "Font Size Adjuster",
+        "author": "Ryota Ushio",
+        "description": "Adjust font size via commands.",
+        "repo": "RyotaUshio/obsidian-font-size",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "outline-plus",
+        "name": "Outline++",
+        "author": "Ryota Ushio",
+        "description": "Render Markdown inside the outline view.",
+        "repo": "RyotaUshio/obsidian-outline-plus",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "pdf-plus",
+        "name": "PDF++",
+        "author": "Ryota Ushio",
+        "description": "The most Obsidian-native PDF annotation tool ever.",
+        "repo": "RyotaUshio/obsidian-pdf-plus",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "command-block-list",
+        "name": "Command Block List",
+        "author": "Ryota Ushio",
+        "description": "Hide unwanted commands from the command palette.",
+        "repo": "RyotaUshio/obsidian-command-block-list",
+        "publisedAt": "2024-12-03"
+      }
+    ],
+    "Nathonius": [
+      {
+        "id": "obsidian-collapse-all-plugin",
+        "name": "Collapse All",
+        "description": "Extend collapse/expand all with commands that can be bound to hotkeys.",
+        "author": "Nathonius",
+        "repo": "nathonius/obsidian-collapse-all",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "obsidian-trello",
+        "name": "Trello",
+        "description": "Connect Trello cards to notes.",
+        "author": "Nathonius",
+        "repo": "nathonius/obsidian-trello",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "auto-class",
+        "name": "Auto Class",
+        "description": "Automatically apply CSS classes to Markdown views based on a note's path.",
+        "author": "Nathonius",
+        "repo": "nathonius/obsidian-auto-class",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "github-link",
+        "name": "GitHub Link",
+        "author": "Nathonius",
+        "description": "Enrich your notes with issue and pull request content from GitHub.",
+        "repo": "nathonius/obsidian-github-link",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "canvas-keyboard-pan",
+        "name": "Canvas Keyboard Pan",
+        "author": "Nathonius",
+        "description": "Pan around your canvas using the keyboard",
+        "repo": "nathonius/obsidian-canvas-pan",
+        "publisedAt": "2024-12-03"
+      }
+    ],
+    "Zhou Hua": [
+      {
+        "id": "obsidian-export-image",
+        "name": "Export Image",
+        "author": "Zhou Hua",
+        "description": "Easily convert your article to image.",
+        "repo": "zhouhua/obsidian-export-image",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "markdown-media-card",
+        "name": "Markdown Media Card",
+        "author": "Zhou Hua",
+        "description": "Insert media information cards in Markdown, such as books, music, movies, etc.",
+        "repo": "zhouhua/obsidian-markdown-media-card",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "vconsole",
+        "name": "vConsole",
+        "author": "Zhou Hua",
+        "description": "Integrate vConsole for developers to facilitate the debugging of mobile plugins.",
+        "repo": "zhouhua/obsidian-vconsole",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "power-mode",
+        "name": "POWER MODE",
+        "author": "Zhou Hua",
+        "description": "Active POWER MODE!!!!",
+        "repo": "zhouhua/obsidian-power-mode",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "another-sticky-headings",
+        "name": "Another Sticky Headings",
+        "author": "Zhou Hua",
+        "description": "Display headings tree during editing and preview to indicate the current position.",
+        "repo": "zhouhua/obsidian-sticky-headings",
+        "publisedAt": "2024-12-03"
+      },
+      {
+        "id": "popkit",
+        "name": "PopKit",
+        "author": "Zhou Hua",
+        "description": "Select text to instantly access quick tools",
+        "repo": "zhouhua/obsidian-popkit",
+        "publisedAt": "2024-12-03"
+      }
+    ]
+  }
+}

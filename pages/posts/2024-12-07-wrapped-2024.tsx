@@ -20,6 +20,7 @@ const Demo = (props) => {
       <Intro />
       <MilestonesSection {...props} />
       <StatsSection {...props} />
+      <MostDownloadedPluginsFromNewPluginsSection {...props} />
       <MostDownloadedPluginsSection {...props} />
       <MostUpdatedPluginsSection {...props} />
       <MostPluginsByAuthorSection {...props} />
@@ -130,8 +131,8 @@ const MilestonesSection = (props) => {
         <div className="w-1/2 lg:ml-8 grid content-center">
           <div className="text-4xl py-4 font-bold text-slate-100">Milestones achived in 2024</div>
           <ul className="list-disc flex flex-col gap-y-4">
-            <li className="ml-5 text-2xl text-slate-300">Crossed <span className="font-bold text-3xl text-slate-100">{props.totalPlugins.toLocaleString()}</span> published plugins.</li>
-            <li className="ml-5 text-2xl text-slate-300">Surpassed <span className="font-bold text-3xl text-slate-100">{props.totalDownloads.toLocaleString()}</span> plugin downloads.</li>
+            <li className="ml-5 text-2xl text-slate-300">Crossed <span className="font-bold text-3xl text-slate-100">{props.milestone.totalPlugins.toLocaleString()}</span> published plugins.</li>
+            <li className="ml-5 text-2xl text-slate-300">Surpassed <span className="font-bold text-3xl text-slate-100">{props.milestone.totalDownloads.toLocaleString()}</span> plugin downloads.</li>
           </ul>            
         </div>
         <div className="w-1/2 ml-20 overflow-visible grid content-center">
@@ -152,7 +153,7 @@ const StatsSection = (props) => {
   const ref4 = useRef(null);
   const isInView4 = useInView(ref4, { once: true });
   return (
-    <Section {...props} sectionId="stats" nextSectionId="most-downloaded-plugins" bgClasses="bg-gradient-to-b from-red-900 to-red-700" titleClasses="text-amber-400">
+    <Section {...props} sectionId="stats" nextSectionId="most-downloaded-new-plugins" bgClasses="bg-gradient-to-b from-red-900 to-red-700" titleClasses="text-amber-400">
       <div className="flex flex-col lg:flex-row grow justify-center">
         <div className="w-1/2 lg:ml-8 grid content-center">
           <div className="text-4xl py-4 font-bold text-amber-400">In 2024</div>
@@ -168,7 +169,7 @@ const StatsSection = (props) => {
                     'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
                 }}
               >
-                <div className="font-bold text-5xl mb-2 text-gray-800">{props.authors2024.toLocaleString()}</div>
+                <div className="font-bold text-5xl mb-2 text-gray-800">{props.stats.newPluginsDevCount.toLocaleString()}</div>
                 <div className="text-2xl flex gap-x-1  text-gray-800"><User size={28} /> {" "} Developers contributed</div>
               </motion.div>
             </li>
@@ -183,7 +184,7 @@ const StatsSection = (props) => {
                     'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
                 }}
               >
-                <div className="font-bold text-5xl mb-2 text-gray-800">{props.addedPlugins2024.toLocaleString()}</div>
+                <div className="font-bold text-5xl mb-2 text-gray-800">{props.stats.newPluginsCount.toLocaleString()}</div>
                 <div className="text-2xl flex gap-x-1 text-gray-800"><PlusCircle size={28} /> {" "} New Plugins</div>
               </motion.div>
             </li>
@@ -198,7 +199,7 @@ const StatsSection = (props) => {
                     'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
                 }}
               >
-                <div className="font-bold text-5xl mb-2 text-gray-800">{props.updatedPlugins2024.toLocaleString()}</div>
+                <div className="font-bold text-5xl mb-2 text-gray-800">{props.stats.updatedPluginsCount.toLocaleString()}</div>
                 <div className="text-2xl flex gap-x-1 text-gray-800"><RefreshCw size={28} /> {" "} Plugin Updates</div>
               </motion.div>
             </li>
@@ -213,7 +214,7 @@ const StatsSection = (props) => {
                     'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
                 }}
               >
-                <div className="font-bold text-5xl mb-2 text-gray-800">{props.downloads2024.toLocaleString()}</div>
+                <div className="font-bold text-5xl mb-2 text-gray-800">{props.stats.downloadCount.toLocaleString()}</div>
                 <div className="text-2xl flex gap-x-1 text-gray-800"><Download size={28} /> {" "} Plugin Downloads</div>
               </motion.div>
             </li>
@@ -227,22 +228,22 @@ const StatsSection = (props) => {
   )
 }
 
-const MostDownloadedPluginsSection = (props) => {
+const MostDownloadedPluginsFromNewPluginsSection = (props) => {
   return (
-    <Section {...props} sectionId="most-downloaded-plugins" nextSectionId="most-updated-plugins" bgClasses="bg-gradient-to-b from-blue-900 to-blue-700" titleClasses="text-amber-400">
+    <Section {...props} sectionId="most-downloaded-new-plugins" nextSectionId="most-downloaded-plugins" bgClasses="bg-gradient-to-b from-blue-900 to-blue-700" titleClasses="text-amber-400">
       <div className="flex flex-col lg:flex-row grow justify-center h-full">
         <ul className="flex flex-col justify-center gap-y-2">
           <li>
-            <div className="text-4xl py-4 font-bold text-amber-400">Most downloaded plugins in 2024</div>
+            <div className="text-4xl py-4 font-bold text-amber-400">Top New Plugins Released in 2024</div>
           </li>
-          {Object.keys(props.mostDownloaded2024).map((pludingId, idx) => {
+          {Object.keys(props.mostDownloadedFromNewPlugins).map((pludingId, idx) => {
             return (
               <li key={pludingId} className="text-2xl">
                 <div className="flex items-center gap-x-4">
                   <span className="w-8 pr-2">{idx + 1}.</span>
-                  <span><a href={`/plugins/${pludingId}`} className="cursor-pointer underline grow mr-8">{props.mostDownloaded2024[pludingId][0]}</a></span>
+                  <span><a href={`/plugins/${pludingId}`} className="cursor-pointer underline grow mr-8">{props.mostDownloadedFromNewPlugins[pludingId].name}</a></span>
                   <span className="w-32 flex flex-col ml-auto items-center">
-                    <span className="text-amber-400">{props.mostDownloaded2024[pludingId][1].toLocaleString()}</span>
+                    <span className="text-amber-400">{props.mostDownloadedFromNewPlugins[pludingId].delta.toLocaleString()}</span>
                     <span className="text-sm">Downloads</span>
                   </span>
                 </div>
@@ -255,6 +256,36 @@ const MostDownloadedPluginsSection = (props) => {
   )
 }
 
+
+const MostDownloadedPluginsSection = (props) => {
+  return (
+    <Section {...props} sectionId="most-downloaded-plugins" nextSectionId="most-updated-plugins" bgClasses="bg-gradient-to-b from-orange-700 via-amber-700 to-yellow-700" titleClasses="text-amber-400">
+      <div className="flex flex-col lg:flex-row grow justify-center h-full">
+        <ul className="flex flex-col justify-center gap-y-2">
+          <li>
+            <div className="text-4xl py-4 font-bold text-amber-400">Most downloaded plugins in 2024</div>
+          </li>
+          {Object.keys(props.mostDownloaded).map((pludingId, idx) => {
+            return (
+              <li key={pludingId} className="text-2xl">
+                <div className="flex items-center gap-x-4">
+                  <span className="w-8 pr-2">{idx + 1}.</span>
+                  <span><a href={`/plugins/${pludingId}`} className="cursor-pointer underline grow mr-8">{props.mostDownloaded[pludingId].name}</a></span>
+                  <span className="w-32 flex flex-col ml-auto items-center">
+                    <span className="text-amber-400">{props.mostDownloaded[pludingId].delta.toLocaleString()}</span>
+                    <span className="text-sm">Downloads</span>
+                  </span>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    </Section>
+  )
+}
+
+
 const MostUpdatedPluginsSection = (props) => {
   return (
     <Section {...props} sectionId="most-updated-plugins" nextSectionId="most-plugins-by-author" bgClasses="bg-gradient-to-b from-amber-300 to-amber-400" titleClasses="text-gray-700">
@@ -263,14 +294,14 @@ const MostUpdatedPluginsSection = (props) => {
           <li>
             <div className="text-4xl py-4 font-bold text-gray-700">Plugins received most updates in 2024</div>
           </li>
-          {props.mostUpdatedPlugins.map((plugin, idx) => {
+          {Object.keys(props.mostUpdated).map((pludingId, idx) => {
             return (
-              <li key={plugin[0]} className="text-2xl text-gray-700">
+              <li key={pludingId} className="text-2xl text-gray-700">
                 <div className="flex items-center gap-x-4">
                   <span className="w-8 pr-2">{idx + 1}.</span>
-                  <span><a href={`/plugins/${plugin[0]}`} className="cursor-pointer underline grow mr-8">{plugin[0]}</a></span>
+                  <span><a href={`/plugins/${pludingId}`} className="cursor-pointer underline grow mr-8">{props.mostUpdated[pludingId].name}</a></span>
                   <span className="w-32 flex flex-col ml-auto items-center">
-                    <span className="text-cyan-600">{plugin[1].toLocaleString()}</span>
+                    <span className="text-cyan-600">{props.mostUpdated[pludingId].totalUpdated.toLocaleString()}</span>
                     <span className="text-sm">Updates</span>
                   </span>
                 </div>
@@ -377,56 +408,10 @@ const Section = (props) => {
 
 
 export const getStaticProps = async () => {
-  // read data from data/wrapped-2024.json
-  const data = require('../../data/plugin-history-aggregated-2024.json');
-
-  const pluginUpdateCount: Record<string, number> = data.updated
-  .reduce((acc, v) => {
-    const [pluginId, version] = v.split(':')
-    if (pluginId in acc) {
-      acc[pluginId] += 1
-    } else {
-      acc[pluginId] = 1
-    }
-    return acc;
-  }, {} as Record<string, number>);
- const mostUpdatedPlugins = Object.entries(pluginUpdateCount)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10)
+  const data = require('../../data/wrapped-2024.json');
 
   return {
-    props: {
-      totalPlugins: data.milestone.totalPlugins,
-      totalDownloads: data.milestone.totalDownloads,
-      downloads2024: Object.values(data.mostDownloadedInPeriod).map((v: any) => v.delta).reduce((acc: number, v) => acc + v, 0),
-      authors2024: Object.keys(data.authorPluginCount).length,
-      addedPlugins2024: data.added.length || 0,
-      updatedPlugins2024: data.updated.length || 0,
-      mostDownloaded2024: Object.entries(data.mostDownloadedInPeriod)
-        .sort((a: [string, {total: number, delta: number}], b: [string, {total: number, delta: number}]) => {
-          return b[1].delta - a[1].delta;
-        })
-        .map((e: [string, {total: number, delta: number}]) => [e[0], e[1].delta])
-        .slice(0, 10)
-        .reduce((acc, v: [string, number]) => {
-          const plugin = Object.values(data.plugins).find((p: any) => p.id === v[0]) as any;
-          const name = plugin?.name || v[0];
-          acc[v[0]] = [name, v[1]]
-          return acc
-        }, {} as Record<string, [string, number]>),
-      mostPluginsByAuthor: Object.entries(data.authorPluginCount)
-        .filter((e: [string, number]) => e[1] >= 5)
-        .sort((a: [string, number], b: [string, number]) => b[1] - a[1])
-        .map((e: [string, number]) => {
-          const plugins = Object.values(data.plugins).filter((p: any) => p.author === e[0])
-          return [e[0], plugins]
-        })
-        .reduce((acc, v: [string, any[]]) => {
-          acc[v[0]] = v[1]
-          return acc
-        }, {} as Record<string, any[]>),
-        mostUpdatedPlugins,
-    },
+    props: { ...data },
   };
 }
 
