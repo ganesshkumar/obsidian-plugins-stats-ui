@@ -4,8 +4,8 @@ import { getSortedPostsData } from '../../lib/posts';
 import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
 import { Footer } from 'flowbite-react';
-import moment, { now } from 'moment';
-import { Calendar, Star } from 'react-feather';
+import moment from 'moment';
+import { Calendar, List, Star } from 'react-feather';
 
 interface Post {
   id: string;
@@ -59,7 +59,7 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
                         className="flex justify-between py-4 px-2 hover:bg-gray-200"
                       >
                         <div className="flex gap-x-2">
-                          <div className="grid place-items-center">
+                          <div className="grid place-items-start">
                             <PostIcon tags={post.tags} />
                           </div>
                           <div className="flex flex-col">
@@ -89,15 +89,21 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
 const PostIcon = (props) => {
   if (props.tags && props.tags.includes('weekly-plugin-updates')) {
     return <Calendar
-      size={44}
+      size={48}
       className="text-violet-700 p-1 rounded fill-violet-200"
     />
   } else if (props.tags && props.tags.includes('wrapped-yearly-post')) {
     return <Star
-      size={44}
+      size={48}
       className="text-yellow-400 p-1 rounded fill-yellow-200"
     />
-  } else {
+  } else if (props.tags && props.tags.includes('workflow')) {
+    return <List
+      size={48}
+      className="text-green-400 p-1 rounded fill-yellow-200"
+    />
+  }
+  else {
     return undefined
   }
 }
