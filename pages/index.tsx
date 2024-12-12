@@ -45,6 +45,7 @@ const Home = (props) => {
       <div>
         <Navbar current="home" />
       </div>
+
       <div className="bg-gray-50 lg:py-10 bg-[url('/images/confetti-doodles.svg')]">
         <PluginEcosystemStats {...props} />
       </div>

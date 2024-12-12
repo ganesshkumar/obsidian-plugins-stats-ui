@@ -1,8 +1,8 @@
-import React from 'react';
-import { CustomFlowbiteTheme, Dropdown, Navbar } from 'flowbite-react';
+import React, { useState } from 'react';
+import { CustomFlowbiteTheme, Dropdown, Navbar, Modal, Button } from 'flowbite-react';
 import Constants from '../constants';
 import Image from 'next/image';
-import { Rss } from 'react-feather';
+import { Rss, HelpCircle } from 'react-feather';
 
 interface INavbarProps {
   current?: string;
@@ -19,7 +19,13 @@ const customTheme: CustomFlowbiteTheme['navbar'] = {
 };
 
 const NavBar = ({ current, children }: INavbarProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
+    <>
     <div className="max-w-6xl mx-auto w-full text-gray-800">
       <Navbar fluid rounded theme={customTheme} className="rounded-none">
         <Navbar.Brand href="/">
@@ -124,6 +130,42 @@ const NavBar = ({ current, children }: INavbarProps) => {
         </Navbar.Collapse>
       </Navbar>
     </div>
+    {/* Sponsored Ad Placeholder */}
+    <div className="bg-gray-100 py-4 text-center">
+      <div className="mx-auto">
+        <p className="text-lg font-semibold">Your Ad Here</p>
+        <p className="text-sm">
+          Interested in promoting your content?{' '}
+          <a href="mailto:contact.codebuss@gmail.com" className="text-blue-500 underline">
+            Contact us
+          </a>{' '}
+          for sponsorship opportunities.
+          <HelpCircle
+            className="inline-block ml-2 cursor-pointer text-gray-700"
+            size={16}
+            onClick={openModal}
+          />
+        </p>
+      </div>
+    </div>
+
+    {/* Modal */}
+    <Modal show={isModalOpen} onClose={closeModal}>
+      <Modal.Header>Why We Need Sponsorship</Modal.Header>
+      <Modal.Body className='text-gray-700'>
+        <p>
+          Our platform is dedicated to keeping the community informed and up-to-date on the latest developments in the Obsidian ecosystem. We maintain a backend system that actively monitors new plugin releases and updates, ensuring timely and accurate information delivery. In addition, we produce weekly posts highlighting new plugins and have created comprehensive resources like the "Wrapped 2024" report.
+        </p>
+        <br />
+        <p>
+          Your sponsorship directly supports these efforts by helping us cover operational costs and enabling us to continue delivering high-quality, valuable content to the community. With your support, we can sustain and expand our offerings, keeping the community engaged, informed, and inspired.
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={closeModal} color="dark">Close</Button>
+      </Modal.Footer>
+    </Modal>
+    </>
   );
 };
 
