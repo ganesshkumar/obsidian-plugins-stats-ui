@@ -101,7 +101,7 @@ const UnindexedPlugin = (props) => {
                 Category: <span className="font-bold">{plugin.aiCategories}</span>
               </div>
             }
-            {plugin.aiTag &&
+            {plugin.aiTags &&
               <div className="flex gap-x-2 text-gray-700 cursor-pointer">
                 {plugin.aiTags && plugin.aiTags?.split(',').map((tag) => (
                   <Link
