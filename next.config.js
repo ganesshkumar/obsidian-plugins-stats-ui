@@ -3,4 +3,7 @@ module.exports = {
     locales: ['en-US'],
     defaultLocale: 'en-US',
   },
+  images: {
+    domains: ['github.com', 'raw.githubusercontent.com'],
+  },
 };

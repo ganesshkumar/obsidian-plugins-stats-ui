@@ -30,18 +30,25 @@ const Tag = (props) => {
   const [favorites, setFavorites] = useState([]);
   const [readmeContent, setReadmeContent] = useState('');
 
+  let defaultBranch = '';
   useEffect(() => {
     setupFavorites(setFavorites);
     fetch(`https://api.github.com/repos/${props.plugin.repo}`)
       .then((response) => response.json())
       .then((data) => {
-        const defaultBranch = data.default_branch;
+        defaultBranch = data.default_branch;
         return fetch(
           `https://raw.githubusercontent.com/${props.plugin.repo}/${defaultBranch}/README.md`
         );
       })
       .then((response) => response.text())
-      .then((data) => setReadmeContent(data));
+      .then((data) => {
+        // replace any relative image urls of the markdown cotnent with absolute urls
+        const regex = /!\[.*?\]\((?!http)(.*?)\)/g;
+        const newData = data.replace(regex, `![$1](https://raw.githubusercontent.com/${props.plugin.repo}/${defaultBranch}/$1)`);
+        
+        setReadmeContent(newData)
+      });
   }, []);
 
   const isFavorite = favorites.includes(props.plugin.pluginId);
