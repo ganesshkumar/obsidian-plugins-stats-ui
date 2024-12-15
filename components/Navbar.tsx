@@ -153,13 +153,25 @@ const NavBar = ({ current, children }: INavbarProps) => {
     <Modal show={isModalOpen} onClose={closeModal}>
       <Modal.Header>Why We Need Sponsorship</Modal.Header>
       <Modal.Body className='text-gray-700'>
-        <p>
-          Our platform is dedicated to keeping the community informed and up-to-date on the latest developments in the Obsidian ecosystem. We maintain a backend system that actively monitors new plugin releases and updates, ensuring timely and accurate information delivery. In addition, we produce weekly posts highlighting new plugins and have created comprehensive resources like the "Wrapped 2024" report.
-        </p>
-        <br />
-        <p>
-          Your sponsorship directly supports these efforts by helping us cover operational costs and enabling us to continue delivering high-quality, valuable content to the community. With your support, we can sustain and expand our offerings, keeping the community engaged, informed, and inspired.
-        </p>
+        <div>
+          Our platform is dedicated to keeping the community informed and up-to-date on the latest developments in the Obsidian ecosystem.
+          <div className='mt-2'>
+            Key features include:
+            <br />&nbsp;&nbsp;• Backend system that actively monitors new plugin releases and updates.
+            <br />&nbsp;&nbsp;• Ensuring timely and accurate information delivery.
+            <br />&nbsp;&nbsp;• Weekly posts highlighting new plugins.
+            <br />&nbsp;&nbsp;• Comprehensive resources, such as the "Wrapped 2024" report.
+          </div>
+        </div>
+        <hr className='my-4'/>
+        <div>
+          <b>Your sponsorship</b> directly supports these efforts by helping us cover operational costs and enabling us to continue delivering high-quality, valuable content to the community.
+          <div className='mt-2'>
+            With your support, we can
+            <br />&nbsp;&nbsp;• Sustain and expand our offerings.
+            <br />&nbsp;&nbsp;• Keep the community engaged, informed, and inspired.
+          </div>
+        </div>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={closeModal} color="dark">Close</Button>

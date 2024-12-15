@@ -60,7 +60,7 @@ const Post: React.FC<PostProps> = ({ postData }) => {
       {/* New Plugins */}
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
-          <article className="prose !max-w-none prose-img:mx-auto prose-img:max-w-2xl">
+          <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-96">
             <h1 className="my-2">{postData.title}</h1>
             <div>
               Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
