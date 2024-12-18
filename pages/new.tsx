@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/HeaderNew';
 import Navbar from '../components/Navbar';
 
-import { PrismaClient } from '@prisma/client';
 import Footer from '../components/Footer';
 import { setupFavorites } from '../utils/favorites';
 import NewPluginsList from '../components/NewPluginsList';

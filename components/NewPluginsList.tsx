@@ -19,7 +19,6 @@ const NewPluginsList = ({
   showDescription = true,
 }) => {
   const pad = plugins.length.toString().length;
-
   return (
     <div className="flex-col stripped">
       <List
@@ -42,7 +41,7 @@ const NewPluginsList = ({
   );
 };
 
-const Plugin = (props) => {
+const   Plugin = (props) => {
   const { plugin, idx, pad, favorites, setFavorites, showDownloadStat } = props;
   return (
     <List.Item className="!mt-0 py-3 px-2 w-full hover:bg-slate-50">
