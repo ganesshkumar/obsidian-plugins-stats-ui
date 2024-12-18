@@ -10,7 +10,7 @@ const customTheme: CustomFlowbiteTheme['footer'] = {
 
 const AppFooter = () => {
   return (
-    <section className="w-full bg-gray-200 mt-16">
+    <section className="w-full bg-gray-200 mt-16 border-b-8 border-b-violet-800">
       <Footer
         className="max-w-6xl mx-auto flex flex-col bg-gray-200 rounded-none border-none shadow-none py-8 px-2"
         theme={customTheme}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -22,6 +22,9 @@ import Image from 'next/image';
 import LinkButton from '../components/LinkButton';
 import { PluginsCache } from '../cache/plugins-cache';
 import { sanitizeTag, tagDenyList } from '../utils/plugins';
+import { setupFavorites } from '../utils/favorites';
+import CardAnnotations from '../components/CardAnnotations';
+import Divider from '../components/Divider';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -62,7 +65,7 @@ const Home = (props) => {
           </div>
           <div className='flex justify-center'>
             <motion.div whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="grid content-center">
-              <Link className="text-center bg-gray-800 rounded text-white px-2 py-1" href="/posts/2024-12-07-wrapped-2024">See Wrapped 2024</Link>
+              <Link className="text-center bg-gray-800 rounded text-white px-4 py-2" href="/posts/2024-12-07-wrapped-2024">See Wrapped 2024</Link>
             </motion.div>
           </div>
         </Card>
@@ -71,7 +74,6 @@ const Home = (props) => {
       <NewPluginsSection newPlugins={props.newPlugins} />
       <Divider />
       <FavPluginUpdates newReleases={props.newReleases} />
-      <Divider />
       <NewVersionsSection newReleases={props.newReleases} />
 
       <div className="bg-transparent mt-32">
@@ -236,16 +238,25 @@ const NewPluginsSection = ({ newPlugins }) => {
 const NewVersionsSection = ({ newReleases }) => {
   const linkRef = useRef(null);
   const isInView = useInView(linkRef, { once: true });
+
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    setupFavorites(setFavorites);
+  }, []);
+
+  const sortedNewReleases = newReleases.sort((a, b) => favorites.includes(a.pluginId) ? -1 : 1);
+
   return (
     <main className="bg-transparent">
       <div className="max-w-6xl mx-auto px-2">
         <InfoBar title="New Versions" />
         <div>
-          There are {newReleases?.length || 0} new plugins from the last 10 days
+          There are {sortedNewReleases?.length || 0} new plugins from the last 10 days
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-5">
-          {newReleases.slice(0, 12).map((newRelease, idx) => {
-            // const isFavorite = favorites.includes(newRelease.pluginId);
+          {sortedNewReleases.slice(0, 12).map((newRelease, idx) => {
+            const isFavorite = favorites.includes(newRelease.pluginId);
             // const isTrending = newRelease.zScoreTrending > 10;
             const ref = useRef(null);
             const isInView = useInView(ref, { once: true });
@@ -267,22 +278,27 @@ const NewVersionsSection = ({ newReleases }) => {
                     'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
                 }}
               >
-                <div className="flex flex-none justify-between">
-                  <div className="py-2">
-                    <div className="text-lg font-semibold text-gray-800">
-                      {newRelease.name}
+                <div className='w-full flex-col'>
+                  <div className="flex flex-none justify-between">
+                    <div className="py-2">
+                      <div className="text-lg font-semibold text-gray-800">
+                        {newRelease.name}
+                      </div>
+                      <div className="text-sm text-gray-700">
+                        {moment(newRelease.latestReleaseAt).fromNow()} by{' '}
+                        <span className="">{newRelease.author}</span>
+                      </div>
                     </div>
-                    <div className="text-sm text-gray-700">
-                      {moment(newRelease.latestReleaseAt).fromNow()} by{' '}
-                      <span className="">{newRelease.author}</span>
+                    <div className="text-2xl font-medium flex flex-col justify-center">
+                      <div className="text-violet-900">
+                        {newRelease.latestRelease}
+                      </div>
                     </div>
                   </div>
-                  <div className="text-2xl font-medium flex flex-col justify-center">
-                    <div className="text-violet-900">
-                      {newRelease.latestRelease}
-                    </div>
-                  </div>
-                  {/* <CardAnnotations isFavorite={isFavorite} isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)} isTrending={isTrending} category='Update' /> */}
+                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={false} isTrending={false}
+                    // isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)} isTrending={isTrending}
+                    category='Update' 
+                  />
                 </div>
               </Card>
             );
@@ -302,12 +318,6 @@ const NewVersionsSection = ({ newReleases }) => {
     </main>
   );
 };
-
-const Divider = () => (
-  <div className="max-w-6xl mx-auto my-4">
-    <HR.Trimmed />
-  </div>
-);
 
 export const getStaticProps = async () => {
   const plugins = await PluginsCache.get();

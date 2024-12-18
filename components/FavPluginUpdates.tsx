@@ -7,6 +7,7 @@ import { isNotXDaysOld } from '../utils/datetime';
 import Image from 'next/image';
 import { Search, Star, Eye } from 'react-feather';
 import { motion } from 'framer-motion';
+import Divider from './Divider';
 
 const FavPluginUpdates = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -21,8 +22,16 @@ const FavPluginUpdates = (props) => {
 
   return (
     <>
+      {/* Helper to add favorite plugins */}
+      {favorites && favorites.length == 0 &&
+        <>
+          <NoFavPlugins />
+          <Divider />
+        </>
+      }
+
       {/* Updates for your favorite plugins */}
-      {updatesForFavPlugins && updatesForFavPlugins.length > 0 && (
+      {/* {updatesForFavPlugins && updatesForFavPlugins.length > 0 && (
         <div className="bg-transparent mt-16">
           <div className="max-w-6xl mx-auto px-2">
             <InfoBar title="New Versions of your favorite plugins" />
@@ -76,10 +85,9 @@ const FavPluginUpdates = (props) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
-      {favorites && favorites.length == 0 && <NoFavPlugins />}
-      {(!updatesForFavPlugins || updatesForFavPlugins.length === 0) &&
+      {/* {(!updatesForFavPlugins || updatesForFavPlugins.length === 0) &&
         favorites &&
         favorites.length > 0 && (
           <div className="bg-transparent mt-16">
@@ -97,7 +105,7 @@ const FavPluginUpdates = (props) => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
     </>
   );
 };

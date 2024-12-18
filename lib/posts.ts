@@ -14,6 +14,7 @@ interface PostData {
   description?: string;
   contentHtml?: string;
   content: string;
+  plugins?: string[];
 }
 
 export function getSortedPostsData(): PostData[] {

@@ -1,7 +1,7 @@
 const InfoBar = ({ title }) => {
   return (
     <h1
-      className="group relative z-20 scroll-mt-20 text-3xl font-bold text-gray-800 dark:text-white capitalize"
+      className="group relative z-20 scroll-mt-20 text-3xl font-bold text-gray-800 dark:text-white capitalize my-4"
       id="default-table"
     >
       <a

@@ -130,53 +130,57 @@ const NavBar = ({ current, children }: INavbarProps) => {
         </Navbar.Collapse>
       </Navbar>
     </div>
-    {/* Sponsored Ad Placeholder */}
-    <div className="bg-gray-100 py-4 text-center">
-      <div className="mx-auto">
-        <p className="text-lg font-semibold">Your Ad Here</p>
-        <p className="text-sm">
-          Interested in promoting your content?{' '}
-          <a href="mailto:contact.codebuss@gmail.com" className="text-blue-500 underline">
-            Contact us
-          </a>{' '}
-          for sponsorship opportunities.
-          <HelpCircle
-            className="inline-block ml-2 cursor-pointer text-gray-700"
-            size={16}
-            onClick={openModal}
-          />
-        </p>
-      </div>
-    </div>
+    {current === 'home' &&
+      <>
+        {/* Sponsored Ad Placeholder */}
+        <div className="bg-gray-100 py-4 text-center">
+          <div className="mx-auto">
+            <p className="text-lg font-semibold">Your Ad Here</p>
+            <p className="text-sm">
+              Interested in promoting your content?{' '}
+              <a href="mailto:contact.codebuss@gmail.com" className="text-blue-500 underline">
+                Contact us
+              </a>{' '}
+              for sponsorship opportunities.
+              <HelpCircle
+                className="inline-block ml-2 cursor-pointer text-gray-700"
+                size={16}
+                onClick={openModal}
+              />
+            </p>
+          </div>
+        </div>
 
-    {/* Modal */}
-    <Modal show={isModalOpen} onClose={closeModal}>
-      <Modal.Header>Why We Need Sponsorship</Modal.Header>
-      <Modal.Body className='text-gray-700'>
-        <div>
-          Our platform is dedicated to keeping the community informed and up-to-date on the latest developments in the Obsidian ecosystem.
-          <div className='mt-2'>
-            Key features include:
-            <br />&nbsp;&nbsp;• Backend system that actively monitors new plugin releases and updates.
-            <br />&nbsp;&nbsp;• Ensuring timely and accurate information delivery.
-            <br />&nbsp;&nbsp;• Weekly posts highlighting new plugins.
-            <br />&nbsp;&nbsp;• Comprehensive resources, such as the "Wrapped 2024" report.
-          </div>
-        </div>
-        <hr className='my-4'/>
-        <div>
-          <b>Your sponsorship</b> directly supports these efforts by helping us cover operational costs and enabling us to continue delivering high-quality, valuable content to the community.
-          <div className='mt-2'>
-            With your support, we can
-            <br />&nbsp;&nbsp;• Sustain and expand our offerings.
-            <br />&nbsp;&nbsp;• Keep the community engaged, informed, and inspired.
-          </div>
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={closeModal} color="dark">Close</Button>
-      </Modal.Footer>
-    </Modal>
+        {/* Modal */}
+        <Modal show={isModalOpen} onClose={closeModal}>
+          <Modal.Header>Why We Need Sponsorship</Modal.Header>
+          <Modal.Body className='text-gray-700'>
+            <div>
+              Our platform is dedicated to keeping the community informed and up-to-date on the latest developments in the Obsidian ecosystem.
+              <div className='mt-2'>
+                Key features include:
+                <br />&nbsp;&nbsp;• Backend system that actively monitors new plugin releases and updates.
+                <br />&nbsp;&nbsp;• Ensuring timely and accurate information delivery.
+                <br />&nbsp;&nbsp;• Weekly posts highlighting new plugins.
+                <br />&nbsp;&nbsp;• Comprehensive resources, such as the "Wrapped 2024" report.
+              </div>
+            </div>
+            <hr className='my-4'/>
+            <div>
+              <b>Your sponsorship</b> directly supports these efforts by helping us cover operational costs and enabling us to continue delivering high-quality, valuable content to the community.
+              <div className='mt-2'>
+                With your support, we can
+                <br />&nbsp;&nbsp;• Sustain and expand our offerings.
+                <br />&nbsp;&nbsp;• Keep the community engaged, informed, and inspired.
+              </div>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={closeModal} color="dark">Close</Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    }
     </>
   );
 };

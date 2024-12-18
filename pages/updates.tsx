@@ -46,7 +46,7 @@ const Updates = (props) => {
               >
                 <div className="flex items-start space-x-4 rtl:space-x-reverse">
                   <div className="text-xl">
-                    {String(idx).padStart(pad, '0')}.
+                    {String(idx + 1).padStart(pad, '0')}.
                   </div>
                   <div className="flex flex-col">
                     <Link

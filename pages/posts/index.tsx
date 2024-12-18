@@ -6,6 +6,7 @@ import Navbar from '../../components/Navbar';
 import { Footer } from 'flowbite-react';
 import moment from 'moment';
 import { Calendar, List, Star } from 'react-feather';
+import InfoBar from '../../components/InfoBar';
 
 interface Post {
   id: string;
@@ -46,7 +47,7 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
       </div>
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
-          <h1 className="text-2xl py-5 text-bold text-violet-900">Posts</h1>
+          <InfoBar title="Posts" />
           <ul>
             {Object.keys(postsByYear).map((year) => (
               <li key={year}>
@@ -56,21 +57,21 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
                     <li key={post.id}>
                       <Link
                         href={`/posts/${post.id}`}
-                        className="flex justify-between py-4 px-2 hover:bg-gray-200"
+                        className="flex justify-between py-4 px-2"
                       >
                         <div className="flex gap-x-2">
                           <div className="grid place-items-start">
                             <PostIcon tags={post.tags} />
                           </div>
                           <div className="flex flex-col">
-                            <div className="text-xl">{post.title}</div>
-                            <div className="text-medium text-gray-600">
+                            <div className="text-xl font-semibold hover:underline text-gray-800">{post.title}</div>
+                            <div className="text-medium text-gray-600 flex items-end">
+                              {moment(post.publishedDate).format('MMMM DD, YYYY')}
+                            </div>
+                            <div className="text-medium text-gray-800 mt-4">
                               {post.excerpt}
                             </div>
                           </div>
-                        </div>
-                        <div className="text-medium font-mono text-gray-700 flex items-end">
-                          {moment(post.publishedDate).format('MMMM DD, YYYY')}
                         </div>
                       </Link>
                     </li>

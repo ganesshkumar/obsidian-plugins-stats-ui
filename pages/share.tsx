@@ -37,7 +37,7 @@ const customTheme: CustomFlowbiteTheme['tabs'] = {
 
 const Plugins = (props) => {
   const searchParams = useSearchParams()
-  const pluginIds: string[] = searchParams.get('plugins')?.split(',').map(p => p.trim()) ?? []
+  const pluginIds: string[] = (props?.pluginIds || searchParams.get('plugins')?.split(',').map(p => p.trim())) ?? []
   const author = searchParams.get('author')
   const title = searchParams.get('title')
 
@@ -64,29 +64,7 @@ const Plugins = (props) => {
             {author &&
               <div className='mt-1'>{author} has shared {filteredPlugins.length} plugins.</div>
             }
-            
-            {pluginIds && pluginIds.length && 
-              <div className='mt-4'>
-                <Tabs aria-label="View" variant="underline" theme={customTheme}>
-                  <Tabs.Item active title="List" icon={List}>
-                    <NewPluginsList
-                      plugins={filteredPlugins}
-                      favorites={favorites}
-                      setFavorites={setFavorites}
-                      showDownloadStat={true}
-                    />
-                  </Tabs.Item>
-                  <Tabs.Item title="Table" icon={Table}>
-                    <PluginsTable
-                      plugins={filteredPlugins}
-                      favorites={favorites}
-                      setFavorites={setFavorites}
-                      showDownloadStat={true}
-                    />
-                  </Tabs.Item>
-                </Tabs>
-              </div>
-            }
+            <PluginsShareView pluginIds={pluginIds} filteredPlugins={filteredPlugins} favorites={favorites} setFavorites={setFavorites} />
           </div>
         </div>
         <Footer />
@@ -94,6 +72,36 @@ const Plugins = (props) => {
     </div>
   );
 };
+
+export const PluginsShareView = (props) => {
+  const { pluginIds, plugins, favorites, setFavorites } = props;
+  return (
+    <>
+      {pluginIds && pluginIds.length && 
+        <div className='mt-4'>
+          <Tabs aria-label="View" variant="underline" theme={customTheme}>
+            <Tabs.Item active title="List" icon={List}>
+              <NewPluginsList
+                plugins={plugins}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                showDownloadStat={true}
+              />
+            </Tabs.Item>
+            <Tabs.Item title="Table" icon={Table}>
+              <PluginsTable
+                plugins={plugins}
+                // favorites={favorites}
+                // setFavorites={setFavorites}
+                // showDownloadStat={true}
+              />
+            </Tabs.Item>
+          </Tabs>
+        </div>
+      }
+    </>
+  );
+}
 
 export const getStaticProps = async () => {
   const plugins = await PluginsCache.get();
