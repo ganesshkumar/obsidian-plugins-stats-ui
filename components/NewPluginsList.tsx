@@ -1,4 +1,4 @@
-import { List } from 'flowbite-react';
+import { List, Tooltip } from 'flowbite-react';
 import Link from 'next/link';
 import moment from 'moment';
 import Favorites from './Favorites';
@@ -81,7 +81,7 @@ const UnindexedPlugin = (props) => {
       </div>
       {showDownloadStat && (
         <div className="pt-4 text-gray-700 flex items-center gap-x-2">
-          <Download />{' '}
+          <Tooltip content="Downloads"><Download /></Tooltip>{' '}
           <span className="font-bold text-xl">
             {plugin.totalDownloads.toLocaleString()}
           </span>
