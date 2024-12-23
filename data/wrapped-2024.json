@@ -1,68 +1,68 @@
 {
   "milestone": {
-    "totalPlugins": 2052,
-    "totalDownloads": 63811620
+    "totalPlugins": 2090,
+    "totalDownloads": 65169595
   },
   "stats": {
-    "newPluginsCount": 775,
-    "newPluginsDevCount": 641,
-    "updatedPluginsCount": 12512,
-    "downloadCount": 27277167
+    "newPluginsCount": 817,
+    "newPluginsDevCount": 677,
+    "updatedPluginsCount": 13089,
+    "downloadCount": 28500431
   },
   "mostDownloaded": {
     "obsidian-excalidraw-plugin": {
       "name": "Excalidraw",
-      "delta": 1552806
+      "delta": 1639921
     },
     "templater-obsidian": {
       "name": "Templater",
-      "delta": 1055284
+      "delta": 1091033
     },
     "dataview": {
       "name": "Dataview",
-      "delta": 972872
+      "delta": 1013918
     },
     "obsidian-tasks-plugin": {
       "name": "Tasks",
-      "delta": 967681
+      "delta": 1005663
     },
     "table-editor-obsidian": {
       "name": "Table Editor",
-      "delta": 734731
+      "delta": 767335
     },
     "obsidian-icon-folder": {
       "name": "Icon Folder",
-      "delta": 688124
+      "delta": 731210
     },
     "obsidian-style-settings": {
       "name": "Style Settings",
-      "delta": 618704
+      "delta": 647716
     },
     "remotely-save": {
       "name": "Remotely Save",
-      "delta": 589326
+      "delta": 616517
     },
     "calendar": {
       "name": "Calendar",
-      "delta": 550243
+      "delta": 579226
     },
     "obsidian-git": {
       "name": "Git",
-      "delta": 533165
+      "delta": 560540
     }
   },
   "mostUpdated": {
     "fileorganizer2000": {
       "name": "AI File Organizer 2000",
-      "totalUpdated": 313
-    },
-    "pdf-plus": {
-      "name": "PDF++",
-      "totalUpdated": 235
+      "totalUpdated": 318
     },
     "note-toolbar": {
       "name": "Note Toolbar",
-      "totalUpdated": 233
+      "totalUpdated": 242
+    },
+    "pdf-plus": {
+      "name": "PDF++",
+      "totalUpdated": 239
     },
     "obsidian-memos": {
       "name": "Obsidian Memos",
@@ -70,11 +70,11 @@
     },
     "quadro": {
       "name": "Quadro",
-      "totalUpdated": 172
+      "totalUpdated": 173
     },
     "iron-vault": {
       "name": "Iron Vault",
-      "totalUpdated": 158
+      "totalUpdated": 168
     },
     "vault-explorer": {
       "name": "Vault Explorer",
@@ -86,7 +86,7 @@
     },
     "notes-to-strapi-export-article-ai": {
       "name": "Strapi Exporter AI",
-      "totalUpdated": 125
+      "totalUpdated": 134
     },
     "breadcrumbs": {
       "name": "Breadcrumbs",
@@ -96,43 +96,43 @@
   "mostDownloadedFromNewPlugins": {
     "obsidian-git": {
       "name": "Git",
-      "delta": 533165
+      "delta": 560540
     },
     "obsidian-full-calendar": {
       "name": "Full Calendar",
-      "delta": 100222
+      "delta": 104650
     },
     "obsidian-mindmap-nextgen": {
       "name": "Mindmap Nextgen",
-      "delta": 14563
+      "delta": 15749
     },
     "obsidian-plugin-prettier": {
       "name": "Prettier Format",
-      "delta": 4974
+      "delta": 5150
     },
     "obsidian-trello": {
       "name": "Trello",
-      "delta": 3542
+      "delta": 3731
     },
     "obsidian-group-snippets": {
       "name": "Group Snippets",
-      "delta": 2166
+      "delta": 2189
     },
     "obsidian-metacopy": {
       "name": "Metacopy & URL",
-      "delta": 1849
-    },
-    "calendarium": {
-      "name": "Calendarium",
-      "delta": 153
+      "delta": 1859
     },
     "pexels-banner": {
       "name": "Pexels Banner",
-      "delta": 130
+      "delta": 156
     },
-    "iconic": {
-      "name": "Iconic",
-      "delta": 91
+    "calendarium": {
+      "name": "Calendarium",
+      "delta": 133
+    },
+    "heatmap-tracker": {
+      "name": "Heatmap Tracker",
+      "delta": 71
     }
   },
   "mostPluginsByAuthor": {
@@ -143,7 +143,7 @@
         "description": "Copy the value of a frontmatter key and create a link from it using various settings.",
         "author": "Mara-Li",
         "repo": "Mara-Li/obsidian-metacopy",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-snippet-downloader",
@@ -183,7 +183,7 @@
         "author": "Mara-Li",
         "description": "Create folder of snippets to activate them in one click!",
         "repo": "Mara-Li/obsidian-group-snippets",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-metacopy",
@@ -255,7 +255,7 @@
         "description": "Add a CSS class to the canvas, but also other attributes.",
         "author": "Mara-Li",
         "repo": "Mara-Li/obsidian-canvas-css-class",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "create-note-in-folder",
@@ -263,7 +263,7 @@
         "author": "Mara-Li",
         "description": "Add commands to create a note in a specific folder.",
         "repo": "Mara-Li/obsidian-create-note-in-folder",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "open-plugin-settings",
@@ -279,7 +279,7 @@
         "author": "Mara-Li",
         "description": "Enhance the read-only mode in Canvas with fully lock the scroll, zoom, drag-and-drop in read-only!",
         "repo": "Mara-Li/obsidian-better-canvas-lock",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "enhanced-copy",
@@ -287,7 +287,7 @@
         "author": "Mara-Li",
         "description": "Copy your selection and add it some edit to paste in other markdown software. Allows to keep markdown in reading view, removing wikilinks in editing, copy from locked canvas, and more!",
         "repo": "Mara-Li/obsidian-enhanced-copy",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-mkdocs-publisher",
@@ -295,7 +295,7 @@
         "author": "Mara-Li",
         "description": "Publish your notes to a preconfigured GitHub repository.",
         "repo": "Enveloppe/obsidian-enveloppe",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "open-plugin-settings",
@@ -303,7 +303,7 @@
         "author": "Mara-Li",
         "description": "Create a command to open a specified plugin settings.",
         "repo": "Mara-Li/obsidian-open-settings",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "regex-mark",
@@ -311,7 +311,7 @@
         "author": "Mara-Li",
         "description": "Add custom CSS classes to text based on regular expressions.",
         "repo": "Mara-Li/obsidian-regex-mark",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "explorer-hider",
@@ -319,7 +319,7 @@
         "author": "Mara-Li",
         "description": "Hide a file or a folder from the explorer (and bookmarks) using a little bit of auto-managed CSS.",
         "repo": "mara-li/obsidian-explorer-hider",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "shortcut-edit-mode",
@@ -327,7 +327,7 @@
         "author": "Mara-Li",
         "description": "Add a button in the file header, in edit mode, to switch between source and live-preview.",
         "repo": "Mara-Li/obsidian-edit-shortcut",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       }
     ],
     "Benature": [
@@ -337,7 +337,7 @@
         "description": "Add underline with shortcut.",
         "author": "Benature",
         "repo": "Benature/obsidian-underline",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-text-format",
@@ -345,7 +345,7 @@
         "author": "Benature",
         "description": "Format selected text upper/lower/capitalize.",
         "repo": "Benature/obsidian-text-format",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "metadata-hider",
@@ -353,7 +353,7 @@
         "author": "Benature",
         "description": "Hide specific metadata property or if its value is empty.",
         "repo": "Benature/obsidian-metadata-hider",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "share-my-plugin-list",
@@ -361,7 +361,7 @@
         "author": "Benature",
         "description": "Share the enabled plugins in list/table format.",
         "repo": "Benature/obsidian-share-my-plugin-list",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "metadata-icon",
@@ -369,7 +369,7 @@
         "author": "Benature",
         "description": "Set custom icons for your properties.",
         "repo": "Benature/obsidian-metadata-icon",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "plugin-reloader",
@@ -377,7 +377,7 @@
         "author": "Benature",
         "description": "Manually reload plugins.",
         "repo": "Benature/obsidian-plugin-reloader",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "default-query-in-backlink",
@@ -385,7 +385,7 @@
         "author": "Benature",
         "description": "Automatically input default query in search input of backlinks in document.",
         "repo": "Benature/obsidian-default-query-in-backlink",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "automation",
@@ -393,7 +393,7 @@
         "author": "Benature",
         "description": "Execute commands on specific events.",
         "repo": "Benature/obsidian-automation",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       }
     ],
     "Boninall": [
@@ -443,7 +443,7 @@
         "author": "Boninall",
         "description": "Add the Sakana! widget.",
         "repo": "Quorafind/obsidian-sakana-widget",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-sakana-widget",
@@ -475,7 +475,7 @@
         "author": "Boninall",
         "description": "Modify the default behavior when you double click on the tab title, like close tab.",
         "repo": "Quorafind/Obsidian-Double-Click-Tab",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "double-click-tab",
@@ -547,7 +547,7 @@
         "author": "Boninall",
         "description": "A big calendar for Obsidian. All events from your daily notes OR tasks used TASKS/DATAVIEW/KANBAN format.",
         "repo": "Quorafind/Obsidian-Big-Calendar",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-expand-bullet",
@@ -555,7 +555,7 @@
         "author": "Boninall",
         "description": "Transform bullet content into note.",
         "repo": "Quorafind/Obsidian-Expand-Bullet",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-task-progress-bar",
@@ -563,7 +563,7 @@
         "author": "Boninall",
         "description": "A task progress bar for tasks.",
         "repo": "Quorafind/Obsidian-Task-Progress-Bar",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-table-generator",
@@ -571,7 +571,7 @@
         "author": "Boninall",
         "description": "Generate Markdown tables quickly like Typora.",
         "repo": "Quorafind/Obsidian-Table-Generator",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "better-reading-mode",
@@ -579,7 +579,7 @@
         "author": "Boninall",
         "description": "Enable bionic reading mode in Live Preview mode.",
         "repo": "Quorafind/Obsidian-Better-Reading-Mode",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-new-bullet-with-time",
@@ -587,7 +587,7 @@
         "author": "Boninall",
         "description": "Automatically add the current time to new bullet lines.",
         "repo": "Quorafind/Obsidian-New-Bullet-With-Time",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "surfing",
@@ -595,7 +595,7 @@
         "author": "Boninall",
         "description": "Surf the net like a web browser.",
         "repo": "PKM-er/Obsidian-Surfing",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "canvas-presentation",
@@ -603,7 +603,7 @@
         "description": "Display cards based on sequence.",
         "author": "Boninall",
         "repo": "Quorafind/Obsidian-Canvas-Presentation",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "link-nodes-in-canvas",
@@ -611,7 +611,7 @@
         "description": "Add edges between notes in Canvas based on their links.",
         "author": "Boninall",
         "repo": "Quorafind/Obsidian-Link-Nodes-In-Canvas",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "canvas-mindmap",
@@ -619,7 +619,7 @@
         "author": "Boninall",
         "description": "Make your canvas work like a mindmap.",
         "repo": "Quorafind/Obsidian-Canvas-MindMap",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "float-search",
@@ -627,7 +627,7 @@
         "author": "Boninall",
         "description": "Search text by using Obsidian default search view.",
         "repo": "Quorafind/Obsidian-Float-Search",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "fold-anywhere",
@@ -635,7 +635,7 @@
         "author": "Boninall",
         "description": "Set start and end marker, and then fold any text anywhere in live preview mode.",
         "repo": "quorafind/obsidian-fold-anywhere",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "file-property-enhancer",
@@ -643,7 +643,7 @@
         "author": "Boninall",
         "description": "Add icons to the file property, and customize the display of the file property.",
         "repo": "quorafind/obsidian-file-property-enhancer",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "collapse-node",
@@ -651,7 +651,7 @@
         "author": "Boninall",
         "description": "Collapse node in canvas.",
         "repo": "quorafind/obsidian-collapse-node",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "better-order-list",
@@ -659,7 +659,7 @@
         "author": "Boninall",
         "description": "Support new line order list like 1、 or (1)., etc.",
         "repo": "quorafind/obsidian-better-order-list",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-memos",
@@ -667,7 +667,7 @@
         "description": "Quickly capture memos and display them in the sidebar with a heatmap. (Closed source)",
         "author": "Boninall",
         "repo": "Quorafind/Obsidian-Thino",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "templify",
@@ -675,7 +675,7 @@
         "description": "Enables flexible conversion of note views into various layout (Closed source).",
         "author": "Boninall",
         "repo": "quorafind/obsidian-templify",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "search-in-canvas",
@@ -683,7 +683,7 @@
         "author": "Boninall",
         "description": "Search text in canvas.",
         "repo": "quorafind/obsidian-search-in-canvas",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "node-auto-resize",
@@ -691,7 +691,7 @@
         "author": "Boninall",
         "description": "Automatically resize the node when the content changes.",
         "repo": "quorafind/obsidian-node-auto-resize",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "pdf-annotator",
@@ -699,7 +699,7 @@
         "author": "Boninall",
         "description": "Simple but powerful pdf annotator.",
         "repo": "quorafind/obsidian-pdf-annotator",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       }
     ],
     "Ryota Ushio": [
@@ -717,7 +717,7 @@
         "author": "Ryota Ushio",
         "description": "Remove flickering inline math.",
         "repo": "RyotaUshio/obsidian-inline-math",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "auto-displaystyle-inline-math",
@@ -725,7 +725,7 @@
         "author": "Ryota Ushio",
         "description": "Automatically make all inline math \\displaystyle.",
         "repo": "RyotaUshio/obsidian-auto-displaystyle-inline-math",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "rendered-block-link-suggestions",
@@ -733,7 +733,7 @@
         "author": "Ryota Ushio",
         "description": "Upgrade Obsidian's built-in link suggestions with block Markdown rendering.",
         "repo": "RyotaUshio/obsidian-rendered-block-link-suggestions",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "quick-preview",
@@ -741,7 +741,7 @@
         "author": "Ryota Ushio",
         "description": "Quickly preview a suggestion before selecting it in link suggestions & quick switcher.",
         "repo": "RyotaUshio/obsidian-quick-preview",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "math-in-callout",
@@ -749,7 +749,7 @@
         "author": "Ryota Ushio",
         "description": "Add better Live Preview support for math rendering inside callouts & blockquotes.",
         "repo": "RyotaUshio/obsidian-math-in-callout",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "dynamic-line-height-cjk",
@@ -757,7 +757,7 @@
         "author": "Ryota Ushio",
         "description": "Dynamically adjust line height for lines & paragraphs containing CJK characters.",
         "repo": "RyotaUshio/obsidian-dynamic-line-height-cjk",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "math-booster",
@@ -765,7 +765,7 @@
         "author": "Ryota Ushio",
         "description": "A powerful indexing & referencing system for theorems & equations in your vault. Bring LaTeX-like workflow into Obsidian with theorem environments, automatic equation numbering, and more.",
         "repo": "RyotaUshio/obsidian-latex-theorem-equation-referencer",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "font-size",
@@ -773,7 +773,7 @@
         "author": "Ryota Ushio",
         "description": "Adjust font size via commands.",
         "repo": "RyotaUshio/obsidian-font-size",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "outline-plus",
@@ -781,7 +781,7 @@
         "author": "Ryota Ushio",
         "description": "Render Markdown inside the outline view.",
         "repo": "RyotaUshio/obsidian-outline-plus",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "pdf-plus",
@@ -789,7 +789,7 @@
         "author": "Ryota Ushio",
         "description": "The most Obsidian-native PDF annotation tool ever.",
         "repo": "RyotaUshio/obsidian-pdf-plus",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "command-block-list",
@@ -797,7 +797,7 @@
         "author": "Ryota Ushio",
         "description": "Hide unwanted commands from the command palette.",
         "repo": "RyotaUshio/obsidian-command-block-list",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       }
     ],
     "Nathonius": [
@@ -807,7 +807,7 @@
         "description": "Extend collapse/expand all with commands that can be bound to hotkeys.",
         "author": "Nathonius",
         "repo": "nathonius/obsidian-collapse-all",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "obsidian-trello",
@@ -815,7 +815,7 @@
         "description": "Connect Trello cards to notes.",
         "author": "Nathonius",
         "repo": "nathonius/obsidian-trello",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "auto-class",
@@ -823,7 +823,7 @@
         "description": "Automatically apply CSS classes to Markdown views based on a note's path.",
         "author": "Nathonius",
         "repo": "nathonius/obsidian-auto-class",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "github-link",
@@ -831,7 +831,7 @@
         "author": "Nathonius",
         "description": "Enrich your notes with issue and pull request content from GitHub.",
         "repo": "nathonius/obsidian-github-link",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "canvas-keyboard-pan",
@@ -839,7 +839,7 @@
         "author": "Nathonius",
         "description": "Pan around your canvas using the keyboard",
         "repo": "nathonius/obsidian-canvas-pan",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       }
     ],
     "Zhou Hua": [
@@ -849,7 +849,7 @@
         "author": "Zhou Hua",
         "description": "Easily convert your article to image.",
         "repo": "zhouhua/obsidian-export-image",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "markdown-media-card",
@@ -857,7 +857,7 @@
         "author": "Zhou Hua",
         "description": "Insert media information cards in Markdown, such as books, music, movies, etc.",
         "repo": "zhouhua/obsidian-markdown-media-card",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "vconsole",
@@ -865,7 +865,7 @@
         "author": "Zhou Hua",
         "description": "Integrate vConsole for developers to facilitate the debugging of mobile plugins.",
         "repo": "zhouhua/obsidian-vconsole",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "power-mode",
@@ -873,7 +873,7 @@
         "author": "Zhou Hua",
         "description": "Active POWER MODE!!!!",
         "repo": "zhouhua/obsidian-power-mode",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "another-sticky-headings",
@@ -881,7 +881,7 @@
         "author": "Zhou Hua",
         "description": "Display headings tree during editing and preview to indicate the current position.",
         "repo": "zhouhua/obsidian-sticky-headings",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       },
       {
         "id": "popkit",
@@ -889,7 +889,7 @@
         "author": "Zhou Hua",
         "description": "Select text to instantly access quick tools",
         "repo": "zhouhua/obsidian-popkit",
-        "publisedAt": "2024-12-03"
+        "publisedAt": "2024-12-20"
       }
     ]
   }
