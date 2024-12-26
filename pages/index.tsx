@@ -17,7 +17,7 @@ import { Card, CustomFlowbiteTheme, HR } from 'flowbite-react';
 import FavPluginUpdates from '../components/FavPluginUpdates';
 import { CategoryIcon } from '../components/Category';
 
-import { motion, useInView } from 'framer-motion';
+import { motion, useAnimationFrame, useInView } from 'framer-motion';
 import Image from 'next/image';
 import LinkButton from '../components/LinkButton';
 import { PluginsCache } from '../cache/plugins-cache';
@@ -25,6 +25,8 @@ import { sanitizeTag, tagDenyList } from '../utils/plugins';
 import { setupFavorites } from '../utils/favorites';
 import CardAnnotations from '../components/CardAnnotations';
 import Divider from '../components/Divider';
+import { getSortedPostsData } from '../lib/posts';
+import { Calendar, Star, List } from 'react-feather';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -74,7 +76,11 @@ const Home = (props) => {
       <NewPluginsSection newPlugins={props.newPlugins} />
       <Divider />
       <FavPluginUpdates newReleases={props.newReleases} />
+      <TrendingPlugins plugins={props.trendingPlugins} />
+      <Divider />
       <NewVersionsSection newReleases={props.newReleases} />
+      <Divider />
+      <NewPosts posts={props.newPosts} />
 
       <div className="bg-transparent mt-32">
         <div className="max-w-6xl mx-auto px-2 flex flex-col rounded rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-800">
@@ -319,6 +325,122 @@ const NewVersionsSection = ({ newReleases }) => {
   );
 };
 
+const TrendingPlugins = ({plugins}) => {
+  const [offsetX, setOffsetX] = React.useState(0);
+  const speed = 0.05; // Adjust speed of the scroll
+  const containerWidth = 3100; // Width of the scrolling content (calculated to avoid jumps)
+
+  useAnimationFrame((_, delta) => {
+    setOffsetX((prev) => prev - delta * speed);
+  });
+
+  const scrollContainerStyle: React.CSSProperties = {
+    display: 'flex',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+  };
+
+  const scrollItemStyle: React.CSSProperties = {
+    padding: '0 10px',
+    fontWeight: 'bold',
+    width: '300px',
+    height: '100px',
+  };
+
+  const translateX = offsetX % containerWidth;
+
+  return (
+    <div className='max-w-6xl mx-auto px-2 w-full text-gray-800'> 
+      <InfoBar title="Trending Plugins" />
+      <div style={scrollContainerStyle} className="mb-6">
+        <motion.div
+          style={{
+            display: "flex",
+            columnGap: "10px",
+            transform: `translateX(${translateX}px)`,
+          }}
+        >
+          {plugins.map((plugin, idx) => (
+            <a key={plugin.pluginId} style={scrollItemStyle} href={`/plugins/${plugin.pluginId}`} className='border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-gradient-to-br from-violet-100 to-purple-200'>
+              <div className="text-base">{idx + 1}. {plugin.name}</div>
+              <div className="text-xs text-gray-500 font-normal">by {plugin.author}</div>
+            </a>
+          ))}
+          {plugins.map((plugin, idx) => (
+            <a key={`clone-${plugin.pluginId}`} style={scrollItemStyle} href={`/plugins/${plugin.pluginId}`} className='border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-gradient-to-br from-violet-100 to-purple-200'>
+              <div className="text-base">{idx + 1}. {plugin.name}</div>
+              <div className="text-xs text-gray-500 font-normal">by {plugin.author}</div>
+            </a>
+          ))}
+        </motion.div>
+      </div>
+      <LinkButton
+        href="/trending"
+        content={`View all trending plugins ⟶`}
+      />
+    </div>
+  );
+};
+
+const PostIcon = (props) => {
+  if (props.tags && props.tags.includes('weekly-plugin-updates')) {
+    return <Calendar
+      size={48}
+      className="text-violet-700 p-1 rounded fill-violet-200"
+    />
+  } else if (props.tags && props.tags.includes('wrapped-yearly-post')) {
+    return <Star
+      size={48}
+      className="text-yellow-400 p-1 rounded fill-yellow-200"
+    />
+  } else if (props.tags && props.tags.includes('workflow')) {
+    return <List
+      size={48}
+      className="text-green-400 p-1 rounded fill-yellow-200"
+    />
+  }
+  else {
+    return undefined
+  }
+}
+
+const NewPosts = ({posts}) => {
+  return (
+    <div className="max-w-6xl mx-auto px-2">
+      <InfoBar title="Posts" />
+      <ul className="flex flex-col divide-y mb-4">
+        {posts.map((post) => (
+          <li key={post.id}>
+            <Link
+              href={`/posts/${post.id}`}
+              className="flex justify-between py-4 px-2"
+            >
+              <div className="flex gap-x-2">
+                <div className="grid place-items-start">
+                  <PostIcon tags={post.tags} />
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-xl font-semibold hover:underline text-gray-800">{post.title}</div>
+                  <div className="text-medium text-gray-600 flex items-end">
+                    {moment(post.publishedDate).format('MMMM DD, YYYY')}
+                  </div>
+                  {/* <div className="text-medium text-gray-800 mt-4">
+                    {post.excerpt}
+                  </div> */}
+                </div>
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <LinkButton
+        href="/posts"
+        content={`View all posts ⟶`}
+      />
+    </div>
+  ) 
+} 
+
 export const getStaticProps = async () => {
   const plugins = await PluginsCache.get();
 
@@ -334,6 +456,10 @@ export const getStaticProps = async () => {
     .sort((a, b) => b.totalDownloads - a.totalDownloads)
     .slice(0, 25);
 
+  const trendingPlugins = [...plugins]
+    .sort((a, b) => b.zScoreTrending - a.zScoreTrending)
+    .slice(0, 10);
+
   const tags = new Set<string>();
   plugins.forEach((plugin) => {
     plugin?.aiTags && plugin?.aiTags
@@ -341,6 +467,8 @@ export const getStaticProps = async () => {
       .map((tag) => sanitizeTag(tag))
       .forEach((tag) => tags.add(tag));
   });
+
+  const newPosts = getSortedPostsData().slice(0, 10);
 
   const totalPluginsCount = plugins.length;
   const newPluginsCount = newPlugins.length;
@@ -355,6 +483,8 @@ export const getStaticProps = async () => {
       newReleasesCount,
       mostDownloaded,
       totalTagsCount: tags.size,
+      trendingPlugins,
+      newPosts
     },
   };
 };

@@ -23,7 +23,7 @@ model Plugin {
   latestReleaseDesc String?
   latestReleaseAt   Int?
   totalDownloads    Int?
-  zScoreTrending    Int?
+  zScoreTrending    Float?
   aiDescription     String?
   aiCategories      String?
   aiTags            String?
