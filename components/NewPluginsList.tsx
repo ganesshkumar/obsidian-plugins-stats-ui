@@ -95,7 +95,7 @@ const UnindexedPlugin = (props) => {
             </div>
           }
           <div>
-            { plugin.aiCategories &&
+            {plugin.aiCategories &&
               <div className="text-gray-700">
                 Category: <span className="font-bold">{plugin.aiCategories}</span>
               </div>
