@@ -2,9 +2,9 @@
 title: Obsidian Plugin Updates 2024-12-01 to 2024-12-07
 description: new obsidian plugins from 2024-12-01 to 2024-12-07 - create folder notes with dropdown, Usher, Class Relation Visualization, Wardley Maps, Embed 3D, Share as ZIP, Tab Limiter, Magiedit, Zen Mode, Sync to Hugo
 excerpt: There are 10 new plugins and 97 plugin updates in the last one week's time.
-publishedDate: "2024-12-08"
-modifiedDate: "2024-12-08"
-tags: 
+publishedDate: '2024-12-08'
+modifiedDate: '2024-12-08'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -121,4 +121,3 @@ The **Sync to Hugo** plugin bridges your Obsidian notes with Hugo, a static site
 ## 🔁 Plugin Updates
 
 We got 97 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

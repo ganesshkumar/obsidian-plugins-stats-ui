@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import Header from '../components/HeaderAll';
 import Navbar from '../components/Navbar';
 
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation';
 import Footer from '../components/Footer';
 import { setupFavorites } from '../utils/favorites';
 import { Tabs } from 'flowbite-react';
@@ -22,28 +22,37 @@ const customTheme: CustomFlowbiteTheme['tabs'] = {
       variant: {
         default: {
           active: {
-            "on": "bg-gray-100 text-violet-600 dark:bg-gray-800 dark:text-violet-500"
-          }
+            on: 'bg-gray-100 text-violet-600 dark:bg-gray-800 dark:text-violet-500',
+          },
         },
         underline: {
           active: {
-            "on": "active rounded-t-lg border-b-2 border-violet-600 text-violet-600 dark:border-violet-500 dark:text-violet-500"
-          }
-        }
-      }
-    }
+            on: 'active rounded-t-lg border-b-2 border-violet-600 text-violet-600 dark:border-violet-500 dark:text-violet-500',
+          },
+        },
+      },
+    },
   },
 };
 
 const Plugins = (props) => {
-  const searchParams = useSearchParams()
-  const pluginIds: string[] = (props?.pluginIds || searchParams.get('plugins')?.split(',').map(p => p.trim())) ?? []
-  const author = searchParams.get('author')
-  const title = searchParams.get('title')
+  const searchParams = useSearchParams();
+  const pluginIds: string[] =
+    (props?.pluginIds ||
+      searchParams
+        .get('plugins')
+        ?.split(',')
+        .map((p) => p.trim())) ??
+    [];
+  const author = searchParams.get('author');
+  const title = searchParams.get('title');
 
-  const filteredPlugins = pluginIds.map(pluginId => props.plugins.find(p => p.pluginId === pluginId)).filter(p => !!p) ?? []
+  const filteredPlugins =
+    pluginIds
+      .map((pluginId) => props.plugins.find((p) => p.pluginId === pluginId))
+      .filter((p) => !!p) ?? [];
   const [favorites, setFavorites] = useState([]);
-  
+
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
@@ -55,16 +64,21 @@ const Plugins = (props) => {
         <div>
           <Navbar current="all" />
         </div>
-        
+
         <div className="bg-white pt-5 grow">
           <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
-            {title &&
-              <InfoBar title={title} />
-            }
-            {author &&
-              <div className='mt-1'>{author} has shared {filteredPlugins.length} plugins.</div>
-            }
-            <PluginsShareView pluginIds={pluginIds} filteredPlugins={filteredPlugins} favorites={favorites} setFavorites={setFavorites} />
+            {title && <InfoBar title={title} />}
+            {author && (
+              <div className="mt-1">
+                {author} has shared {filteredPlugins.length} plugins.
+              </div>
+            )}
+            <PluginsShareView
+              pluginIds={pluginIds}
+              filteredPlugins={filteredPlugins}
+              favorites={favorites}
+              setFavorites={setFavorites}
+            />
           </div>
         </div>
         <Footer />
@@ -77,8 +91,8 @@ export const PluginsShareView = (props) => {
   const { pluginIds, plugins, favorites, setFavorites } = props;
   return (
     <>
-      {pluginIds && pluginIds.length && 
-        <div className='mt-4'>
+      {pluginIds && pluginIds.length && (
+        <div className="mt-4">
           <Tabs aria-label="View" variant="underline" theme={customTheme}>
             <Tabs.Item active title="List" icon={List}>
               <NewPluginsList
@@ -98,10 +112,10 @@ export const PluginsShareView = (props) => {
             </Tabs.Item>
           </Tabs>
         </div>
-      }
+      )}
     </>
   );
-}
+};
 
 export const getStaticProps = async () => {
   const plugins = await PluginsCache.get();

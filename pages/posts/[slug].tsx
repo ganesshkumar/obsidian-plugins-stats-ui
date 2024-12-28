@@ -41,10 +41,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const processedContent = await remark().use(html).process(postData.content);
   const contentHtml = processedContent.toString();
 
-  const plugins = await PluginsCache.get();  
-  const filteredPlugins = postData.plugins
-    ?.map((pluginId) => plugins.find((p) => p.pluginId === pluginId))
-    .filter((plugin) => !!plugin) ?? [];
+  const plugins = await PluginsCache.get();
+  const filteredPlugins =
+    postData.plugins
+      ?.map((pluginId) => plugins.find((p) => p.pluginId === pluginId))
+      .filter((plugin) => !!plugin) ?? [];
 
   return {
     props: {
@@ -52,7 +53,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ...postData,
         contentHtml,
       },
-      plugins: filteredPlugins
+      plugins: filteredPlugins,
     },
   };
 };
@@ -80,17 +81,26 @@ const Post: React.FC<PostProps> = ({ postData, plugins }) => {
             <div className="mb-4">
               Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
             </div>
-            {plugins && plugins.length ?
+            {plugins && plugins.length ? (
               <>
-                <Button color='dark' onClick={() => setComparePlugins(!comparePlugins)}>{comparePlugins ? 'Compare' : 'Hide'} plugins in the post</Button>
-                {comparePlugins &&
+                <Button
+                  color="dark"
+                  onClick={() => setComparePlugins(!comparePlugins)}
+                >
+                  {comparePlugins ? 'Hide' : 'Compare'} plugins in the post
+                </Button>
+                {comparePlugins && (
                   <div className="overflow-x-auto">
-                    <PluginsShareView pluginIds={plugins.map(p => p.pluginId)} plugins={plugins} favorites={[]} setFavorites={() => {}} />
+                    <PluginsShareView
+                      pluginIds={plugins.map((p) => p.pluginId)}
+                      plugins={plugins}
+                      favorites={[]}
+                      setFavorites={() => {}}
+                    />
                   </div>
-                }
-              </> :
-              null
-            }
+                )}
+              </>
+            ) : null}
             <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
           </article>
         </div>

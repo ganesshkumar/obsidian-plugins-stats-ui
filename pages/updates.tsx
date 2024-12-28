@@ -36,7 +36,9 @@ const Updates = (props) => {
       {/* New Releases */}
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <InfoBar title={`New Releases ${props.newReleases && `(${props.newReleases.length})`}`} />
+          <InfoBar
+            title={`New Releases ${props.newReleases && `(${props.newReleases.length})`}`}
+          />
           <List
             unstyled
             className="w-full divide-y divide-gray-200 dark:divide-gray-700"

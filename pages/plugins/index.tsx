@@ -39,21 +39,18 @@ const exactMatch = (query: string, text: string) => {
   if (!query || !text) {
     return false;
   }
-  const regex = new RegExp(`\\b${query}\\b`, "i");
+  const regex = new RegExp(`\\b${query}\\b`, 'i');
   return regex.test(text);
 };
 
-const queryPlugins = (
-  query: string,
-  plugins: any[] = [],
-): any[] => {
+const queryPlugins = (query: string, plugins: any[] = []): any[] => {
   if (!query) {
     return plugins;
   }
 
   const result = [];
   const helperSet = new Set();
-  
+
   const addToResult = (plugins) => {
     plugins.forEach((plugin) => {
       if (!helperSet.has(plugin.pluginId)) {
@@ -63,28 +60,46 @@ const queryPlugins = (
     });
   };
 
-  addToResult(plugins.filter((plugin) => {
-    return exactMatch(query, plugin.name);
-  }));
-  addToResult(plugins.filter((plugin) => {
-    return exactMatch(query, plugin.description);
-  }));
+  addToResult(
+    plugins.filter((plugin) => {
+      return exactMatch(query, plugin.name);
+    })
+  );
+  addToResult(
+    plugins.filter((plugin) => {
+      return exactMatch(query, plugin.description);
+    })
+  );
 
-  const queryParts = query.split(" ").filter((part) => !!part);
-  addToResult(queryParts
-    .map((part) => plugins.filter((plugin) => exactMatch(part, plugin.name)))
-    .flat()
+  const queryParts = query.split(' ').filter((part) => !!part);
+  addToResult(
+    queryParts
+      .map((part) => plugins.filter((plugin) => exactMatch(part, plugin.name)))
+      .flat()
   );
-  addToResult(queryParts
-    .map((part) => plugins.filter((plugin) => exactMatch(part, plugin.description)))
-    .flat()
+  addToResult(
+    queryParts
+      .map((part) =>
+        plugins.filter((plugin) => exactMatch(part, plugin.description))
+      )
+      .flat()
   );
-  
-  addToResult(plugins
-    .filter((plugin) => plugin.name?.toLowerCase().split(" ").some((part) => part.startsWith(query.toLowerCase())))
+
+  addToResult(
+    plugins.filter((plugin) =>
+      plugin.name
+        ?.toLowerCase()
+        .split(' ')
+        .some((part) => part.startsWith(query.toLowerCase()))
+    )
   );
-  addToResult(plugins
-    .filter((plugin) => plugin.description?.toLowerCase().split(" ").some((part) => part.startsWith(query.toLowerCase())))
+  addToResult(
+    plugins.filter((plugin) =>
+      plugin.description
+        ?.toLowerCase()
+        .split(' ')
+        .some((part) => part.startsWith(query.toLowerCase()))
+    )
   );
 
   return result;
@@ -112,15 +127,18 @@ const Plugins = (props) => {
           return true;
         }
         return plugin.aiCategories === filterCategoryOptions[filterCategory];
-      })
-      // .filter((plugin) => {
-      //   return (
-      //     plugin.name.toLowerCase().includes(filterLowerCase) ||
-      //     plugin.description.toLowerCase().includes(filterLowerCase)
-      //   );
-      // });
+      });
+    // .filter((plugin) => {
+    //   return (
+    //     plugin.name.toLowerCase().includes(filterLowerCase) ||
+    //     plugin.description.toLowerCase().includes(filterLowerCase)
+    //   );
+    // });
 
-    const plugins = queryPlugins(filterLowerCase, favAndCategoryFilteredPlugins);
+    const plugins = queryPlugins(
+      filterLowerCase,
+      favAndCategoryFilteredPlugins
+    );
 
     plugins.sort((a, b) => {
       switch (sortby) {
@@ -181,7 +199,7 @@ const Plugins = (props) => {
                   if (filter.length === 0 && e.target.value.length === 1) {
                     setSortby('relevance');
                   }
-                  setFilter(e.target.value)
+                  setFilter(e.target.value);
                 }}
               />
             </div>
@@ -312,11 +330,11 @@ const Plugins = (props) => {
                   inline
                   size="sm"
                 >
-                  {sortby === 'relevance' && 
+                  {sortby === 'relevance' && (
                     <Dropdown.Item disabled>
                       {sortByOptions['relevance']}
                     </Dropdown.Item>
-                  }
+                  )}
                   <Dropdown.Item onClick={() => setSortby('alphabet_asc')}>
                     {sortByOptions['alphabet_asc']}
                   </Dropdown.Item>
@@ -333,6 +351,7 @@ const Plugins = (props) => {
               </div>
             </div>
             <AllPluginsList
+              highlight={filter}
               plugins={filteredPlugins}
               favorites={favorites}
               setFavorites={setFavorites}

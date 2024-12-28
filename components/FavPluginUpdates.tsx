@@ -23,12 +23,12 @@ const FavPluginUpdates = (props) => {
   return (
     <>
       {/* Helper to add favorite plugins */}
-      {favorites && favorites.length == 0 &&
+      {favorites && favorites.length == 0 && (
         <>
           <NoFavPlugins />
           <Divider />
         </>
-      }
+      )}
 
       {/* Updates for your favorite plugins */}
       {/* {updatesForFavPlugins && updatesForFavPlugins.length > 0 && (

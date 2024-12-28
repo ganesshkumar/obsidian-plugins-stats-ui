@@ -41,7 +41,7 @@ const NewPluginsList = ({
   );
 };
 
-const   Plugin = (props) => {
+const Plugin = (props) => {
   const { plugin, idx, pad, favorites, setFavorites, showDownloadStat } = props;
   return (
     <List.Item className="!mt-0 py-3 px-2 w-full hover:bg-slate-50">
@@ -81,42 +81,46 @@ const UnindexedPlugin = (props) => {
       </div>
       {showDownloadStat && (
         <div className="pt-4 text-gray-700 flex items-center gap-x-2">
-          <Tooltip content="Downloads"><Download /></Tooltip>{' '}
+          <Tooltip content="Downloads">
+            <Download />
+          </Tooltip>{' '}
           <span className="font-bold text-xl">
             {plugin.totalDownloads.toLocaleString()}
           </span>
         </div>
       )}
-      {(plugin.aiCategories || plugin.aiTags) && 
+      {(plugin.aiCategories || plugin.aiTags) && (
         <div className="flex mt-4 gap-x-4">
-          {plugin.aiCategories &&
+          {plugin.aiCategories && (
             <div>
               <CategoryIcon category={plugin.aiCategories} size={48} />
             </div>
-          }
+          )}
           <div>
-            {plugin.aiCategories &&
+            {plugin.aiCategories && (
               <div className="text-gray-700">
-                Category: <span className="font-bold">{plugin.aiCategories}</span>
+                Category:{' '}
+                <span className="font-bold">{plugin.aiCategories}</span>
               </div>
-            }
-            {plugin.aiTags &&
+            )}
+            {plugin.aiTags && (
               <div className="flex gap-x-2 text-gray-700 cursor-pointer">
-                {plugin.aiTags && plugin.aiTags?.split(',').map((tag) => (
-                  <Link
-                    href={`/tags/${tag}`}
-                    key={tag}
-                    className="px-2 bg-gray-200 rounded-md"
-                  >
-                    <span className="text-gray-400">#</span>
-                    {tag}
-                  </Link>
-                ))}
+                {plugin.aiTags &&
+                  plugin.aiTags?.split(',').map((tag) => (
+                    <Link
+                      href={`/tags/${tag}`}
+                      key={tag}
+                      className="px-2 bg-gray-200 rounded-md"
+                    >
+                      <span className="text-gray-400">#</span>
+                      {tag}
+                    </Link>
+                  ))}
               </div>
-            }
+            )}
           </div>
         </div>
-      }
+      )}
       <div className="my-4 text-gray-700">{getDescription(plugin)}</div>
       <LinkButton
         href={`/plugins/${plugin.pluginId}`}

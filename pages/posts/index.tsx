@@ -64,9 +64,13 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
                             <PostIcon tags={post.tags} />
                           </div>
                           <div className="flex flex-col">
-                            <div className="text-xl font-semibold hover:underline text-gray-800">{post.title}</div>
+                            <div className="text-xl font-semibold hover:underline text-gray-800">
+                              {post.title}
+                            </div>
                             <div className="text-medium text-gray-600 flex items-end">
-                              {moment(post.publishedDate).format('MMMM DD, YYYY')}
+                              {moment(post.publishedDate).format(
+                                'MMMM DD, YYYY'
+                              )}
                             </div>
                             <div className="text-medium text-gray-800 mt-4">
                               {post.excerpt}
@@ -89,24 +93,23 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
 
 const PostIcon = (props) => {
   if (props.tags && props.tags.includes('weekly-plugin-updates')) {
-    return <Calendar
-      size={48}
-      className="text-violet-700 p-1 rounded fill-violet-200"
-    />
+    return (
+      <Calendar
+        size={48}
+        className="text-violet-700 p-1 rounded fill-violet-200"
+      />
+    );
   } else if (props.tags && props.tags.includes('wrapped-yearly-post')) {
-    return <Star
-      size={48}
-      className="text-yellow-400 p-1 rounded fill-yellow-200"
-    />
+    return (
+      <Star size={48} className="text-yellow-400 p-1 rounded fill-yellow-200" />
+    );
   } else if (props.tags && props.tags.includes('workflow')) {
-    return <List
-      size={48}
-      className="text-green-400 p-1 rounded fill-yellow-200"
-    />
+    return (
+      <List size={48} className="text-green-400 p-1 rounded fill-yellow-200" />
+    );
+  } else {
+    return undefined;
   }
-  else {
-    return undefined
-  }
-}
+};
 
 export default Blog;

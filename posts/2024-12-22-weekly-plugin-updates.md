@@ -2,9 +2,9 @@
 title: Obsidian Plugin Updates 2024-12-15 to 2024-12-21
 description: new obsidian plugins from 2024-12-15 to 2024-12-21 - Link Maintainer, Import Todoist tasks, kkh, WonderBox, Custom Image Auto Uploader, Scribe, Kale Graph, AmpliFlow Page Publisher, Latex Exporter, Note From Form, Force Read Mode
 excerpt: There are 11 new plugins and 93 plugin updates in the last one week's time.
-publishedDate: "2024-12-22"
-modifiedDate: "2024-12-22"
-tags: 
+publishedDate: '2024-12-22'
+modifiedDate: '2024-12-22'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -131,4 +131,3 @@ The **Force Read Mode** plugin allows users to enforce read-only mode for markdo
 ## 🔁 Plugin Updates
 
 We got 93 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

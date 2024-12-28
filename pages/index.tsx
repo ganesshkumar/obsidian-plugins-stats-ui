@@ -57,17 +57,41 @@ const Home = (props) => {
 
       <div className="bg-transparent mt-16">
         <Card className="max-w-6xl mx-auto px-4 bg-gradient-to-br from-violet-200 via-purple-300 to-rose-200">
-          <div className="text-center text-4xl font-bold">Obsidian Plugin - Wrapped 2024</div>
-          
-          <div className='flex justify-center gap-x-12'>
-            <div className='w-1/4'>
-              <Image src='/logo-512-removebg-preview.png' alt='logo' width={96} height={96} />
-            </div>
-            <div>2024 has been a monumental year for the Obsidian community, with over 750+ newly releaased plugins now shaping how we create, organize, and think. These incredible tools are a testament to the hard work, creativity, and meticulous care of our dedicated developers. Let’s take a moment to celebrate their passion and the transformative impact they've had on our workflows—this is your achievement! 🎉</div>
+          <div className="text-center text-4xl font-bold">
+            Obsidian Plugin - Wrapped 2024
           </div>
-          <div className='flex justify-center'>
-            <motion.div whileHover={{scale: 1.1}} whileTap={{scale: 0.9}} className="grid content-center">
-              <Link className="text-center bg-gray-800 rounded text-white px-4 py-2" href="/posts/2024-12-07-wrapped-2024">See Wrapped 2024</Link>
+
+          <div className="flex justify-center gap-x-12">
+            <div className="w-1/4">
+              <Image
+                src="/logo-512-removebg-preview.png"
+                alt="logo"
+                width={96}
+                height={96}
+              />
+            </div>
+            <div>
+              2024 has been a monumental year for the Obsidian community, with
+              over 750+ newly releaased plugins now shaping how we create,
+              organize, and think. These incredible tools are a testament to the
+              hard work, creativity, and meticulous care of our dedicated
+              developers. Let’s take a moment to celebrate their passion and the
+              transformative impact they've had on our workflows—this is your
+              achievement! 🎉
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="grid content-center"
+            >
+              <Link
+                className="text-center bg-gray-800 rounded text-white px-4 py-2"
+                href="/posts/2024-12-07-wrapped-2024"
+              >
+                See Wrapped 2024
+              </Link>
             </motion.div>
           </div>
         </Card>
@@ -108,7 +132,7 @@ const Home = (props) => {
       {/* Most Downloaded */}
       <div className="bg-transparent mt-32">
         <div className="max-w-6xl mx-auto px-2">
-          <InfoBar title="Most Downloaded" as="h2"/>
+          <InfoBar title="Most Downloaded" as="h2" />
           <div>
             Here are the 25 most downloaded plugins ever since the beginning of
             Obsidian Editor.
@@ -161,7 +185,7 @@ const Home = (props) => {
       {/* FAQ */}
       <div className="bg-transparent">
         <div className="max-w-6xl mx-auto px-2">
-          <InfoBar title="FAQ for plugin developers" as="h2"/>
+          <InfoBar title="FAQ for plugin developers" as="h2" />
           <div className="mt-4">
             <Faq />
           </div>
@@ -179,7 +203,7 @@ const NewPluginsSection = ({ newPlugins }) => {
   return (
     <div className="bg-transparent mt-16">
       <div className="max-w-6xl mx-auto px-2">
-        <InfoBar title="New Plugins" as="h2"/>
+        <InfoBar title="New Plugins" as="h2" />
         <div>
           There are {newPlugins?.length || 0} new plugins from the last 10 days
         </div>
@@ -215,11 +239,11 @@ const NewPluginsSection = ({ newPlugins }) => {
                   </span>
                 </div>
                 <div className="mt-5 flex gap-x-2">
-                  {plugin.aiCategories &&
+                  {plugin.aiCategories && (
                     <div className="grid content-center">
                       <CategoryIcon category={plugin.aiCategories} size={32} />
                     </div>
-                  }
+                  )}
                   <div className="text-sm ">{plugin.description}</div>
                 </div>
               </Card>
@@ -251,14 +275,17 @@ const NewVersionsSection = ({ newReleases }) => {
     setupFavorites(setFavorites);
   }, []);
 
-  const sortedNewReleases = newReleases.sort((a, b) => favorites.includes(a.pluginId) ? -1 : 1);
+  const sortedNewReleases = newReleases.sort((a, b) =>
+    favorites.includes(a.pluginId) ? -1 : 1
+  );
 
   return (
     <main className="bg-transparent">
       <div className="max-w-6xl mx-auto px-2">
         <InfoBar title="New Versions" as="h2" />
         <div>
-          There are {sortedNewReleases?.length || 0} new plugins from the last 10 days
+          There are {sortedNewReleases?.length || 0} new plugins from the last
+          10 days
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-5">
           {sortedNewReleases.slice(0, 12).map((newRelease, idx) => {
@@ -284,7 +311,7 @@ const NewVersionsSection = ({ newReleases }) => {
                     'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
                 }}
               >
-                <div className='w-full flex-col'>
+                <div className="w-full flex-col">
                   <div className="flex flex-none justify-between">
                     <div className="py-2">
                       <div className="text-lg font-semibold text-gray-800">
@@ -301,9 +328,12 @@ const NewVersionsSection = ({ newReleases }) => {
                       </div>
                     </div>
                   </div>
-                  <CardAnnotations isFavorite={isFavorite} isNotADayOld={false} isTrending={false}
+                  <CardAnnotations
+                    isFavorite={isFavorite}
+                    isNotADayOld={false}
+                    isTrending={false}
                     // isNotADayOld={isNotXDaysOld(newRelease.latestReleaseAt, 1)} isTrending={isTrending}
-                    category='Update' 
+                    category="Update"
                   />
                 </div>
               </Card>
@@ -325,7 +355,7 @@ const NewVersionsSection = ({ newReleases }) => {
   );
 };
 
-const TrendingPlugins = ({plugins}) => {
+const TrendingPlugins = ({ plugins }) => {
   const [offsetX, setOffsetX] = React.useState(0);
   const speed = 0.05; // Adjust speed of the scroll
   const containerWidth = 3100; // Width of the scrolling content (calculated to avoid jumps)
@@ -350,61 +380,75 @@ const TrendingPlugins = ({plugins}) => {
   const translateX = offsetX % containerWidth;
 
   return (
-    <div className='max-w-6xl mx-auto px-2 w-full text-gray-800'> 
+    <div className="max-w-6xl mx-auto px-2 w-full text-gray-800">
       <InfoBar title="Trending Plugins" as="h2" />
       <div style={scrollContainerStyle} className="mb-6">
         <motion.div
           style={{
-            display: "flex",
-            columnGap: "10px",
+            display: 'flex',
+            columnGap: '10px',
             transform: `translateX(${translateX}px)`,
           }}
         >
           {plugins.map((plugin, idx) => (
-            <a key={plugin.pluginId} style={scrollItemStyle} href={`/plugins/${plugin.pluginId}`} className='border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-gradient-to-br from-violet-100 to-purple-200'>
-              <div className="text-base">{idx + 1}. {plugin.name}</div>
-              <div className="text-xs text-gray-500 font-normal">by {plugin.author}</div>
+            <a
+              key={plugin.pluginId}
+              style={scrollItemStyle}
+              href={`/plugins/${plugin.pluginId}`}
+              className="border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-gradient-to-br from-violet-100 to-purple-200"
+            >
+              <div className="text-base">
+                {idx + 1}. {plugin.name}
+              </div>
+              <div className="text-xs text-gray-500 font-normal">
+                by {plugin.author}
+              </div>
             </a>
           ))}
           {plugins.map((plugin, idx) => (
-            <a key={`clone-${plugin.pluginId}`} style={scrollItemStyle} href={`/plugins/${plugin.pluginId}`} className='border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-gradient-to-br from-violet-100 to-purple-200'>
-              <div className="text-base">{idx + 1}. {plugin.name}</div>
-              <div className="text-xs text-gray-500 font-normal">by {plugin.author}</div>
+            <a
+              key={`clone-${plugin.pluginId}`}
+              style={scrollItemStyle}
+              href={`/plugins/${plugin.pluginId}`}
+              className="border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-gradient-to-br from-violet-100 to-purple-200"
+            >
+              <div className="text-base">
+                {idx + 1}. {plugin.name}
+              </div>
+              <div className="text-xs text-gray-500 font-normal">
+                by {plugin.author}
+              </div>
             </a>
           ))}
         </motion.div>
       </div>
-      <LinkButton
-        href="/trending"
-        content={`View all trending plugins ⟶`}
-      />
+      <LinkButton href="/trending" content={`View all trending plugins ⟶`} />
     </div>
   );
 };
 
 const PostIcon = (props) => {
   if (props.tags && props.tags.includes('weekly-plugin-updates')) {
-    return <Calendar
-      size={48}
-      className="text-violet-700 p-1 rounded fill-violet-200"
-    />
+    return (
+      <Calendar
+        size={48}
+        className="text-violet-700 p-1 rounded fill-violet-200"
+      />
+    );
   } else if (props.tags && props.tags.includes('wrapped-yearly-post')) {
-    return <Star
-      size={48}
-      className="text-yellow-400 p-1 rounded fill-yellow-200"
-    />
+    return (
+      <Star size={48} className="text-yellow-400 p-1 rounded fill-yellow-200" />
+    );
   } else if (props.tags && props.tags.includes('workflow')) {
-    return <List
-      size={48}
-      className="text-green-400 p-1 rounded fill-yellow-200"
-    />
+    return (
+      <List size={48} className="text-green-400 p-1 rounded fill-yellow-200" />
+    );
+  } else {
+    return undefined;
   }
-  else {
-    return undefined
-  }
-}
+};
 
-const NewPosts = ({posts}) => {
+const NewPosts = ({ posts }) => {
   return (
     <div className="max-w-6xl mx-auto px-2">
       <InfoBar title="Posts" as="h2" />
@@ -420,7 +464,9 @@ const NewPosts = ({posts}) => {
                   <PostIcon tags={post.tags} />
                 </div>
                 <div className="flex flex-col">
-                  <div className="text-xl font-semibold hover:underline text-gray-800">{post.title}</div>
+                  <div className="text-xl font-semibold hover:underline text-gray-800">
+                    {post.title}
+                  </div>
                   <div className="text-medium text-gray-600 flex items-end">
                     {moment(post.publishedDate).format('MMMM DD, YYYY')}
                   </div>
@@ -433,13 +479,10 @@ const NewPosts = ({posts}) => {
           </li>
         ))}
       </ul>
-      <LinkButton
-        href="/posts"
-        content={`View all posts ⟶`}
-      />
+      <LinkButton href="/posts" content={`View all posts ⟶`} />
     </div>
-  ) 
-} 
+  );
+};
 
 export const getStaticProps = async () => {
   const plugins = await PluginsCache.get();
@@ -462,10 +505,11 @@ export const getStaticProps = async () => {
 
   const tags = new Set<string>();
   plugins.forEach((plugin) => {
-    plugin?.aiTags && plugin?.aiTags
-      .split(',')
-      .map((tag) => sanitizeTag(tag))
-      .forEach((tag) => tags.add(tag));
+    plugin?.aiTags &&
+      plugin?.aiTags
+        .split(',')
+        .map((tag) => sanitizeTag(tag))
+        .forEach((tag) => tags.add(tag));
   });
 
   const newPosts = getSortedPostsData().slice(0, 5);
@@ -484,7 +528,7 @@ export const getStaticProps = async () => {
       mostDownloaded,
       totalTagsCount: tags.size,
       trendingPlugins,
-      newPosts
+      newPosts,
     },
   };
 };

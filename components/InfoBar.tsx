@@ -1,7 +1,7 @@
 interface IInfoBarProps {
   title: string;
-  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-};
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+}
 
 const Content = ({ title }) => (
   <>
@@ -26,24 +26,49 @@ const Content = ({ title }) => (
   </>
 );
 
-const className = "group relative z-20 scroll-mt-20 text-3xl font-bold text-gray-800 dark:text-white capitalize my-4";
-const id = "default-table";
+const className =
+  'group relative z-20 scroll-mt-20 text-3xl font-bold text-gray-800 dark:text-white capitalize my-4';
+const id = 'default-table';
 
-const InfoBar = ({ title, as = "h1" }: IInfoBarProps) => {
+const InfoBar = ({ title, as = 'h1' }: IInfoBarProps) => {
   switch (as) {
-    case "h6":
-      return <h6 id={id} className={className}><Content title={title} /></h6>;
-    case "h5":
-      return <h5 id={id} className={className}><Content title={title} /></h5>;
-    case "h4":
-      return <h4 id={id} className={className}><Content title={title} /></h4>;
-    case "h3":
-      return <h3 id={id} className={className}><Content title={title} /></h3>;
-    case "h2":
-      return <h2 id={id} className={className}><Content title={title} /></h2>;
-    case "h1":
+    case 'h6':
+      return (
+        <h6 id={id} className={className}>
+          <Content title={title} />
+        </h6>
+      );
+    case 'h5':
+      return (
+        <h5 id={id} className={className}>
+          <Content title={title} />
+        </h5>
+      );
+    case 'h4':
+      return (
+        <h4 id={id} className={className}>
+          <Content title={title} />
+        </h4>
+      );
+    case 'h3':
+      return (
+        <h3 id={id} className={className}>
+          <Content title={title} />
+        </h3>
+      );
+    case 'h2':
+      return (
+        <h2 id={id} className={className}>
+          <Content title={title} />
+        </h2>
+      );
+    case 'h1':
     default:
-      return <h1 id={id} className={className}><Content title={title} /></h1>;
+      return (
+        <h1 id={id} className={className}>
+          <Content title={title} />
+        </h1>
+      );
   }
 };
 

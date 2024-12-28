@@ -2,9 +2,9 @@
 title: Obsidian Plugin Updates 2024-12-08 to 2024-12-14
 description: new obsidian plugins from 2024-12-08 to 2024-12-14 - Unit Converter, FastForwardLink, Template by Note Name, Color Folders and Files, ExMemo Assistant, Focus Time, Link Formatter, WikiDocs, Header navigation, Fetch Prayer Times, ExMemo Tools, Tab Panels, Auto Embed, Sync Cnblog, CalloutX, Cypher, Insert New Line, KaTeX to MathJax, Gay Toolbar
 excerpt: There are 19 new plugins and 100 plugin updates in the last one week's time.
-publishedDate: "2024-12-15"
-modifiedDate: "2024-12-15"
-tags: 
+publishedDate: '2024-12-15'
+modifiedDate: '2024-12-15'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -207,4 +207,3 @@ The **Gay Toolbar** plugin brings a vibrant and customizable toolbar experience 
 ## 🔁 Plugin Updates
 
 We got 100 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

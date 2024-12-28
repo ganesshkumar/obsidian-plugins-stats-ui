@@ -17,7 +17,9 @@ const NewPluginCard = ({ plugin, isFavorite, isTrending, showDescription }) => {
         {moment(plugin.createdAt).fromNow()} by{' '}
         <span className="group-hover:text-violet-500">{plugin.author}</span>
       </div>
-      {showDescription && <div className="mt-5 text-sm">{plugin.description}</div>}
+      {showDescription && (
+        <div className="mt-5 text-sm">{plugin.description}</div>
+      )}
     </a>
   );
 };

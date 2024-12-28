@@ -52,10 +52,13 @@ export function getPostData(id: string): PostData {
 
 export function getAllPostIds() {
   const fileNames = fs.readdirSync(postsDirectory);
-  const jsxFileNames = fs.readdirSync(postsJsxDirectory).filter(fileName => fileName !== "[slug].tsx" && fileName !== "index.jsx").map(fileName => fileName.replace(/\.tsx$/, ''));
+  const jsxFileNames = fs
+    .readdirSync(postsJsxDirectory)
+    .filter((fileName) => fileName !== '[slug].tsx' && fileName !== 'index.jsx')
+    .map((fileName) => fileName.replace(/\.tsx$/, ''));
 
   return fileNames
-    .filter(fileName => !jsxFileNames.includes(fileName.replace(/\.md$/, '')))
+    .filter((fileName) => !jsxFileNames.includes(fileName.replace(/\.md$/, '')))
     .map((fileName) => {
       return {
         params: {

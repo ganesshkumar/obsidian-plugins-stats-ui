@@ -2,8 +2,8 @@
 title: Top 7 Obsidian Plugins for Daily Journaling
 description: Discover the top 7 Obsidian plugins to enhance your daily journaling experience - Natural language dates, calendar, periodic notes, advanced tables, notes refactor, hotkeys++, text expand, recent file, reading time, todoist sync.
 excerpt: Enhance your daily journaling with these top 7 Obsidian plugins. Improve note taking and streamline your journaling process.
-publishedDate: "2024-12-11"
-modifiedDate: "2024-12-11"
+publishedDate: '2024-12-11'
+modifiedDate: '2024-12-11'
 tags:
   - obsidian-plugins
   - daily-journaling

@@ -38,14 +38,20 @@ const AppFooter = () => {
                 <Footer.Link className={footerLinkClass} href="/updates">
                   Latest Updates
                 </Footer.Link>
-                <Footer.Link className={footerLinkClass} href="/most-downloaded">
+                <Footer.Link className={footerLinkClass} href="/favorites">
+                  Favorite Plugins
+                </Footer.Link>
+                <Footer.Link
+                  className={footerLinkClass}
+                  href="/most-downloaded"
+                >
                   Most Downloaded
                 </Footer.Link>
-                <Footer.Link className={footerLinkClass} href="/tags">
-                  Tags
-                </Footer.Link>
                 <Footer.Link className={footerLinkClass} href="/trending">
-                  Trending
+                  Trending Plugins
+                </Footer.Link>
+                <Footer.Link className={footerLinkClass} href="/tags">
+                  Plugin Tags
                 </Footer.Link>
               </Footer.LinkGroup>
             </div>
@@ -62,7 +68,11 @@ const AppFooter = () => {
         <Footer.Divider className="border-gray-300" />
         <div className="w-full items-center justify-between">
           <div className="text-sm text-gray-900 text-center">
-            © 2022-{new Date().getFullYear()} <a href="/" className="hover:underline">Obsidian Plugin Stats</a>. All rights reserved.
+            © 2022-{new Date().getFullYear()}{' '}
+            <a href="/" className="hover:underline">
+              Obsidian Plugin Stats
+            </a>
+            . All rights reserved.
           </div>
           <div className="my-2 text-sm  dark:text-gray-400 text-center">
             Made with 💜 by{' '}

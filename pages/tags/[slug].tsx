@@ -68,11 +68,12 @@ export const getStaticProps = async ({ params }) => {
   const plugins = await PluginsCache.get();
 
   const pluginsWithTag = plugins.filter((plugin) =>
-    plugin.aiTags ?
-      plugin.aiTags?.split(',')
-        .map((tag) => sanitizeTag(tag))
-        .includes(params.slug) :
-      false
+    plugin.aiTags
+      ? plugin.aiTags
+          ?.split(',')
+          .map((tag) => sanitizeTag(tag))
+          .includes(params.slug)
+      : false
   );
 
   return {

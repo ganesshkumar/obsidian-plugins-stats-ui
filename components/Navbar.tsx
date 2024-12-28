@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { CustomFlowbiteTheme, Dropdown, Navbar, Modal, Button } from 'flowbite-react';
+import {
+  CustomFlowbiteTheme,
+  Dropdown,
+  Navbar,
+  Modal,
+  Button,
+} from 'flowbite-react';
 import Constants from '../constants';
 import Image from 'next/image';
 import { Rss, HelpCircle } from 'react-feather';
@@ -26,161 +32,179 @@ const NavBar = ({ current, children }: INavbarProps) => {
 
   return (
     <>
-    <div className="max-w-6xl mx-auto w-full text-gray-800">
-      <Navbar fluid rounded theme={customTheme} className="rounded-none">
-        <Navbar.Brand href="/">
-          <Image
-            src="/favicon-64.png"
-            width={36}
-            height={36}
-            className="rounded mr-3 h-6 sm:h-9"
-            alt={`${Constants.AppName} logo`}
-          />
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-            {Constants.AppName}
-          </span>
-        </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse>
-          <Navbar.Link
-            href="/new"
-            active={current === 'new'}
-            className="text-lg group-hover:text-violet-800"
-          >
-            New Plugins
-          </Navbar.Link>
-          <Navbar.Link
-            href="/posts"
-            active={current === 'posts'}
-            className="text-lg"
-          >
-            Posts
-          </Navbar.Link>
-          <Navbar.Link
-            href="/favorites"
-            active={current === 'favorites'}
-            className="text-lg"
-          >
-            Favorites
-          </Navbar.Link>
-          <Navbar.Link
-            href="/plugins"
-            active={current === 'all'}
-            className="text-lg"
-          >
-            All Plugins
-          </Navbar.Link>
-          <li>
-            <Dropdown
-              inline
-              className=""
-              label={
-                <div className="block font-medium py-2 pl-3 pr-4 md:p-0 text-lg">
-                  More
-                </div>
-              }
+      <div className="max-w-6xl mx-auto w-full text-gray-800">
+        <Navbar fluid rounded theme={customTheme} className="rounded-none">
+          <Navbar.Brand href="/">
+            <Image
+              src="/favicon-64.png"
+              width={36}
+              height={36}
+              className="rounded mr-3 h-6 sm:h-9"
+              alt={`${Constants.AppName} logo`}
+            />
+            <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+              {Constants.AppName}
+            </span>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse>
+            <Navbar.Link
+              href="/new"
+              active={current === 'new'}
+              className="text-lg group-hover:text-violet-800"
             >
-              <Dropdown.Item className="group">
-                <Navbar.Link
-                  href="/updates"
-                  active={current === 'updates'}
-                  className="text-lg roup-hover:text-violet-800"
+              New Plugins
+            </Navbar.Link>
+            <Navbar.Link
+              href="/posts"
+              active={current === 'posts'}
+              className="text-lg"
+            >
+              Posts
+            </Navbar.Link>
+            <Navbar.Link
+              href="/favorites"
+              active={current === 'favorites'}
+              className="text-lg"
+            >
+              Favorites
+            </Navbar.Link>
+            <Navbar.Link
+              href="/plugins"
+              active={current === 'all'}
+              className="text-lg"
+            >
+              All Plugins
+            </Navbar.Link>
+            <li>
+              <Dropdown
+                inline
+                className=""
+                label={
+                  <div className="block font-medium py-2 pl-3 pr-4 md:p-0 text-lg">
+                    More
+                  </div>
+                }
+              >
+                <Dropdown.Item className="group">
+                  <Navbar.Link
+                    href="/updates"
+                    active={current === 'updates'}
+                    className="text-lg roup-hover:text-violet-800"
+                  >
+                    Latest Updates
+                  </Navbar.Link>
+                </Dropdown.Item>
+                <Dropdown.Item className="group">
+                  <Navbar.Link
+                    href="/most-downloaded"
+                    active={current === 'most-downloaded'}
+                    className="text-lg group-hover:text-violet-800"
+                  >
+                    Most Downloaded
+                  </Navbar.Link>
+                </Dropdown.Item>
+                <Dropdown.Item className="group">
+                  <Navbar.Link
+                    href="/trending"
+                    active={current === 'trending'}
+                    className="text-lg group-hover:text-violet-800"
+                  >
+                    Trending
+                  </Navbar.Link>
+                </Dropdown.Item>
+                <Dropdown.Item className="group">
+                  <Navbar.Link
+                    href="/tags"
+                    active={current === 'tags'}
+                    className="text-lg"
+                  >
+                    Tags
+                  </Navbar.Link>
+                </Dropdown.Item>
+              </Dropdown>
+            </li>
+            {children && children}
+            <Navbar.Link
+              href="/rss.xml"
+              active={false}
+              className="text-lg"
+              aria-label="RSS Feed"
+            >
+              <Rss className="text-violet-800" />
+            </Navbar.Link>
+          </Navbar.Collapse>
+        </Navbar>
+      </div>
+      {current === 'home' && (
+        <>
+          {/* Sponsored Ad Placeholder */}
+          <div className="bg-gray-100 py-4 text-center">
+            <div className="mx-auto">
+              <p className="text-lg font-semibold">Your Ad Here</p>
+              <p className="text-sm">
+                Interested in promoting your content?{' '}
+                <a
+                  href="mailto:contact.codebuss@gmail.com"
+                  className="text-blue-500 underline"
                 >
-                  Latest Updates
-                </Navbar.Link>
-              </Dropdown.Item>
-              <Dropdown.Item className="group">
-                <Navbar.Link
-                  href="/most-downloaded"
-                  active={current === 'most-downloaded'}
-                  className="text-lg group-hover:text-violet-800"
-                >
-                  Most Downloaded
-                </Navbar.Link>
-              </Dropdown.Item>
-              <Dropdown.Item className="group">
-                <Navbar.Link
-                  href="/trending"
-                  active={current === 'trending'}
-                  className="text-lg group-hover:text-violet-800"
-                >
-                  Trending
-                </Navbar.Link>
-              </Dropdown.Item>
-              <Dropdown.Item className="group">
-                <Navbar.Link
-                  href="/tags"
-                  active={current === 'tags'}
-                  className="text-lg"
-                >
-                  Tags
-                </Navbar.Link>
-              </Dropdown.Item>
-            </Dropdown>
-          </li>
-          {children && children}
-          <Navbar.Link
-            href="/rss.xml"
-            active={false}
-            className="text-lg"
-            aria-label="RSS Feed"
-          >
-            <Rss className="text-violet-800" />
-          </Navbar.Link>
-        </Navbar.Collapse>
-      </Navbar>
-    </div>
-    {current === 'home' &&
-      <>
-        {/* Sponsored Ad Placeholder */}
-        <div className="bg-gray-100 py-4 text-center">
-          <div className="mx-auto">
-            <p className="text-lg font-semibold">Your Ad Here</p>
-            <p className="text-sm">
-              Interested in promoting your content?{' '}
-              <a href="mailto:contact.codebuss@gmail.com" className="text-blue-500 underline">
-                Contact us
-              </a>{' '}
-              for sponsorship opportunities.
-              <HelpCircle
-                className="inline-block ml-2 cursor-pointer text-gray-700"
-                size={16}
-                onClick={openModal}
-              />
-            </p>
+                  Contact us
+                </a>{' '}
+                for sponsorship opportunities.
+                <HelpCircle
+                  className="inline-block ml-2 cursor-pointer text-gray-700"
+                  size={16}
+                  onClick={openModal}
+                />
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* Modal */}
-        <Modal show={isModalOpen} onClose={closeModal}>
-          <Modal.Header>Why We Need Sponsorship</Modal.Header>
-          <Modal.Body className='text-gray-700'>
-            <div>
-              Our platform is dedicated to keeping the community informed and up-to-date on the latest developments in the Obsidian ecosystem.
-              <div className='mt-2'>
-                Key features include:
-                <br />&nbsp;&nbsp;• Backend system that actively monitors new plugin releases and updates.
-                <br />&nbsp;&nbsp;• Ensuring timely and accurate information delivery.
-                <br />&nbsp;&nbsp;• Weekly posts highlighting new plugins.
-                <br />&nbsp;&nbsp;• Comprehensive resources, such as the "Wrapped 2024" report.
+          {/* Modal */}
+          <Modal show={isModalOpen} onClose={closeModal}>
+            <Modal.Header>Why We Need Sponsorship</Modal.Header>
+            <Modal.Body className="text-gray-700">
+              <div>
+                Our platform is dedicated to keeping the community informed and
+                up-to-date on the latest developments in the Obsidian ecosystem.
+                <div className="mt-2">
+                  Key features include:
+                  <br />
+                  &nbsp;&nbsp;• Backend system that actively monitors new plugin
+                  releases and updates.
+                  <br />
+                  &nbsp;&nbsp;• Ensuring timely and accurate information
+                  delivery.
+                  <br />
+                  &nbsp;&nbsp;• Weekly posts highlighting new plugins.
+                  <br />
+                  &nbsp;&nbsp;• Comprehensive resources, such as the "Wrapped
+                  2024" report.
+                </div>
               </div>
-            </div>
-            <hr className='my-4'/>
-            <div>
-              <b>Your sponsorship</b> directly supports these efforts by helping us cover operational costs and enabling us to continue delivering high-quality, valuable content to the community.
-              <div className='mt-2'>
-                With your support, we can
-                <br />&nbsp;&nbsp;• Sustain and expand our offerings.
-                <br />&nbsp;&nbsp;• Keep the community engaged, informed, and inspired.
+              <hr className="my-4" />
+              <div>
+                <b>Your sponsorship</b> directly supports these efforts by
+                helping us cover operational costs and enabling us to continue
+                delivering high-quality, valuable content to the community.
+                <div className="mt-2">
+                  With your support, we can
+                  <br />
+                  &nbsp;&nbsp;• Sustain and expand our offerings.
+                  <br />
+                  &nbsp;&nbsp;• Keep the community engaged, informed, and
+                  inspired.
+                </div>
               </div>
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={closeModal} color="dark">Close</Button>
-          </Modal.Footer>
-        </Modal>
-      </>
-    }
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={closeModal} color="dark">
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </>
+      )}
     </>
   );
 };

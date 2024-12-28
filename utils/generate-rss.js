@@ -54,12 +54,14 @@ async function getSortedPostsData() {
 }
 
 function escapeXmlEntities(str) {
-  return str
-    ?.replace(/&/g, '&amp;')
-    ?.replace(/</g, '&lt;')
-    ?.replace(/>/g, '&gt;')
-    ?.replace(/"/g, '&quot;')
-    ?.replace(/'/g, '&apos;') ?? str;
+  return (
+    str
+      ?.replace(/&/g, '&amp;')
+      ?.replace(/</g, '&lt;')
+      ?.replace(/>/g, '&gt;')
+      ?.replace(/"/g, '&quot;')
+      ?.replace(/'/g, '&apos;') ?? str
+  );
 }
 
 async function generateRSS() {

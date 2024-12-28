@@ -26,13 +26,21 @@ const Trending = ({ plugins }) => {
       <div className="bg-white py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-3xl py-5 text-bold">
-            <div className='flex items-baseline'>
+            <div className="flex items-baseline">
               <InfoBar title="Trending" />
-              <Tooltip content="Trending is calculated using the z-score based on the download count for the past 90 days." placement="right">
+              <Tooltip
+                content="Trending is calculated using the z-score based on the download count for the past 90 days."
+                placement="right"
+              >
                 <Info size={16} className="text-gray-700" />
               </Tooltip>
             </div>
-            <Image src="/images/trending-plugins.webp" alt="Trending Plugins" width={1200} height={200} />
+            <Image
+              src="/images/trending-plugins.webp"
+              alt="Trending Plugins"
+              width={1200}
+              height={200}
+            />
           </div>
           <NewPluginsList
             plugins={plugins}
@@ -49,9 +57,14 @@ const Trending = ({ plugins }) => {
 
 export const getStaticProps = async () => {
   const plugins = await PluginsCache.get();
-  const trendingPlugins = [...plugins].sort((a, b) => b.zScoreTrending - a.zScoreTrending).slice(0, 10);
+  const trendingPlugins = [...plugins]
+    .sort((a, b) => b.zScoreTrending - a.zScoreTrending)
+    .slice(0, 10);
 
-  console.log('trendingPlugins', trendingPlugins.map(p => p.zScoreTrending));
+  console.log(
+    'trendingPlugins',
+    trendingPlugins.map((p) => p.zScoreTrending)
+  );
 
   return {
     props: {

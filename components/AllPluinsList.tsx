@@ -5,7 +5,20 @@ import { memo } from 'react';
 import { VList } from 'virtua';
 import { getDescription } from '../utils/plugins';
 
-const AllPluginsList = ({ plugins, favorites, setFavorites }) => {
+const highlightMatch = (name, query) => {
+  const parts = name.split(new RegExp(`(${query})`, 'gi'));
+  return parts.map((part, index) =>
+    part.toLowerCase() === query.toLowerCase() ? (
+      <span key={index} style={{ backgroundColor: 'yellow' }}>
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+};
+
+const AllPluginsList = ({ plugins, favorites, setFavorites, highlight }) => {
   return (
     <div className="flex-col stripped grow">
       <VList style={{ height: '100%' }}>
@@ -16,6 +29,7 @@ const AllPluginsList = ({ plugins, favorites, setFavorites }) => {
             index={index}
             favorites={favorites}
             setFavorites={setFavorites}
+            highlight={highlight}
           />
         ))}
       </VList>
@@ -24,7 +38,7 @@ const AllPluginsList = ({ plugins, favorites, setFavorites }) => {
 };
 
 const UnindexedPlugin = (props) => {
-  const { plugin, favorites, setFavorites, index } = props;
+  const { plugin, favorites, setFavorites, index, highlight } = props;
   return (
     <div
       key={plugin.pluginId}
@@ -34,7 +48,7 @@ const UnindexedPlugin = (props) => {
         href={`/plugins/${plugin.pluginId}`}
         className="text-xl font-semibold text-violet-800"
       >
-        {plugin.name}
+        {highlight ? highlightMatch(plugin.name, highlight) : plugin.name}
       </Link>
       <div className="flex items-center space-x-2 text-sm text-gray-500">
         by&nbsp;<span className="text-gray-700">{plugin.author}</span>
@@ -44,7 +58,11 @@ const UnindexedPlugin = (props) => {
           setFavorites={setFavorites}
         />
       </div>
-      <div className="my-4">{getDescription(plugin)}</div>
+      <div className="my-4">
+        {highlight
+          ? highlightMatch(getDescription(plugin), highlight)
+          : getDescription(plugin)}
+      </div>
       <Link
         href={`/plugins/${plugin.pluginId}`}
         className="underline text-gray-600 font-seminbold"
