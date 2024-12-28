@@ -108,7 +108,7 @@ const Home = (props) => {
       {/* Most Downloaded */}
       <div className="bg-transparent mt-32">
         <div className="max-w-6xl mx-auto px-2">
-          <InfoBar title="Most Downloaded" />
+          <InfoBar title="Most Downloaded" as="h2"/>
           <div>
             Here are the 25 most downloaded plugins ever since the beginning of
             Obsidian Editor.
@@ -161,7 +161,7 @@ const Home = (props) => {
       {/* FAQ */}
       <div className="bg-transparent">
         <div className="max-w-6xl mx-auto px-2">
-          <InfoBar title="FAQ for plugin developers" />
+          <InfoBar title="FAQ for plugin developers" as="h2"/>
           <div className="mt-4">
             <Faq />
           </div>
@@ -179,7 +179,7 @@ const NewPluginsSection = ({ newPlugins }) => {
   return (
     <div className="bg-transparent mt-16">
       <div className="max-w-6xl mx-auto px-2">
-        <InfoBar title="New Plugins" />
+        <InfoBar title="New Plugins" as="h2"/>
         <div>
           There are {newPlugins?.length || 0} new plugins from the last 10 days
         </div>
@@ -256,7 +256,7 @@ const NewVersionsSection = ({ newReleases }) => {
   return (
     <main className="bg-transparent">
       <div className="max-w-6xl mx-auto px-2">
-        <InfoBar title="New Versions" />
+        <InfoBar title="New Versions" as="h2" />
         <div>
           There are {sortedNewReleases?.length || 0} new plugins from the last 10 days
         </div>
@@ -351,7 +351,7 @@ const TrendingPlugins = ({plugins}) => {
 
   return (
     <div className='max-w-6xl mx-auto px-2 w-full text-gray-800'> 
-      <InfoBar title="Trending Plugins" />
+      <InfoBar title="Trending Plugins" as="h2" />
       <div style={scrollContainerStyle} className="mb-6">
         <motion.div
           style={{
@@ -407,7 +407,7 @@ const PostIcon = (props) => {
 const NewPosts = ({posts}) => {
   return (
     <div className="max-w-6xl mx-auto px-2">
-      <InfoBar title="Posts" />
+      <InfoBar title="Posts" as="h2" />
       <ul className="flex flex-col divide-y mb-4">
         {posts.map((post) => (
           <li key={post.id}>
@@ -468,7 +468,7 @@ export const getStaticProps = async () => {
       .forEach((tag) => tags.add(tag));
   });
 
-  const newPosts = getSortedPostsData().slice(0, 10);
+  const newPosts = getSortedPostsData().slice(0, 5);
 
   const totalPluginsCount = plugins.length;
   const newPluginsCount = newPlugins.length;

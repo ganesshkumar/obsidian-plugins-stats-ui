@@ -13,6 +13,7 @@ import moment from 'moment';
 import Favorites from '../components/Favorites';
 import showdown from 'showdown';
 import { PluginsCache } from '../cache/plugins-cache';
+import InfoBar from '../components/InfoBar';
 
 const mdConverter = new showdown.Converter();
 mdConverter.setFlavor('github');
@@ -32,9 +33,10 @@ const Updates = (props) => {
       <div>
         <Navbar current="updates" />
       </div>
-      {/* New Plugins */}
+      {/* New Releases */}
       <div className="bg-white pt-5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <InfoBar title={`New Releases ${props.newReleases && `(${props.newReleases.length})`}`} />
           <List
             unstyled
             className="w-full divide-y divide-gray-200 dark:divide-gray-700"

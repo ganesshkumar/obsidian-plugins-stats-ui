@@ -9,6 +9,7 @@ const customTheme: CustomFlowbiteTheme['footer'] = {
 };
 
 const AppFooter = () => {
+  const footerLinkClass = 'text-gray-900 underline';
   return (
     <section className="w-full bg-gray-200 mt-16 border-b-8 border-b-violet-800">
       <Footer
@@ -28,39 +29,22 @@ const AppFooter = () => {
             <div>
               <Footer.Title className="text-gray-900" title="Plugins" />
               <Footer.LinkGroup col>
-                <Footer.Link className="underline text-gray-900" href="/new">
-                  New Plugins
-                </Footer.Link>
-                <Footer.Link
-                  className="underline text-gray-900"
-                  href="/updates"
-                >
-                  Latest Updates
-                </Footer.Link>
-                <Footer.Link
-                  className="underline text-gray-900"
-                  href="/most-downloaded"
-                >
-                  Most Downloaded
-                </Footer.Link>
-              </Footer.LinkGroup>
-            </div>
-            <div>
-              <Footer.LinkGroup col>
-                <Footer.Title className="" title="" />
-                <Footer.Link
-                  className="underline text-gray-900"
-                  href="/plugins"
-                >
+                <Footer.Link className={footerLinkClass} href="/plugins">
                   All Plugins
                 </Footer.Link>
-                <Footer.Link className="underline text-gray-900" href="/tags">
+                <Footer.Link className={footerLinkClass} href="/new">
+                  New Plugins
+                </Footer.Link>
+                <Footer.Link className={footerLinkClass} href="/updates">
+                  Latest Updates
+                </Footer.Link>
+                <Footer.Link className={footerLinkClass} href="/most-downloaded">
+                  Most Downloaded
+                </Footer.Link>
+                <Footer.Link className={footerLinkClass} href="/tags">
                   Tags
                 </Footer.Link>
-                <Footer.Link
-                  className="underline text-gray-900"
-                  href="/trending"
-                >
+                <Footer.Link className={footerLinkClass} href="/trending">
                   Trending
                 </Footer.Link>
               </Footer.LinkGroup>
@@ -68,7 +52,7 @@ const AppFooter = () => {
             <div>
               <Footer.Title className="text-gray-900" title="Posts" />
               <Footer.LinkGroup col>
-                <Footer.Link className="underline text-gray-900" href="/posts">
+                <Footer.Link className={footerLinkClass} href="/posts">
                   All Posts
                 </Footer.Link>
               </Footer.LinkGroup>
@@ -77,12 +61,9 @@ const AppFooter = () => {
         </div>
         <Footer.Divider className="border-gray-300" />
         <div className="w-full items-center justify-between">
-          <Footer.Copyright
-            href="/"
-            by={`${Constants.AppName}™`}
-            year={new Date().getFullYear()}
-            className="text-center text-gray-900"
-          />
+          <div className="text-sm text-gray-900 text-center">
+            © 2022-{new Date().getFullYear()} <a href="/" className="hover:underline">Obsidian Plugin Stats</a>. All rights reserved.
+          </div>
           <div className="my-2 text-sm  dark:text-gray-400 text-center">
             Made with 💜 by{' '}
             <a className="underline" href="https://twitter.com/ganesshkumar">

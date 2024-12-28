@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Header from '../../components/HeaderAll';
 import Navbar from '../../components/Navbar';
 
-import { PrismaClient } from '@prisma/client';
 import Footer from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import AllPluginsList from '../../components/AllPluinsList';
@@ -15,6 +14,7 @@ const sortByOptions = {
   createdAt_desc: 'Newest Plugins',
   //date_desc: 'Date (Newest)',
   downloaded_desc: 'Most Downloaded',
+  relevance: 'Relevance',
 };
 
 const filterCategoryOptions = {
@@ -35,6 +35,61 @@ const filterCategoryOptions = {
   uncategorized: 'Uncategorized',
 };
 
+const exactMatch = (query: string, text: string) => {
+  if (!query || !text) {
+    return false;
+  }
+  const regex = new RegExp(`\\b${query}\\b`, "i");
+  return regex.test(text);
+};
+
+const queryPlugins = (
+  query: string,
+  plugins: any[] = [],
+): any[] => {
+  if (!query) {
+    return plugins;
+  }
+
+  const result = [];
+  const helperSet = new Set();
+  
+  const addToResult = (plugins) => {
+    plugins.forEach((plugin) => {
+      if (!helperSet.has(plugin.pluginId)) {
+        helperSet.add(plugin.pluginId);
+        result.push(plugin);
+      }
+    });
+  };
+
+  addToResult(plugins.filter((plugin) => {
+    return exactMatch(query, plugin.name);
+  }));
+  addToResult(plugins.filter((plugin) => {
+    return exactMatch(query, plugin.description);
+  }));
+
+  const queryParts = query.split(" ").filter((part) => !!part);
+  addToResult(queryParts
+    .map((part) => plugins.filter((plugin) => exactMatch(part, plugin.name)))
+    .flat()
+  );
+  addToResult(queryParts
+    .map((part) => plugins.filter((plugin) => exactMatch(part, plugin.description)))
+    .flat()
+  );
+  
+  addToResult(plugins
+    .filter((plugin) => plugin.name?.toLowerCase().split(" ").some((part) => part.startsWith(query.toLowerCase())))
+  );
+  addToResult(plugins
+    .filter((plugin) => plugin.description?.toLowerCase().split(" ").some((part) => part.startsWith(query.toLowerCase())))
+  );
+
+  return result;
+};
+
 const Plugins = (props) => {
   const [filter, setFilter] = useState('');
   const [favoritesFilter, setFavoritesFilter] = useState(false);
@@ -48,7 +103,7 @@ const Plugins = (props) => {
 
   const filteredPlugins = useMemo(() => {
     const filterLowerCase = filter.toLowerCase();
-    const plugins = [...props.plugins]
+    const favAndCategoryFilteredPlugins = [...props.plugins]
       .filter((plugin) =>
         favoritesFilter ? favorites.includes(plugin.pluginId) : true
       )
@@ -58,15 +113,19 @@ const Plugins = (props) => {
         }
         return plugin.aiCategories === filterCategoryOptions[filterCategory];
       })
-      .filter((plugin) => {
-        return (
-          plugin.name.toLowerCase().includes(filterLowerCase) ||
-          plugin.description.toLowerCase().includes(filterLowerCase)
-        );
-      });
+      // .filter((plugin) => {
+      //   return (
+      //     plugin.name.toLowerCase().includes(filterLowerCase) ||
+      //     plugin.description.toLowerCase().includes(filterLowerCase)
+      //   );
+      // });
+
+    const plugins = queryPlugins(filterLowerCase, favAndCategoryFilteredPlugins);
 
     plugins.sort((a, b) => {
       switch (sortby) {
+        case 'relevance':
+          return 0;
         case 'alphabet_asc':
           return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
         case 'alphabet_desc':
@@ -118,7 +177,12 @@ const Plugins = (props) => {
                 placeholder="Search for plugins"
                 color="purple"
                 shadow
-                onChange={(e) => setFilter(e.target.value)}
+                onChange={(e) => {
+                  if (filter.length === 0 && e.target.value.length === 1) {
+                    setSortby('relevance');
+                  }
+                  setFilter(e.target.value)
+                }}
               />
             </div>
             <div className="pl-2 mb-4 bg-white flex justify-between">
@@ -248,6 +312,11 @@ const Plugins = (props) => {
                   inline
                   size="sm"
                 >
+                  {sortby === 'relevance' && 
+                    <Dropdown.Item disabled>
+                      {sortByOptions['relevance']}
+                    </Dropdown.Item>
+                  }
                   <Dropdown.Item onClick={() => setSortby('alphabet_asc')}>
                     {sortByOptions['alphabet_asc']}
                   </Dropdown.Item>

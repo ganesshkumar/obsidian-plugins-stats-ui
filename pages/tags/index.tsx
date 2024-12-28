@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Footer from '../../components/Footer';
 import { sanitizeTag, tagDenyList } from '../../utils/plugins';
 import { PluginsCache } from '../../cache/plugins-cache';
+import InfoBar from '../../components/InfoBar';
 
 const Tags = (props) => {
   return (
@@ -18,9 +19,7 @@ const Tags = (props) => {
       {/* New Plugins */}
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
-          <div className="text-3xl py-5 pl-5 text-bold text-violet-900">
-            ☁️ Tags {props.tags && `(${props.tags.length})`}
-          </div>
+          <InfoBar title={`Tags ${props.tags && `(${props.tags.length})`}`} />
           <div className="flex flex-wrap bg-white px-5 py-5">
             {props.tags.sort().map((tag) => {
               return (
