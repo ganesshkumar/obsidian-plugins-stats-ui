@@ -44,6 +44,8 @@ const Plugin = (props) => {
   const [favorites, setFavorites] = useState([]);
   const [readmeContent, setReadmeContent] = useState('');
 
+  const now = moment();
+
   let defaultBranch = '';
   useEffect(() => {
     setupFavorites(setFavorites);
@@ -236,7 +238,7 @@ const Plugin = (props) => {
             <div className="text-2xl">Stats</div>
             <div className="mt-4 flex flex-wrap gap-4">
               <Tooltip content={`${props.plugin.stargazers} stargazers`}>
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <Star className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
                     {props.plugin.stargazers}
@@ -247,7 +249,7 @@ const Plugin = (props) => {
               <Tooltip
                 content={`${props.plugin.totalDownloads?.toLocaleString()} downloads`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <DownloadCloud className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
                     {props.plugin.totalDownloads?.toLocaleString()}
@@ -258,7 +260,7 @@ const Plugin = (props) => {
               <Tooltip
                 content={`${props.plugin.forks?.toLocaleString() || '0'} forks`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <GitBranch className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
                     {props.plugin.forks?.toLocaleString() || '0'}
@@ -267,36 +269,34 @@ const Plugin = (props) => {
                 </div>
               </Tooltip>
               <Tooltip
-                content={`${moment(props.plugin.createdAt).days().toLocaleString()} days since creation`}
+                content={`${now.diff(moment(props.plugin.createdAt), 'days').toLocaleString()} days since creation`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <PlusCircle className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
-                    {moment(props.plugin.createdAt).days().toLocaleString()}
+                    {now.diff(moment(props.plugin.createdAt), 'days').toLocaleString()}
                   </div>
                   <div className="text-gray-500"> days</div>
                 </div>
               </Tooltip>
               <Tooltip
-                content={`${moment(props.plugin.lastCommitAt).days().toLocaleString()} days since last commit`}
+                content={`${now.diff(moment(props.plugin.lastCommitAt), 'days').toLocaleString()} days since last commit`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <GitCommit className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
-                    {moment(props.plugin.lastCommitAt).days().toLocaleString()}
+                    {now.diff(moment(props.plugin.lastCommitAt), 'days').toLocaleString()}
                   </div>
                   <div className="text-gray-500"> days</div>
                 </div>
               </Tooltip>
               <Tooltip
-                content={`${moment(props.plugin.latestReleaseAt).days().toLocaleString()} days since last release`}
+                content={`${now.diff(moment(props.plugin.latestReleaseAt), 'days').toLocaleString()} days since last release`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <RefreshCcw className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
-                    {moment(props.plugin.latestReleaseAt)
-                      .days()
-                      .toLocaleString()}
+                    {now.diff(moment(props.plugin.latestReleaseAt), 'days').toLocaleString()}
                   </div>
                   <div className="text-gray-500"> days</div>
                 </div>
@@ -304,7 +304,7 @@ const Plugin = (props) => {
               <Tooltip
                 content={`${props.plugin.totalPR?.toLocaleString() ?? '0'} total pull requests`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <GitPullRequest
                     className="text-violet-700 inline"
                     size={18}
@@ -318,7 +318,7 @@ const Plugin = (props) => {
               <Tooltip
                 content={`${props.plugin.openPR?.toLocaleString() ?? '0'} open pull requests`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <GitPullRequest
                     className="text-violet-700 inline"
                     size={18}
@@ -332,7 +332,7 @@ const Plugin = (props) => {
               <Tooltip
                 content={`${props.plugin.closedPR?.toLocaleString() ?? '0'} closed pull requests`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <GitPullRequest
                     className="text-violet-700 inline"
                     size={18}
@@ -346,7 +346,7 @@ const Plugin = (props) => {
               <Tooltip
                 content={`${props.plugin.mergedPR?.toLocaleString() ?? '0'} merged pull requests`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <GitPullRequest
                     className="text-violet-700 inline"
                     size={18}
@@ -360,7 +360,7 @@ const Plugin = (props) => {
               <Tooltip
                 content={`${props.plugin.totalIssues?.toLocaleString() ?? '0'} total issues`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <Disc className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
                     {props.plugin.totalIssues?.toLocaleString() ?? '0'}
@@ -371,7 +371,7 @@ const Plugin = (props) => {
               <Tooltip
                 content={`${props.plugin.openIssues?.toLocaleString() ?? '0'} open issues`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <Disc className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
                     {props.plugin.openIssues?.toLocaleString() ?? '0'}
@@ -382,7 +382,7 @@ const Plugin = (props) => {
               <Tooltip
                 content={`${props.plugin.closedIssues?.toLocaleString() ?? '0'} closed issues`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <Disc className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
                     {props.plugin.closedIssues?.toLocaleString() ?? '0'}
@@ -393,7 +393,7 @@ const Plugin = (props) => {
               <Tooltip
                 content={`${props.plugin.commitCountInLastYear?.toLocaleString() ?? '0'} total commits`}
               >
-                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-40">
+                <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <Activity className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
                     {props.plugin.commitCountInLastYear?.toLocaleString() ??

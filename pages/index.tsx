@@ -451,7 +451,7 @@ const PostIcon = (props) => {
 const NewPosts = ({ posts }) => {
   return (
     <div className="max-w-6xl mx-auto px-2">
-      <InfoBar title="Posts" as="h2" />
+      <InfoBar title="Latest Posts" as="h2" />
       <ul className="flex flex-col divide-y mb-4">
         {posts.map((post) => (
           <li key={post.id}>

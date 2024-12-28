@@ -61,11 +61,6 @@ export const getStaticProps = async () => {
     .sort((a, b) => b.zScoreTrending - a.zScoreTrending)
     .slice(0, 10);
 
-  console.log(
-    'trendingPlugins',
-    trendingPlugins.map((p) => p.zScoreTrending)
-  );
-
   return {
     props: {
       plugins: trendingPlugins,

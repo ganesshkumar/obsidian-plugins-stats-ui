@@ -8,25 +8,35 @@ generator client {
 }
 
 model Plugin {
-  id                String         @id @default(auto()) @map("_id") @db.ObjectId
-  pluginId          String         @unique
-  name              String?
-  author            String?
-  description       String?
-  repo              String
-  createdAt         Int
-  nextUpdateAt      Int?
-  lastCommitAt      Int?
-  stargazers        Int?
-  subscribers       Int?
-  latestRelease     String?
-  latestReleaseDesc String?
-  latestReleaseAt   Int?
-  totalDownloads    Int?
-  zScoreTrending    Float?
-  aiDescription     String?
-  aiCategories      String?
-  aiTags            String?
+  id                        String         @id @default(auto()) @map("_id") @db.ObjectId
+  pluginId                  String         @unique
+  name                      String?
+  author                    String?
+  description               String?
+  repo                      String
+  createdAt                 Int
+  nextUpdateAt              Int?
+  lastCommitAt              Int?
+  stargazers                Int?
+  subscribers               Int?
+  forks                     Int?
+  latestRelease             String?
+  latestReleaseDesc         String?
+  latestReleaseAt           Int?
+  totalDownloads            Int?
+  totalIssues               Int?
+  closedIssues              Int?
+  openIssues                Int?
+  totalPR                   Int?
+  openPR                    Int?
+  closedPR                  Int?
+  mergedPR                  Int?
+  commitCountInLastYear     Int?
+  zScoreTrending            Float?
+  aiDescription             String?
+  aiCategories              String?
+  aiTags                    String?
+  score                      Float?
 }
 
 model ReleaseDownloads {
