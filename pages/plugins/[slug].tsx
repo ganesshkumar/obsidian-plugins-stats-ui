@@ -93,13 +93,13 @@ const Plugin = (props) => {
       />
       <div>
         <AppNavbar current={`tag:${props.plugin.pluginId}`}>
-          <Navbar.Link
+          {/* <Navbar.Link
             href={`/tags/${props.plugin.pluginId}`}
             active={true}
             className="text-lg"
           >
             {`plugin: ${props.plugin.pluginId}`}
-          </Navbar.Link>
+          </Navbar.Link> */}
         </AppNavbar>
       </div>
       <div className="bg-white pt-5">

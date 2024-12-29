@@ -9,11 +9,13 @@ export const Score = (props) => {
 
   let scoreClass = '';
   if (plugin.score > 0.8) {
-    scoreClass = 'text-green-500';
+    scoreClass = 'text-emerald-500';
   } else if (plugin.score > 0.6) {
+    scoreClass = 'text-lime-500';
+  } else if (plugin.score > 0.4) {
     scoreClass = 'text-yellow-500';
-  } else if (plugin.score > 0.3) {
-    scoreClass = 'text-orange-500';
+  } else if (plugin.score > 0.2) {
+    scoreClass = 'text-amber-500';
   } else {
     scoreClass = 'text-red-500';
   }

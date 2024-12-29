@@ -10,11 +10,13 @@ const customTheme: CustomFlowbiteTheme['table'] = {
 const getScoreBgClass = (score) => {
   let scoreClass = '';
   if (score > 0.8) {
-    scoreClass = 'bg-green-500 text-white rounded-full p-1';
+    scoreClass = 'bg-emerald-500 text-white rounded-full p-1';
   } else if (score > 0.6) {
+    scoreClass = 'bg-lime-500 text-white rounded-full p-1';
+  } else if (score > 0.4) {
     scoreClass = 'bg-yellow-500 text-white rounded-full p-1';
-  } else if (score > 0.3) {
-    scoreClass = 'bg-orange-500 text-white rounded-full p-1';
+  } else if (score > 0.2) {
+    scoreClass = 'bg-amber-500 text-white rounded-full p-1';
   } else {
     scoreClass = 'bg-red-500 text-white rounded-full p-1';
   }

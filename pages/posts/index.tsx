@@ -4,7 +4,7 @@ import { getSortedPostsData } from '../../lib/posts';
 import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
 import moment from 'moment';
-import { Calendar, List, Star } from 'react-feather';
+import { Calendar, List, Star, Zap } from 'react-feather';
 import InfoBar from '../../components/InfoBar';
 import Footer from '../../components/Footer';
 
@@ -107,6 +107,8 @@ const PostIcon = (props) => {
     return (
       <List size={48} className="text-green-400 p-1 rounded fill-yellow-200" />
     );
+  } else if (props.tags && props.tags.includes('feature')) {
+    return <Zap size={48} className="text-sky-700 p-1 rounded fill-sky-200" />;
   } else {
     return undefined;
   }
