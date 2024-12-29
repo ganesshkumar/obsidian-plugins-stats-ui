@@ -7,7 +7,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import moment from 'moment';
 import { PluginsCache } from '../../cache/plugins-cache';
-import PluginsTable from '../../components/PluginTable';
+import PluginsComparisionTable from '../../components/PluginsComparisionTable';
 import { PluginsShareView } from '../share';
 import { useState } from 'react';
 import { Button } from 'flowbite-react';

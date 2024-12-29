@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
-import NewPluginsList from '../components/NewPluginsList';
 import { setupFavorites } from '../utils/favorites';
 import { PluginsCache } from '../cache/plugins-cache';
 import InfoBar from '../components/InfoBar';
 import { Info } from 'react-feather';
 import { Tooltip } from 'flowbite-react';
 import Image from 'next/image';
+import { PluginsMultiView } from '../components/PluginsMultiView';
 
 const Trending = ({ plugins }) => {
   const [favorites, setFavorites] = useState([]);
@@ -42,7 +42,7 @@ const Trending = ({ plugins }) => {
               height={200}
             />
           </div>
-          <NewPluginsList
+          <PluginsMultiView
             plugins={plugins}
             favorites={favorites}
             setFavorites={setFavorites}

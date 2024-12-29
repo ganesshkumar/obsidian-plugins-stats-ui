@@ -3,10 +3,10 @@ import { GetStaticProps } from 'next';
 import { getSortedPostsData } from '../../lib/posts';
 import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
-import { Footer } from 'flowbite-react';
 import moment from 'moment';
 import { Calendar, List, Star } from 'react-feather';
 import InfoBar from '../../components/InfoBar';
+import Footer from '../../components/Footer';
 
 interface Post {
   id: string;

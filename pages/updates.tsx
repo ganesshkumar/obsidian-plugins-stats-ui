@@ -6,7 +6,6 @@ import Footer from '../components/Footer';
 import { PrismaClient } from '@prisma/client';
 import { setupFavorites } from '../utils/favorites';
 import { daysAgo } from '../utils/datetime';
-import NewPluginsList from '../components/NewPluginsList';
 import { List } from 'flowbite-react';
 import Link from 'next/link';
 import moment from 'moment';

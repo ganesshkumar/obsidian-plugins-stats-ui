@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import AppNavbar from '../../components/Navbar';
 
-import { PrismaClient } from '@prisma/client';
 import { setupFavorites } from '../../utils/favorites';
 import Footer from '../../components/Footer';
-import NewPluginsList from '../../components/NewPluginsList';
 import { Navbar } from 'flowbite-react';
 import InfoBar from '../../components/InfoBar';
 import { PluginsCache } from '../../cache/plugins-cache';
+import { PluginsMultiView } from '../../components/PluginsMultiView';
 
 const Category = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -35,10 +34,11 @@ const Category = (props) => {
         <div className="max-w-6xl mx-auto px-2">
           <InfoBar title={props.category} />
           <div className="flex-col">
-            <NewPluginsList
+            <PluginsMultiView
               plugins={props.plugins}
               favorites={favorites}
               setFavorites={setFavorites}
+              showDescription={true}
             />
           </div>
         </div>

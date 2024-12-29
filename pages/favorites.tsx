@@ -3,15 +3,14 @@ import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-import { PrismaClient } from '@prisma/client';
 import { setupFavorites } from '../utils/favorites';
-import NewPluginsList from '../components/NewPluginsList';
 import { NoFavPlugins } from '../components/FavPluginUpdates';
 import { daysAgo, isNotXDaysOld } from '../utils/datetime';
 import CardAnnotations from '../components/CardAnnotations';
 import InfoBar from '../components/InfoBar';
 import moment from 'moment';
 import { PluginsCache } from '../cache/plugins-cache';
+import { PluginsMultiView } from '../components/PluginsMultiView';
 
 const Favorites = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -103,14 +102,11 @@ const Favorites = (props) => {
                   title={`Favorite Plugins ${favoritedPlugins && `(${favoritedPlugins.length})`}`}
                 />
               </div>
-              <NewPluginsList
+              <PluginsMultiView
                 plugins={favoritedPlugins}
                 favorites={favorites}
                 setFavorites={setFavorites}
-                showLatestRelease={true}
-                displayDate={(plugin) => plugin.latestReleaseAt}
-                showChangelog={true}
-                showDescription={false}
+                showDescription={true}
               />
             </div>
           )}

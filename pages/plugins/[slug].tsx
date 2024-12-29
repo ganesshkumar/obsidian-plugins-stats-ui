@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/HeaderPlugin';
 import AppNavbar from '../../components/Navbar';
 
-import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
-import moment from 'moment';
+import moment, { max } from 'moment';
 import showdown from 'showdown';
 import Footer from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
@@ -18,7 +17,6 @@ import {
   DownloadCloud,
   Star,
   GitHub,
-  Edit2,
   GitBranch,
   PlusCircle,
   GitCommit,
@@ -26,10 +24,20 @@ import {
   GitPullRequest,
   Disc,
   Activity,
+  Info,
 } from 'react-feather';
-import { Card, CustomFlowbiteTheme, Navbar, Tooltip } from 'flowbite-react';
+import {
+  Card,
+  CustomFlowbiteTheme,
+  Modal,
+  Navbar,
+  Table,
+  Tooltip,
+} from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { CategoryIcon } from '../../components/Category';
+import { PrismaClient } from '@prisma/client';
+import { Score } from '../../components/Score';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -103,6 +111,7 @@ const Plugin = (props) => {
             <div className="text-sm mb-4">
               by <span>{props.plugin.author}</span>
             </div>
+            <Score plugin={props.plugin} />
             <div className="flex gap-x-2 mb-2 mt-4">
               {isFavorite && (
                 <div
@@ -120,14 +129,14 @@ const Plugin = (props) => {
                   New Plugin
                 </div>
               )}
-              {/* {props.plugin.zScoreTrending > 10 && (
+              {props.isTrending && (
                 <div
                   title="Trending plugin"
                   className="text-xs bg-yellow-300 flex justify-center items-center gap-x-1 py-1 px-2 text-gray-700 font-bold rounded-xl"
                 >
                   Trending Plugin
                 </div>
-              )} */}
+              )}
             </div>
             <Favorites
               plugin={props.plugin}
@@ -145,6 +154,7 @@ const Plugin = (props) => {
               </a>
               <a
                 href={`https://github.com/${props.plugin.repo}`}
+                target="_blank"
                 className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110"
               >
                 <GitHub className="text-gray-800 inline mr-2" size={18} /> Code
@@ -274,7 +284,9 @@ const Plugin = (props) => {
                 <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <PlusCircle className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
-                    {now.diff(moment(props.plugin.createdAt), 'days').toLocaleString()}
+                    {now
+                      .diff(moment(props.plugin.createdAt), 'days')
+                      .toLocaleString()}
                   </div>
                   <div className="text-gray-500"> days</div>
                 </div>
@@ -285,7 +297,9 @@ const Plugin = (props) => {
                 <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <GitCommit className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
-                    {now.diff(moment(props.plugin.lastCommitAt), 'days').toLocaleString()}
+                    {now
+                      .diff(moment(props.plugin.lastCommitAt), 'days')
+                      .toLocaleString()}
                   </div>
                   <div className="text-gray-500"> days</div>
                 </div>
@@ -296,7 +310,9 @@ const Plugin = (props) => {
                 <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <RefreshCcw className="text-violet-700 inline" size={18} />
                   <div className="font-bold text-gray-900">
-                    {now.diff(moment(props.plugin.latestReleaseAt), 'days').toLocaleString()}
+                    {now
+                      .diff(moment(props.plugin.latestReleaseAt), 'days')
+                      .toLocaleString()}
                   </div>
                   <div className="text-gray-500"> days</div>
                 </div>
@@ -391,7 +407,7 @@ const Plugin = (props) => {
                 </div>
               </Tooltip>
               <Tooltip
-                content={`${props.plugin.commitCountInLastYear?.toLocaleString() ?? '0'} total commits`}
+                content={`${props.plugin.commitCountInLastYear?.toLocaleString() ?? '0'} total commits in last one year`}
               >
                 <div className="flex justify-start items-center gap-x-1 cursor-pointer w-44">
                   <Activity className="text-violet-700 inline" size={18} />
@@ -525,11 +541,17 @@ export const getStaticProps = async ({ params }) => {
         .some((tag) => tags.includes(tag))
   );
 
+  const prisma: PrismaClient = new PrismaClient();
+
   return {
     props: {
       plugin,
       tags,
       similarPlugins,
+      isTrending:
+        [...plugins]
+          .sort((a, b) => b.zScoreTrending - a.zScoreTrending)
+          .findIndex((p) => p.pluginId === plugin.pluginId) < 10,
     },
   };
 };

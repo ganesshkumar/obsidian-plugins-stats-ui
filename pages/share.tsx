@@ -12,7 +12,7 @@ import { PluginsCache } from '../cache/plugins-cache';
 import NewPluginsList from '../components/NewPluginsList';
 import InfoBar from '../components/InfoBar';
 import { List, Table } from 'react-feather';
-import PluginsTable from '../components/PluginTable';
+import PluginsComparisionTable from '../components/PluginsComparisionTable';
 
 import { CustomFlowbiteTheme } from 'flowbite-react';
 
@@ -103,7 +103,7 @@ export const PluginsShareView = (props) => {
               />
             </Tabs.Item>
             <Tabs.Item title="Table" icon={Table}>
-              <PluginsTable
+              <PluginsComparisionTable
                 plugins={plugins}
                 // favorites={favorites}
                 // setFavorites={setFavorites}

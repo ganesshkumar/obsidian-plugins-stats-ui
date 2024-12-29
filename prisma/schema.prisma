@@ -36,7 +36,8 @@ model Plugin {
   aiDescription             String?
   aiCategories              String?
   aiTags                    String?
-  score                      Float?
+  score                     Float?
+  scoreReason               String?
 }
 
 model ReleaseDownloads {
@@ -50,4 +51,11 @@ model PluginTags {
   id               String         @id @default(auto()) @map("_id") @db.ObjectId
   tag              String
   pluginId         String
+}
+
+model ScoreBounds {
+  id                String         @id @default(auto()) @map("_id") @db.ObjectId
+  metric            String         @unique
+  min               Float
+  max               Float
 }

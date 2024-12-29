@@ -107,7 +107,7 @@ const Home = (props) => {
       <NewPosts posts={props.newPosts} />
 
       <div className="bg-transparent mt-32">
-        <div className="max-w-6xl mx-auto px-2 flex flex-col rounded rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-800">
+        <div className="max-w-6xl mx-auto px-2 flex flex-col rounded bg-gradient-to-r from-violet-600 to-fuchsia-800">
           <div className="flex flex-col justify-center items-center my-12 ">
             <div className="text-center px-8 text-2xl font-bold text-white">
               Subscribe to our newsletter

@@ -1,12 +1,13 @@
-import { List, Tooltip } from 'flowbite-react';
+import { CustomFlowbiteTheme, List, Tabs, Tooltip } from 'flowbite-react';
 import Link from 'next/link';
 import moment from 'moment';
 import Favorites from './Favorites';
 import { memo } from 'react';
 import { CategoryIcon } from './Category';
-import { Download } from 'react-feather';
+import { Download, List as ListIcon, Table as TableIcon } from 'react-feather';
 import { getDescription } from '../utils/plugins';
 import LinkButton from './LinkButton';
+import { Score } from './Score';
 
 const NewPluginsList = ({
   plugins,
@@ -64,7 +65,7 @@ const UnindexedPlugin = (props) => {
     <div key={key} className="flex flex-col">
       <Link
         href={`/plugins/${plugin.pluginId}`}
-        className="text-xl font-semibold text-gray-800"
+        className="text-xl font-semibold text-gray-800 hover:underline"
       >
         {plugin.name}
       </Link>
@@ -79,6 +80,7 @@ const UnindexedPlugin = (props) => {
           setFavorites={setFavorites}
         />
       </div>
+      <Score plugin={plugin} />
       {showDownloadStat && (
         <div className="pt-4 text-gray-700 flex items-center gap-x-2">
           <Tooltip content="Downloads">

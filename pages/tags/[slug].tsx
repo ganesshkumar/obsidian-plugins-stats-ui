@@ -4,10 +4,10 @@ import AppNavbar from '../../components/Navbar';
 
 import { setupFavorites } from '../../utils/favorites';
 import Footer from '../../components/Footer';
-import NewPluginsList from '../../components/NewPluginsList';
 import { Navbar } from 'flowbite-react';
 import { sanitizeTag } from '../../utils/plugins';
 import { PluginsCache } from '../../cache/plugins-cache';
+import { PluginsMultiView } from '../../components/PluginsMultiView';
 
 const Tag = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -36,10 +36,11 @@ const Tag = (props) => {
             #{props.tag}
           </div>
           <div className="flex-col">
-            <NewPluginsList
+            <PluginsMultiView
               plugins={props.plugins}
               favorites={favorites}
               setFavorites={setFavorites}
+              showDescription={true}
             />
           </div>
         </div>
