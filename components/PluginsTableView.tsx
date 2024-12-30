@@ -58,7 +58,7 @@ export const PluginsTableView = ({
               )}
               <Table.Cell key={`${plugin.pluginId}-score`}>
                 <span className={getScoreBgClass(plugin.score)}>
-                  {Math.round(plugin.score.toFixed(4) * 100)}
+                  {Math.round(parseFloat(plugin.score.toFixed(4)) * 100)}
                 </span>
               </Table.Cell>
               <Table.Cell

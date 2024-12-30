@@ -397,7 +397,6 @@ const Plugins = (props) => {
               favorites={favorites}
               setFavorites={setFavorites}
               view={view}
-              setView={setView}
             />
           </div>
         </div>

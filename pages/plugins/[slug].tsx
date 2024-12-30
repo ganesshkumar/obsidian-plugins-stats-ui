@@ -497,8 +497,6 @@ const Plugin = (props) => {
                   <PluginCard
                     key={plugin.pluginId}
                     plugin={plugin}
-                    isFavorite={favorites.includes(plugin.pluginId)}
-                    isTrending={plugin.zScoreTrending > 10}
                     showDescription={true}
                   />
                 ))}
