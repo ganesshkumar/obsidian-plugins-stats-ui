@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Header from '../components/HeaderAll';
 import Navbar from '../components/Navbar';
 
 import { useSearchParams } from 'next/navigation';
@@ -15,6 +14,8 @@ import { List, Table } from 'react-feather';
 import { PluginsComparisionTable } from '../components/PluginsComparisionTable';
 
 import { CustomFlowbiteTheme } from 'flowbite-react';
+import { JsonLdSchema } from '../lib/jsonLdSchema';
+import Header, { IHeaderProps } from '../components/Header';
 
 const customTheme: CustomFlowbiteTheme['tabs'] = {
   tablist: {
@@ -35,7 +36,12 @@ const customTheme: CustomFlowbiteTheme['tabs'] = {
   },
 };
 
-const Plugins = (props) => {
+interface ISharePageProps extends IHeaderProps {
+  plugins: any[];
+  pluginIds?: string[];
+}
+
+const Plugins = (props: ISharePageProps) => {
   const searchParams = useSearchParams();
   const pluginIds: string[] =
     (props?.pluginIds ||
@@ -60,10 +66,8 @@ const Plugins = (props) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col h-screen">
-        <Header />
-        <div>
-          <Navbar current="all" />
-        </div>
+        <Header {...props} />
+        <Navbar current="all" />
 
         <div className="bg-white pt-5 grow">
           <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
@@ -105,9 +109,6 @@ export const PluginsShareView = (props) => {
             <Tabs.Item title="Table" icon={Table}>
               <PluginsComparisionTable
                 plugins={plugins}
-                // favorites={favorites}
-                // setFavorites={setFavorites}
-                // showDownloadStat={true}
               />
             </Tabs.Item>
           </Tabs>
@@ -123,7 +124,22 @@ export const getStaticProps = async () => {
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
   );
 
-  return { props: { plugins } };
+  const title = 'Obsidian Plugins Share - Compare and Discover Plugins'
+  const description = 'Add a list of plugins and compare them. Use this to share a list of plugins with others for quick comparison and discovery.'
+  const canonical = "https://obsidian-plugins.com/share";
+  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+  const jsonLdSchema = JsonLdSchema.getSharePageSchema(title, description, canonical, image);
+
+  return {
+    props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
+      plugins
+    }
+  };
 };
 
 export default Plugins;

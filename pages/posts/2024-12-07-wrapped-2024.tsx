@@ -1,9 +1,7 @@
 'use client';
 import {
-  animate,
   motion,
   useInView,
-  useMotionValue,
   useScroll,
   useTransform,
 } from 'framer-motion';
@@ -11,39 +9,26 @@ import Image from 'next/image';
 import {
   ArrowDownCircle,
   ArrowUpCircle,
-  Book,
-  Box,
-  CheckCircle,
-  Clock,
-  Code,
   Download,
-  Edit,
-  Folder,
-  Frown,
-  HelpCircle,
-  PenTool,
-  PieChart,
   PlusCircle,
   RefreshCw,
-  Shield,
   User,
-  Users,
 } from 'react-feather';
 import { Button, Popover } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 import { CategoryIcon } from '../../components/Category';
-import Header from '../../components/HeaderPost';
+import { Post } from '../../lib/abstractions';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import Header, { IHeaderProps } from '../../components/Header';
 
-const Demo = (props) => {
+interface IWrapped2024PageProps extends IHeaderProps {
+
+}
+
+const Demo = (props: IWrapped2024PageProps) => {
   return (
     <>
-      <Header
-        title="Obsidian Plugins Wrapped 2024 - Key Milestones, Top Plugins, and Developer Highlights"
-        description="Discover Obsidian Plugins journey in 2024! From new plugin releases and updates to standout developers and the most downloaded plugins, explore the milestones and community contributions that shaped the Obsidian ecosystem this year."
-        publishedDate="2024-12-07"
-        modifiedDate="2024-12-07"
-        slug="2024-12-07-wrapped-2024"
-      />
+      <Header {...props} />
       <Intro />
       <MilestonesSection {...props} />
       <StatsSection {...props} />
@@ -635,9 +620,32 @@ const Section = (props) => {
 
 export const getStaticProps = async () => {
   const data = require('../../data/wrapped-2024.json');
+  const title="Obsidian Plugins Wrapped 2024"
+  const description="Discover Obsidian Plugins journey in 2024! From new plugin releases and updates to standout developers and the most downloaded plugins, explore the milestones and community contributions that shaped the Obsidian ecosystem this year."
+  const canonical="https://obsidian-plugin-stats.ganesshkumar.com/posts/2024-12-07-wrapped-2024"
+  const image="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+
+  const post: Post = {
+    id: '2024-12-07-wrapped-2024',
+    title: "Obsidian Plugins Wrapped 2024 - Key Milestones, Top Plugins, and Developer Highlights",
+    description: "Discover Obsidian Plugins journey in 2024! From new plugin releases and updates to standout developers and the most downloaded plugins, explore the milestones and community contributions that shaped the Obsidian ecosystem this year.",
+    excerpt: 'Obsidian Plugins Wrapped 2024 - Key Milestones, Top Plugins, and Developer Highlights',
+    publishedDate: '2024-12-07',
+    modifiedDate: '2024-12-07',
+    content: '',
+  };
+
+  const jsonLdSchema = JsonLdSchema.getPostPageSchema(post, title, description, canonical, image);
 
   return {
-    props: { ...data },
+    props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
+      ...data
+    },
   };
 };
 

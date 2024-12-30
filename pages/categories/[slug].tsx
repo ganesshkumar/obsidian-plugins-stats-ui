@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/Header';
+import Header, { IHeaderProps } from '../../components/Header';
 import AppNavbar from '../../components/Navbar';
 
 import { setupFavorites } from '../../utils/favorites';
@@ -8,8 +8,14 @@ import { Navbar } from 'flowbite-react';
 import InfoBar from '../../components/InfoBar';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { PluginsMultiView } from '../../components/PluginsMultiView';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
 
-const Category = (props) => {
+interface ICategoryPageProps extends IHeaderProps {
+  category: string;
+  plugins: any[];
+}
+
+const Category = (props: ICategoryPageProps) => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -18,7 +24,7 @@ const Category = (props) => {
 
   return (
     <div>
-      <Header />
+      <Header {...props} />
       <div>
         <AppNavbar current={`category:${props.category}`}>
           <Navbar.Link
@@ -66,8 +72,19 @@ export const getStaticProps = async ({ params }) => {
     (plugin) => plugin.aiCategories === params.slug
   );
 
+  const title = `All ${params.slug} Obsidian Plugins.`;
+  const description = `Find all ${params.slug} Obsidian plugins. ${pluginsWithCategory.sort((a, b)=> b.score - a.score).map((plugin) => plugin.name).join(', ')}`;
+  const canonical = "https://obsidian-plugin-stats.ganesshkumar.com/categories/" + params.slug;
+  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png";
+  const jsonLdSchema = JsonLdSchema.getCategoryPageSchema(pluginsWithCategory, title, description, canonical, image);
+
   return {
     props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
       category: params.slug,
       plugins: pluginsWithCategory,
     },

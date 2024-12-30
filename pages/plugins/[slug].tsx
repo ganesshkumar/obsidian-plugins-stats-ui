@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/HeaderPlugin';
 import AppNavbar from '../../components/Navbar';
 
 import Link from 'next/link';
-import moment, { max } from 'moment';
+import moment from 'moment';
 import showdown from 'showdown';
 import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
 import PluginCard from '../../components/PluginCard';
-import { getDescription, sanitizeTag, tagDenyList } from '../../utils/plugins';
+import { getDescription, sanitizeTag } from '../../utils/plugins';
 import { isNotXDaysOld } from '../../utils/datetime';
 
 import {
@@ -24,20 +23,17 @@ import {
   GitPullRequest,
   Disc,
   Activity,
-  Info,
 } from 'react-feather';
 import {
   Card,
   CustomFlowbiteTheme,
-  Modal,
-  Navbar,
-  Table,
   Tooltip,
 } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { CategoryIcon } from '../../components/Category';
-import { PrismaClient } from '@prisma/client';
 import { Score } from '../../components/Score';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import Header, { IHeaderProps } from '../../components/Header';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -45,7 +41,14 @@ const customCardTheme: CustomFlowbiteTheme['card'] = {
   },
 };
 
-const Plugin = (props) => {
+interface IPluginProps extends IHeaderProps {
+  plugin: any;
+  tags: string[];
+  similarPlugins: any[];
+  isTrending: boolean;
+}
+
+const Plugin = (props: IPluginProps) => {
   const mdConverter = new showdown.Converter();
   mdConverter.setFlavor('github');
 
@@ -83,14 +86,7 @@ const Plugin = (props) => {
 
   return (
     <div>
-      <Header
-        pluginId={props.plugin.pluginId}
-        name={props.plugin.name}
-        description={props.plugin.description}
-        author={props.plugin.author}
-        latestVersion={props.plugin.latestRelease}
-        latestUpdatedAt={moment(props.plugin.latestReleaseAt).fromNow()}
-      />
+      <Header {...props} />
       <div>
         <AppNavbar current={`tag:${props.plugin.pluginId}`}>
           {/* <Navbar.Link
@@ -539,10 +535,19 @@ export const getStaticProps = async ({ params }) => {
         .some((tag) => tags.includes(tag))
   );
 
-  const prisma: PrismaClient = new PrismaClient();
+  const title = `${plugin.name} - ${plugin.description}`;
+  const description = `Obsidian Plugin: ${plugin.name} - ${plugin.description} by ${plugin.author}. Latest version: ${plugin.latestRelease} released on ${moment(plugin.latestReleaseAt).fromNow()}`;
+  const canonical = `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`;
+  const image = 'https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png';
+  const jsonLdSchema = JsonLdSchema.getPluginPageSchema(plugin, title, description, canonical, image);
 
   return {
     props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
       plugin,
       tags,
       similarPlugins,

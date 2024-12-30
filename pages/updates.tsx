@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/HeaderUpdates';
 import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
 
-import { PrismaClient } from '@prisma/client';
+import { Plugin } from '@prisma/client';
 import { setupFavorites } from '../utils/favorites';
 import { daysAgo } from '../utils/datetime';
 import { List } from 'flowbite-react';
@@ -13,9 +12,15 @@ import Favorites from '../components/Favorites';
 import showdown from 'showdown';
 import { PluginsCache } from '../cache/plugins-cache';
 import InfoBar from '../components/InfoBar';
+import Header, { IHeaderProps } from '../components/Header';
+import { JsonLdSchema } from '../lib/jsonLdSchema';
 
 const mdConverter = new showdown.Converter();
 mdConverter.setFlavor('github');
+
+interface IUpdatePageProps extends IHeaderProps {
+  newReleases: Plugin[];
+}
 
 const Updates = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -28,10 +33,8 @@ const Updates = (props) => {
 
   return (
     <div>
-      <Header />
-      <div>
-        <Navbar current="updates" />
-      </div>
+      <Header {...props} />
+      <Navbar current="updates" />
       {/* New Releases */}
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,7 +129,22 @@ export const getStaticProps = async () => {
   );
   newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
 
-  return { props: { newReleases } };
+  const title = 'Latest Plugin Updates - Obsidian Plugins Stats UI'
+  const description = 'Stay updated with the latest releases and updates of Obsidian plugins. Discover new features, improvements, and changelogs for your favorite plugins.'
+  const canonical = "https://obsidian-plugin-stats.ganesshkumar.com/updates";
+  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png";
+  const jsonLdSchema = JsonLdSchema.getUpdatesPageSchema(newReleases, title, description, canonical, image);
+
+  return {
+    props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
+      newReleases
+    }
+  };
 };
 
 export default Updates;

@@ -2,28 +2,18 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import { remark } from 'remark';
 import html from 'remark-html';
-import Header from '../../components/HeaderPost';
 import Navbar from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import moment from 'moment';
 import { PluginsCache } from '../../cache/plugins-cache';
-import { PluginsComparisionTable } from '../../components/PluginsComparisionTable';
 import { PluginsShareView } from '../share';
 import { useState } from 'react';
 import { Button } from 'flowbite-react';
+import { Post as PostData } from '../../lib/abstractions';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import Header, { IHeaderProps } from '../../components/Header';
 
-interface PostData {
-  id: string;
-  title: string;
-  description: string;
-  publishedDate: string;
-  modifiedDate: string;
-  contentHtml: string;
-  content: string;
-  plugins?: string[];
-}
-
-interface PostProps {
+interface IPostPageProps extends IHeaderProps {
   postData: PostData;
   plugins: any[];
 }
@@ -47,8 +37,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       ?.map((pluginId) => plugins.find((p) => p.pluginId === pluginId))
       .filter((plugin) => !!plugin) ?? [];
 
+  const title = postData.title;
+  const description = postData.description;
+  const canonical = `https://obsidian-plugin-stats.ganesshkumar.com/posts/${postData.id}`;
+  const image = `https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png`;
+  const jsonLdSchema = JsonLdSchema.getPostPageSchema(postData, title, description, canonical, image);
+
   return {
     props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
       postData: {
         ...postData,
         contentHtml,
@@ -58,21 +59,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-const Post: React.FC<PostProps> = ({ postData, plugins }) => {
+const Post = (props: IPostPageProps) => {
+  const { postData, plugins } = props;
   const [comparePlugins, setComparePlugins] = useState(false);
 
   return (
     <div>
-      <Header
-        title={postData.title}
-        description={postData.description}
-        publishedDate={postData.publishedDate}
-        modifiedDate={postData.modifiedDate}
-        slug={postData.id}
-      />
-      <div>
-        <Navbar current="posts" />
-      </div>
+      <Header {...props} />
+      <Navbar current="posts" />
       {/* New Plugins */}
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">

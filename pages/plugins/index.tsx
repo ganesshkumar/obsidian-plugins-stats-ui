@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import Header from '../../components/HeaderAll';
 import Navbar from '../../components/Navbar';
 
 import { Footer } from '../../components/Footer';
@@ -8,6 +7,8 @@ import { AllPluginsMultiView } from '../../components/AllPluginsMultiView';
 import { Button, Checkbox, Dropdown, Label, TextInput } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { List as ListIcon, Table as TableIcon } from 'react-feather';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import Header, { IHeaderProps } from '../../components/Header';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -108,7 +109,11 @@ const queryPlugins = (query: string, plugins: any[] = []): any[] => {
   return result;
 };
 
-const Plugins = (props) => {
+interface IPageProps extends IHeaderProps {
+  plugins: any[];
+}
+
+const Plugins = (props: IPageProps) => {
   const [filter, setFilter] = useState('');
   const [favoritesFilter, setFavoritesFilter] = useState(false);
   const [favorites, setFavorites] = useState([]);
@@ -160,15 +165,11 @@ const Plugins = (props) => {
     return plugins;
   }, [filter, favoritesFilter, sortby, favorites, filterCategory]);
 
-  console.log('filtered plugins ', filteredPlugins.length)
-
   return (
     <div className="flex flex-col">
       <div className="flex flex-col h-screen">
-        <Header />
-        <div>
-          <Navbar current="all" />
-        </div>
+        <Header {...props} />
+        <Navbar current="all" />
         {/* New Plugins */}
         <div className="bg-white pt-5 grow">
           <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
@@ -413,9 +414,23 @@ export const getStaticProps = async () => {
   plugins.sort((a, b) =>
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
   );
-  console.log(plugins.length)
+  
+  const title = `Obsidian Plugins - Comprehensive List and Detailed Summaries of ${plugins.length} Plugins`;
+  const description = `Explore all ${plugins.length} Obsidian plugins with detailed summaries, scores, ratings, and more. Filter by favorites, categories, tags, and sort by score, downloads, and new plugins.`;
+  const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/plugins';
+  const image = 'https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png';
+  const jsonLdSchema = JsonLdSchema.getPluginsPageSchema(plugins, title, description, canonical, image);
 
-  return { props: { plugins } };
+  return {
+    props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
+      plugins
+    }
+  };
 };
 
 export default Plugins;
