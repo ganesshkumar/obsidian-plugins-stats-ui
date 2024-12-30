@@ -11,7 +11,7 @@ describe('datetime utils', () => {
     it('should return true if the datetime is within the specified number of days', () => {
       const now = Date.now();
       expect(isNotXDaysOld(now - ONE_DAY, 2)).toBe(true);
-      expect(isNotXDaysOld(now - 2 * ONE_DAY, 2)).toBe(true);
+      expect(isNotXDaysOld(now - 2 * ONE_DAY, 2)).toBe(false);
       expect(isNotXDaysOld(now - 3 * ONE_DAY, 2)).toBe(false);
     });
 

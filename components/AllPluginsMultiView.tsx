@@ -42,8 +42,8 @@ export const AllPluginsMultiView = ({
   return (
     <div className="flex-col grow relative">
       {view === 'list' && plugins && plugins.length ? (
-        <div data-testid="plugins-list">
-          <VList style={{ height: '100%' }}>
+        // <div data-testid="plugins-list">
+          <VList style={{ height: '100%' }} data-testid="plugins-list">
             {plugins.map((plugin, index) => (
               <PluginListItem
                 key={plugin.pluginId}
@@ -55,7 +55,7 @@ export const AllPluginsMultiView = ({
               />
             ))}
           </VList>
-        </div>
+        // </div>
       ) : undefined}
       {view === 'table' && plugins && plugins.length ? (
         <div
@@ -90,8 +90,8 @@ export const AllPluginsMultiView = ({
         </div>
       ) : undefined}
       {view === 'table' && plugins && plugins.length ? (
-        <div data-testid="plugins-table">
-          <VList style={{ height: '100%' }} className="relative">
+        // <div data-testid="plugins-table" className='relative'>
+          <VList style={{ height: '100%' }} data-testid="plugins-table">
             {plugins.map((plugin, index) => (
               <PluginTableItem
                 key={plugin.pluginId}
@@ -105,7 +105,7 @@ export const AllPluginsMultiView = ({
               />
             ))}
           </VList>
-        </div>
+        // </div>
       ) : undefined}
     </div>
   );

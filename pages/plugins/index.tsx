@@ -160,6 +160,8 @@ const Plugins = (props) => {
     return plugins;
   }, [filter, favoritesFilter, sortby, favorites, filterCategory]);
 
+  console.log('filtered plugins ', filteredPlugins.length)
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col h-screen">
@@ -411,6 +413,7 @@ export const getStaticProps = async () => {
   plugins.sort((a, b) =>
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
   );
+  console.log(plugins.length)
 
   return { props: { plugins } };
 };
