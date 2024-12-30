@@ -202,7 +202,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
-          ratingValue: plugin.score,
+          ratingValue: Math.round(plugin.score * 100),
+          ratingCount: plugin.stargazers + plugin.forks + 1,
         },
         downloadUrl: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
         softwareVersion: plugin.latestRelease,
@@ -283,7 +284,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
-          ratingValue: plugin.score,
+          ratingValue: Math.round(plugin.score * 100),
+          ratingCount: plugin.stargazers + plugin.forks + 1,
         },
         downloadUrl: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
         softwareVersion: plugin.latestRelease,
@@ -364,7 +366,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
-          ratingValue: plugin.score,
+          ratingValue: Math.round(plugin.score * 100),
+          ratingCount: plugin.stargazers + plugin.forks + 1,
         },
         downloadUrl: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
         softwareVersion: plugin.latestRelease,
@@ -445,7 +448,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
-          ratingValue: plugin.score,
+          ratingValue: Math.round(plugin.score * 100),
+          ratingCount: plugin.stargazers + plugin.forks + 1,
         },
         downloadUrl: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
         softwareVersion: plugin.latestRelease,
@@ -658,7 +662,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
-          ratingValue: plugin.score,
+          ratingValue: Math.round(plugin.score * 100),
+          ratingCount: plugin.stargazers + plugin.forks + 1,
         },
         downloadUrl: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
         softwareVersion: plugin.latestRelease,
@@ -807,7 +812,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
-          ratingValue: plugin.score,
+          ratingValue: Math.round(plugin.score * 100),
+          ratingCount: plugin.stargazers + plugin.forks + 1,
         },
         downloadUrl: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
         softwareVersion: plugin.latestRelease,
@@ -1066,14 +1072,15 @@ export const JsonLdSchema = {
       applicationCategory: plugin.aiCategories,
       aggregateRating: {
         '@type': 'AggregateRating',
-        ratingValue: plugin.score,
+        ratingValue: Math.round(plugin.score * 100),
+        ratingCount: plugin.stargazers + plugin.forks + 1,
       },
       downloadUrl: `obsidian://show-plugin?id=${plugin.pluginId}`,
       softwareVersion: plugin.latestRelease,
       datePublished: plugin.latestReleaseAt,
       author: {
-      '@type': 'Person',
-      name: plugin.author,
+        '@type': 'Person',
+        name: plugin.author,
       },
       primaryImageOfPage: {
         '@type': 'ImageObject',
