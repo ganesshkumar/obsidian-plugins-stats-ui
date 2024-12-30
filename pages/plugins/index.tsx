@@ -128,8 +128,6 @@ const Plugins = (props: IPageProps) => {
     setupFavorites(setFavorites);
   }, []);
 
-  console.log('query', query);
-
   const updateQuery = (newQuery) => {
     const updatedQuery = { ...query, ...newQuery };
     router.replace({ pathname: router.pathname, query: updatedQuery }, undefined, { shallow: true });
