@@ -1,13 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import Header from '../../components/HeaderAll';
+import React, { use, useEffect, useMemo, useState } from 'react';
 import Navbar from '../../components/Navbar';
-
+import { useRouter } from 'next/router';
 import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import { AllPluginsMultiView } from '../../components/AllPluginsMultiView';
 import { Button, Checkbox, Dropdown, Label, TextInput } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { List as ListIcon, Table as TableIcon } from 'react-feather';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import Header, { IHeaderProps } from '../../components/Header';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -108,9 +109,16 @@ const queryPlugins = (query: string, plugins: any[] = []): any[] => {
   return result;
 };
 
-const Plugins = (props) => {
-  const [filter, setFilter] = useState('');
-  const [favoritesFilter, setFavoritesFilter] = useState(false);
+interface IPageProps extends IHeaderProps {
+  plugins: any[];
+}
+
+const Plugins = (props: IPageProps) => {
+  const router = useRouter();
+  const { query } = router;
+
+  const [filter, setFilter] = useState<string>('');
+  const [favoritesFilter, setFavoritesFilter] = useState(query.fav === 'true');
   const [favorites, setFavorites] = useState([]);
   const [sortby, setSortby] = useState('createdAt_desc');
   const [filterCategory, setFilterCategory] = useState('all');
@@ -119,6 +127,64 @@ const Plugins = (props) => {
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
+
+  const updateQuery = (newQuery) => {
+    const updatedQuery = { ...query, ...newQuery };
+    router.replace({ pathname: router.pathname, query: updatedQuery }, undefined, { shallow: true });
+  };
+
+  useEffect(() => {
+    if (query.q !== undefined) {
+      const q = Array.isArray(query.q) ? query.q[0] : query.q;
+      setFilter(q);
+    }
+    if (query.fav !== undefined) {
+      setFavoritesFilter(query.fav === 'true');
+    }
+    if (query.category !== undefined) {
+      const c = Array.isArray(query.category) ? query.category[0] : query.category;
+      setFilterCategory(c);
+    }
+    if (query.sortby !== undefined) {
+      const s = Array.isArray(query.sortby) ? query.sortby[0] : query.sortby;
+      setSortby(s);
+    }
+    if (query.view !== undefined) {
+      const v = Array.isArray(query.view) ? query.view[0] : query.view;
+      setView(v);
+    }
+  }, [query]);
+
+  const handleFilterChange = (e) => {
+    if (filter.length === 0 && e.target.value.length === 1) {
+      setSortby('relevance');
+    }
+
+    const value = e.target.value;
+    setFilter(value);
+    updateQuery({ q: value });
+  }
+
+  const handleFavoritesFilterChange = (e) => {
+    const value = e.target.checked;
+    setFavoritesFilter(value);
+    updateQuery({ fav: value });
+  }
+
+  const handleFilterCategoryChange = (value) => {
+    setFilterCategory(value);
+    updateQuery({ category: value });
+  }
+
+  const handleSorytbyChange = (value) => {
+    setSortby(value);
+    updateQuery({ sortby: value });
+  }
+
+  const handleViewChange = (value) => {
+    setView(value);
+    updateQuery({ view: value });
+  }
 
   const filteredPlugins = useMemo(() => {
     const filterLowerCase = filter.toLowerCase();
@@ -160,15 +226,11 @@ const Plugins = (props) => {
     return plugins;
   }, [filter, favoritesFilter, sortby, favorites, filterCategory]);
 
-  console.log('filtered plugins ', filteredPlugins.length)
-
   return (
     <div className="flex flex-col">
       <div className="flex flex-col h-screen">
-        <Header />
-        <div>
-          <Navbar current="all" />
-        </div>
+        <Header {...props} />
+        <Navbar current="all" />
         {/* New Plugins */}
         <div className="bg-white pt-5 grow">
           <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
@@ -199,12 +261,8 @@ const Plugins = (props) => {
                 placeholder="Search for plugins"
                 color="purple"
                 shadow
-                onChange={(e) => {
-                  if (filter.length === 0 && e.target.value.length === 1) {
-                    setSortby('relevance');
-                  }
-                  setFilter(e.target.value);
-                }}
+                value={filter}
+                onChange={handleFilterChange}
               />
             </div>
             <div className="pl-2 bg-white flex flex-col md:flex-row gap-y-2 justify-between">
@@ -217,9 +275,10 @@ const Plugins = (props) => {
                     {' '}
                     {/* Favorites Filter */}
                     <Checkbox
+                      checked={favoritesFilter}
                       id="filter-favorites"
                       className="mr-2 cursor-pointer"
-                      onClick={() => setFavoritesFilter(!favoritesFilter)}
+                      onChange={handleFavoritesFilterChange}
                       color="purple"
                     />
                     <Label
@@ -241,75 +300,75 @@ const Plugins = (props) => {
                       inline
                       size="sm"
                     >
-                      <Dropdown.Item onClick={() => setFilterCategory('all')}>
+                      <Dropdown.Item onClick={() => handleFilterCategoryChange('all')}>
                         {filterCategoryOptions['all']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('taskManagement')}
+                        onClick={() => handleFilterCategoryChange('taskManagement')}
                       >
                         {filterCategoryOptions['taskManagement']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('fileManagement')}
+                        onClick={() => handleFilterCategoryChange('fileManagement')}
                       >
                         {filterCategoryOptions['fileManagement']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('noteEnhancements')}
+                        onClick={() => handleFilterCategoryChange('noteEnhancements')}
                       >
                         {filterCategoryOptions['noteEnhancements']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('dataVisualization')}
+                        onClick={() => handleFilterCategoryChange('dataVisualization')}
                       >
                         {filterCategoryOptions['dataVisualization']}
                       </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() =>
-                          setFilterCategory('thirdPartyIntegrations')
+                          handleFilterCategoryChange('thirdPartyIntegrations')
                         }
                       >
                         {filterCategoryOptions['thirdPartyIntegrations']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('productivityTools')}
+                        onClick={() => handleFilterCategoryChange('productivityTools')}
                       >
                         {filterCategoryOptions['productivityTools']}
                       </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() =>
-                          setFilterCategory('codingAndTechnicalTools')
+                          handleFilterCategoryChange('codingAndTechnicalTools')
                         }
                       >
                         {filterCategoryOptions['codingAndTechnicalTools']}
                       </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() =>
-                          setFilterCategory('creativeAndWritingTools')
+                          handleFilterCategoryChange('creativeAndWritingTools')
                         }
                       >
                         {filterCategoryOptions['creativeAndWritingTools']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('privacyAndSecurity')}
+                        onClick={() => handleFilterCategoryChange('privacyAndSecurity')}
                       >
                         {filterCategoryOptions['privacyAndSecurity']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('customizationAndUI')}
+                        onClick={() => handleFilterCategoryChange('customizationAndUI')}
                       >
                         {filterCategoryOptions['customizationAndUI']}
                       </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() =>
-                          setFilterCategory('collaborationAndSharing')
+                          handleFilterCategoryChange('collaborationAndSharing')
                         }
                       >
                         {filterCategoryOptions['collaborationAndSharing']}
                       </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() =>
-                          setFilterCategory('learningAndknowledgeManagement')
+                          handleFilterCategoryChange('learningAndknowledgeManagement')
                         }
                       >
                         {
@@ -319,12 +378,12 @@ const Plugins = (props) => {
                         }
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('miscellaneous')}
+                        onClick={() => handleFilterCategoryChange('miscellaneous')}
                       >
                         {filterCategoryOptions['miscellaneous']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('uncategorized')}
+                        onClick={() => handleFilterCategoryChange('uncategorized')}
                       >
                         {filterCategoryOptions['uncategorized']}
                       </Dropdown.Item>
@@ -346,28 +405,29 @@ const Plugins = (props) => {
                   label={sortByOptions[sortby]}
                   inline
                   size="sm"
+                  value={sortby}
                 >
                   {sortby === 'relevance' && (
-                    <Dropdown.Item disabled>
+                    <Dropdown.Item onClick={() => handleSorytbyChange('relevance')}>
                       {sortByOptions['relevance']}
                     </Dropdown.Item>
                   )}
-                  <Dropdown.Item onClick={() => setSortby('alphabet_asc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('alphabet_asc')}>
                     {sortByOptions['alphabet_asc']}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortby('alphabet_desc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('alphabet_desc')}>
                     {sortByOptions['alphabet_desc']}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortby('score_desc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('score_desc')}>
                     {sortByOptions['score_desc']}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortby('score_asc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('score_asc')}>
                     {sortByOptions['score_asc']}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortby('createdAt_desc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('createdAt_desc')}>
                     {sortByOptions['createdAt_desc']}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortby('downloaded_desc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('downloaded_desc')}>
                     {sortByOptions['downloaded_desc']}
                   </Dropdown.Item>
                 </Dropdown>
@@ -380,21 +440,21 @@ const Plugins = (props) => {
                 {/* View Options */}
                 <Button
                   color="gray"
-                  onClick={() => setView('list')}
+                  onClick={() => handleViewChange('list')}
                   size="xs"
                   className="border-l rounded-l-lg"
                 >
                   <ListIcon className="mr-3 h-4 w-4" />
                   List
                 </Button>
-                <Button color="gray" onClick={() => setView('table')} size="xs">
+                <Button color="gray" onClick={() => handleViewChange('table')} size="xs">
                   <TableIcon className="mr-3 h-4 w-4" />
                   Table
                 </Button>
               </Button.Group>
             </div>
             <AllPluginsMultiView
-              highlight={filter}
+              highlight={Array.isArray(filter) ? filter[0]: filter}
               plugins={filteredPlugins}
               favorites={favorites}
               setFavorites={setFavorites}
@@ -413,9 +473,23 @@ export const getStaticProps = async () => {
   plugins.sort((a, b) =>
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
   );
-  console.log(plugins.length)
+  
+  const title = `Obsidian Plugins - Comprehensive List and Detailed Summaries of ${plugins.length} Plugins`;
+  const description = `Explore all ${plugins.length} Obsidian plugins with detailed summaries, scores, ratings, and more. Filter by favorites, categories, tags, and sort by score, downloads, and new plugins.`;
+  const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/plugins';
+  const image = 'https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png';
+  const jsonLdSchema = JsonLdSchema.getPluginsPageSchema(plugins, title, description, canonical, image);
 
-  return { props: { plugins } };
+  return {
+    props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
+      plugins
+    }
+  };
 };
 
 export default Plugins;

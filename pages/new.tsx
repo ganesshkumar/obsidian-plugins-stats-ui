@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/HeaderNew';
 import Navbar from '../components/Navbar';
 
 import { Footer } from '../components/Footer';
@@ -10,8 +9,14 @@ import { PluginsCache } from '../cache/plugins-cache';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PluginsMultiView } from '../components/PluginsMultiView';
+import { JsonLdSchema } from '../lib/jsonLdSchema';
+import Header, { IHeaderProps } from '../components/Header';
 
-const New = (props) => {
+interface INewPageProps extends IHeaderProps {
+  newPlugins: any[];
+}
+
+const New = (props: INewPageProps) => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -20,7 +25,7 @@ const New = (props) => {
 
   return (
     <div className="flex flex-col">
-      <Header />
+      <Header {...props} />
       <Navbar current="new" />
       {/* New Plugins */}
       <main className="bg-white pt-5 grow">
@@ -87,7 +92,22 @@ export const getStaticProps = async () => {
   const newPlugins = plugins.filter((plugin) => plugin.createdAt > daysAgo(10));
   newPlugins.sort((a, b) => b.createdAt - a.createdAt);
 
-  return { props: { newPlugins } };
+  const title = "Latest Obsidian Plugins - New Releases in the Last 7 days, 10 Days, 1 Month, 6 Months, and 1 Year";
+  const description = `Explore the newest Obsidian plugins released in the past 7 days, 10 Days, 1 Month, 6 Months, and 1 Year. ${newPlugins.slice(0, 20).map((plugin) => plugin.name).join(', ')}`;
+  const canonical = "https://obsidian-plugin-stats.ganesshkumar.com/new";
+  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png";
+  const jsonLdSchema = JsonLdSchema.getNewPageSchema(newPlugins, title, description, canonical, image);
+
+  return {
+    props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
+      newPlugins
+    }
+  };
 };
 
 export default New;

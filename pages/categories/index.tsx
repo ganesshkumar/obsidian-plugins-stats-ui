@@ -1,8 +1,7 @@
 import React from 'react';
-import Header from '../../components/Header';
+import Header, { IHeaderProps } from '../../components/Header';
 import Navbar from '../../components/Navbar';
 
-import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
 import { Footer } from '../../components/Footer';
 import InfoBar from '../../components/InfoBar';
@@ -10,11 +9,18 @@ import { CategoryIcon } from '../../components/Category';
 import { LinkButton } from '../../components/LinkButton';
 import { Card } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
 
-const Categories = (props) => {
+interface ICategoriesPageProps extends IHeaderProps {
+  categories: string[];
+  pluginCountByCategories: Record<string, number>;
+  topPluginsByCategories: Record<string, any[]>;
+}
+
+const Categories = (props: ICategoriesPageProps) => {
   return (
     <div>
-      <Header />
+      <Header {...props} />
       <div>
         <Navbar current="categories" />
       </div>
@@ -119,8 +125,19 @@ export const getStaticProps = async () => {
       .slice(0, 10);
   });
 
+  const title = 'Categories of Obsidian Plugins';
+  const description = `Explore the categories of Obsidian plugins. Find the best plugins for your needs. ${Object.keys(categoriesData).join(', ')}`;
+  const canonical = "https://obsidian-plugins.com/categories";
+  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+  const jsonLdSchema = JsonLdSchema.getCategoriesPageSchema(Object.keys(categoriesData), title, description, canonical, image);
+
   return {
     props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
       categories: Object.keys(categoriesData),
       pluginCountByCategories: categoriesData,
       topPluginsByCategories: topPluginsByCategories,

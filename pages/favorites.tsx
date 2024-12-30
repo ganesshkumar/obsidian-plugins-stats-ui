@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
+import Header, { IHeaderProps } from '../components/Header';
 import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
 
@@ -11,8 +11,15 @@ import InfoBar from '../components/InfoBar';
 import moment from 'moment';
 import { PluginsCache } from '../cache/plugins-cache';
 import { PluginsMultiView } from '../components/PluginsMultiView';
+import { Plugin } from '@prisma/client';
+import { JsonLdSchema } from '../lib/jsonLdSchema';
 
-const Favorites = (props) => {
+interface IFavoritePageProps extends IHeaderProps {
+  plugins: Plugin[];
+  newReleases: Plugin[];
+}
+
+const Favorites = (props: IFavoritePageProps) => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -28,7 +35,7 @@ const Favorites = (props) => {
 
   return (
     <div>
-      <Header />
+      <Header {...props} />
       <div>
         <Navbar current="favorites" />
       </div>
@@ -128,7 +135,23 @@ export const getStaticProps = async () => {
   );
   newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
 
-  return { props: { plugins, newReleases } };
+  const title = "Mark your favorite Obsidian plugins and stay updated on their latest releases"
+  const description = "Discover and track your favorite Obsidian plugins with our comprehensive stats and updates. Stay informed about the latest releases, trending plugins, and more. Perfect for Obsidian enthusiasts looking to enhance their productivity and plugin management."
+  const canonical = "https://obsidian-plugin-stats.ganesshkumar.com/favorites"
+  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+  const jsonLdSchema = JsonLdSchema.getFavoritesPageSchema()
+
+  return {
+    props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
+      plugins,
+      newReleases
+    }
+  };
 };
 
 export default Favorites;

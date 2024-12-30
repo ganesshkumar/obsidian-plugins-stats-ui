@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
+import Header, { IHeaderProps } from '../components/Header';
 import Navbar from '../components/Navbar';
 
 import { Footer } from '../components/Footer';
@@ -7,8 +7,9 @@ import { setupFavorites } from '../utils/favorites';
 import { PluginsCache } from '../cache/plugins-cache';
 import { PluginsMultiView } from '../components/PluginsMultiView';
 import InfoBar from '../components/InfoBar';
+import { JsonLdSchema } from '../lib/jsonLdSchema';
 
-interface IMostDownloadedProps {
+interface IMostDownloadedProps extends IHeaderProps {
   mostDownloaded: any[];
 }
 
@@ -21,10 +22,8 @@ const MostDownloaded = (props: IMostDownloadedProps) => {
 
   return (
     <div>
-      <Header />
-      <div>
-        <Navbar current="most-downloaded" />
-      </div>
+      <Header {...props} />
+      <Navbar current="most-downloaded" />
       {/* New Plugins */}
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
@@ -52,7 +51,22 @@ export const getStaticProps = async (context) => {
     .sort((a, b) => b.totalDownloads - a.totalDownloads)
     .slice(0, 25);
 
-  return { props: { mostDownloaded } };
+  const title = "Most Downloaded Obsidian Plugins";
+  const description = `Discover the most downloaded Obsidian pluginsin the last week, month, year, and ever since the beginning. ${mostDownloaded.slice(0, 25).map((p) => p.name).join(', ')}`;
+  const canonical = "https://obsidian-plugins.com/most-downloaded";
+  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+  const jsonLdSchema = JsonLdSchema.getMostDownloadedPageSchema(mostDownloaded, title, description, canonical, image);
+
+  return {
+    props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
+      mostDownloaded
+    }
+  };
 };
 
 export default MostDownloaded;

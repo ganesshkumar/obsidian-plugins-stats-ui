@@ -1,36 +1,41 @@
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { getSortedPostsData } from '../../lib/posts';
-import Header from '../../components/Header';
+import Header, { IHeaderProps } from '../../components/Header';
 import Navbar from '../../components/Navbar';
 import moment from 'moment';
 import InfoBar from '../../components/InfoBar';
 import { Footer } from '../../components/Footer';
 import { PostIcon } from '../../components/post/PostIcon';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import { Post } from '../../lib/abstractions';
 
-interface Post {
-  id: string;
-  publishedDate: string;
-  title: string;
-  excerpt: string;
-  tags: string[];
-}
-
-interface BlogProps {
+interface IPostsPageProps extends IHeaderProps {
   allPostsData: Post[];
 }
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData();
+  const title = 'Blog';
+  const description = 'Blog posts about obsidain plugins';
+  const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/posts';
+  const image = 'https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png';
+  const jsonLdSchema = JsonLdSchema.getPostsPageSchema(allPostsData, title, description, canonical, image);
+
   return {
     props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
       allPostsData,
     },
   };
 };
 
-const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
-  const postsByYear = allPostsData.reduce((acc, post) => {
+const Blog = (props: IPostsPageProps) => {
+  const postsByYear = props.allPostsData.reduce((acc, post) => {
     const year = post.publishedDate.split('-')[0];
     if (!acc[year]) {
       acc[year] = [];
@@ -41,7 +46,7 @@ const Blog: React.FC<BlogProps> = ({ allPostsData }) => {
 
   return (
     <div>
-      <Header />
+      <Header {...props}/>
       <div>
         <Navbar current="posts" />
       </div>

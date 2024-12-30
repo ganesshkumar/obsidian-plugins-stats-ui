@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/Header';
 import AppNavbar from '../../components/Navbar';
 
 import { setupFavorites } from '../../utils/favorites';
@@ -8,8 +7,15 @@ import { Navbar } from 'flowbite-react';
 import { sanitizeTag } from '../../utils/plugins';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { PluginsMultiView } from '../../components/PluginsMultiView';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import Header, { IHeaderProps } from '../../components/Header';
 
-const Tag = (props) => {
+interface ITagProps extends IHeaderProps {
+  tag: string;
+  plugins: any[];
+}
+
+const Tag = (props: ITagProps) => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
@@ -18,7 +24,7 @@ const Tag = (props) => {
 
   return (
     <div>
-      <Header />
+      <Header {...props} />
       <div>
         <AppNavbar current={`tag:${props.tag}`}>
           <Navbar.Link
@@ -76,9 +82,20 @@ export const getStaticProps = async ({ params }) => {
           .includes(params.slug)
       : false
   );
+    
+  const title = `All ${params.slug} Obsidian Plugins.`;
+  const description = `Find all ${params.slug} Obsidian plugins. ${pluginsWithTag.sort((a, b)=> b.score - a.score).map((plugin) => plugin.name).join(', ')}`;
+  const canonical = "https://obsidian-plugin-stats.ganesshkumar.com/tags/" + params.slug;
+  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png";
+  const jsonLdSchema = JsonLdSchema.getTagPageSchema(pluginsWithTag, title, description, canonical, image);
 
   return {
     props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
       tag: params.slug,
       plugins: pluginsWithTag,
     },

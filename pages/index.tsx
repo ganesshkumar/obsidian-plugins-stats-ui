@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Header from '../components/Header';
+import Header, { IHeaderProps } from '../components/Header';
 import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
 
@@ -31,8 +31,9 @@ import { Highlights } from '../components/home/Highlights';
 import { SubstackNewsletter } from '../components/home/SubstackNewsletter';
 import { MostDownloadedPlugins } from '../components/home/MostDownloaded';
 import { SiteData } from '../data/siteData';
+import { JsonLdSchema } from '../lib/jsonLdSchema';
 
-interface IHomeProps {
+interface IHomeProps extends IHeaderProps {
   newPlugins: Plugin[];
   newPluginsCount: number;
   totalPluginsCount: number;
@@ -50,7 +51,7 @@ const Home = (props: IHomeProps) => {
 
   return (
     <div className="relative">
-      <Header current="home" />
+      <Header {...props} />
       <Navbar current="home" />
 
       <div className="bg-gray-50 lg:py-10 bg-[url('/images/confetti-doodles.svg')]">
@@ -341,8 +342,19 @@ export const getStaticProps = async () => {
   const newPluginsCount = newPlugins.length;
   const newReleasesCount = newReleases.length;
 
+  const title = "Explore New, Updated, Trending, Most Downloaded, and Top Rated Obsidian Plugins"
+  const description = "Discover all Obsidian plugins with the latest updates, trending plugins, and the most downloaded ones. Stay informed about the best plugins to enhance your Obsidian experience."
+  const canonical = "https://obsidian-plugin-stats.ganesshkumar.com"
+  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+  const jsonLdSchema = JsonLdSchema.getHomePageSchema()
+
   return {
     props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
       newPlugins,
       newPluginsCount,
       totalPluginsCount,
