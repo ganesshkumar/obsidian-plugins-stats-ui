@@ -2,22 +2,12 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { Post } from './abstractions';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 const postsJsxDirectory = path.join(process.cwd(), 'pages', 'posts');
 
-interface PostData {
-  id: string;
-  title: string;
-  publishedDate: string;
-  modifiedDate: string;
-  description?: string;
-  contentHtml?: string;
-  content: string;
-  plugins?: string[];
-}
-
-export function getSortedPostsData(): PostData[] {
+export function getSortedPostsData(): Post[] {
   const fileNames = fs.readdirSync(postsDirectory);
 
   const allPostsData = fileNames.map((fileName) => {
@@ -29,7 +19,7 @@ export function getSortedPostsData(): PostData[] {
     return {
       id,
       ...matterResult.data,
-    } as PostData;
+    } as Post;
   });
 
   return allPostsData.sort(
@@ -38,7 +28,7 @@ export function getSortedPostsData(): PostData[] {
   );
 }
 
-export function getPostData(id: string): PostData {
+export function getPostData(id: string): Post {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const matterResult = matter(fileContents);
@@ -47,7 +37,7 @@ export function getPostData(id: string): PostData {
     id,
     content: matterResult.content,
     ...matterResult.data,
-  } as PostData;
+  } as Post;
 }
 
 export function getAllPostIds() {

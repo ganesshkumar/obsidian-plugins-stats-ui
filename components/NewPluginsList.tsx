@@ -46,8 +46,10 @@ const Plugin = (props) => {
   const { plugin, idx, pad, favorites, setFavorites, showDownloadStat } = props;
   return (
     <List.Item className="!mt-0 py-3 px-2 w-full hover:bg-slate-50">
-      <div className="flex items-start space-x-4 rtl:space-x-reverse">
-        <div className="text-xl">{String(idx).padStart(pad, '0')}.</div>
+      <div className="flex flex-col md:flex-row items-start space-x-4 rtl:space-x-reverse">
+        <div className="text-xl ml-4 md:ml-0">
+          {String(idx).padStart(pad, '0')}.
+        </div>
         <MemoizedUnindexedPlugin
           plugin={plugin}
           favorites={favorites}
@@ -106,7 +108,7 @@ const UnindexedPlugin = (props) => {
               </div>
             )}
             {plugin.aiTags && (
-              <div className="flex gap-x-2 text-gray-700 cursor-pointer">
+              <div className="flex flex-wrap gap-x-2 text-gray-700 cursor-pointer">
                 {plugin.aiTags &&
                   plugin.aiTags?.split(',').map((tag) => (
                     <Link

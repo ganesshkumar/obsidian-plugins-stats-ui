@@ -136,7 +136,7 @@ const UnindexedPluginListItem = (props) => {
               </div>
             )}
             {plugin.aiTags && (
-              <div className="flex gap-x-2 text-gray-700 cursor-pointer">
+              <div className="flex flex-wrap gap-x-2 text-gray-700 cursor-pointer">
                 {plugin.aiTags &&
                   plugin.aiTags?.split(',').map((tag) => (
                     <Link

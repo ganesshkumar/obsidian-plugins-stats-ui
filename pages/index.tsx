@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
-import { PrismaClient } from '@prisma/client';
+import { Plugin, PrismaClient } from '@prisma/client';
 import moment from 'moment';
 import showdown from 'showdown';
 import PluginEcosystemStats from '../components/PluginEcosystemStats';
@@ -26,77 +26,40 @@ import { setupFavorites } from '../utils/favorites';
 import CardAnnotations from '../components/CardAnnotations';
 import Divider from '../components/Divider';
 import { getSortedPostsData } from '../lib/posts';
-import { Calendar, Star, List } from 'react-feather';
+import { Post } from '../lib/abstractions';
+import { LatestPosts } from '../components/post/LatestPosts';
+import { CustomTheme, ComponentTheme } from '../lib/customThemes';
+import { Highlights } from '../components/home/Highlights';
+import { SubstackNewsletter } from '../components/home/SubstackNewsletter';
+import { MostDownloadedPlugins } from '../components/home/MostDownloaded';
+import { SiteData } from '../data/siteData';
 
-const customCardTheme: CustomFlowbiteTheme['card'] = {
-  root: {
-    children: 'flex h-full flex-col justify-center gap-0 p-4',
-  },
-};
+interface IHomeProps {
+  newPlugins: Plugin[];
+  newPluginsCount: number;
+  totalPluginsCount: number;
+  newReleases: Plugin[];
+  newReleasesCount: number;
+  mostDownloaded: Plugin[];
+  totalTagsCount: number;
+  trendingPlugins: Plugin[];
+  newPosts: Post[];
+}
 
-const mostDownloadedCardTheme: CustomFlowbiteTheme['card'] = {
-  root: {
-    children: 'flex h-full justify-center gap-0',
-  },
-};
-
-const Home = (props) => {
+const Home = (props: IHomeProps) => {
   const mdConverter = new showdown.Converter();
   mdConverter.setFlavor('github');
 
   return (
     <div className="relative">
       <Header current="home" />
-      <div>
-        <Navbar current="home" />
-      </div>
+      <Navbar current="home" />
 
       <div className="bg-gray-50 lg:py-10 bg-[url('/images/confetti-doodles.svg')]">
         <PluginEcosystemStats {...props} />
       </div>
 
-      <div className="bg-transparent mt-16">
-        <Card className="max-w-6xl mx-auto px-4 bg-gradient-to-br from-violet-200 via-purple-300 to-rose-200">
-          <div className="text-center text-4xl font-bold">
-            Obsidian Plugin - Wrapped 2024
-          </div>
-
-          <div className="flex justify-center gap-x-12">
-            <div className="w-1/4">
-              <Image
-                src="/logo-512-removebg-preview.png"
-                alt="logo"
-                width={96}
-                height={96}
-              />
-            </div>
-            <div>
-              2024 has been a monumental year for the Obsidian community, with
-              over 750+ newly releaased plugins now shaping how we create,
-              organize, and think. These incredible tools are a testament to the
-              hard work, creativity, and meticulous care of our dedicated
-              developers. Let’s take a moment to celebrate their passion and the
-              transformative impact they've had on our workflows—this is your
-              achievement! 🎉
-            </div>
-          </div>
-          <div className="flex justify-center">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              className="grid content-center"
-            >
-              <Link
-                className="text-center bg-gray-800 rounded text-white px-4 py-2"
-                href="/posts/2024-12-07-wrapped-2024"
-              >
-                See Wrapped 2024
-              </Link>
-            </motion.div>
-          </div>
-        </Card>
-      </div>
-
+      <Highlights highlights={SiteData.highlights} />
       <NewPluginsSection newPlugins={props.newPlugins} />
       <Divider />
       <FavPluginUpdates newReleases={props.newReleases} />
@@ -104,83 +67,10 @@ const Home = (props) => {
       <Divider />
       <NewVersionsSection newReleases={props.newReleases} />
       <Divider />
-      <NewPosts posts={props.newPosts} />
-
-      <div className="bg-transparent mt-32">
-        <div className="max-w-6xl mx-auto px-2 flex flex-col rounded bg-gradient-to-r from-violet-600 to-fuchsia-800">
-          <div className="flex flex-col justify-center items-center my-12 ">
-            <div className="text-center px-8 text-2xl font-bold text-white">
-              Subscribe to our newsletter
-              <br />
-              to get weekly updates about new plugins and plugin updates
-            </div>
-          </div>
-          <div className="flex justify-center mb-12">
-            <iframe
-              title="substack-subscribe-form"
-              src="https://obsidianpluginstats.substack.com/embed"
-              width="480"
-              height="320"
-              style={{ background: '#FF0000' }}
-              frameBorder="0"
-              scrolling="no"
-            ></iframe>
-          </div>
-        </div>
-      </div>
-
-      {/* Most Downloaded */}
-      <div className="bg-transparent mt-32">
-        <div className="max-w-6xl mx-auto px-2">
-          <InfoBar title="Most Downloaded" as="h2" />
-          <div>
-            Here are the 25 most downloaded plugins ever since the beginning of
-            Obsidian Editor.
-          </div>
-          <div className="grid grid-cols-1 pt-5 gap-y-2">
-            {props.mostDownloaded.slice(0, 5).map((plugin, index) => {
-              return (
-                <Card
-                  key={plugin.id}
-                  href={`/plugins/${plugin.pluginId}`}
-                  id={`most-downloaded-${index}`}
-                  theme={mostDownloadedCardTheme}
-                >
-                  <div className="flex flex-col w-full md:w-24 justify-center items-center text-5xl bg-violet-50">
-                    {index + 1}
-                  </div>
-                  <div className="flex flex-col md:flex-row items-center gap-x-2 my-4 rounded-tr-md grow pl-8">
-                    <div className="text-xl uppercase tracking-wide text-violet-900 text-left">
-                      {plugin.name}
-                    </div>
-                    <div className="text-lg text-center">
-                      by <span className="">{plugin.author}</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col w-full md:w-48 justify-start text-violet-900 items-center bg-violet-900 py-1 px-12">
-                    <div className="text-3xl text-gray-100">
-                      {plugin.totalDownloads.toLocaleString('en-US')}
-                    </div>
-                    <div className="text-lg text-gray-100">downloads</div>
-                  </div>
-                </Card>
-              );
-            })}
-            <Link
-              href="/most-downloaded"
-              passHref
-              className="text-xl font-medium mt-5 text-left tracking-wide text-violet-900 underline underline-offset-2 cursor-pointer"
-              id="most-downloaded-all"
-            >
-              View top 25 downloaded plugins ⟶
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto my-4">
-        <HR.Trimmed />
-      </div>
+      <LatestPosts posts={props.newPosts} />
+      <SubstackNewsletter />
+      <MostDownloadedPlugins plugins={props.mostDownloaded} />
+      <Divider />
 
       {/* FAQ */}
       <div className="bg-transparent">
@@ -214,16 +104,12 @@ const NewPluginsSection = ({ newPlugins }) => {
             return (
               <Card
                 ref={ref}
-                theme={customCardTheme}
+                theme={CustomTheme.card}
                 key={plugin.id}
                 href={`/plugins/${plugin.pluginId}`}
                 id={`new-plugin-${idx}`}
                 style={{
-                  transform: isInView
-                    ? 'none'
-                    : idx % 2 === 0
-                      ? 'translateX(-200px)'
-                      : 'translateX(200px)',
+                  transform: isInView ? 'none' : 'translateY(-200px)',
                   opacity: isInView ? 1 : 0,
                   transition:
                     'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
@@ -296,16 +182,12 @@ const NewVersionsSection = ({ newReleases }) => {
             return (
               <Card
                 ref={ref}
-                theme={customCardTheme}
+                theme={CustomTheme.card}
                 key={newRelease.id}
                 href={`/plugins/${newRelease.pluginId}`}
                 id={`plugin-update-${idx}`}
                 style={{
-                  transform: isInView
-                    ? 'none'
-                    : idx % 2 === 0
-                      ? 'translateX(-200px)'
-                      : 'translateX(200px)',
+                  transform: isInView ? 'none' : 'translateY(-200px)',
                   opacity: isInView ? 1 : 0,
                   transition:
                     'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
@@ -423,63 +305,6 @@ const TrendingPlugins = ({ plugins }) => {
         </motion.div>
       </div>
       <LinkButton href="/trending" content={`View all trending plugins ⟶`} />
-    </div>
-  );
-};
-
-const PostIcon = (props) => {
-  if (props.tags && props.tags.includes('weekly-plugin-updates')) {
-    return (
-      <Calendar
-        size={48}
-        className="text-violet-700 p-1 rounded fill-violet-200"
-      />
-    );
-  } else if (props.tags && props.tags.includes('wrapped-yearly-post')) {
-    return (
-      <Star size={48} className="text-yellow-400 p-1 rounded fill-yellow-200" />
-    );
-  } else if (props.tags && props.tags.includes('workflow')) {
-    return (
-      <List size={48} className="text-green-400 p-1 rounded fill-yellow-200" />
-    );
-  } else {
-    return undefined;
-  }
-};
-
-const NewPosts = ({ posts }) => {
-  return (
-    <div className="max-w-6xl mx-auto px-2">
-      <InfoBar title="Latest Posts" as="h2" />
-      <ul className="flex flex-col divide-y mb-4">
-        {posts.map((post) => (
-          <li key={post.id}>
-            <Link
-              href={`/posts/${post.id}`}
-              className="flex justify-between py-4 px-2"
-            >
-              <div className="flex gap-x-2">
-                <div className="grid place-items-start">
-                  <PostIcon tags={post.tags} />
-                </div>
-                <div className="flex flex-col">
-                  <div className="text-xl font-semibold hover:underline text-gray-800">
-                    {post.title}
-                  </div>
-                  <div className="text-medium text-gray-600 flex items-end">
-                    {moment(post.publishedDate).format('MMMM DD, YYYY')}
-                  </div>
-                  {/* <div className="text-medium text-gray-800 mt-4">
-                    {post.excerpt}
-                  </div> */}
-                </div>
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <LinkButton href="/posts" content={`View all posts ⟶`} />
     </div>
   );
 };
