@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
-import { Footer }from '../components/Footer';
+import { Footer } from '../components/Footer';
 
 import { setupFavorites } from '../utils/favorites';
 import { NoFavPlugins } from '../components/FavPluginUpdates';

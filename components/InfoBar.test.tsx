@@ -11,7 +11,9 @@ describe('InfoBar', () => {
   headingLevels.forEach((level) => {
     test(`renders ${level} with correct title`, () => {
       render(<InfoBar title={title} as={level} />);
-      const heading = screen.getByRole('heading', { level: parseInt(level[1]) });
+      const heading = screen.getByRole('heading', {
+        level: parseInt(level[1]),
+      });
       expect(heading).toBeInTheDocument();
       expect(heading).toHaveTextContent(title);
     });

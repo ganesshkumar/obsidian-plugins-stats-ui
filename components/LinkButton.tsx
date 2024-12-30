@@ -28,4 +28,3 @@ export const LinkButton = (props: LinkButtonProps) => {
     </Link>
   );
 };
-

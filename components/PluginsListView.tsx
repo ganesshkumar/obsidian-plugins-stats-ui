@@ -8,17 +8,21 @@ import { Download, List as ListIcon, Table as TableIcon } from 'react-feather';
 import { getDescription } from '../utils/plugins';
 import { LinkButton } from './LinkButton';
 import { Score } from './Score';
+import { Plugin } from '@prisma/client';
 
-const NewPluginsList = ({
+interface IPluginsListViewProps {
+  plugins: Plugin[];
+  favorites: string[];
+  setFavorites: (favorites: string[]) => void;
+  showDownloadStat?: boolean;
+}
+
+export const PluginsListView = ({
   plugins,
   favorites,
   setFavorites,
   showDownloadStat = false,
-  showLatestRelease = false,
-  displayDate = (plugin) => plugin.createdAt,
-  showChangelog = false,
-  showDescription = true,
-}) => {
+}: IPluginsListViewProps) => {
   const pad = plugins.length.toString().length;
   return (
     <div className="flex-col stripped">
@@ -27,7 +31,7 @@ const NewPluginsList = ({
         className="w-full divide-y divide-gray-200 dark:divide-gray-700"
       >
         {plugins.map((plugin, idx) => (
-          <Plugin
+          <PluginView
             idx={idx + 1}
             pad={pad}
             key={plugin.pluginId}
@@ -42,7 +46,7 @@ const NewPluginsList = ({
   );
 };
 
-const Plugin = (props) => {
+const PluginView = (props) => {
   const { plugin, idx, pad, favorites, setFavorites, showDownloadStat } = props;
   return (
     <List.Item className="!mt-0 py-3 px-2 w-full hover:bg-slate-50">
@@ -135,5 +139,3 @@ const UnindexedPlugin = (props) => {
 };
 
 const MemoizedUnindexedPlugin = memo(UnindexedPlugin);
-
-export default NewPluginsList;

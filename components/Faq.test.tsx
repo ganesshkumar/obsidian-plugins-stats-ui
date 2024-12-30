@@ -10,7 +10,8 @@ const mockFaqs = [
   },
   {
     question: 'How do I track my order?',
-    answer: 'You can track your order using the tracking number provided in your order confirmation email.',
+    answer:
+      'You can track your order using the tracking number provided in your order confirmation email.',
   },
 ];
 

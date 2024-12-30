@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import Navbar from '../../components/Navbar';
 import moment from 'moment';
 import InfoBar from '../../components/InfoBar';
-import { Footer }from '../../components/Footer';
+import { Footer } from '../../components/Footer';
 import { PostIcon } from '../../components/post/PostIcon';
 
 interface Post {

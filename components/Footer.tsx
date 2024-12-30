@@ -28,16 +28,25 @@ export const Footer = () => {
             <div>
               <FlowbiteFooter.Title className="text-gray-900" title="Plugins" />
               <FlowbiteFooter.LinkGroup col>
-                <FlowbiteFooter.Link className={footerLinkClass} href="/plugins">
+                <FlowbiteFooter.Link
+                  className={footerLinkClass}
+                  href="/plugins"
+                >
                   All Plugins
                 </FlowbiteFooter.Link>
                 <FlowbiteFooter.Link className={footerLinkClass} href="/new">
                   New Plugins
                 </FlowbiteFooter.Link>
-                <FlowbiteFooter.Link className={footerLinkClass} href="/updates">
+                <FlowbiteFooter.Link
+                  className={footerLinkClass}
+                  href="/updates"
+                >
                   Latest Updates
                 </FlowbiteFooter.Link>
-                <FlowbiteFooter.Link className={footerLinkClass} href="/favorites">
+                <FlowbiteFooter.Link
+                  className={footerLinkClass}
+                  href="/favorites"
+                >
                   Favorite Plugins
                 </FlowbiteFooter.Link>
                 <FlowbiteFooter.Link
@@ -46,7 +55,10 @@ export const Footer = () => {
                 >
                   Most Downloaded
                 </FlowbiteFooter.Link>
-                <FlowbiteFooter.Link className={footerLinkClass} href="/trending">
+                <FlowbiteFooter.Link
+                  className={footerLinkClass}
+                  href="/trending"
+                >
                   Trending Plugins
                 </FlowbiteFooter.Link>
                 <FlowbiteFooter.Link className={footerLinkClass} href="/tags">
@@ -68,7 +80,7 @@ export const Footer = () => {
         <div className="w-full items-center justify-between">
           <div className="text-sm text-gray-900 text-center">
             © 2022-{new Date().getFullYear()}{' '}
-            <a href="/" className="hover:underline" role='link'>
+            <a href="/" className="hover:underline" role="link">
               Obsidian Plugin Stats
             </a>
             . All rights reserved.

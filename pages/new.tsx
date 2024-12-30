@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/HeaderNew';
 import Navbar from '../components/Navbar';
 
-import { Footer }from '../components/Footer';
+import { Footer } from '../components/Footer';
 import { setupFavorites } from '../utils/favorites';
 import { daysAgo } from '../utils/datetime';
 import InfoBar from '../components/InfoBar';

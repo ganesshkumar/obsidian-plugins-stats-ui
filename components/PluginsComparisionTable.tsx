@@ -9,7 +9,7 @@ const customTheme: CustomFlowbiteTheme['table'] = {
   },
 };
 
-const PluginsComparisionTable = ({ plugins }) => {
+export const PluginsComparisionTable = ({ plugins }) => {
   return (
     <div className="flex-col stripped overflow-x-auto relative">
       <Table striped className="overflow-x-auto" theme={customTheme}>
@@ -69,7 +69,7 @@ const PluginsComparisionTable = ({ plugins }) => {
                       className="bg-gray-100 px-2 rounded-md"
                       key={`${plugin.id}-${t}`}
                     >
-                      #{t}
+                      #{t.trim()}
                     </span>
                   ))}
                 </div>
@@ -113,5 +113,3 @@ const PluginsComparisionTable = ({ plugins }) => {
     </div>
   );
 };
-
-export default PluginsComparisionTable;

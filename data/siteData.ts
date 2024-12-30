@@ -52,5 +52,5 @@ export const SiteData = {
       answer:
         'If you question is not answered, please open an issue in the GitHub repository (https://github.com/ganesshkumar/obsidian-plugins-stats-ui). We would be happy to answer it for you!',
     } as Faq,
-  ]
+  ],
 };

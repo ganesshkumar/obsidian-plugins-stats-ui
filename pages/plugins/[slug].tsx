@@ -5,10 +5,10 @@ import AppNavbar from '../../components/Navbar';
 import Link from 'next/link';
 import moment, { max } from 'moment';
 import showdown from 'showdown';
-import { Footer }from '../../components/Footer';
+import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
-import NewPluginCard from '../../components/NewPluginCard';
+import PluginCard from '../../components/PluginCard';
 import { getDescription, sanitizeTag, tagDenyList } from '../../utils/plugins';
 import { isNotXDaysOld } from '../../utils/datetime';
 
@@ -494,7 +494,7 @@ const Plugin = (props) => {
               </details>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 {props.similarPlugins.map((plugin) => (
-                  <NewPluginCard
+                  <PluginCard
                     key={plugin.pluginId}
                     plugin={plugin}
                     isFavorite={favorites.includes(plugin.pluginId)}

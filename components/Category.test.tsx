@@ -16,7 +16,10 @@ describe('CategoryIcon', () => {
     { name: 'Privacy & Security', testId: 'privacy-security-icon' },
     { name: 'Customization & UI', testId: 'customization-ui-icon' },
     { name: 'Collaboration & Sharing', testId: 'collaboration-sharing-icon' },
-    { name: 'Learning & Knowledge Management', testId: 'learning-knowledge-management-icon' },
+    {
+      name: 'Learning & Knowledge Management',
+      testId: 'learning-knowledge-management-icon',
+    },
     { name: 'Miscellaneous', testId: 'miscellaneous-icon' },
     { name: 'Uncategorized', testId: 'uncategorized-icon' },
     { name: 'Unknown', testId: 'default-icon' },
@@ -25,7 +28,7 @@ describe('CategoryIcon', () => {
   categories.forEach(({ name, testId }) => {
     test(`renders correct icon for ${name}`, () => {
       render(<CategoryIcon category={name} size={48} />);
-      const icon = screen.queryByTestId(testId)
+      const icon = screen.queryByTestId(testId);
       expect(icon).toBeInTheDocument();
       expect(icon).toHaveAttribute('width', '48');
       expect(icon).toHaveAttribute('height', '48');

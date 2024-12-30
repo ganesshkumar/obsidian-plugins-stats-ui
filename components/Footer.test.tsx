@@ -1,18 +1,20 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { AppFooter } from './Footer';
+import { Footer } from './Footer';
 
 describe('AppFooter', () => {
   test('renders footer brand', () => {
-    render(<AppFooter />);
-    const brandLink = screen.getByRole('link', { name: "Obsidian Plugin Stats" });
+    render(<Footer />);
+    const brandLink = screen.getByRole('link', {
+      name: 'Obsidian Plugin Stats',
+    });
     expect(brandLink).toBeInTheDocument();
     expect(brandLink).toHaveAttribute('href', '/');
   });
 
   test('renders plugin links', () => {
-    render(<AppFooter />);
+    render(<Footer />);
     const pluginLinks = [
       { name: 'All Plugins', href: '/plugins' },
       { name: 'New Plugins', href: '/new' },
@@ -31,10 +33,9 @@ describe('AppFooter', () => {
   });
 
   test('renders post links', () => {
-    render(<AppFooter />);
+    render(<Footer />);
     const postLink = screen.getByRole('link', { name: 'All Posts' });
     expect(postLink).toBeInTheDocument();
     expect(postLink).toHaveAttribute('href', '/posts');
   });
-  
 });

@@ -2,23 +2,13 @@ import { Modal, Table, Tooltip } from 'flowbite-react';
 import moment from 'moment';
 import { useState } from 'react';
 import { Info } from 'react-feather';
+import { getScoreTextClass } from '../lib/customThemes';
 
 export const Score = (props) => {
   const { plugin } = props;
   const [openScoreModal, setOpenScoreModal] = useState(false);
 
-  let scoreClass = '';
-  if (plugin.score > 0.8) {
-    scoreClass = 'text-emerald-500';
-  } else if (plugin.score > 0.6) {
-    scoreClass = 'text-lime-500';
-  } else if (plugin.score > 0.4) {
-    scoreClass = 'text-yellow-500';
-  } else if (plugin.score > 0.2) {
-    scoreClass = 'text-amber-500';
-  } else {
-    scoreClass = 'text-red-500';
-  }
+  const scoreClass = getScoreTextClass(plugin.score);
 
   const reasonMap = {};
   plugin.scoreReason.split('\n').forEach((reason) => {

@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import moment from 'moment';
 import Favorites from './Favorites';
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import { VList } from 'virtua';
 import { getDescription } from '../utils/plugins';
 import { CategoryIcon } from './Category';
 import { Score } from './Score';
-import { Button } from 'flowbite-react';
-import { List as ListIcon, Table as TableIcon } from 'react-feather';
+import { getScoreBgClass } from '../lib/customThemes';
+import { Plugin } from '@prisma/client';
 
 const highlightMatch = (name, query) => {
   if (!name || !query) return name;
@@ -24,32 +24,45 @@ const highlightMatch = (name, query) => {
   );
 };
 
-const AllPluginsList = ({
+interface IAllPluginsMultiViewProps {
+  plugins: Plugin[];
+  favorites: string[];
+  setFavorites: (favorites: string[]) => void;
+  highlight: string;
+  view: string;
+}
+
+export const AllPluginsMultiView = ({
   plugins,
   favorites,
   setFavorites,
   highlight,
   view,
-  setView,
-}) => {
+}: IAllPluginsMultiViewProps) => {
   return (
     <div className="flex-col grow relative">
       {view === 'list' && plugins && plugins.length ? (
-        <VList style={{ height: '100%' }}>
-          {plugins.map((plugin, index) => (
-            <MemoizedUnindexedPluginListItem
-              key={plugin.pluginId}
-              plugin={plugins[index]}
-              index={index}
-              favorites={favorites}
-              setFavorites={setFavorites}
-              highlight={highlight}
-            />
-          ))}
-        </VList>
+        <div data-testid="plugins-list">
+          <VList style={{ height: '100%' }}>
+            {plugins.map((plugin, index) => (
+              <PluginListItem
+                key={plugin.pluginId}
+                plugin={plugins[index]}
+                index={index}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                highlight={highlight}
+              />
+            ))}
+          </VList>
+        </div>
       ) : undefined}
       {view === 'table' && plugins && plugins.length ? (
-        <div key="header" className="grid grid-cols-12 gap-1">
+        <div
+          key="header"
+          className="grid grid-cols-12 gap-1"
+          data-testid="plugins-table-header"
+        >
           <div
             key="plugin-name"
             className="uppercase font-semibold text-gray-600 col-span-8 md:col-span-3"
@@ -77,26 +90,28 @@ const AllPluginsList = ({
         </div>
       ) : undefined}
       {view === 'table' && plugins && plugins.length ? (
-        <VList style={{ height: '100%' }} className="relative">
-          {plugins.map((plugin, index) => (
-            <MemoizedUnindexedPluginTableItem
-              key={plugin.pluginId}
-              plugin={plugins[index]}
-              index={index}
-              favorites={favorites}
-              setFavorites={setFavorites}
-              highlight={highlight}
-              showDescription={true}
-              showDownloadStat={false}
-            />
-          ))}
-        </VList>
+        <div data-testid="plugins-table">
+          <VList style={{ height: '100%' }} className="relative">
+            {plugins.map((plugin, index) => (
+              <PluginTableItem
+                key={plugin.pluginId}
+                plugin={plugins[index]}
+                index={index}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                highlight={highlight}
+                showDescription={true}
+                showDownloadStat={false}
+              />
+            ))}
+          </VList>
+        </div>
       ) : undefined}
     </div>
   );
 };
 
-const UnindexedPluginListItem = (props) => {
+const UnindexedPluginListItemInternal = (props) => {
   const { plugin, favorites, setFavorites, index, highlight } = props;
   return (
     <div
@@ -168,25 +183,9 @@ const UnindexedPluginListItem = (props) => {
   );
 };
 
-const MemoizedUnindexedPluginListItem = memo(UnindexedPluginListItem);
+const PluginListItem = memo(UnindexedPluginListItemInternal);
 
-const getScoreBgClass = (score) => {
-  let scoreClass = '';
-  if (score > 0.8) {
-    scoreClass = 'bg-emerald-500 text-white rounded-full p-1';
-  } else if (score > 0.6) {
-    scoreClass = 'bg-lime-500 text-white rounded-full p-1';
-  } else if (score > 0.4) {
-    scoreClass = 'bg-yellow-500 text-white rounded-full p-1';
-  } else if (score > 0.2) {
-    scoreClass = 'bg-amber-500 text-white rounded-full p-1';
-  } else {
-    scoreClass = 'bg-red-500 text-white rounded-full p-1';
-  }
-  return scoreClass;
-};
-
-const UnindexedPluginTableItem = (props) => {
+const UnindexedPluginTableItemInternal = (props) => {
   const { plugin, index, highlight } = props;
   return (
     <div
@@ -226,6 +225,4 @@ const UnindexedPluginTableItem = (props) => {
   );
 };
 
-const MemoizedUnindexedPluginTableItem = memo(UnindexedPluginTableItem);
-
-export default AllPluginsList;
+const PluginTableItem = memo(UnindexedPluginTableItemInternal);

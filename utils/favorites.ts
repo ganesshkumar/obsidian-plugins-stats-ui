@@ -14,7 +14,9 @@ export const setFavorite = (pluginId, setFavorites) => {
 
 export const unsetFavorite = (pluginId, setFavorites) => {
   const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  favorites.splice(favorites.indexOf(pluginId), 1);
-  localStorage.setItem('favorites', JSON.stringify(favorites));
-  setFavorites(favorites);
+  if (favorites.includes(pluginId)) {
+    favorites.splice(favorites.indexOf(pluginId), 1);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    setFavorites(favorites);
+  }
 };

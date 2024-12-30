@@ -6,7 +6,7 @@ interface IFaqProps {
   faqs: Faq[];
 }
 
-const Faqs = ({faqs}: IFaqProps) => {
+const Faqs = ({ faqs }: IFaqProps) => {
   return (
     <div className="w-auto">
       <Accordion>

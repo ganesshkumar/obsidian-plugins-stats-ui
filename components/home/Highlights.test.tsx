@@ -28,7 +28,9 @@ describe('Highlights Component', () => {
     render(<Highlights highlights={[mockHighlights[0]]} />);
     expect(screen.queryByTestId('carousel')).not.toBeInTheDocument();
     expect(screen.getByText('Highlight One')).toBeInTheDocument();
-    expect(screen.getByText('Description for highlight one.')).toBeInTheDocument();
+    expect(
+      screen.getByText('Description for highlight one.')
+    ).toBeInTheDocument();
     expect(screen.getByText('Read More')).toBeInTheDocument();
   });
 
@@ -36,8 +38,12 @@ describe('Highlights Component', () => {
     render(<Highlights highlights={mockHighlights} />);
     expect(screen.getByTestId('carousel')).toBeInTheDocument();
     expect(screen.getByText('Highlight One')).toBeInTheDocument();
-    expect(screen.getByText('Description for highlight one.')).toBeInTheDocument();
+    expect(
+      screen.getByText('Description for highlight one.')
+    ).toBeInTheDocument();
     expect(screen.getByText('Highlight Two')).toBeInTheDocument();
-    expect(screen.getByText('Description for highlight two.')).toBeInTheDocument();
+    expect(
+      screen.getByText('Description for highlight two.')
+    ).toBeInTheDocument();
   });
 });

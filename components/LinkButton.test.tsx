@@ -9,7 +9,9 @@ describe('LinkButton', () => {
     const linkButton = screen.getByRole('link', { name: 'Test Button' });
     expect(linkButton).toBeInTheDocument();
     expect(linkButton).toHaveAttribute('href', '/test');
-    expect(linkButton).toHaveClass('font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center');
+    expect(linkButton).toHaveClass(
+      'font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center'
+    );
   });
 
   test('renders LinkButton with small size', () => {
@@ -17,7 +19,9 @@ describe('LinkButton', () => {
     const linkButton = screen.getByRole('link', { name: 'Test Button' });
     expect(linkButton).toBeInTheDocument();
     expect(linkButton).toHaveAttribute('href', '/test');
-    expect(linkButton).toHaveClass('font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center text-sm');
+    expect(linkButton).toHaveClass(
+      'font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center text-sm'
+    );
   });
 
   test('passes additional props to LinkButton', () => {

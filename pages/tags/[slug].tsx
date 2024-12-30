@@ -3,7 +3,7 @@ import Header from '../../components/Header';
 import AppNavbar from '../../components/Navbar';
 
 import { setupFavorites } from '../../utils/favorites';
-import { Footer }from '../../components/Footer';
+import { Footer } from '../../components/Footer';
 import { Navbar } from 'flowbite-react';
 import { sanitizeTag } from '../../utils/plugins';
 import { PluginsCache } from '../../cache/plugins-cache';

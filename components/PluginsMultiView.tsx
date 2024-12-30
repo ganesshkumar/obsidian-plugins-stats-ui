@@ -1,29 +1,12 @@
-import { CustomFlowbiteTheme, Tabs } from 'flowbite-react';
 import { List as ListIcon, Table as TableIcon } from 'react-feather';
-import NewPluginsList from './NewPluginsList';
+import { PluginsListView } from './PluginsListView';
 import { PluginsTableView } from './PluginsTableView';
-
-const customTheme: CustomFlowbiteTheme['tabs'] = {
-  tablist: {
-    tabitem: {
-      variant: {
-        default: {
-          active: {
-            on: 'bg-gray-100 text-violet-600 dark:bg-gray-800 dark:text-violet-500',
-          },
-        },
-        underline: {
-          active: {
-            on: 'active rounded-t-lg border-b-2 border-violet-600 text-violet-600 dark:border-violet-500 dark:text-violet-500',
-          },
-        },
-      },
-    },
-  },
-};
+import { CustomTheme } from '../lib/customThemes';
+import { Tabs } from 'flowbite-react';
+import { Plugin } from '@prisma/client';
 
 interface IPluginsMultiViewProps {
-  plugins: any[];
+  plugins: Plugin[];
   favorites: string[];
   setFavorites: (favorites: string[]) => void;
   showDownloads?: boolean;
@@ -37,15 +20,16 @@ export const PluginsMultiView = ({
   setFavorites,
   showDownloads = false,
   showDescription = false,
-  // view = undefined,
-}) => {
+  // view = 'list',
+}: IPluginsMultiViewProps) => {
   return (
     <div className="flex-col stripped">
       {plugins && plugins.length && (
         <div className="mt-4">
-          <Tabs aria-label="View" variant="underline" theme={customTheme}>
+          <Tabs aria-label="View" variant="underline" theme={CustomTheme.tabs}>
             <Tabs.Item active title="List" icon={ListIcon}>
-              <NewPluginsList
+              <PluginsListView
+                data-testid="plugins-list-view"
                 plugins={plugins}
                 favorites={favorites}
                 setFavorites={setFavorites}
@@ -54,6 +38,7 @@ export const PluginsMultiView = ({
             </Tabs.Item>
             <Tabs.Item title="Table" icon={TableIcon}>
               <PluginsTableView
+                data-testid="plugins-table-view"
                 plugins={plugins}
                 showDownloadStat={showDownloads}
                 showDescription={showDescription}

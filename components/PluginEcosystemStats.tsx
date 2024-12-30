@@ -4,7 +4,7 @@ interface IPluginEcosystemStatsProps {
   totalPluginsCount: number;
   newPluginsCount: number;
   newReleasesCount: number;
-};
+}
 
 const PluginEcosystemStats = ({
   totalPluginsCount,

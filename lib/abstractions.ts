@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 export interface Post {
   id: string;
   title: string;

@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar';
 
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
-import { Footer }from '../../components/Footer';
+import { Footer } from '../../components/Footer';
 import { sanitizeTag, tagDenyList } from '../../utils/plugins';
 import { PluginsCache } from '../../cache/plugins-cache';
 import InfoBar from '../../components/InfoBar';

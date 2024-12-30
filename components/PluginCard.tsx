@@ -1,7 +1,13 @@
 import React from 'react';
 import moment from 'moment';
+import { Plugin } from '@prisma/client';
 
-const NewPluginCard = ({ plugin, isFavorite, isTrending, showDescription }) => {
+interface INewPluginProps {
+  plugin: Plugin;
+  showDescription?: boolean;
+}
+
+const PluginCard = ({ plugin, showDescription }: INewPluginProps) => {
   return (
     <a
       key={plugin.id}
@@ -14,7 +20,7 @@ const NewPluginCard = ({ plugin, isFavorite, isTrending, showDescription }) => {
         {plugin.name}
       </div>
       <div className="text-sm">
-        {moment(plugin.createdAt).fromNow()} by{' '}
+        <span>{moment(plugin.createdAt).fromNow()}</span> by{' '}
         <span className="group-hover:text-violet-500">{plugin.author}</span>
       </div>
       {showDescription && (
@@ -24,4 +30,4 @@ const NewPluginCard = ({ plugin, isFavorite, isTrending, showDescription }) => {
   );
 };
 
-export default NewPluginCard;
+export default PluginCard;

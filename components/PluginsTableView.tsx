@@ -1,5 +1,7 @@
 import { CustomFlowbiteTheme, Table } from 'flowbite-react';
 import moment from 'moment';
+import { getScoreBgClass } from '../lib/customThemes';
+import { Plugin } from '@prisma/client';
 
 const customTheme: CustomFlowbiteTheme['table'] = {
   root: {
@@ -7,27 +9,17 @@ const customTheme: CustomFlowbiteTheme['table'] = {
   },
 };
 
-const getScoreBgClass = (score) => {
-  let scoreClass = '';
-  if (score > 0.8) {
-    scoreClass = 'bg-emerald-500 text-white rounded-full p-1';
-  } else if (score > 0.6) {
-    scoreClass = 'bg-lime-500 text-white rounded-full p-1';
-  } else if (score > 0.4) {
-    scoreClass = 'bg-yellow-500 text-white rounded-full p-1';
-  } else if (score > 0.2) {
-    scoreClass = 'bg-amber-500 text-white rounded-full p-1';
-  } else {
-    scoreClass = 'bg-red-500 text-white rounded-full p-1';
-  }
-  return scoreClass;
-};
+interface IPluginsTableViewProps {
+  plugins: Plugin[];
+  showDownloadStat?: boolean;
+  showDescription?: boolean;
+}
 
 export const PluginsTableView = ({
   plugins,
   showDownloadStat = false,
   showDescription = false,
-}) => {
+}: IPluginsTableViewProps) => {
   return (
     <div className="flex-col stripped relative">
       <Table striped className="" theme={customTheme}>

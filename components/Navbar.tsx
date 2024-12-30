@@ -78,7 +78,7 @@ const NavBar = ({ current, children }: INavbarProps) => {
             </Navbar.Link>
             <li>
               <Dropdown
-                data-testid='dropdown'
+                data-testid="dropdown"
                 inline
                 label={
                   <div className="block font-medium py-2 pl-3 pr-4 md:p-0 text-lg">

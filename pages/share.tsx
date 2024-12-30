@@ -5,14 +5,14 @@ import Header from '../components/HeaderAll';
 import Navbar from '../components/Navbar';
 
 import { useSearchParams } from 'next/navigation';
-import { Footer }from '../components/Footer';
+import { Footer } from '../components/Footer';
 import { setupFavorites } from '../utils/favorites';
 import { Tabs } from 'flowbite-react';
 import { PluginsCache } from '../cache/plugins-cache';
-import NewPluginsList from '../components/NewPluginsList';
+import { PluginsListView } from '../components/PluginsListView';
 import InfoBar from '../components/InfoBar';
 import { List, Table } from 'react-feather';
-import PluginsComparisionTable from '../components/PluginsComparisionTable';
+import { PluginsComparisionTable } from '../components/PluginsComparisionTable';
 
 import { CustomFlowbiteTheme } from 'flowbite-react';
 
@@ -95,7 +95,7 @@ export const PluginsShareView = (props) => {
         <div className="mt-4">
           <Tabs aria-label="View" variant="underline" theme={customTheme}>
             <Tabs.Item active title="List" icon={List}>
-              <NewPluginsList
+              <PluginsListView
                 plugins={plugins}
                 favorites={favorites}
                 setFavorites={setFavorites}

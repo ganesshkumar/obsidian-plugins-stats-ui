@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Header from '../../components/HeaderAll';
 import Navbar from '../../components/Navbar';
 
-import { Footer }from '../../components/Footer';
+import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
-import AllPluginsList from '../../components/AllPluinsList';
+import { AllPluginsMultiView } from '../../components/AllPluginsMultiView';
 import { Button, Checkbox, Dropdown, Label, TextInput } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { List as ListIcon, Table as TableIcon } from 'react-feather';
@@ -391,7 +391,7 @@ const Plugins = (props) => {
                 </Button>
               </Button.Group>
             </div>
-            <AllPluginsList
+            <AllPluginsMultiView
               highlight={filter}
               plugins={filteredPlugins}
               favorites={favorites}

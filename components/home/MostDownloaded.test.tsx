@@ -35,7 +35,7 @@ const mockPlugins: Plugin[] = [
     aiCategories: 'Category One',
     aiTags: 'Tag1, Tag2',
     score: 4.5,
-    scoreReason: 'High quality and popular plugin'
+    scoreReason: 'High quality and popular plugin',
   },
   {
     id: '2',
@@ -67,7 +67,7 @@ const mockPlugins: Plugin[] = [
     aiCategories: 'Category Two',
     aiTags: 'Tag3, Tag4',
     score: 4.0,
-    scoreReason: 'Popular and well-maintained plugin'
+    scoreReason: 'Popular and well-maintained plugin',
   },
   {
     id: '3',
@@ -99,7 +99,7 @@ const mockPlugins: Plugin[] = [
     aiCategories: 'Category Three',
     aiTags: 'Tag5, Tag6',
     score: 3.5,
-    scoreReason: 'Good plugin with active development'
+    scoreReason: 'Good plugin with active development',
   },
   {
     id: '4',
@@ -131,7 +131,7 @@ const mockPlugins: Plugin[] = [
     aiCategories: 'Category Four',
     aiTags: 'Tag7, Tag8',
     score: 3.0,
-    scoreReason: 'Stable plugin with consistent updates'
+    scoreReason: 'Stable plugin with consistent updates',
   },
   {
     id: '5',
@@ -163,8 +163,8 @@ const mockPlugins: Plugin[] = [
     aiCategories: 'Category Five',
     aiTags: 'Tag9, Tag10',
     score: 2.5,
-    scoreReason: 'New plugin with potential'
-  }
+    scoreReason: 'New plugin with potential',
+  },
 ];
 
 describe('MostDownloadedPlugins Component', () => {
