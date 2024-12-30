@@ -18,9 +18,10 @@ const Header = ({
   current,
   jsonLdSchema,
 }: IHeaderProps) => {
+  console.log(title)
   return (
     <Head>
-      <title> {title} </title>
+      <title>{title}</title>
       <link rel="icon" href="/favicon-64.png" />
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
@@ -37,7 +38,7 @@ const Header = ({
       <meta name="twitter:image" content={image} />
       <meta name="twitter:site" content="@ganesshkumar" />
       {/* JSON-LD Schema */}
-      {current && jsonLdSchema (
+      {jsonLdSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       )}
