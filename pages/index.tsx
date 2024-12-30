@@ -3,32 +3,30 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { Footer }from '../components/Footer';
 
-import { Plugin, PrismaClient } from '@prisma/client';
+import { Plugin } from '@prisma/client';
 import moment from 'moment';
 import showdown from 'showdown';
 import PluginEcosystemStats from '../components/PluginEcosystemStats';
 import InfoBar from '../components/InfoBar';
 import { daysAgo } from '../utils/datetime';
-import Link from 'next/link';
-import Faq from '../components/Faq';
-import { Card, CustomFlowbiteTheme, HR } from 'flowbite-react';
+import Faqs from '../components/Faq';
+import { Card } from 'flowbite-react';
 import FavPluginUpdates from '../components/FavPluginUpdates';
 import { CategoryIcon } from '../components/Category';
 
 import { motion, useAnimationFrame, useInView } from 'framer-motion';
-import Image from 'next/image';
-import LinkButton from '../components/LinkButton';
+import { LinkButton } from '../components/LinkButton';
 import { PluginsCache } from '../cache/plugins-cache';
-import { sanitizeTag, tagDenyList } from '../utils/plugins';
+import { sanitizeTag } from '../utils/plugins';
 import { setupFavorites } from '../utils/favorites';
 import CardAnnotations from '../components/CardAnnotations';
 import Divider from '../components/Divider';
 import { getSortedPostsData } from '../lib/posts';
 import { Post } from '../lib/abstractions';
 import { LatestPosts } from '../components/post/LatestPosts';
-import { CustomTheme, ComponentTheme } from '../lib/customThemes';
+import { CustomTheme } from '../lib/customThemes';
 import { Highlights } from '../components/home/Highlights';
 import { SubstackNewsletter } from '../components/home/SubstackNewsletter';
 import { MostDownloadedPlugins } from '../components/home/MostDownloaded';
@@ -77,7 +75,7 @@ const Home = (props: IHomeProps) => {
         <div className="max-w-6xl mx-auto px-2">
           <InfoBar title="FAQ for plugin developers" as="h2" />
           <div className="mt-4">
-            <Faq />
+            <Faqs faqs={SiteData.faqs} />
           </div>
         </div>
       </div>

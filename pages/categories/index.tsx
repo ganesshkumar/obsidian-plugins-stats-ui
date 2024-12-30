@@ -4,10 +4,10 @@ import Navbar from '../../components/Navbar';
 
 import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
-import Footer from '../../components/Footer';
+import { Footer }from '../../components/Footer';
 import InfoBar from '../../components/InfoBar';
 import { CategoryIcon } from '../../components/Category';
-import LinkButton from '../../components/LinkButton';
+import { LinkButton } from '../../components/LinkButton';
 import { Card } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 

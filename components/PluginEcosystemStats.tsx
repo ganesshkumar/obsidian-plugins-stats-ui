@@ -1,11 +1,16 @@
 import { Card } from 'flowbite-react';
 
+interface IPluginEcosystemStatsProps {
+  totalPluginsCount: number;
+  newPluginsCount: number;
+  newReleasesCount: number;
+};
+
 const PluginEcosystemStats = ({
   totalPluginsCount,
   newPluginsCount,
   newReleasesCount,
-  totalTagsCount,
-}) => {
+}: IPluginEcosystemStatsProps) => {
   return (
     <section className="max-w-6xl mx-auto text-gray-800 py-8">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 mx-2">

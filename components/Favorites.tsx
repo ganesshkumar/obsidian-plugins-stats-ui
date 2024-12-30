@@ -10,7 +10,7 @@ const Favorites = ({ isFavorite, plugin, setFavorites }) => {
     process.env.hostname ||
     process.env.VERCEL_URL ||
     process.env.NODE_ENV === 'production'
-      ? 'https://obsidian-plugin-stats.ganesshkumar.app'
+      ? 'https://obsidian-plugin-stats.ganesshkumar.com'
       : 'http://localhost:4000';
 
   const shareClicked = () => {

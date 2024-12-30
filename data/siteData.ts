@@ -1,4 +1,4 @@
-import { Highlight } from '../lib/abstractions';
+import { Faq, Highlight } from '../lib/abstractions';
 
 export const SiteData = {
   highlights: [
@@ -21,4 +21,36 @@ export const SiteData = {
       bgClasses: 'bg-gradient-to-br from-fuchsia-400 to-purple-400 text-black',
     } as Highlight,
   ],
+  faqs: [
+    {
+      question: '1. What is the source of plugin list?',
+      answer:
+        'The list of plugins are obtained by parsing the `community-plugins.json` file from `obsidianmd/obsidian-releases` GitHub repository.',
+    } as Faq,
+    {
+      question: '2. What is the source of plugin description?',
+      answer:
+        'The description of the plugin is populated from the content corresponding to the plugin as found in `community-plugins.json` file.',
+    } as Faq,
+    {
+      question: '3. What is the source of release changelog?',
+      answer:
+        'The changelog is obtained from the body of release as found in `GET /repos/{repo}/releases` API.',
+    } as Faq,
+    {
+      question: '4. How are tags populated for a plugin?',
+      answer:
+        'The tags are the topics of the GitHub repo, as found in `GET /repos/{repo}` API. To populate this, you can go to the GitHub repo, click open the gear icon in the About section and update the topics.',
+    } as Faq,
+    {
+      question: '5. How are the trending plugins calculated?',
+      answer:
+        'The trending plugins are calculated using the z-score obtained over the daily number of downloads - with a small delay added exponentially for the older records.',
+    } as Faq,
+    {
+      question: '6. Other question?',
+      answer:
+        'If you question is not answered, please open an issue in the GitHub repository (https://github.com/ganesshkumar/obsidian-plugins-stats-ui). We would be happy to answer it for you!',
+    } as Faq,
+  ]
 };

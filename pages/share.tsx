@@ -5,7 +5,7 @@ import Header from '../components/HeaderAll';
 import Navbar from '../components/Navbar';
 
 import { useSearchParams } from 'next/navigation';
-import Footer from '../components/Footer';
+import { Footer }from '../components/Footer';
 import { setupFavorites } from '../utils/favorites';
 import { Tabs } from 'flowbite-react';
 import { PluginsCache } from '../cache/plugins-cache';

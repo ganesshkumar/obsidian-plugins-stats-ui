@@ -1,10 +1,11 @@
 import { Card } from 'flowbite-react';
 import { ComponentTheme } from '../../lib/customThemes';
 import InfoBar from '../InfoBar';
-import LinkButton from '../LinkButton';
+import { LinkButton } from '../LinkButton';
+import { Plugin } from '@prisma/client';
 
 interface IMostDownloadedProps {
-  plugins: any[];
+  plugins: Plugin[];
 }
 
 export const MostDownloadedPlugins = ({ plugins }: IMostDownloadedProps) => {
@@ -34,7 +35,7 @@ export const MostDownloadedPlugins = ({ plugins }: IMostDownloadedProps) => {
                     {plugin.name}
                   </div>
                   <div className="text-lg text-center hidden md:block">
-                    by <span className="">{plugin.author}</span>
+                    by <span>{plugin.author}</span>
                   </div>
                 </div>
                 <div className="w-full md:w-48 justify-start text-violet-900 items-center bg-violet-900 py-1 px-12 hidden md:flex flex-col">

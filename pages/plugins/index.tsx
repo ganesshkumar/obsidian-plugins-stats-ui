@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Header from '../../components/HeaderAll';
 import Navbar from '../../components/Navbar';
 
-import Footer from '../../components/Footer';
+import { Footer }from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import AllPluginsList from '../../components/AllPluinsList';
 import { Button, Checkbox, Dropdown, Label, TextInput } from 'flowbite-react';

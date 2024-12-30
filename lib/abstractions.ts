@@ -19,3 +19,8 @@ export interface Highlight {
   ctaText: string;
   bgClasses: string;
 }
+
+export interface Faq {
+  question: string;
+  answer: string;
+}

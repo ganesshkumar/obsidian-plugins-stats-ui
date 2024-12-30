@@ -40,6 +40,7 @@ export const Score = (props) => {
       <span className="ml-2">
         <Tooltip content="Explain score" className="inline-block">
           <Info
+            data-testid="score-info"
             className="inline-block text-gray-600 cursor-pointer"
             size={20}
             onClick={(_) => setOpenScoreModal(!openScoreModal)}

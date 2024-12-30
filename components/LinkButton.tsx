@@ -7,7 +7,7 @@ interface LinkButtonProps extends ComponentProps<'a'> {
   size?: string;
 }
 
-const LinkButton = (props: LinkButtonProps) => {
+export const LinkButton = (props: LinkButtonProps) => {
   const { content, ...rest } = props;
   if (props.size === 'small') {
     return (
@@ -29,4 +29,3 @@ const LinkButton = (props: LinkButtonProps) => {
   );
 };
 
-export default LinkButton;

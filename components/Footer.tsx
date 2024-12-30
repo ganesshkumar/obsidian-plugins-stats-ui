@@ -1,6 +1,5 @@
-import { CustomFlowbiteTheme, Footer } from 'flowbite-react';
+import { CustomFlowbiteTheme, Footer as FlowbiteFooter } from 'flowbite-react';
 import React from 'react';
-import Constants from '../constants';
 
 const customTheme: CustomFlowbiteTheme['footer'] = {
   brand: {
@@ -8,17 +7,17 @@ const customTheme: CustomFlowbiteTheme['footer'] = {
   },
 };
 
-const AppFooter = () => {
+export const Footer = () => {
   const footerLinkClass = 'text-gray-900 underline';
   return (
     <section className="w-full bg-gray-200 mt-16 border-b-8 border-b-violet-800">
-      <Footer
+      <FlowbiteFooter
         className="max-w-6xl mx-auto flex flex-col bg-gray-200 rounded-none border-none shadow-none py-8 px-2"
         theme={customTheme}
       >
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div className="!text-red-50">
-            <Footer.Brand
+            <FlowbiteFooter.Brand
               href="https://obsidian-plugin-stats.ganesshkumar.com"
               src="/favicon-64.png"
               alt="Obsidian Plugin Stats Logo"
@@ -27,49 +26,49 @@ const AppFooter = () => {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
-              <Footer.Title className="text-gray-900" title="Plugins" />
-              <Footer.LinkGroup col>
-                <Footer.Link className={footerLinkClass} href="/plugins">
+              <FlowbiteFooter.Title className="text-gray-900" title="Plugins" />
+              <FlowbiteFooter.LinkGroup col>
+                <FlowbiteFooter.Link className={footerLinkClass} href="/plugins">
                   All Plugins
-                </Footer.Link>
-                <Footer.Link className={footerLinkClass} href="/new">
+                </FlowbiteFooter.Link>
+                <FlowbiteFooter.Link className={footerLinkClass} href="/new">
                   New Plugins
-                </Footer.Link>
-                <Footer.Link className={footerLinkClass} href="/updates">
+                </FlowbiteFooter.Link>
+                <FlowbiteFooter.Link className={footerLinkClass} href="/updates">
                   Latest Updates
-                </Footer.Link>
-                <Footer.Link className={footerLinkClass} href="/favorites">
+                </FlowbiteFooter.Link>
+                <FlowbiteFooter.Link className={footerLinkClass} href="/favorites">
                   Favorite Plugins
-                </Footer.Link>
-                <Footer.Link
+                </FlowbiteFooter.Link>
+                <FlowbiteFooter.Link
                   className={footerLinkClass}
                   href="/most-downloaded"
                 >
                   Most Downloaded
-                </Footer.Link>
-                <Footer.Link className={footerLinkClass} href="/trending">
+                </FlowbiteFooter.Link>
+                <FlowbiteFooter.Link className={footerLinkClass} href="/trending">
                   Trending Plugins
-                </Footer.Link>
-                <Footer.Link className={footerLinkClass} href="/tags">
+                </FlowbiteFooter.Link>
+                <FlowbiteFooter.Link className={footerLinkClass} href="/tags">
                   Plugin Tags
-                </Footer.Link>
-              </Footer.LinkGroup>
+                </FlowbiteFooter.Link>
+              </FlowbiteFooter.LinkGroup>
             </div>
             <div>
-              <Footer.Title className="text-gray-900" title="Posts" />
-              <Footer.LinkGroup col>
-                <Footer.Link className={footerLinkClass} href="/posts">
+              <FlowbiteFooter.Title className="text-gray-900" title="Posts" />
+              <FlowbiteFooter.LinkGroup col>
+                <FlowbiteFooter.Link className={footerLinkClass} href="/posts">
                   All Posts
-                </Footer.Link>
-              </Footer.LinkGroup>
+                </FlowbiteFooter.Link>
+              </FlowbiteFooter.LinkGroup>
             </div>
           </div>
         </div>
-        <Footer.Divider className="border-gray-300" />
+        <FlowbiteFooter.Divider className="border-gray-300" />
         <div className="w-full items-center justify-between">
           <div className="text-sm text-gray-900 text-center">
             © 2022-{new Date().getFullYear()}{' '}
-            <a href="/" className="hover:underline">
+            <a href="/" className="hover:underline" role='link'>
               Obsidian Plugin Stats
             </a>
             . All rights reserved.
@@ -94,9 +93,7 @@ const AppFooter = () => {
             </a>
           </div>
         </div>
-      </Footer>
+      </FlowbiteFooter>
     </section>
   );
 };
-
-export default AppFooter;

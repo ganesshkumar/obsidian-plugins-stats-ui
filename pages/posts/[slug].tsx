@@ -4,7 +4,7 @@ import { remark } from 'remark';
 import html from 'remark-html';
 import Header from '../../components/HeaderPost';
 import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import { Footer }from '../../components/Footer';
 import moment from 'moment';
 import { PluginsCache } from '../../cache/plugins-cache';
 import PluginsComparisionTable from '../../components/PluginsComparisionTable';

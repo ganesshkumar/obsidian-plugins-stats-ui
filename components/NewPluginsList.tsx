@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { CategoryIcon } from './Category';
 import { Download, List as ListIcon, Table as TableIcon } from 'react-feather';
 import { getDescription } from '../utils/plugins';
-import LinkButton from './LinkButton';
+import { LinkButton } from './LinkButton';
 import { Score } from './Score';
 
 const NewPluginsList = ({

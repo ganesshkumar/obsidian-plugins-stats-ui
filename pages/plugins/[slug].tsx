@@ -5,7 +5,7 @@ import AppNavbar from '../../components/Navbar';
 import Link from 'next/link';
 import moment, { max } from 'moment';
 import showdown from 'showdown';
-import Footer from '../../components/Footer';
+import { Footer }from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
 import NewPluginCard from '../../components/NewPluginCard';

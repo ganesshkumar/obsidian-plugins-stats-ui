@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/HeaderUpdates';
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { Footer }from '../components/Footer';
 
 import { PrismaClient } from '@prisma/client';
 import { setupFavorites } from '../utils/favorites';

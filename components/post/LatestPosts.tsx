@@ -2,7 +2,7 @@ import Link from 'next/link';
 import InfoBar from '../InfoBar';
 import { PostIcon } from './PostIcon';
 import moment from 'moment';
-import LinkButton from '../LinkButton';
+import { LinkButton }  from '../LinkButton';
 
 export const LatestPosts = ({ posts }) => {
   return (
