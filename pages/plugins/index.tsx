@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { use, useEffect, useMemo, useState } from 'react';
 import Navbar from '../../components/Navbar';
-
+import { useRouter } from 'next/router';
 import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import { AllPluginsMultiView } from '../../components/AllPluginsMultiView';
@@ -114,8 +114,11 @@ interface IPageProps extends IHeaderProps {
 }
 
 const Plugins = (props: IPageProps) => {
-  const [filter, setFilter] = useState('');
-  const [favoritesFilter, setFavoritesFilter] = useState(false);
+  const router = useRouter();
+  const { query } = router;
+
+  const [filter, setFilter] = useState<string>('');
+  const [favoritesFilter, setFavoritesFilter] = useState(query.fav === 'true');
   const [favorites, setFavorites] = useState([]);
   const [sortby, setSortby] = useState('createdAt_desc');
   const [filterCategory, setFilterCategory] = useState('all');
@@ -124,6 +127,66 @@ const Plugins = (props: IPageProps) => {
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
+
+  console.log('query', query);
+
+  const updateQuery = (newQuery) => {
+    const updatedQuery = { ...query, ...newQuery };
+    router.replace({ pathname: router.pathname, query: updatedQuery }, undefined, { shallow: true });
+  };
+
+  useEffect(() => {
+    if (query.q !== undefined) {
+      const q = Array.isArray(query.q) ? query.q[0] : query.q;
+      setFilter(q);
+    }
+    if (query.fav !== undefined) {
+      setFavoritesFilter(query.fav === 'true');
+    }
+    if (query.category !== undefined) {
+      const c = Array.isArray(query.category) ? query.category[0] : query.category;
+      setFilterCategory(c);
+    }
+    if (query.sortby !== undefined) {
+      const s = Array.isArray(query.sortby) ? query.sortby[0] : query.sortby;
+      setSortby(s);
+    }
+    if (query.view !== undefined) {
+      const v = Array.isArray(query.view) ? query.view[0] : query.view;
+      setView(v);
+    }
+  }, [query]);
+
+  const handleFilterChange = (e) => {
+    if (filter.length === 0 && e.target.value.length === 1) {
+      setSortby('relevance');
+    }
+
+    const value = e.target.value;
+    setFilter(value);
+    updateQuery({ q: value });
+  }
+
+  const handleFavoritesFilterChange = (e) => {
+    const value = e.target.checked;
+    setFavoritesFilter(value);
+    updateQuery({ fav: value });
+  }
+
+  const handleFilterCategoryChange = (value) => {
+    setFilterCategory(value);
+    updateQuery({ category: value });
+  }
+
+  const handleSorytbyChange = (value) => {
+    setSortby(value);
+    updateQuery({ sortby: value });
+  }
+
+  const handleViewChange = (value) => {
+    setView(value);
+    updateQuery({ view: value });
+  }
 
   const filteredPlugins = useMemo(() => {
     const filterLowerCase = filter.toLowerCase();
@@ -200,12 +263,8 @@ const Plugins = (props: IPageProps) => {
                 placeholder="Search for plugins"
                 color="purple"
                 shadow
-                onChange={(e) => {
-                  if (filter.length === 0 && e.target.value.length === 1) {
-                    setSortby('relevance');
-                  }
-                  setFilter(e.target.value);
-                }}
+                value={filter}
+                onChange={handleFilterChange}
               />
             </div>
             <div className="pl-2 bg-white flex flex-col md:flex-row gap-y-2 justify-between">
@@ -218,9 +277,10 @@ const Plugins = (props: IPageProps) => {
                     {' '}
                     {/* Favorites Filter */}
                     <Checkbox
+                      checked={favoritesFilter}
                       id="filter-favorites"
                       className="mr-2 cursor-pointer"
-                      onClick={() => setFavoritesFilter(!favoritesFilter)}
+                      onChange={handleFavoritesFilterChange}
                       color="purple"
                     />
                     <Label
@@ -242,75 +302,75 @@ const Plugins = (props: IPageProps) => {
                       inline
                       size="sm"
                     >
-                      <Dropdown.Item onClick={() => setFilterCategory('all')}>
+                      <Dropdown.Item onClick={() => handleFilterCategoryChange('all')}>
                         {filterCategoryOptions['all']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('taskManagement')}
+                        onClick={() => handleFilterCategoryChange('taskManagement')}
                       >
                         {filterCategoryOptions['taskManagement']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('fileManagement')}
+                        onClick={() => handleFilterCategoryChange('fileManagement')}
                       >
                         {filterCategoryOptions['fileManagement']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('noteEnhancements')}
+                        onClick={() => handleFilterCategoryChange('noteEnhancements')}
                       >
                         {filterCategoryOptions['noteEnhancements']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('dataVisualization')}
+                        onClick={() => handleFilterCategoryChange('dataVisualization')}
                       >
                         {filterCategoryOptions['dataVisualization']}
                       </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() =>
-                          setFilterCategory('thirdPartyIntegrations')
+                          handleFilterCategoryChange('thirdPartyIntegrations')
                         }
                       >
                         {filterCategoryOptions['thirdPartyIntegrations']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('productivityTools')}
+                        onClick={() => handleFilterCategoryChange('productivityTools')}
                       >
                         {filterCategoryOptions['productivityTools']}
                       </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() =>
-                          setFilterCategory('codingAndTechnicalTools')
+                          handleFilterCategoryChange('codingAndTechnicalTools')
                         }
                       >
                         {filterCategoryOptions['codingAndTechnicalTools']}
                       </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() =>
-                          setFilterCategory('creativeAndWritingTools')
+                          handleFilterCategoryChange('creativeAndWritingTools')
                         }
                       >
                         {filterCategoryOptions['creativeAndWritingTools']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('privacyAndSecurity')}
+                        onClick={() => handleFilterCategoryChange('privacyAndSecurity')}
                       >
                         {filterCategoryOptions['privacyAndSecurity']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('customizationAndUI')}
+                        onClick={() => handleFilterCategoryChange('customizationAndUI')}
                       >
                         {filterCategoryOptions['customizationAndUI']}
                       </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() =>
-                          setFilterCategory('collaborationAndSharing')
+                          handleFilterCategoryChange('collaborationAndSharing')
                         }
                       >
                         {filterCategoryOptions['collaborationAndSharing']}
                       </Dropdown.Item>
                       <Dropdown.Item
                         onClick={() =>
-                          setFilterCategory('learningAndknowledgeManagement')
+                          handleFilterCategoryChange('learningAndknowledgeManagement')
                         }
                       >
                         {
@@ -320,12 +380,12 @@ const Plugins = (props: IPageProps) => {
                         }
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('miscellaneous')}
+                        onClick={() => handleFilterCategoryChange('miscellaneous')}
                       >
                         {filterCategoryOptions['miscellaneous']}
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => setFilterCategory('uncategorized')}
+                        onClick={() => handleFilterCategoryChange('uncategorized')}
                       >
                         {filterCategoryOptions['uncategorized']}
                       </Dropdown.Item>
@@ -347,28 +407,29 @@ const Plugins = (props: IPageProps) => {
                   label={sortByOptions[sortby]}
                   inline
                   size="sm"
+                  value={sortby}
                 >
                   {sortby === 'relevance' && (
-                    <Dropdown.Item disabled>
+                    <Dropdown.Item onClick={() => handleSorytbyChange('relevance')}>
                       {sortByOptions['relevance']}
                     </Dropdown.Item>
                   )}
-                  <Dropdown.Item onClick={() => setSortby('alphabet_asc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('alphabet_asc')}>
                     {sortByOptions['alphabet_asc']}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortby('alphabet_desc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('alphabet_desc')}>
                     {sortByOptions['alphabet_desc']}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortby('score_desc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('score_desc')}>
                     {sortByOptions['score_desc']}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortby('score_asc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('score_asc')}>
                     {sortByOptions['score_asc']}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortby('createdAt_desc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('createdAt_desc')}>
                     {sortByOptions['createdAt_desc']}
                   </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortby('downloaded_desc')}>
+                  <Dropdown.Item onClick={() => handleSorytbyChange('downloaded_desc')}>
                     {sortByOptions['downloaded_desc']}
                   </Dropdown.Item>
                 </Dropdown>
@@ -381,21 +442,21 @@ const Plugins = (props: IPageProps) => {
                 {/* View Options */}
                 <Button
                   color="gray"
-                  onClick={() => setView('list')}
+                  onClick={() => handleViewChange('list')}
                   size="xs"
                   className="border-l rounded-l-lg"
                 >
                   <ListIcon className="mr-3 h-4 w-4" />
                   List
                 </Button>
-                <Button color="gray" onClick={() => setView('table')} size="xs">
+                <Button color="gray" onClick={() => handleViewChange('table')} size="xs">
                   <TableIcon className="mr-3 h-4 w-4" />
                   Table
                 </Button>
               </Button.Group>
             </div>
             <AllPluginsMultiView
-              highlight={filter}
+              highlight={Array.isArray(filter) ? filter[0]: filter}
               plugins={filteredPlugins}
               favorites={favorites}
               setFavorites={setFavorites}

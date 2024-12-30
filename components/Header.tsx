@@ -18,7 +18,6 @@ const Header = ({
   current,
   jsonLdSchema,
 }: IHeaderProps) => {
-  console.log(title)
   return (
     <Head>
       <title>{title}</title>

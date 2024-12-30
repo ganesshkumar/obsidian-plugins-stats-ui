@@ -15,6 +15,11 @@ export const JsonLdSchema = {
           publisher: {
             '@id': 'https://www.codebuss.com/#organization',
           },
+          potentialAction: {
+              "@type": "SearchAction",
+              "target": "https://obsidian-plugin-stats.ganesshkumar.com/plugins?q={query}",
+              "query": "required"
+          },
           inLanguage: 'en-US',
         },
         {
