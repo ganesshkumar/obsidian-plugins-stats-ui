@@ -10,6 +10,10 @@ export const Score = (props) => {
 
   const scoreClass = getScoreTextClass(plugin.score);
 
+  if (!plugin.score || !plugin.scoreReason) {
+    return undefined;
+  }
+
   const reasonMap = {};
   plugin.scoreReason.split('\n').forEach((reason) => {
     const reasonParts = reason.split(':');

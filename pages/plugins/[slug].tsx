@@ -107,7 +107,7 @@ const Plugin = (props: IPluginProps) => {
             <div className="text-sm mb-4">
               by <span>{props.plugin.author}</span>
             </div>
-            <Score plugin={props.plugin} />
+            {props.plugin.score && props.plugin.scoreReason && <Score plugin={props.plugin} />}
             <div className="flex gap-x-2 mb-2 mt-4">
               {isFavorite && (
                 <div
