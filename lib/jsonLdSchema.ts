@@ -202,6 +202,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
+          worstRating: 0,
+          bestRating: 100,
           ratingValue: Math.round(plugin.score * 100),
           ratingCount: plugin.stargazers + plugin.forks + 1,
         },
@@ -284,6 +286,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
+          worstRating: 0,
+          bestRating: 100,
           ratingValue: Math.round(plugin.score * 100),
           ratingCount: plugin.stargazers + plugin.forks + 1,
         },
@@ -366,6 +370,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
+          worstRating: 0,
+          bestRating: 100,
           ratingValue: Math.round(plugin.score * 100),
           ratingCount: plugin.stargazers + plugin.forks + 1,
         },
@@ -448,6 +454,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
+          worstRating: 0,
+          bestRating: 100,
           ratingValue: Math.round(plugin.score * 100),
           ratingCount: plugin.stargazers + plugin.forks + 1,
         },
@@ -662,6 +670,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
+          worstRating: 0,
+          bestRating: 100,
           ratingValue: Math.round(plugin.score * 100),
           ratingCount: plugin.stargazers + plugin.forks + 1,
         },
@@ -812,6 +822,8 @@ export const JsonLdSchema = {
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
+          worstRating: 0,
+          bestRating: 100,
           ratingValue: Math.round(plugin.score * 100),
           ratingCount: plugin.stargazers + plugin.forks + 1,
         },
@@ -1072,6 +1084,8 @@ export const JsonLdSchema = {
       applicationCategory: plugin.aiCategories,
       aggregateRating: {
         '@type': 'AggregateRating',
+        worstRating: 0,
+        bestRating: 100,
         ratingValue: Math.round(plugin.score * 100),
         ratingCount: plugin.stargazers + plugin.forks + 1,
       },
