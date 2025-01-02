@@ -238,8 +238,7 @@ const Plugins = (props: IPageProps) => {
               All Plugins 
             </div> */}
             <div className="text-xl py-2 px-2 text-semibold text-gray-800">
-              There are {props.plugins.length} plugins available from the
-              community.
+              Showing {filteredPlugins.length} / {props.plugins.length} plugins available from the community.
             </div>
             <div className="px-2 py-2 bg-white relative">
               <div className="absolute pointer-events-auto">

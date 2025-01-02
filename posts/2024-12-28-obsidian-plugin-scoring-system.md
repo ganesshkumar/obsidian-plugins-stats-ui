@@ -3,7 +3,7 @@ title: Obsidian Plugin Scoring System
 description: Learn about a new scoring system designed to evaluate and rank Obsidian plugins based on GitHub metrics, user engagement, and activity.
 excerpt: Discover how a fair scoring system ranks Obsidian plugins using GitHub metrics like stars, forks, downloads, and activity.
 publishedDate: '2024-12-26'
-modifiedDate: '2024-12-26'
+modifiedDate: '2025-01-02'
 tags:
   - scoring
   - feature
@@ -29,18 +29,30 @@ The scoring system evaluates plugins based on several important metrics and calc
 
 1. **GitHub Popularity**: _Stargazers_ and _forks_ are used to gauge developer interest and usage. Combined weight: _0.05_ (3% for stargazers, 2% for forks).
 
-2. **Issue Management**: Plugins with a high _issue close ratio_ (closed issues / total issues) score better, showing the developer’s responsiveness to user-reported problems. Weight: _0.15_
+2. **Issue Management**: Plugins with a high _issue close ratio_ (closed issues / total issues) score better, showing the developer’s responsiveness to user-reported problems. Weight: _0.20_
 
 3. **Pull Request Management**: A high _resolved PR ratio_ ((closed PRs + merged PRs) / total PRs) reflects efficient handling of contributions. Weight: _0.15_
 
-4. **Commit Activity**: A greater number of _commits in the last year_ indicates active development. Weight: _0.25_
+4. **Commit Activity**: A greater number of _commits in the last year_ indicates active development. Weight: _0.1_
 
 5. **Download Popularity**: Plugins with more _total downloads_ receive a higher score, representing widespread adoption in the Obsidian community. Weight: _0.2_
 
-6. **Recency of Updates**: Plugins with a recent _release date_ (`latestReleaseAt`) get higher scores, emphasizing ongoing maintenance. Weight: _0.1_
+6. **Recency of Updates**: Plugins with a recent _release date_ (`latestReleaseAt`) get higher scores, emphasizing ongoing maintenance. Weight: _0.15_
 
-7. **Plugin Age**: Older plugins (`createdAt`) are considered more mature and stable, scoring higher. Newer plugins scale slightly lower. Weight: _0.1_
-   s
+7. **Plugin Age**: Older plugins (`createdAt`) are considered more mature and stable, scoring higher. Newer plugins scale slightly lower. Weight: _0.15_
+
+## Score Calculation Rules:
+1. The sum of all weights must equal 1 to ensure a balanced scoring system.
+2. Plugins created over a year ago get a higher score due to normalized age.
+3. Recently created plugins receive slightly lower scores.
+4. Plugins with high stargazers and forks are scored higher but with lower cumulative weights (sum of 0.05) due to limited GitHub interaction among Obsidian users.
+5. Plugins with a high issue close ratio score higher.
+6. Plugins with a high closed + merged PR ratio score higher.
+7. Plugins with more commits in the last year score higher (commitCountInLastYear).
+8. Plugins with higher total downloads score higher.
+9. Plugins with recent releases (latestReleaseAt) score higher.
+10. Plugins with older creation dates (createdAt) score higher, as they reflect maturity and stability.
+
 
 ## Key adjustments for fairness
 
@@ -128,7 +140,7 @@ With this data, we compute metrics like issue close ratio, resolved PR ratio, an
 Normalization bounds help standardize metrics by defining the minimum and maximum values for each metric. Here is how we calculate these bounds:
 
 ```javascript
-export const calculateNormalizationBounds = (plugins) => {
+export const calculateNormalizationBounds = (plugins) =>{
   const metrics = [
     'stargazers',
     'forks',
@@ -139,7 +151,7 @@ export const calculateNormalizationBounds = (plugins) => {
     'openPR',
     'closedPR',
     'mergedPR',
-    'commitCountInLastYear',
+    'commitCountInLastYear', // Replacing releaseCountInLastYear
     'totalDownloads',
     'lastCommitAt',
     'createdAt',
@@ -149,10 +161,15 @@ export const calculateNormalizationBounds = (plugins) => {
   const bounds = {};
 
   metrics.forEach((metric) => {
-    let values = plugins
-      .map((plugin) => plugin[metric])
-      .filter((value) => value !== null && value !== undefined);
-
+    const valuesSet = new Set<number>();
+    plugins.forEach((plugin) => {
+      const v = plugin[metric];
+      if (v !== null && v !== undefined) {
+        valuesSet.add(v);
+      }
+    });
+      
+    let values = Array.from(valuesSet);
     // Trim outliers (TRIM_OUTLIERS_PERCENTAGE lowest and highest values)
     values.sort((a, b) => a - b);
     const trimCount = Math.floor(values.length * TRIM_OUTLIERS_PERCENTAGE);
@@ -166,7 +183,7 @@ export const calculateNormalizationBounds = (plugins) => {
     } else if (metric === 'createdAt') {
       bounds[metric] = {
         min: -(Date.now() - OFFSET_DAYS),
-        max: 0,
+        max: -FIRST_PLUGIN_CREATED_AT,
       };
     } else {
       bounds[metric] = {
@@ -177,7 +194,7 @@ export const calculateNormalizationBounds = (plugins) => {
   });
 
   return bounds;
-};
+}
 ```
 
 This function calculates bounds for each metric by trimming extreme values and setting the appropriate minimum and maximum limits, ensuring fair normalization.
@@ -187,12 +204,25 @@ This function calculates bounds for each metric by trimming extreme values and s
 Normalization makes sure that all metrics are scaled between 0 and 1. Here is the function used:
 
 ```javascript
-const normalize = (value, min, max) => {
-  if (value < min) return 0; // Value below min
-  if (value > max) return 1; // Value above max
-  if (max === min) return 0.5; // Avoid division by zero
-  return (value - min) / (max - min);
-};
+function normalizedSigmoid(x: number, min: number, max: number, k: number = 0.1): number {
+  if (x < min) return 0;
+  if (x > max) return 1;
+  if (max === min) return 0.5;
+
+  const midpoint = (min + max) / 2;
+
+  // Sigmoid function centered at the midpoint
+  const sigmoid = (value: number): number => {
+    return 1 / (1 + Math.exp(-k * (value - midpoint)));
+  };
+
+  // Values at the boundaries
+  const sMin = sigmoid(min);
+  const sMax = sigmoid(max);
+
+  // Normalize between 0 and 1
+  return (sigmoid(x) - sMin) / (sMax - sMin);
+}
 ```
 
 This function makes sure that:
@@ -206,6 +236,8 @@ This function makes sure that:
 
 Finally, the plugin scores are calculated by combining normalized metrics with their respective weights:
 
+
+
 ```javascript
 export const calculateScore = (plugin, bounds, debug = false) => {
   const weights = {
@@ -215,47 +247,42 @@ export const calculateScore = (plugin, bounds, debug = false) => {
     resolvedPRRatio: 0.15, // PR resolution efficiency
     commitCountInLastYear: 0.1, // Recent commit activity
     totalDownloads: 0.2, // Plugin popularity
-    latestReleaseAt: 0.2, // Recency of the latest release
-    createdAt: 0.1, // Age of the plugin
+    latestReleaseAt: 0.15, // Recency of the latest release
+    createdAt: 0.15, // Age of the plugin
   };
 
   // Derived Metrics
-  const closedIssuesRatio =
-    plugin.closedIssues && plugin.totalIssues
-      ? plugin.closedIssues / plugin.totalIssues
-      : 0; // Calculate closed issues ratio
+  const closedIssuesRatio = plugin.totalIssues
+    ? plugin.closedIssues / plugin.totalIssues
+    : 1;
 
-  const resolvedPRRatio =
-    plugin.closedPR && plugin.totalPR
-      ? (plugin.closedPR + plugin.mergedPR) / plugin.totalPR
-      : 0; // Calculate resolved PR ratio
+  const resolvedPRRatio = plugin.totalPR
+    ? (plugin.closedPR + plugin.mergedPR) / plugin.totalPR
+    : 1;
 
   const derivedMetrics = {
     closedIssuesRatio,
     resolvedPRRatio,
-    createdAt: plugin.createdAt - Date.now(),
+    createdAt: -plugin.createdAt
   };
 
   let score = 0;
+
   let reason = '';
 
   // Calculate normalized and weighted score
   Object.keys(weights).forEach((metric) => {
-    const value =
-      derivedMetrics[metric] !== undefined
-        ? derivedMetrics[metric]
-        : plugin[metric] || 0; // Get value
+    const value = derivedMetrics[metric] !== undefined ? derivedMetrics[metric] : plugin[metric] || 0; // Get value
     const { min, max } = bounds[metric] || { min: 0, max: 1 }; // Get normalization bounds
-    const normalizedValue = normalize(value, min, max); // Normalize value
+
+    let normalizedValue = normalizedSigmoid(value, min, max, 0.25);
 
     score += normalizedValue * weights[metric]; // Apply weight
-    reason += `${!!reason ? '' : ''}${metric}:${value}:${normalizedValue.toFixed(2)}:${weights[metric].toFixed(2)}:${(normalizedValue * weights[metric]).toFixed(2)}`;
+    reason += `${!!reason ? '\n' : ''}${metric}:${value}:${normalizedValue.toFixed(2)}:${weights[metric].toFixed(2)}:${(normalizedValue * weights[metric]).toFixed(2)}`;
 
     if (debug) {
-      console.log(
-        `Metric: ${metric}, Value: ${value}, Normalized: ${normalizedValue}, Weight: ${weights[metric]}, Contribution: ${normalizedValue * weights[metric]}`
-      );
-      console.log(`Score: ${score}`);
+      console.log(`Metric: ${metric}, Value: ${value}, Normalized: ${normalizedValue}, Weight: ${weights[metric]}, Contribution: ${normalizedValue * weights[metric]}`);
+      console.log(`Score: ${score}\n`);
     }
   });
 
@@ -263,7 +290,7 @@ export const calculateScore = (plugin, bounds, debug = false) => {
     score,
     reason,
   };
-};
+}
 ```
 
 The score is calculated by:
@@ -288,8 +315,8 @@ const score =
   normalized_resolvedPRRatio * 0.15 +
   normalized_commitCountInLastYear * 0.1 +
   normalized_totalDownloads * 0.2 +
-  normalized_latestReleaseAt * 0.2 +
-  normalized_createdAt * 0.1;
+  normalized_latestReleaseAt * 0.15 +
+  normalized_createdAt * 0.15;
 ```
 
 ## A heuristic approach
@@ -300,16 +327,16 @@ It is important to note that this scoring system is based on a heuristic approac
 
 Here are the top 10 plugins based on the scoring system for Obsidian:
 
-1. Score 98 - [remotely-save](/plugins/remotely-save)
-2. Score 98 - [obsidian-5e-statblocks](/plugins/obsidian-5e-statblocks)
-3. Score 97 - [omnisearch](/plugins/omnisearch)
-4. Score 97 - [obsidian-tasks-plugin](/plugins/obsidian-tasks-plugin)
-5. Score 97 - [obsidian-textgenerator-plugin](/plugins/obsidian-textgenerator-plugin)
-6. Score 97 - [obsidian-linter](/plugins/obsidian-linter)
-7. Score 97 - [obsidian-memos](/plugins/obsidian-memos)
-8. Score 96 - [obsidian-meta-bind-plugin](/plugins/obsidian-meta-bind-plugin)
-9. Score 96 - [todoist-sync-plugin](/plugins/todoist-sync-plugi)
-10. Score 96 - [copilot](/plugins/copilot)
+1. Score 94 - [Text Generator](/plugins/obsidian-textgenerator-plugin)
+2. Score 93 - [Obsidian Memos](/plugins/obsidian-memos)
+3. Score 87 - [Meta Bind Plugin](/plugins/obsidian-meta-bind-plugin)
+4. Score 86 - [Tasks](/plugins/obsidian-tasks-plugin)
+5. Score 85 - [Remotely Save](/plugins/remotely-save)
+6. Score 84 - [Day Planner](/plugins/obsidian-day-planner)
+7. Score 83 - [Projects](/plugins/obsidian-projects)
+8. Score 81 - [Local REST API](/plugins/obsidian-local-rest-api)
+9. Score 81 - [Novel Word Count](/plugins/novel-word-count)
+10. Score 80 - [Latex Suite](/plugins/obsidian-latex-suite)
 
 ## Feedback Welcome
 

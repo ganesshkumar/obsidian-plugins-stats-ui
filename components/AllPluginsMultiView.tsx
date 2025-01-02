@@ -199,9 +199,12 @@ const UnindexedPluginTableItemInternal = (props) => {
         key={`${plugin.pluginId}-score`}
         className="col-span-2 md:col-span-1"
       >
-        <span className={getScoreBgClass(plugin.score)}>
-          {Math.round(plugin.score.toFixed(4) * 100)}
-        </span>
+        {plugin.score ? 
+          <span className={getScoreBgClass(plugin.score)}>
+            {Math.round(plugin.score.toFixed(4) * 100)}
+          </span> :
+          undefined
+        }
       </div>
       <div
         key={`${plugin.pluginId}-description`}
