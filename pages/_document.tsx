@@ -18,6 +18,8 @@ export default function Document() {
             __html: `window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));window.amplitude.init('735a8d5ec1484df631c8b341167604f5', {"fetchRemoteConfig":true,"autocapture":true});`,
           }}
         ></script>
+        {/* Google Ads */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3836620974568941" crossOrigin="anonymous"></script>
       </Head>
       <body>
         <Main />

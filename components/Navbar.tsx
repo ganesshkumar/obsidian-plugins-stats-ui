@@ -9,6 +9,7 @@ import {
 import Constants from '../constants';
 import Image from 'next/image';
 import { Rss, HelpCircle } from 'react-feather';
+import { AppFlags } from '../lib/flags';
 
 interface INavbarProps {
   current?: string;
@@ -136,7 +137,7 @@ const NavBar = ({ current, children }: INavbarProps) => {
           </Navbar.Collapse>
         </Navbar>
       </div>
-      {current === 'home' && (
+      {!AppFlags.enableGoogleAds && AppFlags.enableSponsorAds && current === 'home' && (
         <>
           {/* Sponsored Ad Placeholder */}
           <div className="bg-gray-100 py-4 text-center">
