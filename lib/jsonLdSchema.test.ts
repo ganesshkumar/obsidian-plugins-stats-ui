@@ -30,7 +30,7 @@ const plugin: Plugin = {
   aiDescription: 'Automates tasks in Obsidian.',
   aiCategories: 'Productivity',
   aiTags: 'automation, productivity',
-  score: 4.5,
+  score: 0.45,
   scoreReason: 'High user ratings and active development.'
 }
 
@@ -65,7 +65,7 @@ describe('JsonLdSchema', () => {
     expect(schema).toHaveProperty('mainEntity');
     expect(Array.isArray(schema.mainEntity)).toBe(true);
     expect(schema.mainEntity[0]).toHaveProperty('name', 'Plugin A');
-    expect(schema.mainEntity[0]).toHaveProperty('aggregateRating.ratingValue', 4.5);
+    expect(schema.mainEntity[0]).toHaveProperty('aggregateRating.ratingValue', 45);
   });
 
   test('getNewPageSchema handles multiple plugins', () => {
@@ -141,7 +141,7 @@ describe('JsonLdSchema', () => {
     expect(schema).toHaveProperty('@type', 'SoftwareApplication');
     expect(schema).toHaveProperty('name', 'Plugin A');
     expect(schema).toHaveProperty('applicationCategory', 'Productivity');
-    expect(schema).toHaveProperty('aggregateRating.ratingValue', 4.5);
+    expect(schema).toHaveProperty('aggregateRating.ratingValue', 45);
   });
 
   test('getUpdatesPageSchema generates scheme for updates', () => {
