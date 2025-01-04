@@ -54,7 +54,7 @@ const Blog = (props: IPostsPageProps) => {
         <div className="max-w-6xl mx-auto px-2">
           <InfoBar title="Posts" />
           <ul>
-            {Object.keys(postsByYear).map((year) => (
+            {Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a)).map((year) => (
               <li key={year}>
                 <h2 className="text-xl mb-2 font-semibold">{year}</h2>
                 <ul className="flex flex-col divide-y">
