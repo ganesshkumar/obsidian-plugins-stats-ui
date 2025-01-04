@@ -640,6 +640,7 @@ export const JsonLdSchema = {
           applicationCategory: plugin.aiCategories,
           aggregateRating: {
             '@type': 'AggregateRating',
+            '@id': canonical + '#aggregateRating',
             worstRating: 0,
             bestRating: 100,
             ratingValue: Math.round(plugin.score * 100),
@@ -647,6 +648,7 @@ export const JsonLdSchema = {
           },
           offers: {
             '@type': 'Offer',
+            '@id': canonical + '#offers',
             price: '0',
             priceCurrency: 'USD',
           },
@@ -655,6 +657,7 @@ export const JsonLdSchema = {
           datePublished: plugin.latestReleaseAt,
           author: {
             '@type': 'Person',
+            '@id': canonical + '#author',
             name: plugin.author,
           },
         },
@@ -702,6 +705,7 @@ const getJsonLdSchemaForPageWithPlugins = (plugins: Plugin[], title: string, des
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',
+          '@id': canonical + '#aggregateRating',
           worstRating: 0,
           bestRating: 100,
           ratingValue: Math.round(plugin.score * 100),
@@ -709,6 +713,7 @@ const getJsonLdSchemaForPageWithPlugins = (plugins: Plugin[], title: string, des
         },
         offers: {
           '@type': 'Offer',
+          '@id': canonical + '#offers',
           price: '0',
           priceCurrency: 'USD',
         },
@@ -717,6 +722,7 @@ const getJsonLdSchemaForPageWithPlugins = (plugins: Plugin[], title: string, des
         datePublished: plugin.latestReleaseAt,
         author: {
           '@type': 'Person',
+          '@id': canonical + '#author',
           name: plugin.author,
         },
       })),
