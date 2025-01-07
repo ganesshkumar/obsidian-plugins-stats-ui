@@ -22,7 +22,7 @@ interface IUpdatePageProps extends IHeaderProps {
   newReleases: Plugin[];
 }
 
-const Updates = (props) => {
+const Updates = (props: IUpdatePageProps) => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {

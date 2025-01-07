@@ -535,6 +535,14 @@ export const getStaticProps = async ({ params }) => {
         .some((tag) => tags.includes(tag))
   );
 
+  const reducedSimilarPlugins = similarPlugins.map((p) => ({
+    pluginId: p.pluginId,
+    name: p.name,
+    description: p.description,
+    author: p.author,
+    createdAt: p.createdAt,
+  }));
+
   const title = `${plugin.name} - ${plugin.description}`;
   const description = `Obsidian Plugin: ${plugin.name} - ${plugin.description} by ${plugin.author}. Latest version: ${plugin.latestRelease} released on ${moment(plugin.latestReleaseAt).fromNow()}`;
   const canonical = `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`;
@@ -550,7 +558,7 @@ export const getStaticProps = async ({ params }) => {
       jsonLdSchema,
       plugin,
       tags,
-      similarPlugins,
+      similarPlugins: reducedSimilarPlugins,
       isTrending:
         [...plugins]
           .sort((a, b) => b.zScoreTrending - a.zScoreTrending)
