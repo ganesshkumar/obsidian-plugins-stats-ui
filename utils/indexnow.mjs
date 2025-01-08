@@ -42,10 +42,10 @@ function filterSitemap(urls, lastSubmission) {
 function submitToIndexNow(filteredUrls) {
   const indexNowUrl = 'https://api.indexnow.org/indexnow';
   const submissionData = {
-    host: 'obsidian-plugin-stats.ganesshkumar.com',
-    key: 'a944fdca7e16402a80e17aead9645552',
+    host: 'www.obsidianstats.com',
+    key: 'bcee69848e584efbac6b1dcbadaa8c64',
     keyLocation:
-      'https://www.obsidianstats.com/a944fdca7e16402a80e17aead9645552.txt',
+      'https://www.obsidianstats.com/bcee69848e584efbac6b1dcbadaa8c64.txt',
     urlList: filteredUrls.map((url) => url.loc),
   };
   //console.log(filteredUrls.map(url => url.loc));
@@ -69,7 +69,7 @@ async function main() {
     await submitToIndexNow(filteredUrls);
     fileData.lastSubmission = new Date().toISOString();
     fs.writeFileSync(filePath, JSON.stringify(fileData, null, 2));
-    console.log('Links submitted successfully.');
+    console.log(`${filteredUrls.length} links submitted successfully.`);
   } catch (error) {
     console.error(error);
   }

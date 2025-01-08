@@ -12,7 +12,7 @@ tags:
 
 > There are 20 new plugins and 103 plugin updates in the last one week's time.
 
-As we wrap up Thanksgiving week, we extend our heartfelt gratitude to the amazing Obsidian community and the talented developers who continuously innovate and enhance our note-taking experience. This week, I am thrilled to showcase the 20 new plugins that bring exciting functionalities to your workflow, along with a handful of updates to existing plugins. Whether you’re tracking your goals, syncing with external tools, or exploring new ways to organize your notes, there’s something for everyone in this week’s lineup. Before that let me introduce a new feature in Obsidian Plugin Stats website.
+As we wrap up Thanksgiving week, we extend our heartfelt gratitude to the amazing Obsidian community and the talented developers who continuously innovate and enhance our note-taking experience. This week, I am thrilled to showcase the 20 new plugins that bring exciting functionalities to your workflow, along with a handful of updates to existing plugins. Whether you’re tracking your goals, syncing with external tools, or exploring new ways to organize your notes, there’s something for everyone in this week’s lineup. Before that let me introduce a new feature in Obsidian Stats website.
 
 ## 🚀 New Feature: Plugin Categories and Tags
 
@@ -228,4 +228,4 @@ The **Snippetsaurus plugin** allows you to create, manage, and insert snippets o
 
 ## 🔁 Plugin Updates
 
-We got 103 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
+We got 103 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Stats webapp](/updates).

@@ -394,4 +394,4 @@ The **Three Noun Prompts** plugin for Obsidian is designed to inspire creativity
 
 ## 🔁 Plugin Updates
 
-We got 104 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
+We got 104 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Stats webapp](/updates).

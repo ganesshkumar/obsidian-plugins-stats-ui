@@ -12,7 +12,7 @@ tags:
 
 > There are 11 new plugins and 93 plugin updates in the last one week's time.
 
-As the holiday spirit fills the air and the year draws to a close, it’s the perfect time to reflect and refresh your workflows. Whether you’re planning for the new year or wrapping up this one, Obsidian Plugin Stats has plenty to offer. This week, we bring you 11 exciting new plugins and 93 updates, each designed to elevate your productivity and creativity.
+As the holiday spirit fills the air and the year draws to a close, it’s the perfect time to reflect and refresh your workflows. Whether you’re planning for the new year or wrapping up this one, Obsidian Stats has plenty to offer. This week, we bring you 11 exciting new plugins and 93 updates, each designed to elevate your productivity and creativity.
 
 Before diving into the latest plugins, don’t miss our recent blog post: [Track Your Writing Stats in Obsidian with Essential Plugins](/posts/2024-12-18-writing-stats-essential-plugins), published on December 18, 2024. It’s a must-read for writers aiming to measure and optimize their productivity effortlessly within Obsidian!
 
@@ -130,4 +130,4 @@ The **Force Read Mode** plugin allows users to enforce read-only mode for markdo
 
 ## 🔁 Plugin Updates
 
-We got 93 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
+We got 93 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Stats webapp](/updates).

@@ -120,4 +120,4 @@ The **Sync to Hugo** plugin bridges your Obsidian notes with Hugo, a static site
 
 ## 🔁 Plugin Updates
 
-We got 97 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
+We got 97 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Stats webapp](/updates).

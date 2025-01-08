@@ -246,4 +246,4 @@ The **Obsidian TreeSearch Plugin** enhances navigation within your vault by allo
 
 ## 🔁 Plugin Updates
 
-We got 76 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
+We got 76 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Stats webapp](/updates).

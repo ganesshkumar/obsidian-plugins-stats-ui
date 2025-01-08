@@ -108,5 +108,5 @@ The **Export to HTML** plugin for Obsidian allows you to easily export the conte
 
 ## 🔁 Plugin Updates
 
-We got 80 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
+We got 80 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Stats webapp](/updates).
 
