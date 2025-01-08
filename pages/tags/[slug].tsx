@@ -85,8 +85,8 @@ export const getStaticProps = async ({ params }) => {
     
   const title = `All ${params.slug} Obsidian Plugins.`;
   const description = `Find all ${params.slug} Obsidian plugins. ${pluginsWithTag.sort((a, b)=> b.score - a.score).map((plugin) => plugin.name).join(', ')}`;
-  const canonical = "https://obsidian-plugin-stats.ganesshkumar.com/tags/" + params.slug;
-  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png";
+  const canonical = "https://www.obsidianstats.com/tags/" + params.slug;
+  const image = "https://www.obsidianstats.com/logo-512.png";
   const jsonLdSchema = JsonLdSchema.getTagPageSchema(pluginsWithTag, title, description, canonical, image, params.slug);
 
   return {

@@ -344,8 +344,8 @@ export const getStaticProps = async () => {
 
   const title = "Explore New, Updated, Trending, Most Downloaded, and Top Rated Obsidian Plugins"
   const description = "Discover all Obsidian plugins with the latest updates, trending plugins, and the most downloaded ones. Stay informed about the best plugins to enhance your Obsidian experience."
-  const canonical = "https://obsidian-plugin-stats.ganesshkumar.com"
-  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+  const canonical = "https://www.obsidianstats.com"
+  const image = "https://www.obsidianstats.com/logo-512.png"
   const jsonLdSchema = JsonLdSchema.getHomePageSchema()
 
   return {

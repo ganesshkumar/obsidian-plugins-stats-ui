@@ -2,12 +2,13 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Footer } from './Footer';
+import Constants from '../constants';
 
 describe('AppFooter', () => {
   test('renders footer brand', () => {
     render(<Footer />);
     const brandLink = screen.getByRole('link', {
-      name: 'Obsidian Plugin Stats',
+      name: Constants.AppName,
     });
     expect(brandLink).toBeInTheDocument();
     expect(brandLink).toHaveAttribute('href', '/');

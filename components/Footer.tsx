@@ -1,5 +1,6 @@
 import { CustomFlowbiteTheme, Footer as FlowbiteFooter } from 'flowbite-react';
 import React from 'react';
+import Constants from '../constants';
 
 const customTheme: CustomFlowbiteTheme['footer'] = {
   brand: {
@@ -18,10 +19,10 @@ export const Footer = () => {
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div className="!text-red-50">
             <FlowbiteFooter.Brand
-              href="https://obsidian-plugin-stats.ganesshkumar.com"
+              href="https://www.obsidianstats.com"
               src="/favicon-64.png"
-              alt="Obsidian Plugin Stats Logo"
-              name="Obsidian Plugin Stats"
+              alt="Obsidian Stats Logo"
+              name="Obsidian Stats"
             />
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
@@ -81,7 +82,7 @@ export const Footer = () => {
           <div className="text-sm text-gray-900 text-center">
             © 2022-{new Date().getFullYear()}{' '}
             <a href="/" className="hover:underline" role="link">
-              Obsidian Plugin Stats
+              {Constants.AppName}
             </a>
             . All rights reserved.
           </div>

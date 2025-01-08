@@ -475,8 +475,8 @@ export const getStaticProps = async () => {
   
   const title = `Obsidian Plugins - Comprehensive List and Detailed Summaries of ${plugins.length} Plugins`;
   const description = `Explore all ${plugins.length} Obsidian plugins with detailed summaries, scores, ratings, and more. Filter by favorites, categories, tags, and sort by score, downloads, and new plugins.`;
-  const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/plugins';
-  const image = 'https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png';
+  const canonical = 'https://www.obsidianstats.com/plugins';
+  const image = 'https://www.obsidianstats.com/logo-512.png';
   const jsonLdSchema = JsonLdSchema.getPluginsPageSchema(plugins, title, description, canonical, image);
 
   return {

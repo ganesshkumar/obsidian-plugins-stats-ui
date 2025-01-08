@@ -74,7 +74,7 @@ async function generateRSS() {
     ...newPlugins.map((plugin) => ({
       title: escapeXmlEntities(`New Obsidian Plugin - ${plugin.name}`),
       description: escapeXmlEntities(plugin.description),
-      link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}`,
+      link: `https://www.obsidianstats.com/plugins/${plugin.pluginId}`,
       pubDate: new Date(plugin.createdAt),
     })),
     // ...newReleases.map((plugin) => ({
@@ -82,24 +82,24 @@ async function generateRSS() {
     //   description: `New version ${plugin.latestRelease} was released for ${plugin.name} on ${new Date(
     //     plugin.latestReleaseAt
     //   ).toISOString().split('T')[0]}`,
-    //   link: `https://obsidian-plugin-stats.ganesshkumar.com/plugins/${plugin.pluginId}?version=${plugin.latestRelease}`,
+    //   link: `https://www.obsidianstats.com/plugins/${plugin.pluginId}?version=${plugin.latestRelease}`,
     //   pubDate: new Date(plugin.latestReleaseAt)
     // })),
     ...allPostsData.map((post) => ({
       title: escapeXmlEntities(post.title),
       description: escapeXmlEntities(post.description),
-      link: `https://obsidian-plugin-stats.ganesshkumar.com/posts/${post.id}`,
+      link: `https://www.obsidianstats.com/posts/${post.id}`,
       pubDate: new Date(post.publishedDate),
     })),
   ];
 
   return `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Obsidian Plugin Stats</title>
-    <link>https://obsidian-plugin-stats.ganesshkumar.com</link>
+    <title>Obsidian Stats</title>
+    <link>https://www.obsidianstats.com</link>
     <description>New Obsidian plugins, weekly plugin update posts listing latest plugins updates, newly released plugins and posts realted to obsidian plugins</description>
     <language>en-us</language>
-    <atom:link href="https://obsidian-plugin-stats.ganesshkumar.com/rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.obsidianstats.com/rss.xml" rel="self" type="application/rss+xml" />
     ${items
       .filter((item) => item.pubDate < new Date())
       .map(
@@ -141,18 +141,18 @@ async function saveRSSFeedForWeeklyUpdates() {
       .map((post) => ({
         title: escapeXmlEntities(post.title),
         description: escapeXmlEntities(post.description),
-        link: `https://obsidian-plugin-stats.ganesshkumar.com/posts/${post.id}`,
+        link: `https://www.obsidianstats.com/posts/${post.id}`,
         pubDate: new Date(post.publishedDate),
       })),
   ];
 
   const content = `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Obsidian Plugin Stats - Weekly Plugin Updates</title>
-    <link>https://obsidian-plugin-stats.ganesshkumar.com/posts</link>
+    <title>Obsidian Stats - Weekly Plugin Updates</title>
+    <link>https://www.obsidianstats.com/posts</link>
     <description>Weekly Obsidian Plugin Updates - listing new published plugins and plugin updates released over the past week</description>
     <language>en-us</language>
-    <atom:link href="https://obsidian-plugin-stats.ganesshkumar.com/weekly-plugin-updates-rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.obsidianstats.com/weekly-plugin-updates-rss.xml" rel="self" type="application/rss+xml" />
     ${items
       .filter((item) => item.pubDate < new Date())
       .map(

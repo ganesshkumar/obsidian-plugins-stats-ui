@@ -94,8 +94,8 @@ export const getStaticProps = async () => {
 
   const title = "Latest Obsidian Plugins - New Releases in the Last 7 days, 10 Days, 1 Month, 6 Months, and 1 Year";
   const description = `Explore the newest Obsidian plugins released in the past 7 days, 10 Days, 1 Month, 6 Months, and 1 Year. ${newPlugins.slice(0, 20).map((plugin) => plugin.name).join(', ')}`;
-  const canonical = "https://obsidian-plugin-stats.ganesshkumar.com/new";
-  const image = "https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png";
+  const canonical = "https://www.obsidianstats.com/new";
+  const image = "https://www.obsidianstats.com/logo-512.png";
   const jsonLdSchema = JsonLdSchema.getNewPageSchema(newPlugins, title, description, canonical, image);
 
   return {

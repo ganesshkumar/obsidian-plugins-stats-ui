@@ -45,7 +45,7 @@ function submitToIndexNow(filteredUrls) {
     host: 'obsidian-plugin-stats.ganesshkumar.com',
     key: 'a944fdca7e16402a80e17aead9645552',
     keyLocation:
-      'https://obsidian-plugin-stats.ganesshkumar.com/a944fdca7e16402a80e17aead9645552.txt',
+      'https://www.obsidianstats.com/a944fdca7e16402a80e17aead9645552.txt',
     urlList: filteredUrls.map((url) => url.loc),
   };
   //console.log(filteredUrls.map(url => url.loc));
@@ -62,7 +62,7 @@ async function main() {
   try {
     const fileData = readLocalFile(filePath);
     const sitemapData = await fetchSitemap(
-      'https://obsidian-plugin-stats.ganesshkumar.com/sitemap-0.xml'
+      'https://www.obsidianstats.com/sitemap-0.xml'
     );
     const urls = await parseSitemap(sitemapData);
     const filteredUrls = filterSitemap(urls, fileData.lastSubmission);

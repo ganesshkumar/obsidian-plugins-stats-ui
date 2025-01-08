@@ -43,7 +43,7 @@ describe('JsonLdSchema', () => {
     expect(Array.isArray(schema['@graph'])).toBe(true);
 
     const website = schema['@graph'].find(item => item['@type'] === 'WebSite');
-    expect(website).toHaveProperty('@id', 'https://obsidian-plugin-stats.ganesshkumar.com/#website');
+    expect(website).toHaveProperty('@id', 'https://www.obsidianstats.com/#website');
   });
 
   test('getFavoritesPageSchema returns correct schema', () => {
@@ -51,13 +51,13 @@ describe('JsonLdSchema', () => {
 
     expect(schema).toHaveProperty('@context', 'https://schema.org');
     expect(schema).toHaveProperty('@type', 'WebPage');
-    expect(schema).toHaveProperty('url', 'https://obsidian-plugin-stats.ganesshkumar.com/favorites');
+    expect(schema).toHaveProperty('url', 'https://www.obsidianstats.com/favorites');
   });
 
   test('getMostDownloadedPageSchema processes plugins correctly', () => {
     const title = 'Most Downloaded Plugins';
     const description = 'List of most downloaded plugins';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/most-downloaded';
+    const canonical = 'https://www.obsidianstats.com/most-downloaded';
     const image = 'https://example.com/image.png';
 
     const schema = JsonLdSchema.getMostDownloadedPageSchema([plugin], title, description, canonical, image);
@@ -71,7 +71,7 @@ describe('JsonLdSchema', () => {
   test('getNewPageSchema handles multiple plugins', () => {
     const title = 'New Plugins';
     const description = 'List of new plugins';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/new';
+    const canonical = 'https://www.obsidianstats.com/new';
     const image = 'https://example.com/new-image.png';
 
     const schema = JsonLdSchema.getNewPageSchema([plugin], title, description, canonical, image);
@@ -85,7 +85,7 @@ describe('JsonLdSchema', () => {
     const tags = ['tag1', 'tag2', 'tag3'];
     const title = 'Tags';
     const description = 'Browse by tags';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/tags';
+    const canonical = 'https://www.obsidianstats.com/tags';
     const image = 'https://example.com/tags-image.png';
 
     const schema = JsonLdSchema.getTagsPageSchema(tags, title, description, canonical, image);
@@ -106,7 +106,7 @@ describe('JsonLdSchema', () => {
     };
     const title = 'Sample Post';
     const description = 'A blog post example';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/posts/sample-post';
+    const canonical = 'https://www.obsidianstats.com/posts/sample-post';
     const image = 'https://example.com/post-image.png';
 
     const schema = JsonLdSchema.getPostPageSchema(post, title, description, canonical, image);
@@ -120,7 +120,7 @@ describe('JsonLdSchema', () => {
   test('getTrendingPageSchema processes trending plugins', () => {
     const title = 'Trending Plugins';
     const description = 'List of trending plugins';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/trending';
+    const canonical = 'https://www.obsidianstats.com/trending';
     const image = 'https://example.com/trending-image.png';
 
     const schema = JsonLdSchema.getTrendingPageSchema([plugin], title, description, canonical, image);
@@ -133,7 +133,7 @@ describe('JsonLdSchema', () => {
   test('getPluginPageSchema generates schema for a plugin', () => {
     const title = 'Plugin A';
     const description = 'A sample Obsidian plugin.';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/plugin/plugin-a';
+    const canonical = 'https://www.obsidianstats.com/plugin/plugin-a';
     const image = 'https://example.com/plugin-image.png';
 
     const schema = JsonLdSchema.getPluginPageSchema(plugin, title, description, canonical, image);
@@ -147,7 +147,7 @@ describe('JsonLdSchema', () => {
   test('getUpdatesPageSchema generates scheme for updates', () => {
     const title = 'Plugin Updates';
     const description = 'List of plugin updates';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/updates';
+    const canonical = 'https://www.obsidianstats.com/updates';
     const image = 'https://example.com/updates-image.png';
 
     const schema = JsonLdSchema.getUpdatesPageSchema([plugin], title, description, canonical, image);
@@ -160,20 +160,20 @@ describe('JsonLdSchema', () => {
   test('getSharePageSchema generates schema for sharing', () => {
     const title = 'Share Plugin';
     const description = 'Share your favorite plugins';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/share';
+    const canonical = 'https://www.obsidianstats.com/share';
     const image = 'https://example.com/share-image.png';
 
     const schema = JsonLdSchema.getSharePageSchema(title, description, canonical, image);
 
     expect(schema).toHaveProperty('@type', 'WebPage');
-    expect(schema).toHaveProperty('url', 'https://obsidian-plugin-stats.ganesshkumar.com/share');
+    expect(schema).toHaveProperty('url', 'https://www.obsidianstats.com/share');
   });
 
   test('getCategoriesPageSchema generates schema for categories', () => {
     const categories = ['Productivity', 'Writing', 'Note-taking'];
     const title = 'Categories';
     const description = 'Browse by categories';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/categories';
+    const canonical = 'https://www.obsidianstats.com/categories';
     const image = 'https://example.com/categories-image.png';
 
     const schema = JsonLdSchema.getCategoriesPageSchema(categories, title, description, canonical, image);
@@ -188,7 +188,7 @@ describe('JsonLdSchema', () => {
     const plugins = [plugin];
     const title = 'Productivity Plugins';
     const description = 'List of productivity plugins';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/category/productivity';
+    const canonical = 'https://www.obsidianstats.com/category/productivity';
     const image = 'https://example.com/productivity-image.png';
 
     const schema = JsonLdSchema.getCategoryPageSchema(plugins, title, description, canonical, image);
@@ -203,7 +203,7 @@ describe('JsonLdSchema', () => {
     const plugins = [plugin];
     const title = 'Productivity Plugins';
     const description = 'List of productivity plugins';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/tag/productivity';
+    const canonical = 'https://www.obsidianstats.com/tag/productivity';
     const image = 'https://example.com/productivity-image.png';
 
     const schema = JsonLdSchema.getTagPageSchema(plugins, title, description, canonical, image);
@@ -234,7 +234,7 @@ describe('JsonLdSchema', () => {
     ];
     const title = 'Blog Posts';
     const description = 'List of blog posts';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/posts';
+    const canonical = 'https://www.obsidianstats.com/posts';
     const image = 'https://example.com/posts-image.png';
 
     const schema = JsonLdSchema.getPostsPageSchema(posts, title, description, canonical, image);
@@ -249,7 +249,7 @@ describe('JsonLdSchema', () => {
     const plugins = [plugin];
     const title = 'Plugins';
     const description = 'List of plugins';
-    const canonical = 'https://obsidian-plugin-stats.ganesshkumar.com/plugins';
+    const canonical = 'https://www.obsidianstats.com/plugins';
     const image = 'https://example.com/plugins-image.png';
 
     const schema = JsonLdSchema.getPluginsPageSchema(plugins, title, description, canonical, image);
@@ -257,6 +257,6 @@ describe('JsonLdSchema', () => {
     expect(schema['@type']).toBe('WebPage');
     expect(schema.name).toBe('Plugins');
     expect(schema.description).toBe('List of plugins');
-    expect(schema.url).toBe('https://obsidian-plugin-stats.ganesshkumar.com/plugins');
+    expect(schema.url).toBe('https://www.obsidianstats.com/plugins');
   });
 });

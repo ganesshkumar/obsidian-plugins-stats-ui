@@ -622,8 +622,8 @@ export const getStaticProps = async () => {
   const data = require('../../data/wrapped-2024.json');
   const title="Obsidian Plugins Wrapped 2024"
   const description="Discover Obsidian Plugins journey in 2024! From new plugin releases and updates to standout developers and the most downloaded plugins, explore the milestones and community contributions that shaped the Obsidian ecosystem this year."
-  const canonical="https://obsidian-plugin-stats.ganesshkumar.com/posts/2024-12-07-wrapped-2024"
-  const image="https://obsidian-plugin-stats.ganesshkumar.com/logo-512.png"
+  const canonical="https://www.obsidianstats.com/posts/2024-12-07-wrapped-2024"
+  const image="https://www.obsidianstats.com/logo-512.png"
 
   const post: Post = {
     id: '2024-12-07-wrapped-2024',

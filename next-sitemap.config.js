@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl:
-    process.env.SITE_URL || 'https://obsidian-plugin-stats.ganesshkumar.com/',
+    process.env.SITE_URL || 'https://www.obsidianstats.com/',
   generateRobotsTxt: true,
 };

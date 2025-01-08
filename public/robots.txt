@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://obsidian-plugin-stats.ganesshkumar.com/
+Host: https://www.obsidianstats.com/
 
 # Sitemaps
-Sitemap: https://obsidian-plugin-stats.ganesshkumar.com/sitemap.xml
+Sitemap: https://www.obsidianstats.com/sitemap.xml

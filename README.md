@@ -1,10 +1,10 @@
-# Obsidian Plugin Stats
+# Obsidian Stats
 
 Are you obsessed with Obsidian plugins? Do you want to know which ones are hot and which ones are not? Do you want to keep track of your favorite plugins and get notified when they get updated? If you answered yes to any of these questions, then this tool is for you!
 
 This tool lets you explore the [Obsidian](https://obsidian.md) plugin ecosystem and get statistics on various plugins.
 
-![Obsidian Plugin Stats](https://user-images.githubusercontent.com/2135089/154796362-e80a56b4-1f0f-451b-8bf3-3ed435c6b23f.png)
+![Obsidian Stats](https://user-images.githubusercontent.com/2135089/154796362-e80a56b4-1f0f-451b-8bf3-3ed435c6b23f.png)
 ![Maintainability](https://img.shields.io/codeclimate/maintainability-percentage/ganesshkumar/obsidian-plugins-stats-ui)
 ![Code Issues](https://img.shields.io/codeclimate/issues/ganesshkumar/obsidian-plugins-stats-ui?label=code%3Aissues)
 ![Tech Debt](https://img.shields.io/codeclimate/tech-debt/ganesshkumar/obsidian-plugins-stats-ui)
