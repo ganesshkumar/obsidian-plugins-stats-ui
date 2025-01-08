@@ -73,7 +73,7 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
             <span>New Home:</span>
             {/* <span className='flex items-baseline'><Home size={14} className='text-gray-900'/>:</span> */}
             <span className='text-violet-700'>
-              <a href="www.obsidianstats.com">www.obsidianstats.com</a>
+              <a href="https://www.obsidianstats.com">www.obsidianstats.com</a>
             </span>
           </div>
         </div>
