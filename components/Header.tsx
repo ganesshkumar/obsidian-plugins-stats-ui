@@ -36,6 +36,8 @@ const Header = ({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
       <meta name="twitter:site" content="@ganesshkumar" />
+      {/* Yandex Verification */}
+      <meta name="yandex-verification" content="27ef3a93625b3d8e" />
       {/* JSON-LD Schema */}
       {jsonLdSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
