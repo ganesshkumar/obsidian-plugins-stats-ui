@@ -77,6 +77,10 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
             </span>
           </div>
         </div>
+        <div className='flex gap-x-1 justify-center'>
+          <span>To migrate your favorite plugins from old domain use</span>
+          <a href="https://obsidian-plugin-stats.ganesshkumar.com/migrate" className='underline'>/migrate</a>
+        </div>
         {cards.length === 1 ? cards[0] : withCarousel(cards)}
       </div>
     </div>

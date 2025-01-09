@@ -17,9 +17,7 @@ export function middleware(req: NextRequest) {
 
   // Only allow /migrate on locahost
   if (hostname === 'localhost') {
-    if (pathname === '/migrate' || pathname.startsWith('/_next') || pathname.startsWith('/images')) {
-      return NextResponse.next(); 
-    }
+    return NextResponse.next(); 
   }
 
   // Permanent redirect to www.obsidianstats.com
