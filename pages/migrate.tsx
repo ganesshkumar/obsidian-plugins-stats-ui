@@ -8,11 +8,13 @@ import Image from "next/image";
 
 const Migrate = () => {
   const [error, setError] = useState<string | null>(null);
-  
+  const [success, setSuccess] = useState<string | null>(null);
+  const [info, setInfo] = useState<string | null>(null);
+
   const handleExport = () => {
     const favorites = localStorage.getItem("favorites");
     if (!favorites) {
-      setError("No favorites found in localStorage.");
+      setInfo("No favorites found in localStorage. Nothing to migrate");
       return;
     }
     const blob = new Blob([favorites], { type: "application/json" });
@@ -37,7 +39,7 @@ const Migrate = () => {
           const data = JSON.parse(event.target?.result as string);
           if (Array.isArray(data) && data.every((item) => typeof item === "string")) {
             localStorage.setItem("favorites", JSON.stringify(data));
-            setError("Favorites imported successfully.");
+            setSuccess("Favorites imported successfully.");
           } else {
             setError("Invalid file format. Expected an array of strings (pluginIds).");
           }
@@ -69,6 +71,8 @@ const Migrate = () => {
             <Button color="dark" onClick={handleImport}>Import Favorites</Button>
           </div>
           {error && <p className="text-center text-red-700">Error: {error}</p>}
+          {success && <p className="text-center text-green-500">Error: {success}</p>}
+          {info && <p className="text-center text-yellow-400">Info: {info}</p>}
         </div>
       </div>
       <Footer />
