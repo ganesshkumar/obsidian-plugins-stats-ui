@@ -11,7 +11,7 @@ export const tagDenyList = [
 ];
 
 export const sanitizeTag = (tag) => {
-  return tag.toLowerCase().trim().replaceAll(' ', ''); //.replaceAll('-', '');
+  return tag.toLowerCase().trim().replace(/\s+/g, '-'); //.replaceAll('-', '');
 };
 
 export const getDescription = (plugin) => {

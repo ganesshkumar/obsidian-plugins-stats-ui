@@ -1,3 +1,5 @@
+'use client';
+
 import React, { use, useEffect, useMemo, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import { useRouter } from 'next/router';
@@ -9,6 +11,12 @@ import { PluginsCache } from '../../cache/plugins-cache';
 import { List as ListIcon, Table as TableIcon } from 'react-feather';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
+import { patchPluginsWithCustomScore } from '../../lib/scorer';
+import { useScoreListStore, useScorerStore } from '../../store/scorer-store';
+import { useCustomScore } from '../../hooks/useCustomScore';
+import { useScoreUpdater } from '../../hooks/useScoreUpdater';
+import { useCustomScoreWithScoreUpdater } from '../../hooks/useCustomScoreWithScoreUpdater';
+import { Plugin } from '@prisma/client';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -110,12 +118,15 @@ const queryPlugins = (query: string, plugins: any[] = []): any[] => {
 };
 
 interface IPageProps extends IHeaderProps {
-  plugins: any[];
+  plugins: Plugin[];
 }
 
 const Plugins = (props: IPageProps) => {
   const router = useRouter();
   const { query } = router;
+
+  const getActiveScorer = useScorerStore((state) => state.getActiveScorer);
+  const pluginsScoreMap = useScoreListStore((state) => state.scores);
 
   const [filter, setFilter] = useState<string>('');
   const [favoritesFilter, setFavoritesFilter] = useState(query.fav === 'true');
@@ -123,6 +134,8 @@ const Plugins = (props: IPageProps) => {
   const [sortby, setSortby] = useState('createdAt_desc');
   const [filterCategory, setFilterCategory] = useState('all');
   const [view, setView] = useState('list');
+
+  const plugins = useCustomScoreWithScoreUpdater(props.plugins);
 
   useEffect(() => {
     setupFavorites(setFavorites);
@@ -188,23 +201,23 @@ const Plugins = (props: IPageProps) => {
 
   const filteredPlugins = useMemo(() => {
     const filterLowerCase = filter.toLowerCase();
-    const favAndCategoryFilteredPlugins = [...props.plugins]
-      .filter((plugin) =>
+    const favAndCategoryFilteredPlugins = [...plugins]
+      .filter((plugin: Plugin) =>
         favoritesFilter ? favorites.includes(plugin.pluginId) : true
       )
-      .filter((plugin) => {
+      .filter((plugin: Plugin) => {
         if (filterCategory === 'all') {
           return true;
         }
         return plugin.aiCategories === filterCategoryOptions[filterCategory];
       });
 
-    const plugins = queryPlugins(
+    const queriedPlugins = queryPlugins(
       filterLowerCase,
       favAndCategoryFilteredPlugins
     );
 
-    plugins.sort((a, b) => {
+    queriedPlugins.sort((a, b) => {
       switch (sortby) {
         case 'relevance':
           return 0;
@@ -223,8 +236,8 @@ const Plugins = (props: IPageProps) => {
       }
     });
 
-    return plugins;
-  }, [filter, favoritesFilter, sortby, favorites, filterCategory]);
+    return queriedPlugins;
+  }, [filter, favoritesFilter, sortby, favorites, filterCategory, plugins, pluginsScoreMap]);
 
   return (
     <div className="flex flex-col">
@@ -238,7 +251,7 @@ const Plugins = (props: IPageProps) => {
               All Plugins 
             </div> */}
             <div className="text-xl py-2 px-2 text-semibold text-gray-800">
-              Showing {filteredPlugins.length} / {props.plugins.length} plugins available from the community.
+              Showing {filteredPlugins.length} / {plugins.length} plugins available from the community.
             </div>
             <div className="px-2 py-2 bg-white relative">
               <div className="absolute pointer-events-auto">

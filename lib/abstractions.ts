@@ -26,3 +26,11 @@ export interface Faq {
   question: string;
   answer: string;
 }
+
+export interface Scorer {
+  id: string;
+  name: string;
+  description: string;
+  code: string;
+  updatedAt: number;
+}

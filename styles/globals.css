@@ -40,7 +40,7 @@ h6 {
     sans-serif;
 }
 
-* {
+*:not(pre):not(pre *) {
   box-sizing: border-box;
   font-family:
     'Noto Sans',
@@ -55,4 +55,9 @@ h6 {
     Droid Sans,
     Helvetica Neue,
     sans-serif;
+}
+
+pre,
+pre * {
+  font-family: 'Fira Code', monospace;
 }

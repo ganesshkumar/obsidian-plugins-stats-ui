@@ -10,7 +10,7 @@ export const Score = (props) => {
 
   const scoreClass = getScoreTextClass(plugin.score);
 
-  if (!plugin.score || !plugin.scoreReason) {
+  if (plugin.score === undefined) {
     return undefined;
   }
 

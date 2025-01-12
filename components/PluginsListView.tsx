@@ -5,7 +5,7 @@ import Favorites from './Favorites';
 import { memo } from 'react';
 import { CategoryIcon } from './Category';
 import { Download, List as ListIcon, Table as TableIcon } from 'react-feather';
-import { getDescription } from '../utils/plugins';
+import { getDescription, sanitizeTag, tagDenyList } from '../utils/plugins';
 import { LinkButton } from './LinkButton';
 import { Score } from './Score';
 import { Plugin } from '@prisma/client';
@@ -114,16 +114,21 @@ const UnindexedPlugin = (props) => {
             {plugin.aiTags && (
               <div className="flex flex-wrap gap-x-2 text-gray-700 cursor-pointer">
                 {plugin.aiTags &&
-                  plugin.aiTags?.split(',').map((tag) => (
-                    <Link
-                      href={`/tags/${tag}`}
-                      key={tag}
-                      className="px-2 bg-gray-200 rounded-md"
-                    >
-                      <span className="text-gray-400">#</span>
-                      {tag}
-                    </Link>
-                  ))}
+                  plugin.aiTags?.split(',')
+                    .map((tag) => sanitizeTag(tag))
+                    .filter((sanitizedTag) => !tagDenyList.includes(sanitizedTag))
+                    .map((tag) => (
+                      <Link
+                        href={`/tags/${tag}`}
+                        key={tag}
+                        className="px-2 bg-gray-200 rounded-md"
+                      >
+                        <span className="text-gray-400">#</span>
+                        {tag}
+                      </Link>
+                    )
+                  )
+                }
               </div>
             )}
           </div>

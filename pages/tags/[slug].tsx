@@ -4,7 +4,7 @@ import AppNavbar from '../../components/Navbar';
 import { setupFavorites } from '../../utils/favorites';
 import { Footer } from '../../components/Footer';
 import { Navbar } from 'flowbite-react';
-import { sanitizeTag } from '../../utils/plugins';
+import { sanitizeTag, tagDenyList } from '../../utils/plugins';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { PluginsMultiView } from '../../components/PluginsMultiView';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
@@ -62,7 +62,8 @@ export const getStaticPaths = async () => {
   let tags = plugins
     .map((plugin) => plugin.aiTags?.split(',') || [])
     .flat()
-    .map((tag) => sanitizeTag(tag));
+    .map((tag) => sanitizeTag(tag))
+    .filter((tag) => !tagDenyList.includes(tag));
   tags = Array.from(new Set(tags));
 
   return {
@@ -79,6 +80,7 @@ export const getStaticProps = async ({ params }) => {
       ? plugin.aiTags
           ?.split(',')
           .map((tag) => sanitizeTag(tag))
+          .filter((sanitizedTag) => !tagDenyList.includes(sanitizedTag))
           .includes(params.slug)
       : false
   );

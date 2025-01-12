@@ -14,6 +14,7 @@ module.exports = {
       fontFamily: {
         body: ['"Noto sans"', 'system-ui', 'sans-serif'],
         heading: ['Lato', 'system-ui', 'sans-serif'],
+        pre: ['monospace'],
       },
       keyframes: {
         shake: {
