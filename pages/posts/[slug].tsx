@@ -69,9 +69,9 @@ const Post = (props: IPostPageProps) => {
       <Navbar current="posts" />
       {/* New Plugins */}
       <div className="bg-white pt-5">
-        <div className="max-w-6xl mx-auto px-2">
+        <div className="max-w-4xl mx-auto px-2">
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
-            <h1 className="mt-2 mb-0">{postData.title}</h1>
+            <h1 className="mt-2 mb-0 text-3xl">{postData.title}</h1>
             <div className="mb-4">
               Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
             </div>

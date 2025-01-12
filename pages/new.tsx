@@ -92,7 +92,7 @@ export const getStaticProps = async () => {
   const newPlugins = plugins.filter((plugin) => plugin.createdAt > daysAgo(10));
   newPlugins.sort((a, b) => b.createdAt - a.createdAt);
 
-  const title = "Latest Obsidian Plugins - New Releases in the Last 7 days, 10 Days, 1 Month, 6 Months, and 1 Year";
+  const title = "New Obsidian Plugins - New plugins that got released in Last 7 days, 10 Days, 1 Month, 6 Months, and 1 Year";
   const description = `Explore the newest Obsidian plugins released in the past 7 days, 10 Days, 1 Month, 6 Months, and 1 Year. ${newPlugins.slice(0, 20).map((plugin) => plugin.name).join(', ')}`;
   const canonical = "https://www.obsidianstats.com/new";
   const image = "https://www.obsidianstats.com/logo-512.png";
