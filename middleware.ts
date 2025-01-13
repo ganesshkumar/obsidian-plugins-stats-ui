@@ -16,7 +16,7 @@ export function middleware(req: NextRequest) {
   }
 
   // Only allow /migrate on locahost
-  if (hostname === 'localhost') {
+  if (hostname === 'localhost' || hostname == 'develop.obsidianstats.com') {
     return NextResponse.next(); 
   }
 
