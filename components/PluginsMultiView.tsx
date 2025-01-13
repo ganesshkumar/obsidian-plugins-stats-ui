@@ -4,6 +4,7 @@ import { PluginsTableView } from './PluginsTableView';
 import { CustomTheme } from '../lib/customThemes';
 import { Tabs } from 'flowbite-react';
 import { Plugin } from '@prisma/client';
+import { useCustomScoreWithScoreUpdater } from '../hooks/useCustomScoreWithScoreUpdater';
 
 interface IPluginsMultiViewProps {
   plugins: Plugin[];
@@ -14,14 +15,9 @@ interface IPluginsMultiViewProps {
   // view?: 'list' | 'detailed-list' | 'table' | undefined;
 }
 
-export const PluginsMultiView = ({
-  plugins,
-  favorites,
-  setFavorites,
-  showDownloads = false,
-  showDescription = false,
-  // view = 'list',
-}: IPluginsMultiViewProps) => {
+export const PluginsMultiView = (props: IPluginsMultiViewProps) => {
+  const { favorites, setFavorites, showDownloads, showDescription } = props;
+  const plugins = useCustomScoreWithScoreUpdater(props.plugins);
   return (
     <div className="flex-col stripped">
       {plugins && plugins.length && (

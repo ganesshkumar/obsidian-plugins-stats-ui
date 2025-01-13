@@ -5,7 +5,7 @@ import { PluginMetrics } from '../cache/plugins-cache';
 import { Plugin } from '@prisma/client';
 import { scorePlugins } from '../lib/scorer';
 
-export const useCustomScoreWithScoreUpdater = (initialPlugins: PluginMetrics[] | Plugin[]) => {
+export const useCustomScoreWithScoreUpdater = (initialPlugins: Plugin[]) => {
   const pluginsScoreMap = useScoreListStore((state) => state.scores);
   const getActiveScorer = useScorerStore((state) => state.getActiveScorer);
   const activeScorer = getActiveScorer();

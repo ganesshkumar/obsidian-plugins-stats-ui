@@ -8,7 +8,7 @@ import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
 import PluginCard from '../../components/PluginCard';
-import { getDescription, sanitizeTag } from '../../utils/plugins';
+import { getDescription, sanitizeTag, tagDenyList } from '../../utils/plugins';
 import { isNotXDaysOld } from '../../utils/datetime';
 
 import {
@@ -218,16 +218,22 @@ const Plugin = (props: IPluginProps) => {
                 {props.plugin.aiTags && (
                   <div className="flex flex-wrap gap-x-2 text-gray-700 cursor-pointer">
                     {props.plugin.aiTags &&
-                      props.plugin.aiTags?.split(',').map((tag) => (
-                        <Link
-                          href={`/tags/${tag}`}
-                          key={tag}
-                          className="px-2 bg-gray-200 rounded-md"
-                        >
-                          <span className="text-gray-400">#</span>
-                          {tag}
-                        </Link>
-                      ))}
+                      props.plugin.aiTags
+                        ?.split(',')
+                        .map((tag) => sanitizeTag(tag))
+                        .filter((sanitizedTag) => !tagDenyList.includes(sanitizedTag))
+                        .map((tag) => (
+                          <Link
+                            href={`/tags/${tag}`}
+                            key={tag}
+                            className="px-2 bg-gray-200 rounded-md"
+                          >
+                            <span className="text-gray-400">#</span>
+                            {tag}
+                          </Link>
+                        )
+                      )
+                    }
                   </div>
                 )}
               </div>
