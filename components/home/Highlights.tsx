@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { Highlight } from '../../lib/abstractions';
-import { Home } from 'react-feather';
 
 const withCarousel = (children: ReactNode) => {
   return (
@@ -68,7 +67,7 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
   return (
     <div className="bg-transparent mt-16">
       <div className="max-w-6xl mx-auto h-[600px] md:h-[350px] lg:h-[300px]">
-        <div key="main-highlight" className='text-center text-gray-700 justify-center items-baseline animate-bounce'>
+        <div key="main-highlight" className='text-center text-gray-700 justify-center items-baseline'>
           <div className="border border-yellow-500 px-2 rounded-3xl bg-yellow-100 inline-flex gap-x-1 ring-offset-2 ring-1 ring-yellow-200">
             <span>New Home:</span>
             {/* <span className='flex items-baseline'><Home size={14} className='text-gray-900'/>:</span> */}
