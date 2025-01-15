@@ -1,0 +1,259 @@
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import {
+  Datepicker,
+  Timeline,
+  TimelineItem,
+  TimelinePoint,
+  TimelineContent,
+  TimelineTime,
+  TimelineTitle,
+  TimelineBody,
+  Button,
+} from 'flowbite-react';
+import Header from '../components/Header';
+import Navbar from '../components/Navbar';
+import { Footer } from '../components/Footer';
+import moment from 'moment';
+
+export function animateScrollTo(targetY, duration = 3000) {
+  const startY = window.scrollY;
+  const distance = targetY - startY;
+  let startTime = null;
+  let requestId;
+  let isCanceled = false;
+
+  function step(timestamp) {
+    if (isCanceled) {
+      // If canceled, we don't continue
+      return;
+    }
+    if (!startTime) {
+      startTime = timestamp;
+    }
+    const elapsed = timestamp - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    const currentY = startY + distance * progress;
+    window.scrollTo(0, currentY);
+
+    if (progress < 1) {
+      requestId = window.requestAnimationFrame(step);
+    }
+  }
+
+  // Start the animation
+  requestId = window.requestAnimationFrame(step);
+
+  // Return a function that can cancel the animation
+  const stop = () => {
+    isCanceled = true;
+    if (requestId) {
+      window.cancelAnimationFrame(requestId);
+    }
+  };
+
+  return stop;
+}
+
+
+const TimelinePage = (props) => {
+  const [stopScrolling, setStopScrolling] = useState(null); 
+  const [selectedDate, setSelectedDate] = useState(null);
+  const timelineRef = useRef(null);
+
+  const handleJump = () => {
+    if (selectedDate) {
+      const availableDates = Object.keys(props.data);
+      let dateStr = moment(selectedDate).format('YYYY-MM-DD');
+      if (!availableDates.includes(dateStr)) {
+        const closestDate = availableDates.map(date => {
+          const days = Math.abs(moment(date).diff(moment(selectedDate), 'days'));
+          return { date, days };
+        }).sort((a, b) => a.days - b.days)[0]?.date || availableDates[0];
+        dateStr = closestDate;
+      }
+      timelineRef.current.scrollToDate(dateStr);
+    }
+  };
+
+  const handleAnimateHistory = () => {
+  if (stopScrolling) {
+    stopScrolling(); 
+    setStopScrolling(null);
+  }
+
+   const dateStr = Object.keys(props.data).sort((a, b) => a.localeCompare(b))[0];
+   timelineRef.current.jumpToDate(dateStr);
+   const targetY = timelineRef.current.getPositionForDate(Object.keys(props.data).sort((a, b) => b.localeCompare(a))[0]);
+   if (targetY != null) {
+    const stopFn = animateScrollTo(targetY, Object.keys(props.data).length * 2000);
+    setStopScrolling(() => stopFn);
+   }
+  }
+
+  const handleStopAnimation = () => {
+    if (stopScrolling) {
+      stopScrolling();
+      setStopScrolling(null);
+    }
+  };
+
+  return (
+    <div className="flex flex-col">
+      <div className="flex flex-col h-screen">
+        <Header {...props} />
+        <Navbar current="timeline" />
+        <div className="bg-white pt-5 grow">
+          <div className="max-w-6xl mx-auto px-2 flex flex-col h-full relative">
+            {/* Sticky Header */}
+            <div className="sticky top-1 bg-white p-4 z-10 border border-gray-200 shadow mb-4 rounded-md">
+              <h1 className="text-2xl mb-2 font-bold">Plugin Timeline</h1>
+              <div className='flex justify-between'>
+                <div className="flex items-center space-x-4">
+                  <Datepicker
+                    minDate={moment('2020-10-28').toDate()}
+                    maxDate={moment().toDate()}
+                    value={selectedDate}
+                    onChange={(date) => setSelectedDate(date)}
+                  />
+                  <Button color='dark' onClick={handleJump}> Jump </Button>
+                </div>
+                <div>
+                  {!stopScrolling ?
+                    <Button color='dark' onClick={handleAnimateHistory}> Animate </Button> :
+                    <Button color='dark' onClick={handleStopAnimation}> Stop Animate </Button>
+                  }
+                </div>
+              </div>
+            </div>
+
+            {/* Timeline */}
+            <ChangesTimeline ref={timelineRef} data={props.data} />
+          </div>
+        </div>
+        <Footer />
+      </div>
+    </div>
+  );
+}
+
+const ChangesTimeline = forwardRef((props: any, ref) => {
+  const { data } = props;
+  const sortedDates = Object.keys(data).sort(
+    (a, b) => b.localeCompare(a)
+  );
+  
+  const timelineRefs = useRef({});
+
+  useImperativeHandle(ref, () => ({
+    scrollToDate(dateStr) {
+      const element = timelineRefs.current[dateStr];
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    },
+    jumpToDate(dateStr) {
+      const element = timelineRefs.current[dateStr];
+      if (element) {
+        element.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }
+    },
+    getPositionForDate(dateStr) {
+      const element = timelineRefs.current[dateStr];
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        // top relative to the page:
+        const absoluteY = rect.top + window.scrollY;
+        // If you want to account for sticky header, subtract some offset:
+        const offset = 80; // px
+        return absoluteY - offset;
+      }
+      return null;
+    },
+  }));
+
+  return (
+    <Timeline className='mx-4'>
+      {sortedDates.map((dateStr) => {
+        const { added = [], removed = [], changed = [] } = data[dateStr];
+        if (added.length === 0 && removed.length === 0 && changed.length === 0) {
+          return null;
+        }
+        return (
+          <TimelineItem key={dateStr} ref={(el) => {
+            timelineRefs.current[dateStr] = el;
+          }} className='scroll-mt-32'>
+            <TimelinePoint />
+            <TimelineContent>
+              <TimelineTime className='text-gray-800 font-semibold text-lg'>{moment(dateStr).format('DD MMM YYYY')}</TimelineTime>
+              {/* <TimelineTitle>
+                Plugin Changes on {dateStr}
+              </TimelineTitle> */}
+              <TimelineBody>
+                {added.length > 0 && (
+                  <p className="mt-2">
+                    <span className='text-sm'>Added Plugins: {added.length}</span>
+                    <p className='flex gap-2 flex-wrap'>
+                      {added.map((plugin) => (
+                        <a key={plugin.id} href={`/plugins/${plugin.id}`} className='px-1 text-gray-700 border-purple-600 bg-purple-100 rounded text-sm'>
+                          {plugin.name}
+                        </a>
+                      ))}
+                    </p>
+                  </p>
+                )}
+                {removed.length > 0 && (
+                  <p className="mt-2">
+                    <span className='text-sm'>Removed Plugins: {removed.length} </span>
+                    <p className='flex gap-2 flex-wrap'>
+                    {removed.map((plugin) => (
+                      <a key={plugin.id} href={`/plugins/${plugin.id}`} className='px-1 text-gray-700 border-red-600 bg-red-100 rounded text-sm'>
+                        {plugin.name}
+                      </a>
+                    ))}
+                    </p>
+                  </p>
+                )}
+                {changed.length > 0 && (
+                  <p className="mt-2">
+                    <span className='text-sm'>Updated Plugins: {changed.length} </span>
+                    <p className='flex gap-2 flex-wrap'>
+                    {changed.map((plugin) => (
+                      <a key={plugin.id} href={`/plugins/${plugin.id}`} className='px-1 text-gray-700 border-yellow-600 bg-yellow-100 rounded text-sm'>
+                        {plugin.name}
+                      </a>
+                    ))}
+                    </p>
+                  </p>
+                )}
+              </TimelineBody>
+            </TimelineContent>
+          </TimelineItem>
+        );
+      })}
+    </Timeline>
+  );
+});
+
+export const getStaticProps = async () => {
+  const data = require('../data/plugins-history.json');
+
+  const title = 'Trending Obsidian Plugins - Top 10 Plugins of from the last 90 days or 3 months based on downloads and z-score'
+  const description = ``
+  const canonical = 'https://www.obsidianstats.com/trending'
+  const image = 'https://www.obsidianstats.com/logo-512.png'
+  const jsonLdSchema = "" //JsonLdSchema.getTrendingPageSchema(trendingPlugins, title, description, canonical, image)
+
+  return {
+    props: {
+      title,
+      description,
+      canonical,
+      image,
+      jsonLdSchema,
+      data,
+    },
+  };
+};
+
+export default TimelinePage;
