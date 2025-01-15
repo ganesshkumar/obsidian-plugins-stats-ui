@@ -14,6 +14,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@amplitude/analytics-browser": "^2.11.11",
     "@microsoft/applicationinsights-clickanalytics-js": "3.3.2",
     "@microsoft/applicationinsights-react-js": "17.3.2",
     "@microsoft/applicationinsights-web": "3.3.2",

@@ -67,12 +67,11 @@ const Home = (props: IHomeProps) => {
       <NewVersionsSection newReleases={props.newReleases} />
       <Divider />
       <LatestPosts posts={props.newPosts} />
-      <SubstackNewsletter />
       <MostDownloadedPlugins plugins={props.mostDownloaded} />
-      <Divider />
+      <SubstackNewsletter />
 
       {/* FAQ */}
-      <div className="bg-transparent">
+      <div className="bg-transparent mt-32">
         <div className="max-w-6xl mx-auto px-2">
           <InfoBar title="FAQ for plugin developers" as="h2" />
           <div className="mt-4">

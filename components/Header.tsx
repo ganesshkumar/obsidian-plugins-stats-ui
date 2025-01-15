@@ -44,7 +44,7 @@ const Header = ({
         />
       )}
       {/* Google Tag Manager */}
-      <script
+      {/* <script
         dangerouslySetInnerHTML={{
           __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -54,7 +54,7 @@ const Header = ({
             })(window,document,'script','dataLayer','GTM-M52TKF4M');
           `,
         }}
-      />
+      /> */}
     </Head>
   );
 };

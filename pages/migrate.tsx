@@ -56,10 +56,10 @@ const Migrate = () => {
   return (
     <div>
       <Header
-        title={""}
-        description={""}
+        title="Migrate your favorites plugins list across devices - Export & Import Guide"
+        description="Learn how to export and import your favorite plugins list across different devices. Follow our step-by-step guide to easily migrate your favorites from localStorage."
         canonical="https://www.obsidianstats.com/migrate"
-        image={""}
+        image="https://www.obsidianstats.com/logo-512.png"
       />
       <Navbar current="migrate" />
       <div className="bg-white pt-5 grow">
