@@ -10,12 +10,12 @@ export const Score = (props) => {
 
   const scoreClass = getScoreTextClass(plugin.score);
 
-  if (plugin.score === undefined) {
+  if (plugin.score === undefined || !plugin.scoreReason) {
     return undefined;
   }
 
   const reasonMap = {};
-  plugin.scoreReason.split('\n').forEach((reason) => {
+  plugin.scoreReason?.split('\n').forEach((reason) => {
     const reasonParts = reason.split(':');
     reasonMap[reasonParts[0]] = {};
     reasonMap[reasonParts[0]].value = reasonParts[1];
