@@ -14,6 +14,7 @@ import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import moment from 'moment';
+import { JsonLdSchema } from '../lib/jsonLdSchema';
 
 export function animateScrollTo(targetY, duration = 3000) {
   const startY = window.scrollY;
@@ -236,13 +237,13 @@ const ChangesTimeline = forwardRef((props: any, ref) => {
 });
 
 export const getStaticProps = async () => {
-  const data = require('../data/plugins-history.json');
+  const data = require('../public/data/plugins-history.json');
 
-  const title = 'Trending Obsidian Plugins - Top 10 Plugins of from the last 90 days or 3 months based on downloads and z-score'
-  const description = ``
-  const canonical = 'https://www.obsidianstats.com/trending'
+  const title = 'Obsidian Plugin Timeline - Track Additions, Removals & Updates'
+  const description = 'Explore a day-by-day record of plugin additions, removals, and updates in one JSON dataset. Ideal for tracking version changes, building timelines, and more.'
+  const canonical = 'https://www.obsidianstats.com/timeline'
   const image = 'https://www.obsidianstats.com/logo-512.png'
-  const jsonLdSchema = "" //JsonLdSchema.getTrendingPageSchema(trendingPlugins, title, description, canonical, image)
+  const jsonLdSchema = JsonLdSchema.getTimelinePageSchema()
 
   return {
     props: {
