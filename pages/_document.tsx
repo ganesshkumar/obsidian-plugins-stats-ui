@@ -14,8 +14,12 @@ export default function Document() {
         <script defer data-domain="obsidianstats.com" src="https://plausible.obsidianstats.com/js/script.pageview-props.tagged-events.js"></script>
         <script dangerouslySetInnerHTML={{
           __html: `window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`
-        }}>
-        </script>
+        }}></script>
+        {/* Google Analytics Tag */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-93T3GYQH0P"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-93T3GYQH0P');`,
+        }}></script>
       </Head>
       <body>
         <Main />
