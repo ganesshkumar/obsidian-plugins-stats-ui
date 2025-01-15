@@ -34,6 +34,12 @@ export default function Document() {
         {/* End Google Tag Manager */}
         {/* Google Ads */}
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3836620974568941" crossOrigin="anonymous"></script>s */}
+        {/* First Party Analytics */}
+        <script defer data-domain="obsidianstats.com" src="https://plausible.obsidianstats.com/js/script.pageview-props.tagged-events.js"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`
+        }}>
+        </script>
       </Head>
       <body>
         <Main />
