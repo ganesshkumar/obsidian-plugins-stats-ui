@@ -87,7 +87,7 @@ export const Footer = () => {
                   </FlowbiteFooter.Link>
                 </FlowbiteFooter.LinkGroup>
               </div>
-              <div>
+              {/* <div>
                 <FlowbiteFooter.Title className="text-gray-900" title="Legal" />
                 <FlowbiteFooter.LinkGroup col>
                   <FlowbiteFooter.Link className={footerLinkClass} href="/privacy-policy">
@@ -97,7 +97,7 @@ export const Footer = () => {
                     Cookie Policy
                   </FlowbiteFooter.Link>
                 </FlowbiteFooter.LinkGroup>
-              </div>
+              </div> */}
             </div>
           </div>
           <FlowbiteFooter.Divider className="border-gray-300" />
