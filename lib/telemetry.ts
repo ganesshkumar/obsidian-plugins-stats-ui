@@ -16,21 +16,14 @@ export function initAmplitude() {
     return;
   }
 
-  amplitude.init('735a8d5ec1484df631c8b341167604f5', {
-    fetchRemoteConfig: true,
-    autocapture: true,
-  });
-
-  console.log('initialized Amplitude');
-  console.log('eventQueue', eventQueue.length);
-  console.log(eventQueue[0]);
+  // Initialize Telemetry SDK
 
   initialized = true;
   flushEventQueue();
 }
 
 /**
- * Track an event in Amplitude, queuing if not initialized yet.
+ * Track an event, queuing if not initialized yet.
  *
  * @param eventName string - The name of the event
  * @param eventProps Record<string, any> - Event properties
@@ -41,15 +34,15 @@ export function trackEvent(eventName: string, eventProps?: Record<string, any>) 
     return;
   }
 
-  amplitude.track(eventName, eventProps);
+  // Track event directly
 }
 
 /**
- * Flush queued events after Amplitude is initialized
+ * Flush queued events after telemetry is initialized
  */
 function flushEventQueue() {
   while (eventQueue.length > 0) {
     const { eventName, eventProps } = eventQueue.shift()!;
-    amplitude.track(eventName, eventProps);
+    // Call track event directly to avoid re-queuing
   }
 }

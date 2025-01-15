@@ -5,15 +5,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-import { trackEvent } from '../lib/telemetry';
-
 const Custom404 = () => {
   const router = useRouter();
 
   useEffect(() => {
     const { asPath, query } = router;
     console.log('404 useEffect', asPath, query);
-    trackEvent('404', { path: asPath, query });
   }, []);
   
   return (
