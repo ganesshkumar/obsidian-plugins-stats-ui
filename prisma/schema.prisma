@@ -47,6 +47,15 @@ model ReleaseDownloads {
   deltaDownload   Int
 }
 
+model DeltaDownloads {
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  pluginId         String         @unique
+  timestamp        Int
+  deltaDownloads    Int
+  totalDownloads   Int
+  @@unique([pluginId, timestamp])
+}
+
 model PluginTags {
   id               String         @id @default(auto()) @map("_id") @db.ObjectId
   tag              String

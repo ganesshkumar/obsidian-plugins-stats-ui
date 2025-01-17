@@ -8,13 +8,19 @@ import { PluginsCache } from '../cache/plugins-cache';
 import { PluginsMultiView } from '../components/PluginsMultiView';
 import InfoBar from '../components/InfoBar';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
+import { getMostDownloadedPlugins } from '../lib/plugins';
+import { Dropdown, Tabs } from 'flowbite-react';
+import { CustomTheme } from '../lib/customThemes';
 
 interface IMostDownloadedProps extends IHeaderProps {
   mostDownloaded: any[];
+  mostDownloadedIn7Days: any[];
+  mostDownloadedIn30Days: any[];
 }
 
 const MostDownloaded = (props: IMostDownloadedProps) => {
   const [favorites, setFavorites] = useState([]);
+  const [view, setView] = useState<'list' | 'table'>('list');
 
   useEffect(() => {
     setupFavorites(setFavorites);
@@ -30,14 +36,47 @@ const MostDownloaded = (props: IMostDownloadedProps) => {
           <InfoBar
             title={`Most Downloaded ${props.mostDownloaded && `(${props.mostDownloaded.length})`}`}
           />
-          <div className="flex-col">
-            <PluginsMultiView
-              plugins={props.mostDownloaded}
-              favorites={favorites}
-              setFavorites={setFavorites}
-              showDownloads={true}
-            />
-          </div>
+          <Tabs theme={CustomTheme.tabs}>
+            <Tabs.Item title="All Time" active>
+              <PluginsMultiView
+                plugins={props.mostDownloaded}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                showDescription={true}
+                showDownloads={true}
+                showCreatedAt={false}
+                showAuthor={false}
+                view={view}
+                setView={setView}
+              />
+            </Tabs.Item>
+            <Tabs.Item title="Last 30 Days">
+              <PluginsMultiView
+                plugins={props.mostDownloadedIn30Days}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                showDescription={true}
+                showDownloads={true}
+                showCreatedAt={false}
+                showAuthor={false}
+                view={view}
+                setView={setView}
+              />
+            </Tabs.Item>
+            <Tabs.Item title="Last 7 Days">
+              <PluginsMultiView
+                plugins={props.mostDownloadedIn7Days}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                showDescription={true}
+                showDownloads={true}
+                showCreatedAt={false}
+                showAuthor={false}
+                view={view}
+                setView={setView}
+              />
+            </Tabs.Item>
+          </Tabs>
         </div>
       </div>
       <Footer />
@@ -47,9 +86,13 @@ const MostDownloaded = (props: IMostDownloadedProps) => {
 
 export const getStaticProps = async (context) => {
   const plugins = await PluginsCache.get();
+
+  const limit = 25;
+  const mostDownloadedIn7Days = await getMostDownloadedPlugins(7, limit);
+  const mostDownloadedIn30Days = await getMostDownloadedPlugins(30, limit);
   const mostDownloaded = plugins
     .sort((a, b) => b.totalDownloads - a.totalDownloads)
-    .slice(0, 25);
+    .slice(0, limit);
 
   const title = "Most Downloaded Obsidian Plugins";
   const description = `Discover the most downloaded Obsidian pluginsin the last week, month, year, and ever since the beginning. ${mostDownloaded.slice(0, 25).map((p) => p.name).join(', ')}`;
@@ -64,7 +107,9 @@ export const getStaticProps = async (context) => {
       canonical,
       image,
       jsonLdSchema,
-      mostDownloaded
+      mostDownloaded,
+      mostDownloadedIn7Days,
+      mostDownloadedIn30Days
     }
   };
 };

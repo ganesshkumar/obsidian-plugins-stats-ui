@@ -13,28 +13,36 @@ interface IPluginsTableViewProps {
   plugins: Plugin[];
   showDownloadStat?: boolean;
   showDescription?: boolean;
+  showCreatedAt?: boolean;
+  showAuthor?: boolean;
 }
 
 export const PluginsTableView = ({
   plugins,
   showDownloadStat = false,
   showDescription = false,
+  showCreatedAt = true,
+  showAuthor = true,
 }: IPluginsTableViewProps) => {
   return (
     <div className="flex-col stripped relative">
-      <Table striped className="" theme={customTheme}>
+      <Table striped theme={customTheme}>
         <Table.Head>
           <Table.HeadCell key="plugin-name">Name</Table.HeadCell>
           {showDownloadStat && (
             <Table.HeadCell key="plugin-downloads">Downloads</Table.HeadCell>
           )}
           <Table.HeadCell key="plugin-score">Score</Table.HeadCell>
-          <Table.HeadCell key="plugin-created" className="hidden lg:table-cell">
-            Created
-          </Table.HeadCell>
-          <Table.HeadCell key="plugin-author" className="hidden lg:table-cell">
-            Author
-          </Table.HeadCell>
+          {showCreatedAt && (
+            <Table.HeadCell key="plugin-created" className="hidden lg:table-cell">
+              Created
+            </Table.HeadCell>
+          )}
+          {showAuthor && (
+            <Table.HeadCell key="plugin-author" className="hidden lg:table-cell">
+              Author
+            </Table.HeadCell>
+          )}
           {showDescription && (
             <Table.HeadCell key="plugin-description">
               Description
@@ -64,18 +72,16 @@ export const PluginsTableView = ({
                   undefined
                 }                
               </Table.Cell>
-              <Table.Cell
-                key={`${plugin.pluginId}-created`}
-                className="hidden lg:table-cell"
-              >
-                {moment(plugin.createdAt).fromNow()}
-              </Table.Cell>
-              <Table.Cell
-                key={`${plugin.pluginId}-author`}
-                className="hidden lg:table-cell"
-              >
-                {plugin.author}
-              </Table.Cell>
+              {showCreatedAt && (
+                <Table.Cell key={`${plugin.pluginId}-created`} className="hidden lg:table-cell">
+                  {moment(plugin.createdAt).fromNow()}
+                </Table.Cell>
+              )}
+              {showAuthor && (
+                <Table.Cell key={`${plugin.pluginId}-author`} className="hidden lg:table-cell">
+                  {plugin.author}
+                </Table.Cell>
+              )}
               {showDescription && (
                 <Table.Cell
                   key={`${plugin.pluginId}-description`}
