@@ -53,8 +53,8 @@ export const PluginsComparisionTable = ({ plugins }) => {
             {plugins.map((plugin) => (
               <Table.Cell key={`${plugin.id}-category`}>
                 <div className="flex gap-x-2 items-center">
-                  <CategoryIcon category={plugin.aiCategories} size={16} />
-                  {plugin.aiCategories}
+                  <CategoryIcon category={plugin.osCategory} size={16} />
+                  {plugin.osCategory}
                 </div>
               </Table.Cell>
             ))}
@@ -64,7 +64,7 @@ export const PluginsComparisionTable = ({ plugins }) => {
             {plugins.map((plugin) => (
               <Table.Cell key={`${plugin.id}-tags`}>
                 <div className="flex flex-wrap gap-1">
-                  {plugin.aiTags.split(',').map((t) => (
+                  {plugin.osTags.split(',').map((t) => (
                     <span
                       className="bg-gray-100 px-2 rounded-md"
                       key={`${plugin.id}-${t}`}
@@ -82,7 +82,7 @@ export const PluginsComparisionTable = ({ plugins }) => {
             </Table.Cell>
             {plugins.map((plugin) => (
               <Table.Cell key={`${plugin.id}-long-description`}>
-                {plugin.aiDescription}
+                {plugin.osDescription}
               </Table.Cell>
             ))}
           </Table.Row>

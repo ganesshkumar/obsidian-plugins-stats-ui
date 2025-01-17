@@ -34,9 +34,9 @@ const mockPlugins: Plugin[] = [
     mergedPR: 3,
     commitCountInLastYear: 100,
     zScoreTrending: 1.5,
-    aiDescription: 'AI generated description for dummy plugin.',
-    aiCategories: 'category1, category2',
-    aiTags: 'tag1, tag2',
+    osDescription: 'AI generated description for dummy plugin.',
+    osCategory: 'category1, category2',
+    osTags: 'tag1, tag2',
   },
 ];
 

@@ -57,7 +57,7 @@ const Category = (props: ICategoryPageProps) => {
 export const getStaticPaths = async () => {
   const plugins = await PluginsCache.get();
   let categories = plugins
-    .map((plugin) => plugin.aiCategories)
+    .map((plugin) => plugin.osCategory)
     .filter((category) => !!category);
 
   return {
@@ -69,7 +69,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }) => {
   const plugins = await PluginsCache.get();
   const pluginsWithCategory = plugins.filter(
-    (plugin) => plugin.aiCategories === params.slug
+    (plugin) => plugin.osCategory === params.slug
   );
 
   const title = `All ${params.slug} Obsidian Plugins.`;

@@ -198,27 +198,27 @@ const Plugin = (props: IPluginProps) => {
           <Card theme={customCardTheme} className="relative mt-4">
             <div className="text-2xl">Description</div>
             <div className="flex mt-4 gap-x-2">
-              {props.plugin.aiCategories && (
+              {props.plugin.osCategory && (
                 <div className="flex items-end">
                   <CategoryIcon
-                    category={props.plugin.aiCategories}
+                    category={props.plugin.osCategory}
                     size={36}
                   />
                 </div>
               )}
               <div>
-                {props.plugin.aiCategories && (
+                {props.plugin.osCategory && (
                   <div className="text-gray-700">
                     Category:{' '}
                     <span className="font-bold">
-                      {props.plugin.aiCategories}
+                      {props.plugin.osCategory}
                     </span>
                   </div>
                 )}
-                {props.plugin.aiTags && (
+                {props.plugin.osTags && (
                   <div className="flex flex-wrap gap-x-2 text-gray-700 cursor-pointer">
-                    {props.plugin.aiTags &&
-                      props.plugin.aiTags
+                    {props.plugin.osTags &&
+                      props.plugin.osTags
                         ?.split(',')
                         .map((tag) => sanitizeTag(tag))
                         .filter((sanitizedTag) => !tagDenyList.includes(sanitizedTag))
@@ -527,15 +527,15 @@ export const getStaticProps = async ({ params }) => {
   const plugins = await PluginsCache.get();
 
   const plugin = plugins.find((plugin) => plugin.pluginId === params.slug);
-  const tags = plugin.aiTags
-    ? plugin.aiTags.split(',').map((tag) => sanitizeTag(tag))
+  const tags = plugin.osTags
+    ? plugin.osTags.split(',').map((tag) => sanitizeTag(tag))
     : [];
 
   const similarPlugins = plugins.filter(
     (p) =>
       p.pluginId !== plugin.pluginId &&
-      p.aiTags &&
-      p.aiTags
+      p.osTags &&
+      p.osTags
         .split(',')
         .map((tag) => sanitizeTag(tag))
         .some((tag) => tags.includes(tag))

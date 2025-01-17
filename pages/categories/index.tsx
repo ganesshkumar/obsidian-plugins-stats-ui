@@ -99,24 +99,24 @@ export const getStaticProps = async () => {
   const categoriesData: Record<string, number> = {};
 
   plugins.forEach((plugin) => {
-    if (!plugin || !plugin.aiCategories) {
+    if (!plugin || !plugin.osCategory) {
       return;
     }
-    if (categoriesData[plugin.aiCategories] === undefined) {
-      categoriesData[plugin.aiCategories] = 0;
+    if (categoriesData[plugin.osCategory] === undefined) {
+      categoriesData[plugin.osCategory] = 0;
     }
-    categoriesData[plugin.aiCategories]++;
+    categoriesData[plugin.osCategory]++;
   });
 
   const topPluginsByCategories: Record<string, any[]> = {};
   plugins.forEach((plugin) => {
-    if (!plugin || !plugin.aiCategories) {
+    if (!plugin || !plugin.osCategory) {
       return;
     }
-    if (topPluginsByCategories[plugin.aiCategories] === undefined) {
-      topPluginsByCategories[plugin.aiCategories] = [];
+    if (topPluginsByCategories[plugin.osCategory] === undefined) {
+      topPluginsByCategories[plugin.osCategory] = [];
     }
-    topPluginsByCategories[plugin.aiCategories].push(plugin);
+    topPluginsByCategories[plugin.osCategory].push(plugin);
   });
 
   Object.keys(topPluginsByCategories).forEach((category) => {

@@ -55,7 +55,7 @@ export const getStaticProps = async () => {
 
   const tagsData: Record<string, number> = {};
   plugins.forEach((plugin) => {
-    const tags = plugin.aiTags?.split(',') || [];
+    const tags = plugin.osTags?.split(',') || [];
     tags.forEach((tag) => {
       if (!tag) {
         return;

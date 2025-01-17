@@ -27,9 +27,9 @@ const plugin: Plugin = {
   mergedPR: 3,
   commitCountInLastYear: 30,
   zScoreTrending: 1.5,
-  aiDescription: 'Automates tasks in Obsidian.',
-  aiCategories: 'Productivity',
-  aiTags: 'automation, productivity',
+  osDescription: 'Automates tasks in Obsidian.',
+  osCategory: 'Productivity',
+  osTags: 'automation, productivity',
   score: 0.45,
   scoreReason: 'High user ratings and active development.'
 }

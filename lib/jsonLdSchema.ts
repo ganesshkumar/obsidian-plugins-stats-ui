@@ -638,7 +638,7 @@ export const JsonLdSchema = {
           description: description,
           inLanguage: 'en-US',
           operatingSystem: 'All',
-          applicationCategory: plugin.aiCategories,
+          applicationCategory: plugin.osCategory,
           aggregateRating: {
             '@type': 'AggregateRating',
             '@id': canonical + '#aggregateRating',
@@ -723,7 +723,7 @@ const getJsonLdSchemaForPageWithPlugins = (plugins: Plugin[], title: string, des
       ...plugins.map(plugin => ({
         '@type': 'SoftwareApplication',
         name: plugin.name,
-        applicationCategory: plugin.aiCategories,
+        applicationCategory: plugin.osCategory,
         operatingSystem: 'All',
         aggregateRating: {
           '@type': 'AggregateRating',

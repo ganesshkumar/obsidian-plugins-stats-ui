@@ -60,7 +60,7 @@ export const getStaticPaths = async () => {
   const plugins = await PluginsCache.get();
 
   let tags = plugins
-    .map((plugin) => plugin.aiTags?.split(',') || [])
+    .map((plugin) => plugin.osTags?.split(',') || [])
     .flat()
     .map((tag) => sanitizeTag(tag))
     .filter((tag) => !tagDenyList.includes(tag));
@@ -76,8 +76,8 @@ export const getStaticProps = async ({ params }) => {
   const plugins = await PluginsCache.get();
 
   const pluginsWithTag = plugins.filter((plugin) =>
-    plugin.aiTags
-      ? plugin.aiTags
+    plugin.osTags
+      ? plugin.osTags
           ?.split(',')
           .map((tag) => sanitizeTag(tag))
           .filter((sanitizedTag) => !tagDenyList.includes(sanitizedTag))

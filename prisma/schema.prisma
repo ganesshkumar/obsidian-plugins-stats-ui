@@ -33,9 +33,9 @@ model Plugin {
   mergedPR                  Int?
   commitCountInLastYear     Int?
   zScoreTrending            Float?
-  aiDescription             String?
-  aiCategories              String?
-  aiTags                    String?
+  osDescription             String?
+  osCategory                String?
+  osTags                    String?
   score                     Float?
   scoreReason               String?
 }

@@ -14,7 +14,7 @@ import 'prismjs/themes/prism.css';
 import { Scorer } from "../../lib/abstractions";
 import { useRouter } from "next/router";
 import { scorePlugins } from "../../lib/scorer";
-import { Code, Delete, Edit, Edit2, Edit3, Trash, Trash2 } from "react-feather";
+import { Code, Delete, Edit, Edit2, Edit3, Plus, Trash, Trash2 } from "react-feather";
 
 const ScorerListPage = (props) => {
   const router = useRouter()
@@ -37,6 +37,13 @@ const ScorerListPage = (props) => {
     setScoringProgress(false, 0);
     router.push('/scorer/build');
   };
+
+  const createNewScorer = () => {
+    setScorerForm('', '', '', '');
+    setScoringStatus('success', '');
+    setScoringProgress(false, 0);
+    router.push('/scorer/build');
+  }
 
   const useScorer = (scorer: Scorer) => {
     const timestamp = Date.now();
@@ -70,8 +77,16 @@ const ScorerListPage = (props) => {
       <div className="bg-white pt-5 grow">
         <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
           <InfoBar title="scorer" />
-          <div className="border-l-8 pl-2 border-violet-100">Build your own custom formula function to score the plugins.</div>
-          <Table className="mt-4 grow" striped>
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
+            <div className="border-l-8 pl-2 border-violet-100">Build your own custom formula function to score the plugins.</div>
+            <Button color="dark" onClick={createNewScorer} className="w-40" size="sm">
+              <div className="flex items-center gap-x-1">
+                <Plus size={16} />
+                <div>Create Scorer</div>
+              </div>
+            </Button>
+          </div>
+          <Table className="mt-4 grow border-x border-gray-200 rounded-lg">
             <Table.Head>
               <Table.HeadCell>Name</Table.HeadCell>
               <Table.HeadCell>Description</Table.HeadCell>
@@ -131,7 +146,7 @@ const ScorerListPage = (props) => {
               <Modal.Body>
                 <Editor
                   disabled={true}
-                  value={'function scorePlugins(plugins) {'}
+                  value={'function scorePlugins(plugins, helper) {'}
                   onValueChange={() => {}}
                   highlight={code => highlight(code, languages.js)}
                   padding={10}

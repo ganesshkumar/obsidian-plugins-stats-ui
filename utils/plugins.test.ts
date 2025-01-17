@@ -9,17 +9,17 @@ describe('plugins utils', () => {
   });
 
   describe('getDescription', () => {
-    it('should return aiDescription if it is valid', () => {
+    it('should return osDescription if it is valid', () => {
       const plugin = {
-        aiDescription: 'This is a valid AI description.',
+        osDescription: 'This is a valid AI description.',
         description: 'This is a fallback description.',
       };
       expect(getDescription(plugin)).toBe('This is a valid AI description.');
     });
 
-    it('should return description if aiDescription is invalid', () => {
+    it('should return description if osDescription is invalid', () => {
       const plugin = {
-        aiDescription: 'I apologize, but I cannot provide a summary.',
+        osDescription: 'I apologize, but I cannot provide a summary.',
         description: 'This is a fallback description.',
       };
       expect(getDescription(plugin)).toBe('This is a fallback description.');
@@ -34,9 +34,9 @@ describe('plugins utils', () => {
       expect(getDescription(plugin)).toBe('');
     });
 
-    it('should remove markdown syntax from aiDescription', () => {
+    it('should remove markdown syntax from osDescription', () => {
       const plugin = {
-        aiDescription: '**This is a valid AI description.**',
+        osDescription: '**This is a valid AI description.**',
         description: 'This is a fallback description.',
       };
       expect(getDescription(plugin)).toBe('This is a valid AI description.');

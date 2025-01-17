@@ -32,9 +32,9 @@ describe('PluginCard', () => {
     mergedPR: 3,
     commitCountInLastYear: 200,
     zScoreTrending: 1.5,
-    aiDescription: 'AI generated description',
-    aiCategories: 'Category1, Category2',
-    aiTags: 'Tag1, Tag2',
+    osDescription: 'AI generated description',
+    osCategory: 'Category1, Category2',
+    osTags: 'Tag1, Tag2',
     score: 4.5,
     scoreReason: 'High quality and popular plugin',
   };
