@@ -32,6 +32,7 @@ import { SubstackNewsletter } from '../components/home/SubstackNewsletter';
 import { MostDownloadedPlugins } from '../components/home/MostDownloaded';
 import { SiteData } from '../data/siteData';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
+import { getMostDownloadedPlugins } from '../lib/plugins';
 
 interface IHomeProps extends IHeaderProps {
   newPlugins: Plugin[];
@@ -40,6 +41,8 @@ interface IHomeProps extends IHeaderProps {
   newReleases: Plugin[];
   newReleasesCount: number;
   mostDownloaded: Plugin[];
+  mostDownloadedIn7Days: Plugin[];
+  mostDownloadedIn30Days: Plugin[];
   totalTagsCount: number;
   trendingPlugins: Plugin[];
   newPosts: Post[];
@@ -67,7 +70,7 @@ const Home = (props: IHomeProps) => {
       <NewVersionsSection newReleases={props.newReleases} />
       <Divider />
       <LatestPosts posts={props.newPosts} />
-      <MostDownloadedPlugins plugins={props.mostDownloaded} />
+      <MostDownloadedPlugins overall={props.mostDownloaded} last30Days={props.mostDownloadedIn30Days} last7Days={props.mostDownloadedIn7Days}/>
       <SubstackNewsletter />
 
       {/* FAQ */}
@@ -318,9 +321,12 @@ export const getStaticProps = async () => {
   );
   newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
 
+  const limit = 10;
   const mostDownloaded = [...plugins]
     .sort((a, b) => b.totalDownloads - a.totalDownloads)
-    .slice(0, 25);
+    .slice(0, limit);
+  const mostDownloadedIn7Days = await getMostDownloadedPlugins(7, limit);
+  const mostDownloadedIn30Days = await getMostDownloadedPlugins(30, limit);
 
   const trendingPlugins = [...plugins]
     .sort((a, b) => b.zScoreTrending - a.zScoreTrending)
@@ -360,6 +366,8 @@ export const getStaticProps = async () => {
       newReleases,
       newReleasesCount,
       mostDownloaded,
+      mostDownloadedIn7Days,
+      mostDownloadedIn30Days,
       totalTagsCount: tags.size,
       trendingPlugins,
       newPosts,

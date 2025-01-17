@@ -29,7 +29,7 @@ export const CustomTheme = {
 export const ComponentTheme = {
   mostDownloadedCardTheme: {
     root: {
-      children: 'flex h-full justify-center gap-0',
+      children: 'flex flex-col h-full items-center gap-0',
     },
   } as CustomFlowbiteTheme['card'],
 };
