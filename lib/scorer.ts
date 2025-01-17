@@ -7,11 +7,22 @@ export const scorePlugins = (plugins: PluginMetrics[] | Plugin[], scorer: Scorer
   try {
     const { code } = scorer;
     const sanitizedCode = DOMPurify.sanitize(code);
-    const func = new Function('plugins', sanitizedCode);
+    const helper = {
+      normalize: (value, min, max) => {
+        if (value < min) return 0; // Value below min
+        if (value > max) return 1; // Value above max
+        if (max === min) return 0.5; // Avoid division by zero
+        return (value - min) / (max - min);
+      },
+      removeDuplicates: (arr: any[]) => {
+        return Array.from(new Set(arr));
+      },
+    }
+    const func = new Function('plugins', 'helper', sanitizedCode);
     const timeout = setTimeout(() => {
       throw new Error('Code execution timed out');
     }, 60000);
-    func(plugins);
+    func(plugins, helper);
     clearTimeout(timeout);
 
     const pluginScoreMap = plugins.map(plugin => {

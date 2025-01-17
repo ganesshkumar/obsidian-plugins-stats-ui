@@ -126,9 +126,9 @@ const NewPluginsSection = ({ newPlugins }) => {
                   </span>
                 </div>
                 <div className="mt-5 flex gap-x-2">
-                  {plugin.aiCategories && (
+                  {plugin.osCategory && (
                     <div className="grid content-center">
-                      <CategoryIcon category={plugin.aiCategories} size={32} />
+                      <CategoryIcon category={plugin.osCategory} size={32} />
                     </div>
                   )}
                   <div className="text-sm ">{plugin.description}</div>
@@ -334,8 +334,8 @@ export const getStaticProps = async () => {
 
   const tags = new Set<string>();
   plugins.forEach((plugin) => {
-    plugin?.aiTags &&
-      plugin?.aiTags
+    plugin?.osTags &&
+      plugin?.osTags
         .split(',')
         .map((tag) => sanitizeTag(tag))
         .forEach((tag) => tags.add(tag));

@@ -136,24 +136,24 @@ const UnindexedPluginListItemInternal = (props) => {
         />
       </div>
       <Score plugin={plugin} />
-      {(plugin.aiCategories || plugin.aiTags) && (
+      {(plugin.osCategory || plugin.osTags) && (
         <div className="flex mt-4 gap-x-4">
-          {plugin.aiCategories && (
+          {plugin.osCategory && (
             <div>
-              <CategoryIcon category={plugin.aiCategories} size={48} />
+              <CategoryIcon category={plugin.osCategory} size={48} />
             </div>
           )}
           <div>
-            {plugin.aiCategories && (
+            {plugin.osCategory && (
               <div className="text-gray-700">
                 Category:{' '}
-                <span className="font-bold">{plugin.aiCategories}</span>
+                <span className="font-bold">{plugin.osCategory}</span>
               </div>
             )}
-            {plugin.aiTags && (
+            {plugin.osTags && (
               <div className="flex flex-wrap gap-x-2 text-gray-700 cursor-pointer">
-                {plugin.aiTags &&
-                  plugin.aiTags
+                {plugin.osTags &&
+                  plugin.osTags
                     ?.split(',')
                     .map((tag) => sanitizeTag(tag))
                     .filter((sanitizedTag) => !tagDenyList.includes(sanitizedTag)).map((tag) => (

@@ -209,7 +209,7 @@ const Plugins = (props: IPageProps) => {
         if (filterCategory === 'all') {
           return true;
         }
-        return plugin.aiCategories === filterCategoryOptions[filterCategory];
+        return plugin.osCategory === filterCategoryOptions[filterCategory];
       });
 
     const queriedPlugins = queryPlugins(

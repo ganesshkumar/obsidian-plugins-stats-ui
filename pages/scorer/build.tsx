@@ -66,7 +66,7 @@ const ScorerBuildPage = (props) => {
           <div className="border-l-8 pl-2 border-violet-100">Build your own custom formula function to score the plugins.</div>
           <div className="flex justify-between items-center">
             <div className="mt-4 font-bold text-2xl">
-              Editing "{name}" scorer function
+              Editing "{name ? name : 'new'}" scorer function
             </div>
             <div className="flex gap-x-2 justify-end">
               <Button color="dark" onClick={createNewScorer} size="sm">New Scorer</Button>
@@ -115,10 +115,21 @@ const ScoreEditor = ({ plugins}) => {
     try {
       const sanitizedCode = DOMPurify.sanitize(code);
 
+      const helper = {
+        normalize: (value, min, max) => {
+          if (value < min) return 0; // Value below min
+          if (value > max) return 1; // Value above max
+          if (max === min) return 0.5; // Avoid division by zero
+          return (value - min) / (max - min);
+        },
+        removeDuplicates: (arr: any[]) => {
+          return Array.from(new Set(arr));
+        },
+      }
       // Create a new function with limited scope
-      const func = new Function('plugins', sanitizedCode);
+      const func = new Function('plugins', 'helper', sanitizedCode);
       const plugin = plugins.find(plugin => plugin.pluginId === 'better-plugins-manager');
-      const result = func([plugin]);
+      const result = func([plugin], helper);
       const isValidResult = typeof result === 'undefined';
       if (!isValidResult) {
         setValidationStatus(false, 'Function should update the scores inplace and should not return anything.', true);
@@ -144,7 +155,7 @@ const ScoreEditor = ({ plugins}) => {
       <div className="mt-4 mb-2">
         <Editor
           disabled={true}
-          value={'function scorePlugins(plugins) {'}
+          value={'function scorePlugins(plugins, helper) {'}
           onValueChange={handleCodeChange}
           highlight={code => highlight(code, languages.js)}
           padding={10}
