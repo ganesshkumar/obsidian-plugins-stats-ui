@@ -141,6 +141,10 @@ const ScoreEditor = ({ plugins}) => {
         <span className="font-medium">Note</span>:{' '}
         We have documented types the plugins(array of <a className="underline" href="/docs/global.html#PluginMetrics">PluginMetrics</a>) and utils(<a className="underline" href="/docs/ScorerUtils.html#ScorerUtils">ScorerUtils</a>) objects in <a className="underline" href="/docs/index.html">jsdocs</a>.
       </Alert>
+      <Alert color="info" icon={Info} className="mt-4">
+        <span className="font-medium">Note</span>:{' '}
+        Learn to build your first custom score function using our <a className="underline" href="https://www.obsidianstats.com/posts/2025-01-18-building-a-custom-score-function">step-by-step guide</a>.
+      </Alert>
       <div className="mt-4 mb-2">
         <Editor
           disabled={true}

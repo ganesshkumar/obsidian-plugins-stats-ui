@@ -21,8 +21,8 @@ plugin.score = 0.5;
 
 ## Where to see and create score functions?
 
-- `[/scorer](https://www.obsidianstats.com/scorer)` page shows the list of all custom score functions.
-- `[/scorer/build](https://www.obsidianstats.com/scorer/build)` page is where we create our custom score functions from.
+- [/scorer](https://www.obsidianstats.com/scorer) page shows the list of all custom score functions.
+- [/scorer/build](https://www.obsidianstats.com/scorer/build) page is where we create our custom score functions from.
 
 Have a look at [/scorer](https://www.obsidianstats.com/scorer). Right now, it will be empty with no score functions.
 
@@ -41,8 +41,8 @@ function scorePlugins(plugins, utils) {
 }
 ```
 
-- The type of plugins is an array of {@link PluginMetrics}
-- The type of utils is {@link ScorerUtils}
+- The type of plugins is an array of [PluginMetrics](/docs/global.html#PluginMetrics)
+- The type of utils is [ScorerUtils](/docs/ScorerUtils.html)
 
 Let's build a simple score functions.
 
