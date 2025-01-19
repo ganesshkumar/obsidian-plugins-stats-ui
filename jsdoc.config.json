@@ -22,6 +22,7 @@
   "templates": {
     "better-docs": {
       "name": "Obsidian Stats",
+      "title": "Docs | Obsidian Stats",
       "footer": false
     }
   }

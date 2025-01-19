@@ -1,9 +1,8 @@
-import { Button, Dropdown, Label, Spinner, Tabs, Textarea, TextInput } from "flowbite-react";
+import { Alert, Button, Dropdown, Label, Spinner, Tabs, Textarea, TextInput } from "flowbite-react";
 import { Footer } from "../../components/Footer"
 import Header from "../../components/Header"
 import InfoBar from "../../components/InfoBar"
 import Navbar from "../../components/Navbar"
-import { useEffect, useState } from "react";
 import { PluginsCache } from "../../cache/plugins-cache";
 import Editor from "react-simple-code-editor";
 import { highlight, languages } from 'prismjs/components/prism-core';
@@ -13,6 +12,8 @@ import 'prismjs/themes/prism.css'; //Example style, you can use another
 import DOMPurify from 'dompurify';
 import { scorePlugins } from "../../lib/scorer";
 import { useScoreListStore, useScorerFormStore, useScorerStore } from "../../store/scorer-store";
+import { ScorerUtils } from "../../domain/scorer/ScorerUtils";
+import { Info } from "react-feather";
 
 const metrics = [
   'stargazers',
@@ -115,21 +116,10 @@ const ScoreEditor = ({ plugins}) => {
     try {
       const sanitizedCode = DOMPurify.sanitize(code);
 
-      const helper = {
-        normalize: (value, min, max) => {
-          if (value < min) return 0; // Value below min
-          if (value > max) return 1; // Value above max
-          if (max === min) return 0.5; // Avoid division by zero
-          return (value - min) / (max - min);
-        },
-        removeDuplicates: (arr: any[]) => {
-          return Array.from(new Set(arr));
-        },
-      }
       // Create a new function with limited scope
-      const func = new Function('plugins', 'helper', sanitizedCode);
+      const func = new Function('plugins', 'utils', sanitizedCode);
       const plugin = plugins.find(plugin => plugin.pluginId === 'better-plugins-manager');
-      const result = func([plugin], helper);
+      const result = func([plugin], new ScorerUtils());
       const isValidResult = typeof result === 'undefined';
       if (!isValidResult) {
         setValidationStatus(false, 'Function should update the scores inplace and should not return anything.', true);
@@ -152,10 +142,14 @@ const ScoreEditor = ({ plugins}) => {
           </span>
         )}
       </div>
+      <Alert color="info" icon={Info} className="mt-4">
+        <span className="font-medium">Note</span>:{' '}
+        We have documented types the plugins(array of <a className="underline" href="/docs/global.html#PluginMetrics">PluginMetrics</a>) and utils(<a className="underline" href="/docs/ScorerUtils.html#ScorerUtils">ScorerUtils</a>) objects in <a className="underline" href="/docs/index.html">jsdocs</a>.
+      </Alert>
       <div className="mt-4 mb-2">
         <Editor
           disabled={true}
-          value={'function scorePlugins(plugins, helper) {'}
+          value={'function scorePlugins(plugins, utils) {'}
           onValueChange={handleCodeChange}
           highlight={code => highlight(code, languages.js)}
           padding={10}

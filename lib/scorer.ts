@@ -2,27 +2,18 @@ import DOMPurify from 'dompurify';
 import { PluginMetrics } from '../cache/plugins-cache';
 import { Plugin } from '@prisma/client';
 import { Scorer } from './abstractions';
+import { ScorerUtils } from '../domain/scorer/ScorerUtils';
 
 export const scorePlugins = (plugins: PluginMetrics[] | Plugin[], scorer: Scorer): Record<string, number> => {
   try {
     const { code } = scorer;
     const sanitizedCode = DOMPurify.sanitize(code);
-    const helper = {
-      normalize: (value, min, max) => {
-        if (value < min) return 0; // Value below min
-        if (value > max) return 1; // Value above max
-        if (max === min) return 0.5; // Avoid division by zero
-        return (value - min) / (max - min);
-      },
-      removeDuplicates: (arr: any[]) => {
-        return Array.from(new Set(arr));
-      },
-    }
-    const func = new Function('plugins', 'helper', sanitizedCode);
+
+    const func = new Function('plugins', 'utils', sanitizedCode);
     const timeout = setTimeout(() => {
       throw new Error('Code execution timed out');
     }, 60000);
-    func(plugins, helper);
+    func(plugins, new ScorerUtils());
     clearTimeout(timeout);
 
     const pluginScoreMap = plugins.map(plugin => {

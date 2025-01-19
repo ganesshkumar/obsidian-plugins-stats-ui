@@ -146,7 +146,7 @@ const ScorerListPage = (props) => {
               <Modal.Body>
                 <Editor
                   disabled={true}
-                  value={'function scorePlugins(plugins, helper) {'}
+                  value={'function scorePlugins(plugins, utils) {'}
                   onValueChange={() => {}}
                   highlight={code => highlight(code, languages.js)}
                   padding={10}

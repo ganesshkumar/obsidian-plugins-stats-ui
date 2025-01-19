@@ -1,6 +1,17 @@
-## Building a Custom Scorer
+---
+title: Building Custom Scoring Functions
+description: "Learn how to create and utilize custom scoring functions in ObsidianStats to rank plugins based on metrics such as downloads and more."
+excerpt: This guide provides a step-by-step walkthrough on creating, validating, and using custom scoring functions in Obsidian. Learn to rank plugins effectively and customize scores to suit your needs.
+publishedDate: "2025-01-18"
+modifiedDate: "2025-01-18"
+tags: 
+  - scoring
+  - custom score function
+  - feature
+  - tutorial
+---
 
-### Score
+## Score
 
 - The score is a floating point number ranging from 0 to 1.
 - To score a function we must set the property score on plugins (that was passed as argument to the function)
@@ -8,7 +19,7 @@
 plugin.score = 0.5;
 ```
 
-### Where to see and create score fucntions?
+## Where to see and create score fucntions?
 
 - `[/scorer](https://www.obsidianstats.com/scorer)` page shows the list of all custom score functions.
 - `[/scorer/build](https://www.obsidianstats.com/scorer/build)` page is where we create our custom score functions from.
@@ -21,7 +32,7 @@ Click on `+ Create Scorer` button and start creating a scorer.
 
 ![Score Builder](/images/scorer/empty-builder.png)
 
-### Signature of the custom score function
+## Signature of the custom score function
 To build a custom scorer, you must create a javascript function 
 
 ```js
@@ -35,7 +46,7 @@ function scorePlugins(plugins, utils) {
 
 Let's build a simple score functions.
 
-### Example 1: Setting score of all plugins to 50 
+## Example 1: Setting score of all plugins to 50 
 
 To set the scores of all plugins to 50, you can write the following custom score function.
 
@@ -59,18 +70,18 @@ The first and last lines are not editable in the UI. So, fill the function with 
 
 Let's build something usable now. In the [/scorer/build](https://www.obsidianstats.com/scorer/build) page, click on "New Scorer" button to build our next scorer.
 
-### Example 2: Setting score based on downloads count
+## Example 2: Setting score based on downloads count
 
 Use the below code to build a custom score function based on download count (totalDownloads property) of the plugins. 
 
-#### Get all the download values
+### Get all the download values
 ```
 function scorePlugins(plugins, utils) {
   let downloads = plugins.map(plugin => plugin.totalDownloads);
 }
 ```
 
-#### Find min and max download counts among all plugins
+### Find min and max download counts among all plugins
 ```
 function scorePlugins(plugins, utils) {
   let downloads = plugins.map(plugin => plugin.totalDownloads);
@@ -79,7 +90,7 @@ function scorePlugins(plugins, utils) {
 }
 ```
 
-#### Assign normalized value of a plugin's totalDownloads as it's score
+### Assign normalized value of a plugin's totalDownloads as it's score
 ```
 function scorePlugins(plugins, utils) {
   let downloads = plugins.map(plugin => plugin.totalDownloads);
@@ -97,7 +108,7 @@ function scorePlugins(plugins, utils) {
 - The above function will score Excalidraw as 100 and the second best plugin will have a score of 76.
 - To avoid this skew in number we can remove few extreme values (outliers) on the higher end (we can do it on lower end as well to avoid outliers with zero or very less totalDownloads)
 
-#### Remove outliers values before scoring 
+### Remove outliers values before scoring 
 ```
 function scorePlugins(plugins, utils) {
   let downloads = plugins
@@ -122,19 +133,18 @@ Note: We must analyse the disbution of each dimension we use to determine the ou
 
 Validate, give a name and description and click `Save and Use`. 
 
-![normalized-download-count-scorer](/images/scorer/normalized-download-count-scorer.png)
-
+![Normalized download count scorer](/images/scorer/normalized-download-count-scorer.png)
 
 🚀 Our new custom score function is being used across the website.
 
 You can go to [all plugins](https://www.obsidianstats.com/plugins) and sort by "Score (High to Low)" and see your custom scores in action.
 Here is [magic link](https://www.obsidianstats.com/plugins?sortby=score_desc) for the same! 
 
-![all-plugins-with-score](/images/scorer/all-plugins-with-score.png)
+![all plugins with score](/images/scorer/all-plugins-with-score.png)
 
 Go to [/scorer](https://www.obsidianstats.com/scorer) page to view the list of custom score function. You can edit a score function or use it from here!
 
-![all-plugins-with-score](/images/scorer/scorer-list-with-scorers.png)
+![scorer list with scorers](/images/scorer/scorer-list-with-scorers.png)
 
 
 Note: Your custom score function score the plugin locally in the browser and the custom scores are saved locally in your browser's `localStorage`.
