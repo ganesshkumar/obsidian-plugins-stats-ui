@@ -12,6 +12,12 @@ import { Button } from 'flowbite-react';
 import { Post as PostData } from '../../lib/abstractions';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeSlug from 'rehype-slug';
+import rehypeStringify from 'rehype-stringify';
+import rehypeToc from 'rehype-toc';
 
 interface IPostPageProps extends IHeaderProps {
   postData: PostData;
@@ -28,7 +34,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const postData = getPostData(params?.slug as string);
-  const processedContent = await remark().use(html).process(postData.content);
+  //const processedContent = await remark().use(html).process(postData.content);
+
+  const processedContent = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypeSlug)
+    .use(rehypeToc, { headings: ['h1', 'h2', 'h3'], cssClasses:  { listItem: 'list-none [&>li>a]:no-underline'  } })
+    .use(rehypeStringify)
+    .process(postData.content);
   const contentHtml = processedContent.toString();
 
   const plugins = await PluginsCache.get();

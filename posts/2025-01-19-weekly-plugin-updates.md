@@ -214,3 +214,10 @@ The **BuJo Bullets** plugin enhances checkboxes in Obsidian by introducing custo
 
 We got 82 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
 
+A small list of my favorite plugin updates
+
+### 1. [Pexels Banner](/plugins/pexels-banner) v2.20.3
+### 2. [Vertical Tabs](/plugins/vertical-tabs) v0.14.0
+### 3. [Advanced Canvas](/plugins/advanced-canvas) v3.4.0
+### 4. [Meta Bind](/plugins/obsidian-meta-bind-plugin) v1.3.0
+### 5. [Iconic](/plugins/iconic) v1.1.0
