@@ -12,9 +12,11 @@ tags:
 
 > There are 19 new plugins and 82 plugin updates in the last one week's time.
 
-🚀 Timeline view
+🚀 **Timeline view**
 
-This week, I am thrilled to unveil a brand-new way to explore Obsidian plugins: the Timeline! Now, you can visually track changes over time, seeing the exact dates when plugins were added, updated, or removed.
+This week, I am thrilled to unveil a brand-new way to explore Obsidian plugins: the Timeline! Now, you can visually track changes over time, seeing the exact dates when plugins were added, updated, or removed. 
+
+You can check out the [Timeline View](/timeline) here.
 
 ## ⭐ New Plugins: We have 19 new plugins.
 
