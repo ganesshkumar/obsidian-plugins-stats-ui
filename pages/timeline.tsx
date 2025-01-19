@@ -243,7 +243,7 @@ export const getStaticProps = async () => {
   const description = 'Explore a day-by-day record of plugin additions, removals, and updates in one JSON dataset. Ideal for tracking version changes, building timelines, and more.'
   const canonical = 'https://www.obsidianstats.com/timeline'
   const image = 'https://www.obsidianstats.com/logo-512.png'
-  const jsonLdSchema = JsonLdSchema.getTimelinePageSchema()
+  const jsonLdSchema = null;
 
   return {
     props: {

@@ -1,6 +1,6 @@
 module.exports = {
   experimental: {
-    middleware: true,
+    middleware: false,
   },
   i18n: {
     locales: ['en-US'],

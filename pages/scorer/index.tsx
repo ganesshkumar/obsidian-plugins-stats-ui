@@ -227,7 +227,7 @@ export const getStaticProps = async () => {
       description,
       canonical,
       image,
-      jsonLdSchema: undefined,
+      jsonLdSchema: null,
       plugins
     }
   };
