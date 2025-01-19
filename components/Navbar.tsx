@@ -9,7 +9,7 @@ import {
 } from 'flowbite-react';
 import Constants from '../constants';
 import Image from 'next/image';
-import { Rss, HelpCircle, List, Tool, RotateCw, RefreshCw } from 'react-feather';
+import { Rss, HelpCircle, List, Tool, RotateCw, RefreshCw, Calendar } from 'react-feather';
 
 interface INavbarProps {
   current?: string;
@@ -144,7 +144,7 @@ const NavBar = ({ current, children }: INavbarProps) => {
                     </li>
                     <li>
                       <a href="/timeline" className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'timeline' ? 'text-purple-700 dark:text-primary-500' : ''}`}>
-                        <RefreshCw size={18}/>
+                        <Calendar size={18}/>
                         Timeline
                       </a>
                     </li>

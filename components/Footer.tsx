@@ -82,14 +82,17 @@ export const Footer = () => {
               <div>
                 <FlowbiteFooter.Title className="text-gray-900" title="Tools" />
                 <FlowbiteFooter.LinkGroup col>
-                  <FlowbiteFooter.Link className={footerLinkClass} href="/migrate">
-                    Migrate/Sync
-                  </FlowbiteFooter.Link>
                   <FlowbiteFooter.Link className={footerLinkClass} href="/scorer">
                     Custom Scorers
                   </FlowbiteFooter.Link>
                   <FlowbiteFooter.Link className={footerLinkClass} href="/scorer/build">
                     Build Scorer
+                  </FlowbiteFooter.Link>
+                  <FlowbiteFooter.Link className={footerLinkClass} href="/migrate">
+                    Migrate/Sync
+                  </FlowbiteFooter.Link>
+                  <FlowbiteFooter.Link className={footerLinkClass} href="/timeline">
+                    Timeline
                   </FlowbiteFooter.Link>
                 </FlowbiteFooter.LinkGroup>
               </div>

@@ -60,6 +60,7 @@ export function animateScrollTo(targetY, duration = 3000) {
 const TimelinePage = (props) => {
   const [stopScrolling, setStopScrolling] = useState(null); 
   const [selectedDate, setSelectedDate] = useState(null);
+  const [animateFromDate, setAnimateFromDate] = useState(null);
   const timelineRef = useRef(null);
 
   const handleJump = () => {
@@ -92,6 +93,31 @@ const TimelinePage = (props) => {
    }
   }
 
+  const handleAnimateHistoryFromDate = () => {
+    if (stopScrolling) {
+      stopScrolling(); 
+      setStopScrolling(null);
+    }
+  
+    const availableDates = Object.keys(props.data);
+    let dateStr = moment(animateFromDate).format('YYYY-MM-DD');
+    if (!availableDates.includes(dateStr)) {
+      const closestDate = availableDates.map(date => {
+        const days = Math.abs(moment(date).diff(moment(animateFromDate), 'days'));
+        return { date, days };
+      }).sort((a, b) => a.days - b.days)[0]?.date || availableDates[0];
+      dateStr = closestDate;
+    }
+    timelineRef.current.jumpToDate(dateStr);
+    
+    const lastDate = Object.keys(props.data).sort((a, b) => b.localeCompare(a))[0];
+    const targetY = timelineRef.current.getPositionForDate(lastDate);
+    if (targetY != null) {
+      const stopFn = animateScrollTo(targetY, Object.keys(props.data).filter(k => moment(k) >= moment(dateStr) && moment(k) <= moment(lastDate)).length * 2000);
+      setStopScrolling(() => stopFn);
+    }
+  }
+
   const handleStopAnimation = () => {
     if (stopScrolling) {
       stopScrolling();
@@ -119,9 +145,18 @@ const TimelinePage = (props) => {
                   />
                   <Button color='dark' onClick={handleJump}> Jump </Button>
                 </div>
-                <div>
+                <div className='flex gap-2'>
+                  <Datepicker
+                    minDate={moment('2020-10-28').toDate()}
+                    maxDate={moment().toDate()}
+                    value={animateFromDate}
+                    onChange={(date) => setAnimateFromDate(date)}
+                  />
                   {!stopScrolling ?
-                    <Button color='dark' onClick={handleAnimateHistory}> Animate </Button> :
+                    <>
+                      <Button color='dark' onClick={handleAnimateHistoryFromDate}> Animate From Date</Button>
+                      <Button color='dark' onClick={handleAnimateHistory}> Animate From Beginning</Button>
+                    </> :
                     <Button color='dark' onClick={handleStopAnimation}> Stop Animate </Button>
                   }
                 </div>
