@@ -67,13 +67,8 @@ const ScorerListPage = (props) => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header
-        title={""}
-        description={""}
-        canonical="https://www.obsidianstats.com/scorer"
-        image={""}
-      />
-      <Navbar current="migrate" />
+      <Header {...props} />
+      <Navbar current="scorer" />
       <div className="bg-white pt-5 grow">
         <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
           <InfoBar title="scorer" />
@@ -221,11 +216,10 @@ export const getStaticProps = async () => {
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
   );
   
-  const title = `Obsidian Plugins - Comprehensive List and Detailed Summaries of ${plugins.length} Plugins`;
-  const description = `Explore all ${plugins.length} Obsidian plugins with detailed summaries, scores, ratings, and more. Filter by favorites, categories, tags, and sort by score, downloads, and new plugins.`;
-  const canonical = 'https://www.obsidianstats.com/plugins';
+  const title = 'Enhance your Obsidian experience with our curated list of plugins';
+  const description = 'Discover how to build custom scoring functions for Obsidian plugins. Enhance your productivity by creating personalized formulas to evaluate and rank plugins based on your specific needs.';
+  const canonical = 'https://www.obsidianstats.com/scorer';
   const image = 'https://www.obsidianstats.com/logo-512.png';
-  const jsonLdSchema = ""; //JsonLdSchema.getPluginsPageSchema(plugins, title, description, canonical, image);
 
   return {
     props: {
@@ -233,7 +227,7 @@ export const getStaticProps = async () => {
       description,
       canonical,
       image,
-      jsonLdSchema,
+      jsonLdSchema: undefined,
       plugins
     }
   };

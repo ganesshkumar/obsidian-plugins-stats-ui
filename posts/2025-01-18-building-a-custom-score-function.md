@@ -19,7 +19,7 @@ tags:
 plugin.score = 0.5;
 ```
 
-## Where to see and create score fucntions?
+## Where to see and create score functions?
 
 - `[/scorer](https://www.obsidianstats.com/scorer)` page shows the list of all custom score functions.
 - `[/scorer/build](https://www.obsidianstats.com/scorer/build)` page is where we create our custom score functions from.
@@ -129,7 +129,7 @@ function scorePlugins(plugins, utils) {
 
 This change makes 10 plugins to score more than 80. 
 
-Note: We must analyse the disbution of each dimension we use to determine the outliers. The 0.5% is just an example here!
+Note: We must analyse the distribution of each dimension we use to determine the outliers. The 0.5% is just an example here!
 
 Validate, give a name and description and click `Save and Use`. 
 
@@ -154,7 +154,7 @@ Note: Your custom score function score the plugin locally in the browser and the
 
 - I want to fix the default score function with clear objective to cater new comers to Obsidian.
 - I want to add more functions to `utils` to make building score functions easier. 
-- Ofcourse, I want develop a process to publish scorer function and let everyone use it just like how we use themes and plugins in Obsidian.
+- Ofcourse, I want to develop a process to publish scorer function and let everyone use it just like how we use themes and plugins in Obsidian.
 
 ## Contribution 
 

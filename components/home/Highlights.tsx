@@ -67,19 +67,6 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
   return (
     <div className="bg-transparent mt-16">
       <div className="max-w-6xl mx-auto h-[600px] md:h-[350px] lg:h-[300px]">
-        <div key="main-highlight" className='text-center text-gray-700 justify-center items-baseline'>
-          <div className="border border-yellow-500 px-2 rounded-3xl bg-yellow-100 inline-flex gap-x-1 ring-offset-2 ring-1 ring-yellow-200">
-            <span>New Home:</span>
-            {/* <span className='flex items-baseline'><Home size={14} className='text-gray-900'/>:</span> */}
-            <span className='text-violet-700'>
-              <a href="https://www.obsidianstats.com">www.obsidianstats.com</a>
-            </span>
-          </div>
-        </div>
-        <div className='flex gap-x-1 justify-center'>
-          <span>To migrate your favorite plugins from old domain use</span>
-          <a href="https://obsidian-plugin-stats.ganesshkumar.com/migrate" className='underline'>/migrate</a>
-        </div>
         {cards.length === 1 ? cards[0] : withCarousel(cards)}
       </div>
     </div>

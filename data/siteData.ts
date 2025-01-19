@@ -3,6 +3,15 @@ import { Faq, Highlight } from '../lib/abstractions';
 export const SiteData = {
   highlights: [
     {
+      title: 'Introducing Custom Scoring Functions',
+      image: '/images/custom-scorer-example-1.png',
+      description:
+        'Build your own custom score function to score the plugins. Follow the latest post for step-by-step walkthrough on creating, validating, and using custom scoring functions in Obsidian. This is still a work in progress and will be improved over time to make writing custom scorers easier 🛠️. Feel free to give your feedback and suggestions on the GitHub discussion.',
+      link: '/posts/2025-01-18-building-a-custom-score-function',
+      ctaText: 'Build a custom score functions',
+      bgClasses: 'bg-gradient-to-tr from-green-400 to-emerald-400 text-black',
+    },
+    {
       title: 'New Plugin Scoring System',
       image: '/images/score-example-1.png',
       description:
