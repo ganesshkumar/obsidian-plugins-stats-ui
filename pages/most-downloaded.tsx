@@ -84,7 +84,7 @@ const MostDownloaded = (props: IMostDownloadedProps) => {
   );
 };
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async () => {
   const plugins = await PluginsCache.get();
 
   const limit = 25;
