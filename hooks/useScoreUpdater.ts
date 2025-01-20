@@ -6,13 +6,14 @@ import { Plugin } from '@prisma/client';
 
 export const useScoreUpdater = (initialPlugins: PluginMetrics[] | Plugin[]) => {
   const getActiveScorer = useScorerStore((state) => state.getActiveScorer);
+  const enableCustomScorer = useScorerStore((state) => state.enableCustomScorer);
   const activeScorer = getActiveScorer();
   const pluginsScoreMap = useScoreListStore((state) => state.scores);
   const scoringTimestamp = useScoreListStore((state) => state.scoringTimestamp);
   const setScores = useScoreListStore((state) => state.setScores);
 
   useEffect(() => {
-    if (activeScorer) {
+    if (enableCustomScorer && activeScorer) {
       const hasNewPlugins = initialPlugins.some(plugin => !pluginsScoreMap[plugin.pluginId]);
       const scoreOutdated = Date.now() - scoringTimestamp > 86400000; // Older than 24 hours
 

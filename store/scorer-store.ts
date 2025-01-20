@@ -3,6 +3,8 @@ import { Scorer } from '../lib/abstractions'
 import { persist } from 'zustand/middleware'
 
 export interface IScorerStore {
+  enableCustomScorer: boolean;
+  setEnableCustomScorer: (enableCustomScorer: boolean) => void;
   activeScorerId: string;
   setActiveScorerId: (scorerId: string) => void;
   scorers: Scorer[];
@@ -16,6 +18,8 @@ export interface IScorerStore {
 export const useScorerStore = create<IScorerStore>()(
   persist(
     (set, get) => ({
+      enableCustomScorer: false,
+      setEnableCustomScorer: (enableCustomScorer: boolean) => set({ enableCustomScorer }),
       activeScorerId: 'default',
       scorerFormData: undefined,
       scorers: [],

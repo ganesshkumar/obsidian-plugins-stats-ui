@@ -3,7 +3,7 @@ import Header from "../../components/Header"
 import InfoBar from "../../components/InfoBar"
 import Navbar from "../../components/Navbar"
 import { PluginsCache } from "../../cache/plugins-cache";
-import { Badge, Button, Modal, Table, Tooltip } from "flowbite-react";
+import { Badge, Button, Modal, Table, ToggleSwitch, Tooltip } from "flowbite-react";
 import { useScoreListStore, useScorerFormStore, useScorerStore } from "../../store/scorer-store";
 import { useState } from "react";
 import Editor from "react-simple-code-editor";
@@ -14,12 +14,14 @@ import 'prismjs/themes/prism.css';
 import { Scorer } from "../../lib/abstractions";
 import { useRouter } from "next/router";
 import { scorePlugins } from "../../lib/scorer";
-import { Code, Delete, Edit, Edit2, Edit3, Plus, Trash, Trash2 } from "react-feather";
+import { Code, Edit, Plus, Trash2 } from "react-feather";
 
 const ScorerListPage = (props) => {
   const router = useRouter()
   const [selectedScorer, setSelectedScorer] = useState<Scorer | undefined>(undefined);
   const [scorerToDelete, setScorerToDelete] = useState<Scorer | undefined>(undefined);
+  const enableCustomScorer = useScorerStore(state => state.enableCustomScorer);
+  const setEnableCustomScorer = useScorerStore(state => state.setEnableCustomScorer);
   const scorers = useScorerStore(state => state.scorers);
   const activeScorerId = useScorerStore(state => state.activeScorerId);
   const setScorerForm = useScorerFormStore(state => state.setScorerForm);
@@ -65,6 +67,10 @@ const ScorerListPage = (props) => {
     setScorerToDelete(undefined);
   }
 
+  const toggleEnableCustomScorer = () => {
+    setEnableCustomScorer(!enableCustomScorer);
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header {...props} />
@@ -72,8 +78,9 @@ const ScorerListPage = (props) => {
       <div className="bg-white pt-5 grow">
         <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
           <InfoBar title="scorer" />
-          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
-            <div className="border-l-8 pl-2 border-violet-100">Build your own custom formula function to score the plugins.</div>
+          <div className="border-l-8 pl-2 border-violet-100">Build your own custom formula function to score the plugins.</div>
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 mt-2">
+            <ToggleSwitch label="Enable custom scorers" className="gap-x-2" color="purple" checked={enableCustomScorer} onChange={toggleEnableCustomScorer} />
             <Button color="dark" onClick={createNewScorer} className="w-40" size="sm">
               <div className="flex items-center gap-x-1">
                 <Plus size={16} />
@@ -122,9 +129,9 @@ const ScorerListPage = (props) => {
                       </div>
                     </Table.Cell>
                     <Table.Cell className="w-28">
-                      {activeScorerId === scorer.id ? 
+                      {enableCustomScorer && activeScorerId === scorer.id ? 
                         <Badge color="purple" className="flex justify-center">In Use</Badge> :
-                        <Button color="dark" size="sm" onClick={() => useScorer(scorer)}>Use</Button> 
+                        <Button color="dark" size="sm" onClick={() => useScorer(scorer)} disabled={!enableCustomScorer}>Use</Button> 
                       } 
                     </Table.Cell>
                   </Table.Row>

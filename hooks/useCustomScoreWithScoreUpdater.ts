@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { patchPluginsWithCustomScore } from '../lib/scorer';
 import { useScoreListStore, useScorerStore } from '../store/scorer-store';
-import { PluginMetrics } from '../cache/plugins-cache';
 import { Plugin } from '@prisma/client';
 import { scorePlugins } from '../lib/scorer';
 
 export const useCustomScoreWithScoreUpdater = (initialPlugins: Plugin[]) => {
   const pluginsScoreMap = useScoreListStore((state) => state.scores);
   const getActiveScorer = useScorerStore((state) => state.getActiveScorer);
+
+  const enableCustomScorer = useScorerStore((state) => state.enableCustomScorer);
   const activeScorer = getActiveScorer();
   
   const scoringTimestamp = useScoreListStore((state) => state.scoringTimestamp);
@@ -16,7 +17,7 @@ export const useCustomScoreWithScoreUpdater = (initialPlugins: Plugin[]) => {
   const [plugins, setPlugins] = useState(initialPlugins);
 
   useEffect(() => {
-    if (activeScorer) {
+    if (enableCustomScorer && activeScorer) {
       const hasNewPlugins = initialPlugins.some(plugin => !pluginsScoreMap[plugin.pluginId]);
       const scoreOutdated = Date.now() - scoringTimestamp > 86400000; // Older than 24 hours
 
@@ -33,7 +34,7 @@ export const useCustomScoreWithScoreUpdater = (initialPlugins: Plugin[]) => {
   }, []);
   
   useEffect(() => {
-    if (activeScorer) {
+    if (enableCustomScorer && activeScorer) {
       const patchedPlugins = patchPluginsWithCustomScore(initialPlugins, pluginsScoreMap);
       setPlugins(patchedPlugins);
     }
