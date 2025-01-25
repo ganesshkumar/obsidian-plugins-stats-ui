@@ -59,8 +59,8 @@ export function animateScrollTo(targetY, duration = 3000) {
 
 const TimelinePage = (props) => {
   const [stopScrolling, setStopScrolling] = useState(null); 
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [animateFromDate, setAnimateFromDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(undefined);
+  const [animateFromDate, setAnimateFromDate] = useState(undefined);
   const timelineRef = useRef(null);
 
   const handleJump = () => {
@@ -69,9 +69,14 @@ const TimelinePage = (props) => {
       let dateStr = moment(selectedDate).format('YYYY-MM-DD');
       if (!availableDates.includes(dateStr)) {
         const closestDate = availableDates.map(date => {
-          const days = Math.abs(moment(date).diff(moment(selectedDate), 'days'));
-          return { date, days };
-        }).sort((a, b) => a.days - b.days)[0]?.date || availableDates[0];
+          const days = moment(date).diff(moment(selectedDate), 'days');
+          return {
+            date, days,
+            hasPlugins: (props.data[date].added?.length ?? 0) > 0 || (props.data[date].removed?.length ?? 0) > 0 || (props.data[date].changed?.length ?? 0) > 0
+          };
+        })
+        .filter(({ days, hasPlugins }) => days >= 0 && hasPlugins)
+        .sort((a, b) => a.days - b.days)[0]?.date || availableDates[0];
         dateStr = closestDate;
       }
       timelineRef.current.scrollToDate(dateStr);
@@ -103,9 +108,14 @@ const TimelinePage = (props) => {
     let dateStr = moment(animateFromDate).format('YYYY-MM-DD');
     if (!availableDates.includes(dateStr)) {
       const closestDate = availableDates.map(date => {
-        const days = Math.abs(moment(date).diff(moment(animateFromDate), 'days'));
-        return { date, days };
-      }).sort((a, b) => a.days - b.days)[0]?.date || availableDates[0];
+        const days = moment(date).diff(moment(animateFromDate), 'days');
+        return {
+          date, days,
+          hasPlugins: (props.data[date].added?.length ?? 0) > 0 || (props.data[date].removed?.length ?? 0) > 0 || (props.data[date].changed?.length ?? 0) > 0
+        };
+      })
+      .filter(({ days, hasPlugins }) => days >= 0 && hasPlugins)
+      .sort((a, b) => a.days - b.days)[0]?.date || availableDates[0];
       dateStr = closestDate;
     }
     timelineRef.current.jumpToDate(dateStr);
@@ -135,8 +145,8 @@ const TimelinePage = (props) => {
             {/* Sticky Header */}
             <div className="sticky top-1 bg-white p-4 z-10 border border-gray-200 shadow mb-4 rounded-md">
               <h1 className="text-2xl mb-2 font-bold">Plugin Timeline</h1>
-              <div className='flex justify-between'>
-                <div className="flex items-center space-x-4">
+              <div className='flex flex-col lg:flex-row justify-between gap-y-4'>
+                <div className="flex flex-col lg:flex-row lg:items-center gap-x-4 gap-y-2">
                   <Datepicker
                     minDate={moment('2020-10-28').toDate()}
                     maxDate={moment().toDate()}
@@ -145,7 +155,7 @@ const TimelinePage = (props) => {
                   />
                   <Button color='dark' onClick={handleJump}> Jump </Button>
                 </div>
-                <div className='flex gap-2'>
+                <div className='flex flex-col lg:flex-row gap-2'>
                   <Datepicker
                     minDate={moment('2020-10-28').toDate()}
                     maxDate={moment().toDate()}
@@ -211,10 +221,22 @@ const ChangesTimeline = forwardRef((props: any, ref) => {
   return (
     <Timeline className='mx-4'>
       {sortedDates.map((dateStr) => {
-        const { added = [], removed = [], changed = [] } = data[dateStr];
+
+        let { added = [], removed = [], changed = [] } = data[dateStr];
         if (added.length === 0 && removed.length === 0 && changed.length === 0) {
           return null;
         }
+        // remove duplicates
+        const removeDuplicates = (plugins) => {
+          const uniqueObjects = new Map();
+          plugins.forEach(plugin => uniqueObjects.set(plugin.id, plugin));
+          return Array.from(uniqueObjects.values());
+        };
+
+        added = removeDuplicates(added);
+        removed = removeDuplicates(removed);
+        changed = removeDuplicates(changed);
+
         return (
           <TimelineItem key={dateStr} ref={(el) => {
             timelineRefs.current[dateStr] = el;
@@ -227,40 +249,40 @@ const ChangesTimeline = forwardRef((props: any, ref) => {
               </TimelineTitle> */}
               <TimelineBody>
                 {added.length > 0 && (
-                  <p className="mt-2">
+                  <div className="mt-2">
                     <span className='text-sm'>Added Plugins: {added.length}</span>
                     <p className='flex gap-2 flex-wrap'>
                       {added.map((plugin) => (
-                        <a key={plugin.id} href={`/plugins/${plugin.id}`} className='px-1 text-gray-700 border-purple-600 bg-purple-100 rounded text-sm'>
+                        <a key={`added-${dateStr}-${plugin.id}`} href={`/plugins/${plugin.id}`} className='px-1 text-gray-700 border-purple-600 bg-purple-100 rounded text-sm'>
                           {plugin.name}
                         </a>
                       ))}
                     </p>
-                  </p>
+                  </div>
                 )}
                 {removed.length > 0 && (
-                  <p className="mt-2">
+                  <div className="mt-2">
                     <span className='text-sm'>Removed Plugins: {removed.length} </span>
                     <p className='flex gap-2 flex-wrap'>
                     {removed.map((plugin) => (
-                      <a key={plugin.id} href={`/plugins/${plugin.id}`} className='px-1 text-gray-700 border-red-600 bg-red-100 rounded text-sm'>
+                      <a key={`removed-${dateStr}-${plugin.id}`} href={`/plugins/${plugin.id}`} className='px-1 text-gray-700 border-red-600 bg-red-100 rounded text-sm'>
                         {plugin.name}
                       </a>
                     ))}
                     </p>
-                  </p>
+                  </div>
                 )}
                 {changed.length > 0 && (
-                  <p className="mt-2">
+                  <div className="mt-2">
                     <span className='text-sm'>Updated Plugins: {changed.length} </span>
                     <p className='flex gap-2 flex-wrap'>
                     {changed.map((plugin) => (
-                      <a key={plugin.id} href={`/plugins/${plugin.id}`} className='px-1 text-gray-700 border-yellow-600 bg-yellow-100 rounded text-sm'>
+                      <a key={`changed-${dateStr}-${plugin.id}`} href={`/plugins/${plugin.id}`} className='px-1 text-gray-700 border-yellow-600 bg-yellow-100 rounded text-sm'>
                         {plugin.name}
                       </a>
                     ))}
                     </p>
-                  </p>
+                  </div>
                 )}
               </TimelineBody>
             </TimelineContent>
