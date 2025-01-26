@@ -1,7 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getAllPostIds, getPostData } from '../../lib/posts';
-import { remark } from 'remark';
-import html from 'remark-html';
 import Navbar from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import moment from 'moment';
@@ -17,14 +15,42 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
-import rehypeToc from 'rehype-toc';
+import { visit } from 'unist-util-visit';
+
+function remarkPluginHandler() {
+  return async (tree) => {
+    const plugins = await PluginsCache.get();
+    visit(tree, 'code', (node) => {
+      if (node.lang === 'plugin') {
+        console.log('Matched plugin code block', node);
+        const pluginId = node.value.trim();
+        const plugin = plugins.find((p) => p.pluginId === pluginId);
+        const authorUrl = `https://github.com/plugin.repo.split('/')[0]`;
+        node.type = 'html';
+        node.value = `<div class="plugin-container" data-plugin-id="${plugin.name}">
+          <div class="plugin-header">
+            <h3>${plugin.name}</h3>
+          </div>
+          <div class="plugin-content">
+            <div class="plugin-details">
+              <div>
+                Released on ${moment(plugin.createdAt).format("YYYY-MM-DD")} by <a href={${authorUrl}}>${plugin.author}</a>
+              </div>
+              <p>Downloads: ${plugin.osDescription}</p>
+            </div>
+          </div>
+        </div>`;
+      }
+    });
+  };
+}
 
 interface IPostPageProps extends IHeaderProps {
   postData: PostData;
   plugins: any[];
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = () => {
   const paths = getAllPostIds();
   return {
     paths,
@@ -33,19 +59,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const plugins = await PluginsCache.get();
   const postData = getPostData(params?.slug as string);
-  //const processedContent = await remark().use(html).process(postData.content);
+  console.log(postData)
 
   const processedContent = await unified()
     .use(remarkParse)
-    .use(remarkRehype)
+    .use(remarkPluginHandler)
+    .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
-    .use(rehypeToc, { headings: ['h1', 'h2', 'h3'], cssClasses:  { listItem: 'list-none [&>li>a]:no-underline'  } })
-    .use(rehypeStringify)
+    //.use(rehypeToc, { headings: ['h1', 'h2', 'h3'], cssClasses:  { listItem: 'list-none [&>li>a]:no-underline'  } })
+    .use(rehypeStringify, { allowDangerousHtml: true })
     .process(postData.content);
   const contentHtml = processedContent.toString();
+  console.log("Processed HTML content:", contentHtml);
 
-  const plugins = await PluginsCache.get();
   const filteredPlugins =
     postData.plugins
       ?.map((pluginId) => plugins.find((p) => p.pluginId === pluginId))
