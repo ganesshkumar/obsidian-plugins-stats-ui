@@ -379,7 +379,7 @@
         <p class="tag-source">
             <a href="ScorerUtils.ts.html" class="button">View Source</a>
             <span>
-                <a href="ScorerUtils.ts.html">ScorerUtils.ts</a>, <a href="ScorerUtils.ts.html#line43">line 43</a>
+                <a href="ScorerUtils.ts.html">ScorerUtils.ts</a>, <a href="ScorerUtils.ts.html#line73">line 73</a>
             </span>
         </p>
     
@@ -411,6 +411,226 @@
 <div class="columns">
     
     <div class='param-desc column is-7'>The normalized value between 0 and 1.         Returns 0 if the value is less than or equal to the minimum.         Returns 1 if the value is greater than or equal to the maximum.         Returns 0.5 if the minimum and maximum values are equal.</div>
+    
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="normalizedSigmoid">
+        <a class="href-link" href="#normalizedSigmoid">#</a>
+        
+        <span class="code-name">
+            
+                normalizedSigmoid<span class="signature">(value, min, max, k)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Applies a normalized sigmoid function to a value within a given range.
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>value</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The value to apply the sigmoid function to.</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>min</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The minimum value of the range.</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>max</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The maximum value of the range.</td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>k</code></td>
+  
+
+  <td class="type">
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The steepness of the sigmoid curve (default is 0.1).</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="ScorerUtils.ts.html" class="button">View Source</a>
+            <span>
+                <a href="ScorerUtils.ts.html">ScorerUtils.ts</a>, <a href="ScorerUtils.ts.html#line87">line 87</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'>The value transformed by the sigmoid function, normalized between 0 and 1.         Returns 0 if the value is less than the minimum.         Returns 1 if the value is greater than the maximum.         Returns 0.5 if the minimum and maximum values are equal.</div>
     
     
 </div>

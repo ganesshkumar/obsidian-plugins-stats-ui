@@ -110,10 +110,8 @@ const NewPluginsSection = ({ newPlugins }) => {
                 href={`/plugins/${plugin.pluginId}`}
                 id={`new-plugin-${idx}`}
                 style={{
-                  transform: isInView ? 'none' : 'translateY(200px)',
                   opacity: isInView ? 1 : 0,
-                  transition:
-                    'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
+                  transition: 'opacity 0.5s ease-in',
                 }}
               >
                 <div className="text-xl font-semibold text-gray-800">
@@ -141,9 +139,8 @@ const NewPluginsSection = ({ newPlugins }) => {
             href="/new"
             content={`View all ${newPlugins?.length || 0} new plugins ⟶`}
             style={{
-              transform: isInView ? 'none' : 'translateY(200px)',
               opacity: isInView ? 1 : 0,
-              transition: 'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
+              transition: 'opacity 0.5s ease-in',
             }}
           />
         </div>
@@ -188,10 +185,8 @@ const NewVersionsSection = ({ newReleases }) => {
                 href={`/plugins/${newRelease.pluginId}`}
                 id={`plugin-update-${idx}`}
                 style={{
-                  transform: isInView ? 'none' : 'translateY(200px)',
                   opacity: isInView ? 1 : 0,
-                  transition:
-                    'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
+                  transition: 'opacity 0.5s ease-in',
                 }}
               >
                 <div className="w-full flex-col">
@@ -227,9 +222,8 @@ const NewVersionsSection = ({ newReleases }) => {
             href="/updates"
             content={`View all ${newReleases?.length || 0} updated plugins ⟶`}
             style={{
-              transform: isInView ? 'none' : 'translateY(200px)',
               opacity: isInView ? 1 : 0,
-              transition: 'all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s',
+              transition: 'opacity 0.5s ease-in',
             }}
           />
         </div>
