@@ -2,13 +2,15 @@
 title: Obsidian Plugin Updates 2025-03-02 to 2025-03-08
 description: "new obsidian plugins from 2025-03-02 to 2025-03-08 - Hârn Weather Generator, Export Graph View, Reading View j/k Scroll, Write Good, Tier List, Spaced Repetition AI, Blog AI Generator, Memos AI Sync, Chat clips, AI Tagger Universe, KOI Sync, ASCII Tree Generator, Manual Sorting, Content Cards, VaultSync, Asana, Vision Recall, Cursor Position History, Title As Link Text, Task Mover, Infio Copilot"
 excerpt: There are 21 new plugins and 83 plugin updates in the last one week's time.
-publishedDate: "2025-03-09"
-modifiedDate: "2025-03-09"
+publishedDate: "2025-03-10"
+modifiedDate: "2025-03-10"
 tags: 
   - weekly-plugin-updates
 ---
 
 ![Weekly Updates](/images/2025-03-10-weekly-plugin-updates-1.webp)
+
+Obsidian’s plugin ecosystem continues to evolve at a rapid pace, and this week brings an exciting surge of new tools! With 21 brand-new plugins and 83 updates, there’s something for everyone—whether you want to enhance productivity, automate workflows, refine your writing, or even bring AI into your note-taking experience. From advanced weather simulations to AI-powered tagging and seamless vault syncing, these latest additions are set to supercharge your workflow. Let’s dive in and explore what’s new!
 
 > There are 21 new plugins and 83 plugin updates in the last one week's time.
 
