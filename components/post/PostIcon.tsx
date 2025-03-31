@@ -5,7 +5,7 @@ export const PostIcon = (props) => {
     return (
       <Calendar
         data-testid="calendar-icon"
-        size={48}
+        size={props.size || 48}
         className="text-violet-700 p-1 rounded fill-violet-200"
       />
     );
@@ -13,7 +13,7 @@ export const PostIcon = (props) => {
     return (
       <Star
         data-testid="star-icon"
-        size={48}
+        size={props.size || 48}
         className="text-yellow-400 p-1 rounded fill-yellow-200"
       />
     );
@@ -21,7 +21,7 @@ export const PostIcon = (props) => {
     return (
       <List
         data-testid="list-icon"
-        size={48}
+        size={props.size || 48}
         className="text-green-400 p-1 rounded fill-yellow-200"
       />
     );
@@ -29,7 +29,7 @@ export const PostIcon = (props) => {
     return (
       <Zap
         data-testid="zap-icon"
-        size={48}
+        size={props.size || 48}
         className="text-sky-700 p-1 rounded fill-sky-200"
       />
     );

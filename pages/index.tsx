@@ -57,6 +57,16 @@ const Home = (props: IHomeProps) => {
       <Header {...props} />
       <Navbar current="home" />
 
+      {/* Debug: Current Screen Size */}
+      {/* <div className="text-sm text-gray-500 font-mono mb-4">
+        <div className="block sm:hidden">screen: base (mobile)</div>
+        <div className="hidden sm:block md:hidden">screen: sm</div>
+        <div className="hidden md:block lg:hidden">screen: md</div>
+        <div className="hidden lg:block xl:hidden">screen: lg</div>
+        <div className="hidden xl:block 2xl:hidden">screen: xl</div>
+        <div className="hidden 2xl:block">screen: 2xl</div>
+      </div> */}
+      
       <div className="bg-gray-50 lg:py-10 bg-[url('/images/confetti-doodles.svg')]">
         <PluginEcosystemStats {...props} />
       </div>
