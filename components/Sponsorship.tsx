@@ -6,7 +6,7 @@ export const Sponsorship = (props) => {
     <div className="bg-transparent mt-16">
       <div className="max-w-6xl mx-auto px-2 flex flex-col">
         <div className="text-center mb-4 font-bold">Sponsors</div>
-        {sponsors.length === 0 && <FirstSponsorship />}
+        <FirstSponsorship />
       </div>
     </div>
   )

@@ -187,18 +187,32 @@ const Post = (props: IPostPageProps) => {
     return 'to-brown-100';
   }
 
+  const [isLessThanLarge, setIsLessThanLarge] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLessThanLarge(window.innerWidth < 1024); // Tailwind's `md` breakpoint is 768px
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
   const sidebar = (
     <div>
       <h2 className="mt-1 mb-4 text-2xl">Suggested Posts</h2>
-      {suggestedPosts.map((post, index) => (
-        <a key={post.id} className="mb-4 flex items-start border border-gray-200 bg-[#fafafa] p-4" href={`/posts/${post.id}`}>
-          <div className={`w-[130px] min-w-[130px] h-[100px] min-h-[100px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center`}>
-            <PostIcon tags={post.tags} size={60} />
-          </div>
-          <p className="text-sm text-gray-700 px-4">{post.title} - {post.publishedDate}</p>
-        </a>
-      ))}
-      <CarbonAd />
+      <div className='flex flex-wrap gap-2'>
+        {suggestedPosts.map((post, index) => (
+          <a key={post.id} className="flex items-start border border-gray-200 bg-[#fafafa] p-4 w-[400px] min-w-[400px] max-w-[400px] h-[130px] min-h-[130px] max-h-[130px]" href={`/posts/${post.id}`}>
+            <div className={`w-[130px] min-w-[130px] max-w-[130px] h-[100px] min-h-[100px] max-h-[100px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center`}>
+              <PostIcon tags={post.tags} size={60} />
+            </div>
+            <p className="text-sm text-gray-700 px-4">{post.title} - {post.publishedDate}</p>
+          </a>
+        ))}
+        <CarbonAd />
+      </div>
     </div>
   )
 
@@ -208,10 +222,10 @@ const Post = (props: IPostPageProps) => {
       <Navbar current="posts" />
       {/* New Plugins */}
       <div className="bg-white pt-5">
-        <ResponsiveLayout sidebar={sidebar}>
+        <ResponsiveLayout sidebar={sidebar} isLessThanLarge={isLessThanLarge}>
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
             <h1 className="mt-2 mb-0 text-3xl">{postData.title}</h1>
-            <div className="mb-4">
+            <div className="mb-4">586
               Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
             </div>
             {plugins && plugins.length ? (
@@ -265,10 +279,12 @@ const CarbonAd = () => {
   return <div id="carbon-container"></div>;
 };
 
-const ResponsiveLayout: React.FC<{ children: React.ReactNode; sidebar?: React.ReactNode }> = ({
+const ResponsiveLayout: React.FC<{ children: React.ReactNode; sidebar?: React.ReactNode, isLessThanLarge: boolean }> = ({
   children,
   sidebar,
+  isLessThanLarge
 }) => {
+  console.log('isLessThanLarge', isLessThanLarge);
   if (!sidebar) {
     return (
       <div className='max-w-4xl mx-auto px-2'>
@@ -285,13 +301,16 @@ const ResponsiveLayout: React.FC<{ children: React.ReactNode; sidebar?: React.Re
       {/* Main Content */}
       <main className={`col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-8 xl:col-span-7  2xl:max-w-4xl 2xl:grow`}>
         {children}
+        {isLessThanLarge && sidebar}
       </main>
 
       {/* Sidebar */}
-      <aside className="hidden lg:block lg:col-span-4 xl:col-span-3 2xl:col-span-3 2xl:max-w-sm 2xl:min-w-[400px]">
+      {!isLessThanLarge && (
+        <aside className="hidden lg:block lg:col-span-4 xl:col-span-3 2xl:col-span-3 2xl:max-w-sm 2xl:min-w-[400px]">
         {sidebar}
       </aside>
-
+      )}
+      
       {/* Right Spacer */}
       <div className={`hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hiddens`} />
     </div>
