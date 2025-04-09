@@ -13,7 +13,7 @@ interface IMostDownloadedProps {
 
 export const MostDownloadedPlugins = ({ overall, last7Days, last30Days }: IMostDownloadedProps) => {
   return (
-    <div className="bg-transparent mt-32">
+    <div className="bg-transparent mt-32" id='most-downloaded'>
       <div className="max-w-6xl mx-auto px-2">
         <InfoBar title="Most Downloaded" as="h2" />
         <div className="grid grid-cols-1 lg:grid-cols-3 pt-5 gap-4">

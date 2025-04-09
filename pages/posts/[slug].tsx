@@ -20,6 +20,7 @@ import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
 import { useRouter } from 'next/router';
 import { PostIcon } from '../../components/post/PostIcon';
+import EthicalAd from '../../components/EthicalAd';
 
 function remarkPluginHandler() {
   return async (tree) => {
@@ -44,6 +45,19 @@ function remarkPluginHandler() {
             </div>
           </div>
         </div>`;
+      }
+    });
+  };
+}
+
+function remarkPostAd() {
+  return (tree) => {
+    visit(tree, 'code', (node) => {
+      if (node.lang === 'cust-ad') {
+        const type = node.value.trim();
+        // as of now only type === 'line' is supported
+        node.type = 'html';
+        node.value = "Test" //`<div data-ea-publisher="obsidianstatscom" data-ea-type="text"></div>`;
       }
     });
   };
@@ -81,6 +95,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const processedContent = await unified()
     .use(remarkParse)
+    //.use(remarkPostAd)
     .use(remarkPluginHandler)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
@@ -200,18 +215,18 @@ const Post = (props: IPostPageProps) => {
   }, []);
 
   const sidebar = (
-    <div>
-      <h2 className="mt-1 mb-4 text-2xl">Suggested Posts</h2>
-      <div className='flex flex-wrap gap-2'>
+    <div className='mt-10 lg:mt-0 lg:sticky lg:top-10'>
+      {!isLessThanLarge && <EthicalAd type="image" />}
+      <h2 className="mt-1 mb-4 text-2xl text-center">Suggested Posts</h2>
+      <div className='flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center'>
         {suggestedPosts.map((post, index) => (
-          <a key={post.id} className="flex items-start border border-gray-200 bg-[#fafafa] p-4 w-[400px] min-w-[400px] max-w-[400px] h-[130px] min-h-[130px] max-h-[130px]" href={`/posts/${post.id}`}>
-            <div className={`w-[130px] min-w-[130px] max-w-[130px] h-[100px] min-h-[100px] max-h-[100px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center`}>
+          <a key={post.id} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`/posts/${post.id}`}>
+            <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}>
               <PostIcon tags={post.tags} size={60} />
             </div>
-            <p className="text-sm text-gray-700 px-4">{post.title} - {post.publishedDate}</p>
+            <p className="text-sm text-gray-700 p-2 line-clamp-4">{post.title}</p>
           </a>
         ))}
-        <CarbonAd />
       </div>
     </div>
   )
@@ -225,8 +240,11 @@ const Post = (props: IPostPageProps) => {
         <ResponsiveLayout sidebar={sidebar} isLessThanLarge={isLessThanLarge}>
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
             <h1 className="mt-2 mb-0 text-3xl">{postData.title}</h1>
-            <div className="mb-4">586
+            <div className="mb-4">
               Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
+            </div>
+            <div className='flex justify-center'>
+            {isLessThanLarge && <EthicalAd type="image" />}
             </div>
             {plugins && plugins.length ? (
               <>
@@ -257,34 +275,11 @@ const Post = (props: IPostPageProps) => {
   );
 };
 
-const CarbonAd = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    const isCarbonExist = document.querySelector("#carbonads");
-
-    if (isCarbonExist && typeof (window as any)._carbonads !== 'undefined' && typeof (window as any)._carbonads.refresh === 'function') {
-      (window as any)._carbonads.refresh();
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = "https://cdn.carbonads.com/carbon.js?serve=CW7I6K7Y&placement=wwwobsidianstatscom&format=cover";
-    script.id = "_carbonads_js";
-    script.async = true;
-
-    document.querySelectorAll("#carbon-container")[0].appendChild(script);
-  }, [router.asPath]);
-
-  return <div id="carbon-container"></div>;
-};
-
 const ResponsiveLayout: React.FC<{ children: React.ReactNode; sidebar?: React.ReactNode, isLessThanLarge: boolean }> = ({
   children,
   sidebar,
   isLessThanLarge
 }) => {
-  console.log('isLessThanLarge', isLessThanLarge);
   if (!sidebar) {
     return (
       <div className='max-w-4xl mx-auto px-2'>
@@ -306,9 +301,9 @@ const ResponsiveLayout: React.FC<{ children: React.ReactNode; sidebar?: React.Re
 
       {/* Sidebar */}
       {!isLessThanLarge && (
-        <aside className="hidden lg:block lg:col-span-4 xl:col-span-3 2xl:col-span-3 2xl:max-w-sm 2xl:min-w-[400px]">
-        {sidebar}
-      </aside>
+        <aside className="hidden lg:block lg:col-span-4 xl:col-span-3 2xl:col-span-3 2xl:max-w-sm 2xl:min-w-[320px]">
+          {sidebar}
+        </aside>
       )}
       
       {/* Right Spacer */}

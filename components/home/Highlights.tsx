@@ -65,7 +65,7 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
   ));
 
   return (
-    <div className="bg-transparent mt-16">
+    <div className="bg-transparent mt-8">
       <div className="max-w-6xl mx-auto h-[600px] md:h-[350px] lg:h-[300px]">
         {cards.length === 1 ? cards[0] : withCarousel(cards)}
       </div>

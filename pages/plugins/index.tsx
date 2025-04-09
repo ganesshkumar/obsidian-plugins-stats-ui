@@ -134,6 +134,7 @@ const Plugins = (props: IPageProps) => {
   const [sortby, setSortby] = useState('createdAt_desc');
   const [filterCategory, setFilterCategory] = useState('all');
   const [view, setView] = useState('list');
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const plugins = useCustomScoreWithScoreUpdater(props.plugins);
 
@@ -239,6 +240,12 @@ const Plugins = (props: IPageProps) => {
     return queriedPlugins;
   }, [filter, favoritesFilter, sortby, favorites, filterCategory, plugins, pluginsScoreMap]);
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col h-screen">
@@ -268,6 +275,7 @@ const Plugins = (props: IPageProps) => {
                 </svg>
               </div>
               <TextInput
+                ref={inputRef}
                 id="search"
                 type="text"
                 placeholder="Search for plugins"

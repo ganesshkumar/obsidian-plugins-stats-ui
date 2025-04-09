@@ -6,7 +6,7 @@ import { LinkButton } from '../LinkButton';
 
 export const LatestPosts = ({ posts }) => {
   return (
-    <div className="max-w-6xl mx-auto px-2">
+    <div className="max-w-6xl mx-auto px-2" id="posts">
       <InfoBar title="Latest Posts" as="h2" />
       <ul className="flex flex-col divide-y mb-4">
         {posts.map((post) => (
