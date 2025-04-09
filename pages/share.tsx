@@ -16,6 +16,7 @@ import { PluginsComparisionTable } from '../components/PluginsComparisionTable';
 import { CustomFlowbiteTheme } from 'flowbite-react';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../components/Header';
+import EthicalAd from '../components/EthicalAd';
 
 const customTheme: CustomFlowbiteTheme['tabs'] = {
   tablist: {
@@ -77,6 +78,7 @@ const Plugins = (props: ISharePageProps) => {
                 {author} has shared {filteredPlugins.length} plugins.
               </div>
             )}
+            <EthicalAd type="text" />1
             <PluginsShareView
               pluginIds={pluginIds}
               filteredPlugins={filteredPlugins}

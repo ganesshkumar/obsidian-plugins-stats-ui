@@ -6,6 +6,7 @@ import { Button, Tabs } from 'flowbite-react';
 import { Plugin } from '@prisma/client';
 import { useCustomScoreWithScoreUpdater } from '../hooks/useCustomScoreWithScoreUpdater';
 import { useState } from 'react';
+import EthicalAd from './EthicalAd';
 
 interface IPluginsMultiViewProps {
   plugins: Plugin[];
@@ -55,6 +56,7 @@ export const PluginsMultiView = (props: IPluginsMultiViewProps) => {
           </Button>
         </Button.Group>
       </div>
+      <EthicalAd type="text" />
       {plugins && plugins.length && (
         <div className="mt-4">
           {(view !== undefined ? view : componentView) === 'list' ?

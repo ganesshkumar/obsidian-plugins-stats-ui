@@ -9,6 +9,7 @@ import { sanitizeTag, tagDenyList } from '../../utils/plugins';
 import { PluginsCache } from '../../cache/plugins-cache';
 import InfoBar from '../../components/InfoBar';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import EthicalAd from '../../components/EthicalAd';
 
 interface ITagsPageProps extends IHeaderProps {
   tags: string[];
@@ -24,6 +25,7 @@ const Tags = (props: ITagsPageProps) => {
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
           <InfoBar title={`Tags ${props.tags && `(${props.tags.length})`}`} />
+          <EthicalAd type="text" />
           <div className="flex flex-wrap bg-white px-5 py-5">
             {props.tags && props.tags.sort().map((tag) => {
               return (

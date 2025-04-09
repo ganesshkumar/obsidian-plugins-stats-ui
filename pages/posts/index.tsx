@@ -9,6 +9,7 @@ import { Footer } from '../../components/Footer';
 import { PostIcon } from '../../components/post/PostIcon';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import { Post } from '../../lib/abstractions';
+import EthicalAd from '../../components/EthicalAd';
 
 interface IPostsPageProps extends IHeaderProps {
   allPostsData: Post[];
@@ -53,6 +54,7 @@ const Blog = (props: IPostsPageProps) => {
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
           <InfoBar title="Posts" />
+          <EthicalAd type="text" />
           <ul>
             {Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a)).map((year) => (
               <li key={year}>

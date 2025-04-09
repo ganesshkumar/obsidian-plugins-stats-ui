@@ -15,6 +15,7 @@ import { Scorer } from "../../lib/abstractions";
 import { useRouter } from "next/router";
 import { scorePlugins } from "../../lib/scorer";
 import { Code, Edit, Plus, Trash2 } from "react-feather";
+import EthicalAd from "../../components/EthicalAd";
 
 const ScorerListPage = (props) => {
   const router = useRouter()
@@ -79,6 +80,7 @@ const ScorerListPage = (props) => {
         <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
           <InfoBar title="scorer" />
           <div className="border-l-8 pl-2 border-violet-100">Build your own custom formula function to score the plugins.</div>
+          <EthicalAd type="text" />
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 mt-2">
             <ToggleSwitch label="Enable custom scorers" className="gap-x-2" color="purple" checked={enableCustomScorer} onChange={toggleEnableCustomScorer} />
             <Button color="dark" onClick={createNewScorer} className="w-40" size="sm">

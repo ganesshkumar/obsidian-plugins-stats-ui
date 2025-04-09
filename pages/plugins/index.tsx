@@ -17,6 +17,7 @@ import { useCustomScore } from '../../hooks/useCustomScore';
 import { useScoreUpdater } from '../../hooks/useScoreUpdater';
 import { useCustomScoreWithScoreUpdater } from '../../hooks/useCustomScoreWithScoreUpdater';
 import { Plugin } from '@prisma/client';
+import EthicalAd from '../../components/EthicalAd';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -473,6 +474,7 @@ const Plugins = (props: IPageProps) => {
                 </Button>
               </Button.Group>
             </div>
+            <EthicalAd type="text" />
             <AllPluginsMultiView
               highlight={Array.isArray(filter) ? filter[0]: filter}
               plugins={filteredPlugins}

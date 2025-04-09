@@ -5,6 +5,7 @@ import InfoBar from "../components/InfoBar"
 import Navbar from "../components/Navbar"
 import { useState } from "react";
 import Image from "next/image";
+import EthicalAd from "../components/EthicalAd";
 
 const Migrate = () => {
   const [error, setError] = useState<string | null>(null);
@@ -65,6 +66,7 @@ const Migrate = () => {
       <div className="bg-white pt-5 grow">
         <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
           <InfoBar title="migrate" />
+          <EthicalAd type="text" />
           <Image src="/images/undraw/moving_2cfm.png" alt="Migrate" width={500} height={240} className="mx-auto mb-8 opacity-50"/>
           <p className="text-center text-gray-800">Favorites are stored locally in your browser using `localStorage`.<br/> To transfer them, you can export the data as a JSON file and then import it on another device or domain. <br/> This allows you to migrate your favorite plugins across devices or from the old domain to the new domain (<a className="underline" href="https://www.obsidianstats.com/migrate">www.obsidianstats.com</a>).</p>
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 py-4 mt-4">

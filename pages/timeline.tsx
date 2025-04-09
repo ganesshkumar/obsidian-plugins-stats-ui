@@ -15,6 +15,7 @@ import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import moment from 'moment';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
+import EthicalAd from '../components/EthicalAd';
 
 export function animateScrollTo(targetY, duration = 3000) {
   const startY = window.scrollY;
@@ -172,7 +173,7 @@ const TimelinePage = (props) => {
                 </div>
               </div>
             </div>
-
+            <EthicalAd type="text" />
             {/* Timeline */}
             <ChangesTimeline ref={timelineRef} data={props.data} />
           </div>

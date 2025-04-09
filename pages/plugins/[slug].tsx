@@ -34,6 +34,7 @@ import { CategoryIcon } from '../../components/Category';
 import { Score } from '../../components/Score';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
+import EthicalAd from '../../components/EthicalAd';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -100,61 +101,66 @@ const Plugin = (props: IPluginProps) => {
       </div>
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2 relative">
-          <Card theme={customCardTheme} className="relative">
-            <div className="text-2xl font-semibold uppercase cursor-context-menu text-violet-900">
-              {props.plugin.name}
-            </div>
-            <div className="text-sm mb-4">
-              by <span>{props.plugin.author}</span>
-            </div>
-            {props.plugin.score && props.plugin.scoreReason && <Score plugin={props.plugin} />}
-            <div className="flex gap-x-2 mb-2 mt-4">
-              {isFavorite && (
-                <div
-                  title="Favorite plugin"
-                  className="text-xs bg-red-600 flex justify-center items-center gap-x-1 py-1 px-2 text-white font-bold rounded-xl"
-                >
-                  Favorite Plugin
+          <Card theme={customCardTheme}>
+            <div className="flex flex-wrap md:justify-between">
+              <div>
+                <h1 className="text-2xl font-semibold uppercase cursor-context-menu text-violet-900">
+                  {props.plugin.name}
+                </h1>
+                <div className="text-sm mb-4">
+                  by <span>{props.plugin.author}</span>
                 </div>
-              )}
-              {isNotADayOld && (
-                <div
-                  title="Less than a day old"
-                  className="text-xs bg-violet-800 flex justify-center items-center gap-x-1 py-1 px-2 text-white font-bold rounded-xl"
-                >
-                  New Plugin
+                {props.plugin.score && props.plugin.scoreReason && <Score plugin={props.plugin} />}
+                <div className="flex gap-x-2 mb-2 mt-4">
+                  {isFavorite && (
+                    <div
+                      title="Favorite plugin"
+                      className="text-xs bg-red-600 flex justify-center items-center gap-x-1 py-1 px-2 text-white font-bold rounded-xl"
+                    >
+                      Favorite Plugin
+                    </div>
+                  )}
+                  {isNotADayOld && (
+                    <div
+                      title="Less than a day old"
+                      className="text-xs bg-violet-800 flex justify-center items-center gap-x-1 py-1 px-2 text-white font-bold rounded-xl"
+                    >
+                      New Plugin
+                    </div>
+                  )}
+                  {props.isTrending && (
+                    <div
+                      title="Trending plugin"
+                      className="text-xs bg-yellow-300 flex justify-center items-center gap-x-1 py-1 px-2 text-gray-700 font-bold rounded-xl"
+                    >
+                      Trending Plugin
+                    </div>
+                  )}
                 </div>
-              )}
-              {props.isTrending && (
-                <div
-                  title="Trending plugin"
-                  className="text-xs bg-yellow-300 flex justify-center items-center gap-x-1 py-1 px-2 text-gray-700 font-bold rounded-xl"
-                >
-                  Trending Plugin
+                <Favorites
+                  plugin={props.plugin}
+                  isFavorite={isFavorite}
+                  setFavorites={setFavorites}
+                />
+                {/* <div className='my-2'>{props.plugin.description}</div> */}
+                <div className="flex flex-wrap space-x-4 mt-6">
+                  <a
+                    href={`obsidian://show-plugin?id=${props.plugin.pluginId}`}
+                    className="text-violet-50 flex justify-center items-center space-x-2s my-2 py-1 border border-violet-800 px-2 rounded-md bg-violet-800 transition hover:scale-110"
+                  >
+                    <Download className="text-violet-50 inline mr-2" size={18} />{' '}
+                    Install
+                  </a>
+                  <a
+                    href={`https://github.com/${props.plugin.repo}`}
+                    target="_blank"
+                    className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110"
+                  >
+                    <GitHub className="text-gray-800 inline mr-2" size={18} /> Code
+                  </a>
                 </div>
-              )}
-            </div>
-            <Favorites
-              plugin={props.plugin}
-              isFavorite={isFavorite}
-              setFavorites={setFavorites}
-            />
-            {/* <div className='my-2'>{props.plugin.description}</div> */}
-            <div className="flex flex-wrap space-x-4 mt-6">
-              <a
-                href={`obsidian://show-plugin?id=${props.plugin.pluginId}`}
-                className="text-violet-50 flex justify-center items-center space-x-2s my-2 py-1 border border-violet-800 px-2 rounded-md bg-violet-800 transition hover:scale-110"
-              >
-                <Download className="text-violet-50 inline mr-2" size={18} />{' '}
-                Install
-              </a>
-              <a
-                href={`https://github.com/${props.plugin.repo}`}
-                target="_blank"
-                className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110"
-              >
-                <GitHub className="text-gray-800 inline mr-2" size={18} /> Code
-              </a>
+              </div>
+              <EthicalAd type='image' />
             </div>
           </Card>
           {props.similarPlugins?.length > 0 && (

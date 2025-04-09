@@ -14,6 +14,7 @@ import { scorePlugins } from "../../lib/scorer";
 import { useScoreListStore, useScorerFormStore, useScorerStore } from "../../store/scorer-store";
 import { ScorerUtils } from "../../domain/scorer/ScorerUtils";
 import { Info } from "react-feather";
+import EthicalAd from "../../components/EthicalAd";
 
 const metrics = [
   'stargazers',
@@ -128,6 +129,7 @@ const ScoreEditor = ({ plugins}) => {
 
   return (
     <>
+      <EthicalAd type="text" />
       <div className="flex justify-start flex-wrap gap-x-2 gap-y-1 mt-4">
         <span key="title" className="font-bold">Available plugin metrics:</span>
         {metrics.map((metric, idx) =>

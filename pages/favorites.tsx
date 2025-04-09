@@ -13,6 +13,7 @@ import { PluginsCache } from '../cache/plugins-cache';
 import { PluginsMultiView } from '../components/PluginsMultiView';
 import { Plugin } from '@prisma/client';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
+import EthicalAd from '../components/EthicalAd';
 
 interface IFavoritePageProps extends IHeaderProps {
   plugins: Plugin[];
@@ -42,6 +43,7 @@ const Favorites = (props: IFavoritePageProps) => {
       {/* Favorite Plugins */}
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
+          <EthicalAd type="text" />
           {updatesForFavPlugins && updatesForFavPlugins.length > 0 && (
             <div className="bg-transparent mt-8">
               <div className="max-w-6xl mx-auto px-2">

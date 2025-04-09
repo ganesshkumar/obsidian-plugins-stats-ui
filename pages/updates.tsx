@@ -14,6 +14,7 @@ import { PluginsCache } from '../cache/plugins-cache';
 import InfoBar from '../components/InfoBar';
 import Header, { IHeaderProps } from '../components/Header';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
+import EthicalAd from '../components/EthicalAd';
 
 const mdConverter = new showdown.Converter();
 mdConverter.setFlavor('github');
@@ -41,6 +42,7 @@ const Updates = (props: IUpdatePageProps) => {
           <InfoBar
             title={`New Releases ${props.newReleases && `(${props.newReleases.length})`}`}
           />
+          <EthicalAd type="text" />
           <List
             unstyled
             className="w-full divide-y divide-gray-200 dark:divide-gray-700"

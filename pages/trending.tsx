@@ -41,12 +41,12 @@ const Trending = (props: ITrendingPageProps) => {
                 <Info size={16} className="text-gray-700" />
               </Tooltip>
             </div>
-            <Image
+            {/* <Image
               src="/images/trending-plugins.webp"
               alt="Trending Plugins"
               width={1200}
               height={200}
-            />
+            /> */}
           </div>
           <PluginsMultiView
             plugins={props.plugins}
