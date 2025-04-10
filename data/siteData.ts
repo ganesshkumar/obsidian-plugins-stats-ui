@@ -3,6 +3,15 @@ import { Faq, Highlight } from '../lib/abstractions';
 export const SiteData = {
   highlights: [
     {
+      title: 'Obsidian Dataview Query Wizard',
+      image: '',
+      description:
+        'Introducing the Obsidian Dataview Query Wizard, a powerful custom ChatGPT that simplifies the process of creating and modifying Dataview queries.',
+      link: 'https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard',
+      ctaText: 'Try it now',
+      bgClasses: 'bg-gradient-to-tr from-blue-400 to-sky-400 text-black',
+    },
+    {
       title: 'Introducing Custom Scoring Functions',
       image: '/images/custom-scorer-example-1.png',
       description:

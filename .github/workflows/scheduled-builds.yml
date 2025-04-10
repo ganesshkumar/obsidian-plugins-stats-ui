@@ -3,8 +3,8 @@ name: Production Deployment
 
 on:
   schedule:
-    # Runs "At 00:00" (see https://crontab.guru)
-    - cron: '0 0 * * *'
+    # Runs "At minute 0" (see https://crontab.guru)
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
