@@ -267,6 +267,7 @@ const Post = (props: IPostPageProps) => {
               </>
             ) : null}
             <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+            <Comments />
           </article>
         </ResponsiveLayout>
       </div>
@@ -274,6 +275,25 @@ const Post = (props: IPostPageProps) => {
     </div>
   );
 };
+
+const Comments = () => {
+  const commentBox = useRef(null);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://utteranc.es/client.js';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.setAttribute('repo', 'ganesshkumar/comments');
+    script.setAttribute('issue-term', 'url');
+    script.setAttribute('theme', 'github-light');
+    script.setAttribute('label', 'obsidian-dataview-query-wizard');
+    commentBox.current.appendChild(script);
+  }, []);
+
+  return <div ref={commentBox} />;
+};
+
 
 const ResponsiveLayout: React.FC<{ children: React.ReactNode; sidebar?: React.ReactNode, isLessThanLarge: boolean }> = ({
   children,

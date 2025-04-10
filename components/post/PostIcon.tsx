@@ -1,4 +1,5 @@
-import { Calendar, List, Star, Zap } from 'react-feather';
+import { Calendar, Cpu, FileText, List, Star, Zap } from 'react-feather';
+
 
 export const PostIcon = (props) => {
   if (props.tags && props.tags.includes('weekly-plugin-updates')) {
@@ -33,7 +34,21 @@ export const PostIcon = (props) => {
         className="text-sky-700 p-1 rounded fill-sky-200"
       />
     );
+  } else if (props.tags && props.tags.includes('ai')) {
+    return (
+      <Cpu
+        data-testid="cpu-icon"
+        size={props.size || 48}
+        className="text-red-700 p-1 rounded fill-red-200"
+      />
+    );
   } else {
-    return null;
+    return (
+      <FileText
+        data-testid="file-text-icon"
+        size={props.size || 48}
+        className="text-teal-700 p-1 rounded fill-teal-200"
+      />
+    );
   }
 };
