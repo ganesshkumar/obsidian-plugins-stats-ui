@@ -11,7 +11,22 @@ export const tagDenyList = [
 ];
 
 export const sanitizeTag = (tag) => {
-  return tag.toLowerCase().trim().replace(/\s+/g, '-'); //.replaceAll('-', '');
+  if (!tag) {
+    return tag;
+  }
+
+  tag = tag.toLowerCase().trim().replace(/\s+/g, '-'); //.replaceAll('-', '');
+
+  // index tag page will conflict with the tags page
+  if (tag == 'index') {
+    tag = 'indexing';
+  }
+
+  if (tag == 'publish' || tag == 'publisher' || tag == 'publishing' || tag.includes('publishing')) {
+    tag = 'publish';
+  }
+
+  return tag;
 };
 
 export const getDescription = (plugin) => {

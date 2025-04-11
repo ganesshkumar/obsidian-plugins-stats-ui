@@ -62,8 +62,12 @@ const Home = (props: IHomeProps) => {
     }
   };
 
-  const goToPage = (page: string) => {
-    router.push(page);
+  const goToPage = (page: string, inNewTab = false) => {
+    if (inNewTab) {
+      window.open(page, '_blank');
+    } else {
+      router.push(page);
+    }
   }
 
   return (
@@ -85,7 +89,7 @@ const Home = (props: IHomeProps) => {
         {/* bg-[url('/images/confetti-doodles.svg')] */}
         <div className='w-full'>
           <section className="max-w-6xl mx-auto text-gray-800 flex flex-col justify-center items-center text-center py-4 lg:py-20">
-            <h1 className='text-4xl 2xl:text-5xl font-bold tracking-tight mb-8 text-gray-700'>Personalize Obsidian with the <span className='text-violet-800'>Right Plugins</span></h1>
+            <h1 className='text-4xl 2xl:text-5xl font-bold tracking-tight mb-8 text-gray-800'>Personalize Obsidian with the <span className='text-violet-800'>Right Plugins</span></h1>
             <p className='text-xl max-w-lg lg:max-w-3xl text-gray-600'>Discover the latest Obsidian plugins. Stay ahead with updates, downloads, and ratings that help you build your perfect setup.</p>
             <TextInput className='mt-8 w-full max-w-3xl rounded-xl' icon={HiOutlineSearch} placeholder='Search Plugins' onFocus={() => router.push('/plugins')} color="violet" />
             <div className="flex gap-4 mt-8">
@@ -120,6 +124,7 @@ const Home = (props: IHomeProps) => {
               <div className='hidden md:block'>
                 <div className='font-semibold'>Tools</div>
                 <ul className='list-disc'>
+                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard', true)}> <HiOutlineSearch /> Dataview Query Wizard (GPT)</li>
                   <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('scorer')}> <HiOutlineCode /> Scorer</li>
                   <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('migrate')}> <HiOutlineSwitchVertical />Migrate</li>
                   <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('timeline')}> <HiOutlineCalendar /> Timeline</li>
