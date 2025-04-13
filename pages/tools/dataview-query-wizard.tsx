@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, {  } from 'react';
 import Header, { IHeaderProps } from '../../components/Header';
 import Navbar from '../../components/Navbar';
 
 import Link from 'next/link';
 import { Footer } from '../../components/Footer';
 import remarkParse from 'remark-parse';
-import InfoBar from '../../components/InfoBar';
-import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import EthicalAd from '../../components/EthicalAd';
-import ResponsiveLayout from '../_responsive-layout';
+import ResponsiveLayout from '../../pages/_responsive-layout';
 import { Button } from 'flowbite-react';
 import { RiOpenaiFill } from "react-icons/ri";
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
-import { PostIcon } from '../../components/post/PostIcon';
 import { Tool } from 'react-feather';
+import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
+import { getGraidentFrom, getGraidentTo } from '../../lib/customThemes';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import Comments from '../../components/Comment';
 
 
 const markdown = `
@@ -96,44 +97,8 @@ interface ITagsPageProps extends IHeaderProps {
   afterCTAHtml: string;
 }
 
-const getGraidentFrom = (index: number) => {
-  if (index % 10 === 0) return 'from-blue-100';
-  if (index % 10 === 1) return 'from-red-100';
-  if (index % 10 === 2) return 'from-green-100';
-  if (index % 10 === 3) return 'from-yellow-100';
-  if (index % 10 === 4) return 'from-purple-100';
-  if (index % 10 === 5) return 'from-pink-100';
-  if (index % 10 === 6) return 'from-orange-100';
-  if (index % 10 === 7) return 'from-teal-100';
-  if (index % 10 === 8) return 'from-indigo-100';
-  return 'from-gray-100';
-}
-
-const getGraidentTo = (index: number) => {
-  if (index % 10 === 0) return 'to-pink-100';
-  if (index % 10 === 1) return 'to-yellow-100';
-  if (index % 10 === 2) return 'to-purple-100';
-  if (index % 10 === 3) return 'to-blue-100';
-  if (index % 10 === 4) return 'to-green-100';
-  if (index % 10 === 5) return 'to-red-100';
-  if (index % 10 === 6) return 'to-teal-100';
-  if (index % 10 === 7) return 'to-indigo-100';
-  if (index % 10 === 8) return 'to-orange-100';
-  return 'to-brown-100';
-}
-
 const DataviewQueryWizard = (props: ITagsPageProps) => {
-  const [isLessThanLarge, setIsLessThanLarge] = useState(false);
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLessThanLarge(window.innerWidth < 1024); // Tailwind's `md` breakpoint is 768px
-    };
-
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
+  const isLessThanLarge = useIsLessThanLarge();
 
   const sidebar = (
     <div className='w-full mt-10 lg:mt-0 lg:sticky lg:top-10'>
@@ -181,6 +146,7 @@ const DataviewQueryWizard = (props: ITagsPageProps) => {
             </p>
             {ctaButton}
           </div>
+          {isLessThanLarge && <EthicalAd type="image" />}
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
             <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
           </article>
@@ -188,6 +154,7 @@ const DataviewQueryWizard = (props: ITagsPageProps) => {
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
             <div dangerouslySetInnerHTML={{ __html: props.afterCTAHtml }} />
           </article>
+          <Comments />
         </ResponsiveLayout>  
       </div>
       <Footer />
@@ -199,7 +166,6 @@ export const getStaticProps = async () => {
 
   const processor = unified()
     .use(remarkParse)
-    //.use(remarkPostAd)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
     //.use(rehypeToc, { headings: ['h1', 'h2', 'h3'], cssClasses:  { listItem: 'list-none [&>li>a]:no-underline'  } })
@@ -211,19 +177,19 @@ export const getStaticProps = async () => {
   const contentHtml = processedContent.toString();
   const afterCTAHtml = processedAfterCTA.toString();
 
-  const title = 'Tags of Obsidian Plugins';
-  //const description = `Explore the tags of Obsidian plugins. Find the best plugins for your needs. ${Object.keys(tagsData).join(', ')}`;
-  const canonical = "https://obsidianstats.com/tags";
-  const image = "https://www.obsidianstats.com/logo-512.png"
-  //const jsonLdSchema = JsonLdSchema.getTagsPageSchema(Object.keys(tagsData), title, description, canonical, image);
+  const title = 'Obsidian Dataview Query Wizard';
+  const description = 'A custom GPT that helps Obsidian users write, understand, learn, and debug Obsidian Dataview queries.';
+  const canonical = "https://obsidianstats.com/tools/dataview-query-wizard";
+  const image = "https://www.obsidianstats.com/logo-512.png";
+  const jsonLdSchema = JsonLdSchema.getToolPageSchema(title, description, canonical, image);
 
   return {
     props: {
       title,
-      //description,
+      description,
       canonical,
       image,
-      //jsonLdSchema,
+      jsonLdSchema,
       contentHtml,
       afterCTAHtml,
     },

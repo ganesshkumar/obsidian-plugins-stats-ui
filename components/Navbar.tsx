@@ -10,6 +10,7 @@ import {
 import Constants from '../constants';
 import Image from 'next/image';
 import { Rss, HelpCircle, List, Tool, RotateCw, RefreshCw, Calendar } from 'react-feather';
+import { RiOpenaiFill } from 'react-icons/ri';
 
 interface INavbarProps {
   current?: string;
@@ -124,6 +125,12 @@ const NavBar = ({ current, children }: INavbarProps) => {
               <MegaMenu.Dropdown toggle={<span className={`text-lg font-medium z-50 ${['scorer', 'build-scorer', 'migrate'].includes(current) ? 'text-purple-700 dark:text-primary-500' : ''}`}>Tools</span>}>
                 <ul className="grid grid-cols-1">
                   <div className="space-y-4 p-4">
+                    <li>
+                      <a href="/tools/dataview-query-wizard" className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}>
+                        <RiOpenaiFill size={24}/>
+                        Dataview Query Builder
+                      </a>
+                    </li>
                     <li>
                       <a href="/scorer" className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}>
                         <List size={18}/>

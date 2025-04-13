@@ -378,6 +378,31 @@ const breadcrumbs = {
         },
       ],
     }
+  },
+  tool: (name: string, url: string) => {
+    return {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.obsidianstats.com',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Tools',
+          item: 'https://www.obsidianstats.com/tools',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name,
+          item: url,
+        },
+      ],
+    }
   }
 }
 
@@ -684,6 +709,46 @@ export const JsonLdSchema = {
           "encodingFormat": "application/json",
           "contentUrl": "https://www.obsidianstats.com/data/plugins-history.json"
         }
+      ]
+    }
+  },
+  getToolPageSchema: (title: string, description: string, canonical: string, image: string) => {
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'SoftwareApplication',
+          '@id': canonical,
+          url: canonical,
+          name: title,
+          description: description,
+          inLanguage: 'en-US',
+          operatingSystem: 'All',
+          applicationCategory: 'UtilitiesApplication',
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            '@id': canonical + '#aggregateRating',
+            worstRating: 0,
+            bestRating: 5,
+            ratingValue: 5,
+            ratingCount: 5,   
+          },
+          offers: {
+            '@type': 'Offer',
+            '@id': canonical + '#offers',
+            price: '0',
+            priceCurrency: 'USD',
+          },
+          downloadUrl: `https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard`,
+          softwareVersion: '1.0.0',
+          datePublished: '2025-04-10',
+          author: {
+            '@type': 'Person',
+            '@id': canonical + '#author',
+            name: 'Ganessh Kumar',
+          },
+        },
+        breadcrumbs.plugin(title, canonical),
       ]
     }
   }

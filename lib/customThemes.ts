@@ -34,6 +34,32 @@ export const ComponentTheme = {
   } as CustomFlowbiteTheme['card'],
 };
 
+export const getGraidentFrom = (index: number) => {
+  if (index % 10 === 0) return 'from-blue-100';
+  if (index % 10 === 1) return 'from-red-100';
+  if (index % 10 === 2) return 'from-green-100';
+  if (index % 10 === 3) return 'from-yellow-100';
+  if (index % 10 === 4) return 'from-purple-100';
+  if (index % 10 === 5) return 'from-pink-100';
+  if (index % 10 === 6) return 'from-orange-100';
+  if (index % 10 === 7) return 'from-teal-100';
+  if (index % 10 === 8) return 'from-indigo-100';
+  return 'from-gray-100';
+}
+
+export  const getGraidentTo = (index: number) => {
+  if (index % 10 === 0) return 'to-pink-100';
+  if (index % 10 === 1) return 'to-yellow-100';
+  if (index % 10 === 2) return 'to-purple-100';
+  if (index % 10 === 3) return 'to-blue-100';
+  if (index % 10 === 4) return 'to-green-100';
+  if (index % 10 === 5) return 'to-red-100';
+  if (index % 10 === 6) return 'to-teal-100';
+  if (index % 10 === 7) return 'to-indigo-100';
+  if (index % 10 === 8) return 'to-orange-100';
+  return 'to-brown-100';
+}
+
 export const getScoreBgClass = (score: number) => {
   let scoreClass = '';
   if (score > 0.8) {

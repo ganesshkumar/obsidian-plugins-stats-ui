@@ -124,7 +124,7 @@ const Home = (props: IHomeProps) => {
               <div className='hidden md:block'>
                 <div className='font-semibold'>Tools</div>
                 <ul className='list-disc'>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard', true)}> <HiOutlineSearch /> Dataview Query Wizard (GPT)</li>
+                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('tools/dataview-query-wizard', true)}> <HiOutlineSearch /> Dataview Query Wizard (GPT)</li>
                   <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('scorer')}> <HiOutlineCode /> Scorer</li>
                   <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('migrate')}> <HiOutlineSwitchVertical />Migrate</li>
                   <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('timeline')}> <HiOutlineCalendar /> Timeline</li>
