@@ -22,10 +22,12 @@ export function getSortedPostsData(): Post[] {
     } as Post;
   });
 
-  return allPostsData.sort(
-    (a, b) =>
-      new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
-  );
+  const now = new Date();
+  return allPostsData
+    .filter((post) => new Date(post.publishedDate) < now)
+    .sort(
+      (a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
+    );
 }
 
 export function getPostData(id: string): Post {
@@ -41,6 +43,7 @@ export function getPostData(id: string): Post {
 }
 
 export function getAllPostIds() {
+  const now = new Date();
   const fileNames = fs.readdirSync(postsDirectory);
   const jsxFileNames = fs
     .readdirSync(postsJsxDirectory)
@@ -49,6 +52,10 @@ export function getAllPostIds() {
 
   return fileNames
     .filter((fileName) => !jsxFileNames.includes(fileName.replace(/\.md$/, '')))
+    .filter((fileName) => {
+      const date = new Date(fileName.substring(0, 10));
+      return date.getTime() < now.getTime();
+    })
     .map((fileName) => {
       return {
         params: {

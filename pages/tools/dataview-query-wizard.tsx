@@ -1,0 +1,233 @@
+import React, { useEffect, useState } from 'react';
+import Header, { IHeaderProps } from '../../components/Header';
+import Navbar from '../../components/Navbar';
+
+import Link from 'next/link';
+import { Footer } from '../../components/Footer';
+import remarkParse from 'remark-parse';
+import InfoBar from '../../components/InfoBar';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import EthicalAd from '../../components/EthicalAd';
+import ResponsiveLayout from '../_responsive-layout';
+import { Button } from 'flowbite-react';
+import { RiOpenaiFill } from "react-icons/ri";
+import rehypeSlug from 'rehype-slug';
+import rehypeStringify from 'rehype-stringify';
+import remarkRehype from 'remark-rehype';
+import { unified } from 'unified';
+import { PostIcon } from '../../components/post/PostIcon';
+import { Tool } from 'react-feather';
+
+
+const markdown = `
+## Why This Tool?
+
+Many users have shared their struggles on Reddit:
+- **Complex Syntax and Extra Effort:** Writing even simple Dataview queries often involves repeatedly checking docs and mimicking setups from other users. ([See discussion](https://www.reddit.com/r/ObsidianMD/comments/16hl907/struggling_with_dataview/))
+- **Formatting Issues:** Users complain about bullet lists coming out too nested, making the output messy instead of clean lists. ([Example here](https://www.reddit.com/r/ObsidianMD/comments/159hk8x/struggling_with_lists_in_dataview_query_how_to/))
+- **Linked Notes Troubles:** Another common frustration is that Dataview sometimes fails to display results when properties contain linked notes rather than plain text. ([More info](https://www.reddit.com/r/ObsidianMD/comments/1iu3k5z/why_wont_dataview_show_results_for_notes_as/))
+
+I built the Dataview Query Wizard (a custom ChatGPT) to address these issues by harnessing a custom GPT trained on your common query patterns and frustrations.
+
+## What does it do?
+
+The custom GPT tool lets you simply describe your query in plain English. No more back-and-forth with documentation or copying examples from others—just type what you need, and the tool generates a ready-to-use Dataview query.
+
+- **Natural Language Input:** Describe your desired query in everyday language. For example, type:  
+  _"Show me a table of all daily notes with the #meeting tag that reference a specific note 'Project X'."_
+- **Automatic Query Generation:** The tool converts your description into a proper Dataview query, so you can copy and paste it directly into your Obsidian note.
+- **Instant Troubleshooting:** If your query output is not what you expected (e.g., nested bullet issues), the tool also suggests easy fixes, including helpful CSS snippets.
+
+## How It Works?
+
+1. **Input Your Request:** Simply type a detailed description of what you want.  
+   *Example:*  
+   - "List all my meeting notes that include the tag #meeting and mention [[Project X]]."
+2. **Generate the Query:** The GPT tool uses its internal model—tuned with common Dataview examples and issues—to build a query that fits your setup.
+3. **Apply and Fine-Tune:** You can then paste this query into your Obsidian note. If it needs any adjustments (for instance, correcting nested list outputs), you’re guided toward simple modifications and CSS tweaks.
+
+For those curious about the custom GPT, check out the [Custom GPT for Obsidian Dataview Query Wizard](https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard).
+
+
+### Guidelines to Prompting
+
+- Add information about your notes' frontmatter metadata that is relavant to this query.
+- Add information about any inline properties that you want the query to use.
+- Describe what you want the dataview to query, filter, sort etc.
+- Describe the format in which you want the output to be in - TABLE, LIST, TASKS.
+- If the generated dataview query fails, paste the error message back to the gpt and it should be able to improve the query.
+- For advanced queries, ask the gpt to use dataviewjs (by defult it uses dataviewjs when it finds necessary)
+`;
+
+const afterCTA = `
+**Examples**: Here are some of the queries that I have made on the tool. You can see the interactions.
+- [How can I list all notes with a rating of 8 or higher?](https://chatgpt.com/share/67f776fe-5f84-8008-a7bc-9d00dba772f0)
+- [Can you show me a table of tasks with a due date this week?](https://chatgpt.com/share/67f779a3-f698-8008-ac5a-e1d9cc2d506c)
+- [What's the difference between inline fields and YAML frontmatter in Dataview?](https://chatgpt.com/share/67f77c36-89fc-8008-869c-7ea5756dc228)
+- [I want to calculate how many days old each note is—how do I do that?](https://chatgpt.com/share/67f77c1f-4cf4-8008-ba1a-7c8d023f41de)
+
+---
+
+Using this tool means:
+- **Less Time Wasting:** Spend fewer hours fretting over syntax and more time focusing on your content.
+- **Reduced Frustration:** No more endless searching through documentation—get the query you need fast.
+- **Enhanced Organization:** With well-structured queries, you can better manage your vault and keep your notes seamlessly interlinked.
+
+
+If you’re tired of the back-and-forth hassle of writing Dataview queries and want to save time, give the Dataview Query Wizard a try. It’s built to ease your workflow and let you focus on what really matters: your ideas and insights.
+
+Happy note-taking!
+
+**Note**: We'd love to hear your suggestions and feedback to make this custom GPT tool even better—please share your thoughts in the comments!
+`;
+
+const suggestedTools = [
+  {
+    'name': 'Custom Scorer',
+    'description': 'Write custom scoring functions for plugins',
+    'link': '/posts/2025-01-18-building-a-custom-score-function'
+  }
+]
+
+interface ITagsPageProps extends IHeaderProps {
+  tags: string[];
+  pluginCountByTags: Record<string, number>;
+  contentHtml: string;
+  afterCTAHtml: string;
+}
+
+const getGraidentFrom = (index: number) => {
+  if (index % 10 === 0) return 'from-blue-100';
+  if (index % 10 === 1) return 'from-red-100';
+  if (index % 10 === 2) return 'from-green-100';
+  if (index % 10 === 3) return 'from-yellow-100';
+  if (index % 10 === 4) return 'from-purple-100';
+  if (index % 10 === 5) return 'from-pink-100';
+  if (index % 10 === 6) return 'from-orange-100';
+  if (index % 10 === 7) return 'from-teal-100';
+  if (index % 10 === 8) return 'from-indigo-100';
+  return 'from-gray-100';
+}
+
+const getGraidentTo = (index: number) => {
+  if (index % 10 === 0) return 'to-pink-100';
+  if (index % 10 === 1) return 'to-yellow-100';
+  if (index % 10 === 2) return 'to-purple-100';
+  if (index % 10 === 3) return 'to-blue-100';
+  if (index % 10 === 4) return 'to-green-100';
+  if (index % 10 === 5) return 'to-red-100';
+  if (index % 10 === 6) return 'to-teal-100';
+  if (index % 10 === 7) return 'to-indigo-100';
+  if (index % 10 === 8) return 'to-orange-100';
+  return 'to-brown-100';
+}
+
+const DataviewQueryWizard = (props: ITagsPageProps) => {
+  const [isLessThanLarge, setIsLessThanLarge] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLessThanLarge(window.innerWidth < 1024); // Tailwind's `md` breakpoint is 768px
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  const sidebar = (
+    <div className='w-full mt-10 lg:mt-0 lg:sticky lg:top-10'>
+      {!isLessThanLarge && <EthicalAd type="image" />}
+      <h2 className="mt-1 mb-4 text-2xl text-center">Suggested Tools</h2>
+      <div className='flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center'>
+        {suggestedTools.map((post, index) => (
+          <a key={index} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`{link}`}>
+            <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}>
+              <Tool size={48} color="white" />
+            </div>
+            <div>
+              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4 font-semibold">{post.name}</p>
+              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4">{post.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+
+  const ctaButton = (
+    <Button color='purple' className='mt-8'>
+      <Link href="https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard" className='flex gap-4 items-center'>
+        Chat with Wizard <RiOpenaiFill size={24} />
+      </Link>
+    </Button>
+  );
+
+  return (
+    <div>
+      <Header {...props} />
+      <Navbar current="tags" />
+      <div className="bg-white pt-5">
+        <ResponsiveLayout sidebar={sidebar}>
+          <div className='flex flex-col items-center lg:px-20 mb-24'>
+            <div className='flex justify-center'>
+              <span className='text-4xl 2xl:text-5xl font-bold tracking-tight mb-8 text-gray-800'>Dataview Query Wizard</span>
+            </div>
+            <p className='text-xl max-w-lg lg:max-w-3xl text-gray-600 mt-4 text-center'>
+              A custom GPT that helps Obsidian users write, understand, and debug Dataview queries. Supports YAML, inline fields, and DataviewJS.
+            </p>
+            <p className='text-xl max-w-lg lg:max-w-3xl text-gray-600 mt-4 text-center'>
+              Great for creating tables, tracking tasks, filtering notes, and exploring metadata in your vault.
+            </p>
+            {ctaButton}
+          </div>
+          <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
+            <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
+          </article>
+          <div className='flex justify-center mt-12 mb-16'>{ctaButton}</div>
+          <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
+            <div dangerouslySetInnerHTML={{ __html: props.afterCTAHtml }} />
+          </article>
+        </ResponsiveLayout>  
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
+export const getStaticProps = async () => {
+
+  const processor = unified()
+    .use(remarkParse)
+    //.use(remarkPostAd)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeSlug)
+    //.use(rehypeToc, { headings: ['h1', 'h2', 'h3'], cssClasses:  { listItem: 'list-none [&>li>a]:no-underline'  } })
+    .use(rehypeStringify, { allowDangerousHtml: true })
+  
+  const processedContent = await processor.process(markdown);
+  const processedAfterCTA = await processor.process(afterCTA);
+  
+  const contentHtml = processedContent.toString();
+  const afterCTAHtml = processedAfterCTA.toString();
+
+  const title = 'Tags of Obsidian Plugins';
+  //const description = `Explore the tags of Obsidian plugins. Find the best plugins for your needs. ${Object.keys(tagsData).join(', ')}`;
+  const canonical = "https://obsidianstats.com/tags";
+  const image = "https://www.obsidianstats.com/logo-512.png"
+  //const jsonLdSchema = JsonLdSchema.getTagsPageSchema(Object.keys(tagsData), title, description, canonical, image);
+
+  return {
+    props: {
+      title,
+      //description,
+      canonical,
+      image,
+      //jsonLdSchema,
+      contentHtml,
+      afterCTAHtml,
+    },
+  };
+};
+
+export default DataviewQueryWizard;

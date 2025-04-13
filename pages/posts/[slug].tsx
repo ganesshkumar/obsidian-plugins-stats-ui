@@ -27,21 +27,35 @@ function remarkPluginHandler() {
     const plugins = await PluginsCache.get();
     visit(tree, 'code', (node) => {
       if (node.lang === 'plugin') {
-        console.log('Matched plugin code block', node);
-        const pluginId = node.value.trim();
+        const value = node.value.trim();
+
+        const data: Record<string, string> = {};
+        value.split('\n').forEach((line) => {
+          const [key, value] = line.split('=');
+          if (key && value) {
+            data[key.trim()] = value.trim();
+          }
+        });
+
+        const index = data['index']
+        const pluginId = data['pluginId'];
         const plugin = plugins.find((p) => p.pluginId === pluginId);
-        const authorUrl = `https://github.com/plugin.repo.split('/')[0]`;
+        const authorUrl = `https://github.com/${plugin.repo.split('/')[0]}`;
+
         node.type = 'html';
         node.value = `<div class="plugin-container" data-plugin-id="${plugin.name}">
           <div class="plugin-header">
-            <h3>${plugin.name}</h3>
+            <h3><span class="text-gray-500">${index}.</span> <span class="text-red-700 font-bold text-2xl tracking-tight">${plugin.name}</span></h3>
           </div>
           <div class="plugin-content">
             <div class="plugin-details">
-              <div>
-                Released on ${moment(plugin.createdAt).format("YYYY-MM-DD")} by <a href={${authorUrl}}>${plugin.author}</a>
+              <div class="text-sm text-gray-600">
+                Released on ${moment(plugin.createdAt).format("YYYY-MM-DD")} by <a href="${authorUrl}">${plugin.author}</a>
               </div>
-              <p>Downloads: ${plugin.osDescription}</p>
+              <p>${plugin.osDescription.replace('**', '<b>').replace('**', '</b>')}</p>
+              <a href="/plugins/${plugin.pluginId}" target="_blank" rel="noopener noreferrer" class="font-medium w-fit border bg-yellow-300 hover:bg-amber-300 text-voilet-700 px-2 py-1 rounded text-center no-underline">
+                View Plugin Details
+              </a>
             </div>
           </div>
         </div>`;
@@ -239,7 +253,7 @@ const Post = (props: IPostPageProps) => {
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar} isLessThanLarge={isLessThanLarge}>
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
-            <h1 className="mt-2 mb-0 text-3xl">{postData.title}</h1>
+            <h1 className="mt-2 mb-0 text-3xl font-heading leading-20">{postData.title}</h1>
             <div className="mb-4">
               Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
             </div>
@@ -314,7 +328,7 @@ const ResponsiveLayout: React.FC<{ children: React.ReactNode; sidebar?: React.Re
       <div className={`hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hidden'}`} />
 
       {/* Main Content */}
-      <main className={`col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-8 xl:col-span-7  2xl:max-w-4xl 2xl:grow`}>
+      <main className={`col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-8 xl:col-span-7 2xl:max-w-4xl 2xl:grow`}>
         {children}
         {isLessThanLarge && sidebar}
       </main>
