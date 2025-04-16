@@ -341,4 +341,14 @@ index=46
 pluginId=ampliflow-page
 ```
 
+```plugin
+index=47
+pluginId=share-note
+```
+
+```plugin
+index=48
+pluginId=yourpulse
+```
+
 ---
