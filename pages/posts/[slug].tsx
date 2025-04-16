@@ -126,7 +126,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const title = postData.title;
   const description = postData.description;
   const canonical = `https://www.obsidianstats.com/posts/${postData.id}`;
-  const image = `https://www.obsidianstats.com/logo-512.png`;
+  const image = postData.ogImage || `https://www.obsidianstats.com/logo-512.png`;
   const jsonLdSchema = JsonLdSchema.getPostPageSchema(postData, title, description, canonical, image);
 
   return {

@@ -1,16 +1,17 @@
 ---
-title: From Vault to World - Plugins that Help You Publish Your Obsidian Notes
-description: Publish Obsidian notes to blogs, CMSs & websites with these powerful plugins. Supports 40+ platforms.
+title: From Vault to World - Plugins that Help You Publish Your Obsidian Notes (Publish Workflow)
+description: Publish Obsidian notes to blogs, CMSs & websites with these powerful plugins in your publish workflow.
 excerpt: Explore the plugins that help turning your Obsidian notes into live blog posts, full-fledged websites, or social media content without leaving your favorite writing app.
 publishedDate: '2025-04-16'
 modifiedDate: '2025-04-16'
+ogImage: '/images/2025-04-16-publish-workflow-og.png'
 tags:
   - obsidian-plugins
   - workflow
   - publish
 ---
 
-If you've ever dreamed of turning your Obsidian notes into live blog posts, full-fledged websites, or social media content without leaving your favorite writing app - you're in luck.
+If you've ever dreamed of turning your Obsidian notes into live blog posts, full-fledged websites, or social media content without leaving your favorite writing app - you're in luck. This post, "From Vault to World," showcases the collection of all Obsidian plugins designed to streamline your publishing workflow.
 
 As of _April 16, 2025_ we have **46 plugins** that helps with publishing your content. In this guide, we’ll explore Obsidian plugins that help you publish your notes to platforms like DEV, GitHub, Blogger, Hugo, Steemit, Micro.blog, Medium, Discourse, WordPress, WeChat, Vercel, Telegraph, omg.lol, AWS S3, Quaily, Halo, NotesOn.ru, Typefully, Jekyll, Docusaurus, Mixa, Vitepress, Obsius, Firebase, Flowershow, Pickly PageBlend, Infostacker, screen.garden, Friday, Baidu BaiJiaHao, Write.as, Hexo, MBlog, Jade, Orion, Moon Server, Nostr, AmpliFlow and counting.
 
