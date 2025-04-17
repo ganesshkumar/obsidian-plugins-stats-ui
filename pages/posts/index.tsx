@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Blog = (props: IPostsPageProps) => {
   const postsByYear = props.allPostsData.reduce((acc, post) => {
-    const year = post.publishedDate.split('-')[0];
+    const year = post.publishedDate === post.modifiedDate ? post.publishedDate.split('-')[0] : post.modifiedDate.split('-')[0];
     if (!acc[year]) {
       acc[year] = [];
     }
@@ -75,7 +75,7 @@ const Blog = (props: IPostsPageProps) => {
                               {post.title}
                             </div>
                             <div className="text-medium text-gray-600 flex items-end">
-                              {moment(post.publishedDate).format(
+                              {moment(post.publisedDate === post.modifiedDate ? post.publishedDate : post.modifiedDate).format(
                                 'MMMM DD, YYYY'
                               )}
                             </div>
