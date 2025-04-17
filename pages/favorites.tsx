@@ -140,7 +140,7 @@ export const getStaticProps = async () => {
   const title = "Mark your favorite Obsidian plugins and stay updated on their latest releases"
   const description = "Discover and track your favorite Obsidian plugins with our comprehensive stats and updates. Stay informed about the latest releases, trending plugins, and more. Perfect for Obsidian enthusiasts looking to enhance their productivity and plugin management."
   const canonical = "https://www.obsidianstats.com/favorites"
-  const image = "https://www.obsidianstats.com/logo-512.png"
+  const image = "/images/obsidian-stats-ogImage.png"
   const jsonLdSchema = JsonLdSchema.getFavoritesPageSchema()
 
   return {

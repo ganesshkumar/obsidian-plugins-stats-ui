@@ -558,7 +558,7 @@ export const getStaticProps = async ({ params }) => {
   const title = `${plugin.name} - ${plugin.description}`;
   const description = `Obsidian Plugin: ${plugin.name} - ${plugin.description} by ${plugin.author}. Latest version: ${plugin.latestRelease} released on ${moment(plugin.latestReleaseAt).fromNow()}`;
   const canonical = `https://www.obsidianstats.com/plugins/${plugin.pluginId}`;
-  const image = 'https://www.obsidianstats.com/logo-512.png';
+  const image = '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getPluginPageSchema(plugin, title, description, canonical, image);
 
   return {

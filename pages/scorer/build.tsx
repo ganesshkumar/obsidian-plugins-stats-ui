@@ -291,7 +291,7 @@ export const getStaticProps = async () => {
   const title = 'Build and Customize Your Own Plugin Scorer - Obsidian Plugin Stats';
   const description = 'Discover how to build and customize your own plugin scorer for Obsidian. Learn to create custom scoring functions to evaluate plugins based on various metrics and enhance your Obsidian experience.';
   const canonical = 'https://www.obsidianstats.com/scorer/build';
-  const image = 'https://www.obsidianstats.com/logo-512.png';
+  const image = '/images/obsidian-stats-ogImage.png';
 
   return {
     props: {

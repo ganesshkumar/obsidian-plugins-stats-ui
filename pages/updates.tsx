@@ -134,7 +134,7 @@ export const getStaticProps = async () => {
   const title = 'Latest Plugin Updates - Obsidian Plugins Stats UI'
   const description = 'Stay updated with the latest releases and updates of Obsidian plugins. Discover new features, improvements, and changelogs for your favorite plugins.'
   const canonical = "https://www.obsidianstats.com/updates";
-  const image = "https://www.obsidianstats.com/logo-512.png";
+  const image = "/images/obsidian-stats-ogImage.png";
   const jsonLdSchema = JsonLdSchema.getUpdatesPageSchema(newReleases, title, description, canonical, image);
 
   return {

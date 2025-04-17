@@ -180,7 +180,7 @@ export const getStaticProps = async () => {
   const title = 'Obsidian Dataview Query Wizard';
   const description = 'A custom GPT that helps Obsidian users write, understand, learn, and debug Obsidian Dataview queries.';
   const canonical = "https://obsidianstats.com/tools/dataview-query-wizard";
-  const image = "https://www.obsidianstats.com/logo-512.png";
+  const image = "/images/obsidian-stats-ogImage.png";
   const jsonLdSchema = JsonLdSchema.getToolPageSchema(title, description, canonical, image);
 
   return {

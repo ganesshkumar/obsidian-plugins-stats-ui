@@ -97,7 +97,7 @@ export const getStaticProps = async () => {
   const title = "Most Downloaded Obsidian Plugins";
   const description = `Discover the most downloaded Obsidian pluginsin the last week, month, year, and ever since the beginning. ${mostDownloaded.slice(0, 25).map((p) => p.name).join(', ')}`;
   const canonical = "https://obsidianstats.com/most-downloaded";
-  const image = "https://www.obsidianstats.com/logo-512.png"
+  const image = "/images/obsidian-stats-ogImage.png"
   const jsonLdSchema = JsonLdSchema.getMostDownloadedPageSchema(mostDownloaded, title, description, canonical, image);
 
   return {

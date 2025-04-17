@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const title = "Privacy Policy";
   const description = "Obsidian Stats Privacy Policy";
   const canonical = `https://www.obsidianstats.com/privacy-policy`;
-  const image = `https://www.obsidianstats.com/logo-512.png`;
+  const image = `/images/obsidian-stats-ogImage.png`;
   const jsonLdSchema = null;
 
   return {

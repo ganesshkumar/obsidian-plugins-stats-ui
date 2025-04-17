@@ -70,7 +70,7 @@ export const getStaticProps = async () => {
   const title = 'Trending Obsidian Plugins - Top 10 Plugins of from the last 90 days or 3 months based on downloads and z-score'
   const description = `Discover the top 10 trending Obsidian plugins of the month. ${trendingPlugins.map((plugin) => plugin.name).join(', ')}`
   const canonical = 'https://www.obsidianstats.com/trending'
-  const image = 'https://www.obsidianstats.com/logo-512.png'
+  const image = '/images/obsidian-stats-ogImage.png'
   const jsonLdSchema = JsonLdSchema.getTrendingPageSchema(trendingPlugins, title, description, canonical, image)
 
   return {

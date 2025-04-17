@@ -128,7 +128,7 @@ export const getStaticProps = async () => {
   const title = 'Categories of Obsidian Plugins';
   const description = `Explore the categories of Obsidian plugins. Find the best plugins for your needs. ${Object.keys(categoriesData).join(', ')}`;
   const canonical = "https://obsidianstats.com/categories";
-  const image = "https://www.obsidianstats.com/logo-512.png"
+  const image = "/images/obsidian-stats-ogImage.png"
   const jsonLdSchema = JsonLdSchema.getCategoriesPageSchema(Object.keys(categoriesData), title, description, canonical, image);
 
   return {

@@ -166,7 +166,7 @@ const CookiePolicy = () => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col h-screen">
-        <Header title='Privacy Policy | Obsidian Stats' description='Privacy policy for Obsidian Stats' canonical='https://www.obsidianstats.com/privacy-policy' image='https://www.obsidianstats.com/logo-512.png'  />
+        <Header title='Privacy Policy | Obsidian Stats' description='Privacy policy for Obsidian Stats' canonical='https://www.obsidianstats.com/privacy-policy' image='/images/obsidian-stats-ogImage.png'  />
         <Navbar current="privacy-policy" />
 
         <div className="bg-white pt-5 grow">

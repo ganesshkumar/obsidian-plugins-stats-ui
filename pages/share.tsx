@@ -129,7 +129,7 @@ export const getStaticProps = async () => {
   const title = 'Obsidian Plugins Share - Compare and Discover Plugins'
   const description = 'Add a list of plugins and compare them. Use this to share a list of plugins with others for quick comparison and discovery.'
   const canonical = "https://obsidianstats.com/share";
-  const image = "https://www.obsidianstats.com/logo-512.png"
+  const image = "/images/obsidian-stats-ogImage.png"
   const jsonLdSchema = JsonLdSchema.getSharePageSchema(title, description, canonical, image);
 
   return {
