@@ -56,7 +56,7 @@ export const PluginsMultiView = (props: IPluginsMultiViewProps) => {
           </Button>
         </Button.Group>
       </div>
-      <EthicalAd type="text" />
+      <EthicalAd type="text" id="plugins-multiview-text" />
       {plugins && plugins.length && (
         <div className="mt-4">
           {(view !== undefined ? view : componentView) === 'list' ?

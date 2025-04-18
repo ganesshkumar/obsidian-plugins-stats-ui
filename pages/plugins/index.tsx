@@ -474,7 +474,7 @@ const Plugins = (props: IPageProps) => {
                 </Button>
               </Button.Group>
             </div>
-            <EthicalAd type="text" />
+            <EthicalAd type="text" id="plugins-text" />
             <AllPluginsMultiView
               highlight={Array.isArray(filter) ? filter[0]: filter}
               plugins={filteredPlugins}

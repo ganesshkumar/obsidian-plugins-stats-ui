@@ -25,7 +25,7 @@ const Tags = (props: ITagsPageProps) => {
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
           <InfoBar title={`Tags ${props.tags && `(${props.tags.length})`}`} />
-          <EthicalAd type="text" />
+          <EthicalAd type="text" id="tags-text" />
           <div className="flex flex-wrap bg-white px-5 py-5">
             {props.tags && props.tags.sort().map((tag) => {
               return (

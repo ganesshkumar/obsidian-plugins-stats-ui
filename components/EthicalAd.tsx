@@ -1,6 +1,11 @@
 import { useRef, useEffect } from "react";
 
-const EthicalAd = ({ type }: {type: 'text' | 'image'}) => {
+type IEthicalAdProps = {
+  type: 'text' | 'image';
+  id?: string;
+}
+
+const EthicalAd = ({ type, id }: IEthicalAdProps) => {
   const adRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -13,13 +18,16 @@ const EthicalAd = ({ type }: {type: 'text' | 'image'}) => {
     // Re-render the ad when script is ready
     script.onload = () => {
       if (window && (window as any).ethicalads && adRef.current) {
+        if (id) {
+          adRef.current.id = id;
+        }
         (window as any).ethicalads.load();
       }
     };
   }, []);
 
   if (type === 'text') {
-    return <div ref={adRef} data-ea-publisher="obsidianstatscom" data-ea-type="text" />;
+    return <div ref={adRef} data-ea-publisher="obsidianstatscom" data-ea-type="text" id={id} />;
   }
 
   return (

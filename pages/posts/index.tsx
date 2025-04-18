@@ -54,7 +54,7 @@ const Blog = (props: IPostsPageProps) => {
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
           <InfoBar title="Posts" />
-          <EthicalAd type="text" />
+          <EthicalAd type="text" id="posts-text" />
           <ul>
             {Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a)).map((year) => (
               <li key={year}>

@@ -78,7 +78,7 @@ const Plugins = (props: ISharePageProps) => {
                 {author} has shared {filteredPlugins.length} plugins.
               </div>
             )}
-            <EthicalAd type="text" />1
+            <EthicalAd type="text" id="share-text"/>1
             <PluginsShareView
               pluginIds={pluginIds}
               filteredPlugins={filteredPlugins}

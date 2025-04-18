@@ -17,7 +17,7 @@ import { Tool } from 'react-feather';
 import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 import { getGraidentFrom, getGraidentTo } from '../../lib/customThemes';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
-import Comments from '../../components/Comment';
+import Comments from '../../components/Comments';
 
 
 const markdown = `
@@ -102,7 +102,7 @@ const DataviewQueryWizard = (props: ITagsPageProps) => {
 
   const sidebar = (
     <div className='w-full mt-10 lg:mt-0 lg:sticky lg:top-10'>
-      {!isLessThanLarge && <EthicalAd type="image" />}
+      {!isLessThanLarge && <EthicalAd type="image" id="tool-sidebar-image" />}
       <h2 className="mt-1 mb-4 text-2xl text-center">Suggested Tools</h2>
       <div className='flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center'>
         {suggestedTools.map((post, index) => (
@@ -146,7 +146,7 @@ const DataviewQueryWizard = (props: ITagsPageProps) => {
             </p>
             {ctaButton}
           </div>
-          {isLessThanLarge && <EthicalAd type="image" />}
+          {isLessThanLarge && <EthicalAd type="image" id="tool-content-image" />}
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
             <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
           </article>

@@ -131,7 +131,7 @@ const Home = (props: IHomeProps) => {
                 </ul>
               </div>
               <div className='grid content-center'>
-                <EthicalAd type="image" />
+                <EthicalAd type="image" id="home-image" />
               </div>
             </div>
           </div>

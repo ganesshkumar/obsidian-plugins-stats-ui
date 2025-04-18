@@ -173,7 +173,7 @@ const TimelinePage = (props) => {
                 </div>
               </div>
             </div>
-            <EthicalAd type="text" />
+            <EthicalAd type="text" id="timeline-text"/>
             {/* Timeline */}
             <ChangesTimeline ref={timelineRef} data={props.data} />
           </div>

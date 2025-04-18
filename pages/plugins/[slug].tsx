@@ -160,7 +160,7 @@ const Plugin = (props: IPluginProps) => {
                   </a>
                 </div>
               </div>
-              <EthicalAd type='image' />
+              <EthicalAd type='image' id="plugin-image" />
             </div>
           </Card>
           {props.similarPlugins?.length > 0 && (

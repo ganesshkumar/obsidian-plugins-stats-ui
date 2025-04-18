@@ -21,6 +21,8 @@ import { visit } from 'unist-util-visit';
 import { useRouter } from 'next/router';
 import { PostIcon } from '../../components/post/PostIcon';
 import EthicalAd from '../../components/EthicalAd';
+import Comments from '../../components/Comments';
+import ResponsiveLayout from '../_responsive-layout';
 
 function remarkPluginHandler() {
   return async (tree) => {
@@ -230,7 +232,7 @@ const Post = (props: IPostPageProps) => {
 
   const sidebar = (
     <div className='mt-10 lg:mt-0 lg:sticky lg:top-10'>
-      {!isLessThanLarge && <EthicalAd type="image" />}
+      {!isLessThanLarge && <EthicalAd type="image" id="post-sidebar-image" />}
       <h2 className="mt-1 mb-4 text-2xl text-center">Suggested Posts</h2>
       <div className='flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center'>
         {suggestedPosts.map((post, index) => (
@@ -250,7 +252,7 @@ const Post = (props: IPostPageProps) => {
       <Header {...props} />
       <Navbar current="posts" />
       <div className="bg-white pt-5">
-        <ResponsiveLayout sidebar={sidebar} isLessThanLarge={isLessThanLarge}>
+        <ResponsiveLayout sidebar={sidebar}>
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
             <h1 className="mt-2 mb-0 text-3xl font-heading leading-20">{postData.title}</h1>
             <div>
@@ -262,7 +264,7 @@ const Post = (props: IPostPageProps) => {
               </div>
             }
             <div className='mt-4 flex justify-center'>
-            {isLessThanLarge && <EthicalAd type="image" />}
+            {isLessThanLarge && <EthicalAd type="image" id="post-content-image" />}
             </div>
             {plugins && plugins.length ? (
               <>
@@ -290,62 +292,6 @@ const Post = (props: IPostPageProps) => {
         </ResponsiveLayout>
       </div>
       <Footer />
-    </div>
-  );
-};
-
-const Comments = () => {
-  const commentBox = useRef(null);
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://utteranc.es/client.js';
-    script.async = true;
-    script.crossOrigin = 'anonymous';
-    script.setAttribute('repo', 'ganesshkumar/comments');
-    script.setAttribute('issue-term', 'url');
-    script.setAttribute('theme', 'github-light');
-    script.setAttribute('label', 'obsidian-dataview-query-wizard');
-    commentBox.current.appendChild(script);
-  }, []);
-
-  return <div ref={commentBox} />;
-};
-
-
-const ResponsiveLayout: React.FC<{ children: React.ReactNode; sidebar?: React.ReactNode, isLessThanLarge: boolean }> = ({
-  children,
-  sidebar,
-  isLessThanLarge
-}) => {
-  if (!sidebar) {
-    return (
-      <div className='max-w-4xl mx-auto px-2'>
-        {children}
-      </div>
-    )
-  }
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-12 2xl:flex 2xl:justify-center 2xl:gap-x-24 gap-4 p-4 md:p-6 xl:p-8 min-h-screen">
-      {/* Left Spacer */}
-      <div className={`hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hidden'}`} />
-
-      {/* Main Content */}
-      <main className={`col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-8 xl:col-span-7 2xl:max-w-4xl 2xl:grow`}>
-        {children}
-        {isLessThanLarge && sidebar}
-      </main>
-
-      {/* Sidebar */}
-      {!isLessThanLarge && (
-        <aside className="hidden lg:block lg:col-span-4 xl:col-span-3 2xl:col-span-3 2xl:max-w-sm 2xl:min-w-[320px]">
-          {sidebar}
-        </aside>
-      )}
-      
-      {/* Right Spacer */}
-      <div className={`hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hiddens`} />
     </div>
   );
 };
