@@ -148,6 +148,15 @@ const Home = (props: IHomeProps) => {
       <Divider />
       <LatestPosts posts={props.newPosts} />
       <MostDownloadedPlugins overall={props.mostDownloaded} last30Days={props.mostDownloadedIn30Days} last7Days={props.mostDownloadedIn7Days}/>
+
+      <div className="mt-20 max-w-md mx-auto text-center p-4 border rounded-2xl bg-white/60 backdrop-blur-md shadow-md">
+        <a href="https://obsidian.md/blog/2024-goty-winners/" target="_blank">
+        <div className="text-2xl">🏆</div>
+        <p className="font-semibold text-gray-800">Runner-Up — Tool Category</p>
+        <p className="text-sm text-gray-600 italic">Obsidian Gems of the Year 2024</p>
+        </a>
+      </div>
+
       <SubstackNewsletter />
 
       {/* FAQ */}
