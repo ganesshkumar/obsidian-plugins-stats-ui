@@ -7,6 +7,8 @@ import { Post } from './abstractions';
 const postsDirectory = path.join(process.cwd(), 'posts');
 const postsJsxDirectory = path.join(process.cwd(), 'pages', 'posts');
 
+const isLocal = process.env.NODE_ENV === 'development';
+
 export function getSortedPostsData(): Post[] {
   const fileNames = fs.readdirSync(postsDirectory);
 
@@ -24,7 +26,7 @@ export function getSortedPostsData(): Post[] {
 
   const now = new Date();
   return allPostsData
-    .filter((post) => new Date(post.publishedDate) < now)
+    .filter((post) => isLocal ? true : new Date(post.publishedDate) < now)
     .sort(
       (a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
     );
@@ -43,6 +45,7 @@ export function getPostData(id: string): Post {
 }
 
 export function getAllPostIds() {
+  const isLocal = process.env.NODE_ENV === 'development';
   const now = new Date();
   const fileNames = fs.readdirSync(postsDirectory);
   const jsxFileNames = fs
@@ -54,7 +57,7 @@ export function getAllPostIds() {
     .filter((fileName) => !jsxFileNames.includes(fileName.replace(/\.md$/, '')))
     .filter((fileName) => {
       const date = new Date(fileName.substring(0, 10));
-      return date.getTime() < now.getTime();
+      return isLocal ? true : date.getTime() < now.getTime();
     })
     .map((fileName) => {
       return {
