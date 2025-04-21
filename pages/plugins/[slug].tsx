@@ -555,7 +555,7 @@ export const getStaticProps = async ({ params }) => {
     createdAt: p.createdAt,
   }));
 
-  const title = `${plugin.name} - ${plugin.description}`;
+  const title = `${plugin.name} ${!!plugin.description ? `- ${plugin.description}` : ''}`;
   const description = `Obsidian Plugin: ${plugin.name} - ${plugin.description} by ${plugin.author}. Latest version: ${plugin.latestRelease} released on ${moment(plugin.latestReleaseAt).fromNow()}`;
   const canonical = `https://www.obsidianstats.com/plugins/${plugin.pluginId}`;
   const image = '/images/obsidian-stats-ogImage.png';
