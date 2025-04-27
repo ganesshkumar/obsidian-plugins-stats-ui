@@ -428,7 +428,7 @@ const Plugin = (props: IPluginProps) => {
               </Tooltip>
             </div>
           </Card>
-          <Card theme={customCardTheme} className="relative mt-4">
+          <Card theme={customCardTheme} className="relative mt-4" id="latest-version">
             <div className="text-2xl">Latest Version</div>
             <div className="prose mt-4 !max-w-none">
               <div className="flex">
@@ -464,7 +464,7 @@ const Plugin = (props: IPluginProps) => {
               </div>
             </div>
           </Card>
-          <Card theme={customCardTheme} className="relative mt-4">
+          <Card theme={customCardTheme} className="relative mt-4" id="readme">
             <div className="flex-col my-2 p-2">
               <div className="flex items-center gap-x-1 text-lg">
                 <div className="text-2xl">README file from</div>
