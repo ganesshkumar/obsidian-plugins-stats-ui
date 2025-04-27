@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import { useRouter } from 'next/router';
 import { Footer } from '../../components/Footer';
@@ -8,16 +8,16 @@ import { setupFavorites } from '../../utils/favorites';
 import { AllPluginsMultiView } from '../../components/AllPluginsMultiView';
 import { Button, Checkbox, Dropdown, Label, TextInput } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
-import { List as ListIcon, Table as TableIcon } from 'react-feather';
+import { List as ListIcon, Table as TableIcon, Tool } from 'react-feather';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
-import { patchPluginsWithCustomScore } from '../../lib/scorer';
 import { useScoreListStore, useScorerStore } from '../../store/scorer-store';
-import { useCustomScore } from '../../hooks/useCustomScore';
-import { useScoreUpdater } from '../../hooks/useScoreUpdater';
 import { useCustomScoreWithScoreUpdater } from '../../hooks/useCustomScoreWithScoreUpdater';
 import { Plugin } from '@prisma/client';
 import EthicalAd from '../../components/EthicalAd';
+import ResponsiveLayout from '../_responsive-layout';
+import { getGraidentFrom, getGraidentTo } from '../../lib/customThemes';
+import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -83,6 +83,11 @@ const queryPlugins = (query: string, plugins: any[] = []): any[] => {
       return exactMatch(query, plugin.description);
     })
   );
+  addToResult(
+    plugins.filter((plugin) => {
+      return exactMatch(query, plugin.author);
+    })
+  );
 
   const queryParts = query.split(' ').filter((part) => !!part);
   addToResult(
@@ -95,6 +100,11 @@ const queryPlugins = (query: string, plugins: any[] = []): any[] => {
       .map((part) =>
         plugins.filter((plugin) => exactMatch(part, plugin.description))
       )
+      .flat()
+  );
+  addToResult(
+    queryParts
+      .map((part) => plugins.filter((plugin) => exactMatch(part, plugin.author)))
       .flat()
   );
 
@@ -114,9 +124,30 @@ const queryPlugins = (query: string, plugins: any[] = []): any[] => {
         .some((part) => part.startsWith(query.toLowerCase()))
     )
   );
+  addToResult(
+    plugins.filter((plugin) =>
+      plugin.author
+        ?.toLowerCase()
+        .split(' ')
+        .some((part) => part.startsWith(query.toLowerCase()))
+    )
+  );
 
   return result;
 };
+
+const suggestedTools = [
+  {
+    name: 'Dataview Query Wizard',
+    description: 'A GPT to help writing Dataview queries.',
+    link: '/tools/dataview-query-wizard'
+  },
+  {
+    'name': 'Custom Scorer',
+    'description': 'Write custom scoring functions for plugins',
+    'link': '/posts/2025-01-18-building-a-custom-score-function'
+  }
+]
 
 interface IPageProps extends IHeaderProps {
   plugins: Plugin[];
@@ -247,242 +278,265 @@ const Plugins = (props: IPageProps) => {
     }
   }, []);
 
+  const isLessThanLarge = useIsLessThanLarge();
+
+  const sidebar = (
+    <div className='w-full mt-10 lg:mt-0 lg:sticky lg:top-10'>
+      {!isLessThanLarge && <EthicalAd type="image" id="plugins-image" />}
+      <h2 className="mt-1 mb-4 text-2xl text-center">Suggested Tools</h2>
+      <div className='flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center'>
+        {suggestedTools.map((tool, index) => (
+          <a key={index} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`${tool.link}`}>
+            <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}>
+              <Tool size={48} color="white" />
+            </div>
+            <div>
+              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4 font-semibold">{tool.name}</p>
+              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4">{tool.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col h-screen">
         <Header {...props} />
         <Navbar current="all" />
-        {/* New Plugins */}
         <div className="bg-white pt-5 grow">
-          <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
-            {/* <div className='text-2xl py-2 px-2 text-bold text-violet-900'>
-              All Plugins 
-            </div> */}
-            <div className="text-xl py-2 px-2 text-semibold text-gray-800">
-              Showing {filteredPlugins.length} / {plugins.length} plugins available from the community.
-            </div>
-            <div className="px-2 py-2 bg-white relative">
-              <div className="absolute pointer-events-auto">
-                <svg
-                  className="absolute text-slate-400 top-2 left-2 h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+          <ResponsiveLayout sidebar={sidebar}>
+            <div className="flex flex-col h-full">
+              {/* <div className='text-2xl py-2 px-2 text-bold text-violet-900'>
+                All Plugins 
+              </div> */}
+              <div className="text-xl py-2 px-2 text-semibold text-gray-800">
+                Showing {filteredPlugins.length} / {plugins.length} plugins available from the community.
               </div>
-              <TextInput
-                ref={inputRef}
-                id="search"
-                type="text"
-                placeholder="Search for plugins"
-                color="purple"
-                shadow
-                value={filter}
-                onChange={handleFilterChange}
-              />
-            </div>
-            <div className="pl-2 bg-white flex flex-col md:flex-row gap-y-2 justify-between">
-              <div className="flex flex-col md:flex-row gap-x-4">
-                <div className="flex flex-col md:flex-row gap-x-2 justify-center">
-                  <label className="cursor-pointer label">
-                    <div className="label-text font-semibold">Filters: </div>
-                  </label>
-                  <div className="flex">
-                    {' '}
-                    {/* Favorites Filter */}
-                    <Checkbox
-                      checked={favoritesFilter}
-                      id="filter-favorites"
-                      className="mr-2 cursor-pointer"
-                      onChange={handleFavoritesFilterChange}
-                      color="purple"
+              <div className="px-2 py-2 bg-white relative">
+                <div className="absolute pointer-events-auto">
+                  <svg
+                    className="absolute text-slate-400 top-2 left-2 h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                      clipRule="evenodd"
                     />
-                    <Label
-                      htmlFor="filter-favorites"
-                      className="cursor-pointer"
-                    >
-                      Favorites
-                    </Label>
-                  </div>
-                  <div className="flex gap-x-2 items-center">
-                    {' '}
-                    {/* Category Filter */}
-                    <Label htmlFor="filter-category" className="cursor-pointer">
-                      Categories:{' '}
-                    </Label>
-                    <Dropdown
-                      id="filter-category"
-                      label={filterCategoryOptions[filterCategory]}
-                      inline
-                      size="sm"
-                    >
-                      <Dropdown.Item onClick={() => handleFilterCategoryChange('all')}>
-                        {filterCategoryOptions['all']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleFilterCategoryChange('taskManagement')}
+                  </svg>
+                </div>
+                <TextInput
+                  ref={inputRef}
+                  id="search"
+                  type="text"
+                  placeholder="Search for plugins"
+                  color="purple"
+                  shadow
+                  value={filter}
+                  onChange={handleFilterChange}
+                />
+              </div>
+              <div className="pl-2 bg-white flex flex-col md:flex-row gap-y-2 justify-between">
+                <div className="flex flex-col md:flex-row gap-x-4">
+                  <div className="flex flex-col md:flex-row gap-x-2 justify-center">
+                    <label className="cursor-pointer label">
+                      <div className="label-text font-semibold">Filters: </div>
+                    </label>
+                    <div className="flex">
+                      {' '}
+                      {/* Favorites Filter */}
+                      <Checkbox
+                        checked={favoritesFilter}
+                        id="filter-favorites"
+                        className="mr-2 cursor-pointer"
+                        onChange={handleFavoritesFilterChange}
+                        color="purple"
+                      />
+                      <Label
+                        htmlFor="filter-favorites"
+                        className="cursor-pointer"
                       >
-                        {filterCategoryOptions['taskManagement']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleFilterCategoryChange('fileManagement')}
+                        Favorites
+                      </Label>
+                    </div>
+                    <div className="flex gap-x-2 items-center">
+                      {' '}
+                      {/* Category Filter */}
+                      <Label htmlFor="filter-category" className="cursor-pointer">
+                        Categories:{' '}
+                      </Label>
+                      <Dropdown
+                        id="filter-category"
+                        label={filterCategoryOptions[filterCategory]}
+                        inline
+                        size="sm"
                       >
-                        {filterCategoryOptions['fileManagement']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleFilterCategoryChange('noteEnhancements')}
-                      >
-                        {filterCategoryOptions['noteEnhancements']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleFilterCategoryChange('dataVisualization')}
-                      >
-                        {filterCategoryOptions['dataVisualization']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() =>
-                          handleFilterCategoryChange('thirdPartyIntegrations')
-                        }
-                      >
-                        {filterCategoryOptions['thirdPartyIntegrations']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleFilterCategoryChange('productivityTools')}
-                      >
-                        {filterCategoryOptions['productivityTools']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() =>
-                          handleFilterCategoryChange('codingAndTechnicalTools')
-                        }
-                      >
-                        {filterCategoryOptions['codingAndTechnicalTools']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() =>
-                          handleFilterCategoryChange('creativeAndWritingTools')
-                        }
-                      >
-                        {filterCategoryOptions['creativeAndWritingTools']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleFilterCategoryChange('privacyAndSecurity')}
-                      >
-                        {filterCategoryOptions['privacyAndSecurity']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleFilterCategoryChange('customizationAndUI')}
-                      >
-                        {filterCategoryOptions['customizationAndUI']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() =>
-                          handleFilterCategoryChange('collaborationAndSharing')
-                        }
-                      >
-                        {filterCategoryOptions['collaborationAndSharing']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() =>
-                          handleFilterCategoryChange('learningAndknowledgeManagement')
-                        }
-                      >
-                        {
-                          filterCategoryOptions[
-                            'learningAndknowledgeManagement'
-                          ]
-                        }
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleFilterCategoryChange('miscellaneous')}
-                      >
-                        {filterCategoryOptions['miscellaneous']}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => handleFilterCategoryChange('uncategorized')}
-                      >
-                        {filterCategoryOptions['uncategorized']}
-                      </Dropdown.Item>
-                    </Dropdown>
+                        <Dropdown.Item onClick={() => handleFilterCategoryChange('all')}>
+                          {filterCategoryOptions['all']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleFilterCategoryChange('taskManagement')}
+                        >
+                          {filterCategoryOptions['taskManagement']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleFilterCategoryChange('fileManagement')}
+                        >
+                          {filterCategoryOptions['fileManagement']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleFilterCategoryChange('noteEnhancements')}
+                        >
+                          {filterCategoryOptions['noteEnhancements']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleFilterCategoryChange('dataVisualization')}
+                        >
+                          {filterCategoryOptions['dataVisualization']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            handleFilterCategoryChange('thirdPartyIntegrations')
+                          }
+                        >
+                          {filterCategoryOptions['thirdPartyIntegrations']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleFilterCategoryChange('productivityTools')}
+                        >
+                          {filterCategoryOptions['productivityTools']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            handleFilterCategoryChange('codingAndTechnicalTools')
+                          }
+                        >
+                          {filterCategoryOptions['codingAndTechnicalTools']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            handleFilterCategoryChange('creativeAndWritingTools')
+                          }
+                        >
+                          {filterCategoryOptions['creativeAndWritingTools']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleFilterCategoryChange('privacyAndSecurity')}
+                        >
+                          {filterCategoryOptions['privacyAndSecurity']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleFilterCategoryChange('customizationAndUI')}
+                        >
+                          {filterCategoryOptions['customizationAndUI']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            handleFilterCategoryChange('collaborationAndSharing')
+                          }
+                        >
+                          {filterCategoryOptions['collaborationAndSharing']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() =>
+                            handleFilterCategoryChange('learningAndknowledgeManagement')
+                          }
+                        >
+                          {
+                            filterCategoryOptions[
+                              'learningAndknowledgeManagement'
+                            ]
+                          }
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleFilterCategoryChange('miscellaneous')}
+                        >
+                          {filterCategoryOptions['miscellaneous']}
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => handleFilterCategoryChange('uncategorized')}
+                        >
+                          {filterCategoryOptions['uncategorized']}
+                        </Dropdown.Item>
+                      </Dropdown>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex gap-x-2 items-center">
-                {' '}
-                {/* Sort Options */}
-                <Label
-                  htmlFor="sort-favorites"
-                  className="cursor-pointer font-semibold"
-                >
-                  Sort:{' '}
-                </Label>
-                <Dropdown
-                  id="sort-favorites"
-                  label={sortByOptions[sortby]}
-                  inline
-                  size="sm"
-                  value={sortby}
-                >
-                  {sortby === 'relevance' && (
-                    <Dropdown.Item onClick={() => handleSorytbyChange('relevance')}>
-                      {sortByOptions['relevance']}
+                <div className="flex gap-x-2 items-center">
+                  {' '}
+                  {/* Sort Options */}
+                  <Label
+                    htmlFor="sort-favorites"
+                    className="cursor-pointer font-semibold"
+                  >
+                    Sort:{' '}
+                  </Label>
+                  <Dropdown
+                    id="sort-favorites"
+                    label={sortByOptions[sortby]}
+                    inline
+                    size="sm"
+                    value={sortby}
+                  >
+                    {sortby === 'relevance' && (
+                      <Dropdown.Item onClick={() => handleSorytbyChange('relevance')}>
+                        {sortByOptions['relevance']}
+                      </Dropdown.Item>
+                    )}
+                    <Dropdown.Item onClick={() => handleSorytbyChange('alphabet_asc')}>
+                      {sortByOptions['alphabet_asc']}
                     </Dropdown.Item>
-                  )}
-                  <Dropdown.Item onClick={() => handleSorytbyChange('alphabet_asc')}>
-                    {sortByOptions['alphabet_asc']}
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleSorytbyChange('alphabet_desc')}>
-                    {sortByOptions['alphabet_desc']}
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleSorytbyChange('score_desc')}>
-                    {sortByOptions['score_desc']}
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleSorytbyChange('score_asc')}>
-                    {sortByOptions['score_asc']}
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleSorytbyChange('createdAt_desc')}>
-                    {sortByOptions['createdAt_desc']}
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => handleSorytbyChange('downloaded_desc')}>
-                    {sortByOptions['downloaded_desc']}
-                  </Dropdown.Item>
-                </Dropdown>
+                    <Dropdown.Item onClick={() => handleSorytbyChange('alphabet_desc')}>
+                      {sortByOptions['alphabet_desc']}
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleSorytbyChange('score_desc')}>
+                      {sortByOptions['score_desc']}
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleSorytbyChange('score_asc')}>
+                      {sortByOptions['score_asc']}
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleSorytbyChange('createdAt_desc')}>
+                      {sortByOptions['createdAt_desc']}
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleSorytbyChange('downloaded_desc')}>
+                      {sortByOptions['downloaded_desc']}
+                    </Dropdown.Item>
+                  </Dropdown>
+                </div>
               </div>
+              <div className="pl-2 mt-2 mb-4 flex gap-x-2 items-center">
+                <div className="mr-2 font-semibold">View: </div>
+                <Button.Group outline>
+                  {' '}
+                  {/* View Options */}
+                  <Button
+                    color="gray"
+                    onClick={() => handleViewChange('list')}
+                    size="xs"
+                    className="border-l rounded-l-lg"
+                  >
+                    <ListIcon className="mr-3 h-4 w-4" />
+                    List
+                  </Button>
+                  <Button color="gray" onClick={() => handleViewChange('table')} size="xs">
+                    <TableIcon className="mr-3 h-4 w-4" />
+                    Table
+                  </Button>
+                </Button.Group>
+              </div>
+              {isLessThanLarge && <EthicalAd type="text" id="plugins-text" />}
+              <AllPluginsMultiView
+                highlight={Array.isArray(filter) ? filter[0]: filter}
+                plugins={filteredPlugins}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                view={view}
+              />
             </div>
-            <div className="pl-2 mt-2 mb-4 flex gap-x-2 items-center">
-              <div className="mr-2 font-semibold">View: </div>
-              <Button.Group outline>
-                {' '}
-                {/* View Options */}
-                <Button
-                  color="gray"
-                  onClick={() => handleViewChange('list')}
-                  size="xs"
-                  className="border-l rounded-l-lg"
-                >
-                  <ListIcon className="mr-3 h-4 w-4" />
-                  List
-                </Button>
-                <Button color="gray" onClick={() => handleViewChange('table')} size="xs">
-                  <TableIcon className="mr-3 h-4 w-4" />
-                  Table
-                </Button>
-              </Button.Group>
-            </div>
-            <EthicalAd type="text" id="plugins-text" />
-            <AllPluginsMultiView
-              highlight={Array.isArray(filter) ? filter[0]: filter}
-              plugins={filteredPlugins}
-              favorites={favorites}
-              setFavorites={setFavorites}
-              view={view}
-            />
-          </div>
+          </ResponsiveLayout>
         </div>
       </div>
       <Footer />

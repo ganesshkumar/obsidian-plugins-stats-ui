@@ -105,14 +105,14 @@ const DataviewQueryWizard = (props: ITagsPageProps) => {
       {!isLessThanLarge && <EthicalAd type="image" id="tool-sidebar-image" />}
       <h2 className="mt-1 mb-4 text-2xl text-center">Suggested Tools</h2>
       <div className='flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center'>
-        {suggestedTools.map((post, index) => (
-          <a key={index} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`{link}`}>
+        {suggestedTools.map((tool, index) => (
+          <a key={index} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`${tool.link}`}>
             <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}>
               <Tool size={48} color="white" />
             </div>
             <div>
-              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4 font-semibold">{post.name}</p>
-              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4">{post.description}</p>
+              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4 font-semibold">{tool.name}</p>
+              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4">{tool.description}</p>
             </div>
           </a>
         ))}

@@ -127,7 +127,9 @@ const UnindexedPluginListItemInternal = (props) => {
       <div className="flex items-center space-x-2 text-sm text-gray-500">
         <span>
           {moment(plugin.createdAt).fromNow()} by{' '}
-          <span className="text-gray-700">{plugin.author}</span>
+          <span className="text-gray-700">
+            {highlight ? highlightMatch(plugin.author, highlight) : plugin.author}
+          </span>
         </span>
         <Favorites
           plugin={plugin}
@@ -136,7 +138,7 @@ const UnindexedPluginListItemInternal = (props) => {
         />
       </div>
       <Score plugin={plugin} />
-      {(plugin.osCategory || plugin.osTags) && (
+      {/* {(plugin.osCategory || plugin.osTags) && (
         <div className="flex mt-4 gap-x-4">
           {plugin.osCategory && (
             <div>
@@ -172,7 +174,7 @@ const UnindexedPluginListItemInternal = (props) => {
             )}
           </div>
         </div>
-      )}
+      )} */}
       <div className="my-4">
         {highlight
           ? highlightMatch(getDescription(plugin), highlight)
