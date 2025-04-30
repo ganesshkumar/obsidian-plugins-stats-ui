@@ -91,3 +91,38 @@ export const getScoreTextClass = (score: number) => {
   }
   return scoreClass;
 };
+
+export const getCategoryBgClass = (category: string) => {
+  switch (category) {
+      case 'Task Management':
+        return 'bg-green-50'
+      case 'File Management':
+        return 'bg-blue-50'
+      case 'Note Enhancements':
+        return 'bg-yellow-50'
+      case 'Data Visualization':
+        return 'bg-orange-50'
+      case '3rd Party Integrations':
+        return 'bg-cyan-50'
+      case 'Productivity Tools':
+        return 'bg-lime-50'
+      case 'Coding & Technical Tools':
+        return 'bg-teal-50'        
+      case 'Creative & Writing Tools':
+        return 'bg-rose-50'
+      case 'Privacy & Security':
+        return 'bg-gray-50'
+      case 'Customization & UI':
+        return 'bg-indigo-50'
+      case 'Collaboration & Sharing':
+        return 'bg-amber-50'
+      case 'Learning & Knowledge Management':
+        return 'bg-emerald-50'
+      case 'Miscellaneous':
+        return 'bg-rose-50'
+      case 'Uncategorized':
+        return 'bg-neutral-50'
+      default:
+        return 'bg-red-50'
+    }
+}

@@ -33,5 +33,5 @@ module.exports = {
   daisyui: {
     themes: ['cupcake'],
   },
-  plugins: [require('@tailwindcss/typography'), flowbite.plugin()],
+  plugins: [require('@tailwindcss/typography'), flowbite.plugin(), require('@tailwindcss/line-clamp')],
 };

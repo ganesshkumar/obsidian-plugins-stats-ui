@@ -36,7 +36,7 @@ const NavBar = ({ current, children }: INavbarProps) => {
               src="/favicon-64.png"
               width={36}
               height={36}
-              className="rounded mr-3 h-6 sm:h-9"
+              className="rounded mr-3 sm:h-9"
               alt={`${Constants.AppName} logo`}
             />
             <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">

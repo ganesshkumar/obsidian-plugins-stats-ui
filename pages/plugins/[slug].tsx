@@ -35,6 +35,9 @@ import { Score } from '../../components/Score';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
 import EthicalAd from '../../components/EthicalAd';
+import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
+import ResponsiveLayout from '../_responsive-layout';
+import { getCategoryBgClass } from '../../lib/customThemes';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -85,22 +88,55 @@ const Plugin = (props: IPluginProps) => {
   const isFavorite = favorites.includes(props.plugin.pluginId);
   const isNotADayOld = isNotXDaysOld(props.plugin.createdAt, 1);
 
+  const isLessThanLarge = useIsLessThanLarge();
+
+  const sidebar = (
+    <div className='w-full mt-10 lg:mt-0 lg:sticky lg:top-10'>
+      {!isLessThanLarge && <EthicalAd type="image" id="plugins-image" />}
+      <h2 className="mt-1 mb-4 text-2xl text-center">Similar Plugins</h2>
+      <div className='flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center'>
+        {props.similarPlugins.slice(0, 5).map((similarPlugin, index) => (
+          <a key={index} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`/plugins/${similarPlugin.pluginId}`}>
+            <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] ${getCategoryBgClass(similarPlugin.osCategory)} flex justify-center items-center self-center`}>
+              <CategoryIcon
+                category={similarPlugin.osCategory}
+                size={44}
+              />
+            </div>
+            <div>
+              <p className="text-gray-700 px-2 pt-2 font-semibold">{similarPlugin.name}</p>
+              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-2">{similarPlugin.description}</p>
+            </div>
+          </a>
+        ))}
+        {props.similarPlugins.length > 5 && (
+          <a
+            key="all-similar-plugins"
+            href="#similar-plugins"
+            className="relative w-80 flex-col justify-center group shrink-0 my-1 px-5 py-2 border rounded-md shadow-lg cursor-pointer
+                        hover:shadow-violet-200/50 shadow-slate-200/50 grid content-center"
+          >
+            View all
+          </a>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <div>
       <Header {...props} />
-      <div>
-        <AppNavbar current={`tag:${props.plugin.pluginId}`}>
-          {/* <Navbar.Link
-            href={`/tags/${props.plugin.pluginId}`}
-            active={true}
-            className="text-lg"
-          >
-            {`plugin: ${props.plugin.pluginId}`}
-          </Navbar.Link> */}
-        </AppNavbar>
-      </div>
+      <AppNavbar current={`tag:${props.plugin.pluginId}`}>
+        {/* <Navbar.Link
+          href={`/tags/${props.plugin.pluginId}`}
+          active={true}
+          className="text-lg"
+        >
+          {`plugin: ${props.plugin.pluginId}`}
+        </Navbar.Link> */}
+      </AppNavbar>
       <div className="bg-white pt-5">
-        <div className="max-w-6xl mx-auto px-2 relative">
+        <ResponsiveLayout sidebar={sidebar}>
           <Card theme={customCardTheme}>
             <div className="flex flex-wrap md:justify-between">
               <div>
@@ -160,45 +196,11 @@ const Plugin = (props: IPluginProps) => {
                   </a>
                 </div>
               </div>
-              <EthicalAd type='image' id="plugin-image" />
             </div>
           </Card>
-          {props.similarPlugins?.length > 0 && (
-            <div className="relative px-2 mt-4 border-none shadow-none">
-              <div className="text-2xl">Similar Plugins</div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                {props.similarPlugins
-                  .slice(0, props.similarPlugins.length === 3 ? 3 : 2)
-                  .map((plugin) => (
-                    <a
-                      key={plugin.id}
-                      href={`/plugins/${plugin.pluginId}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="relative flex-col justify-between group shrin808586k-0 my-1 px-5 py-2 border rounded-md shadow-lg hover:shadow-violet-200/50 shadow-slate-200/50 hover:bg-violet-300 bg-violet-200"
-                    >
-                      <div className="capitalize tracking-wide text-gray-900 font-semibold">
-                        {plugin.name}
-                      </div>
-                      <div className="text-sm text-gray-900">
-                        {moment(plugin.createdAt).fromNow()} by{' '}
-                        <span className="group-hover:text-violet-800">
-                          {plugin.author}
-                        </span>
-                      </div>
-                    </a>
-                  ))}
-                {props.similarPlugins.length > 3 && (
-                  <a
-                    key="all-similar-plugins"
-                    href="#similar-plugins"
-                    className="relative flex-col justify-between group shrink-0 my-1 px-5 py-2 border rounded-md shadow-lg cursor-pointer
-                               underline hover:shadow-violet-200/50 shadow-slate-200/50 hover:bg-gray-900 bg-gray-800 text-slate-100 grid content-center"
-                  >
-                    View all similar plugins →
-                  </a>
-                )}
-              </div>
+          {isLessThanLarge && (
+            <div className='sticky top-0 z-20 bg-white'>
+              <EthicalAd type="fixed-footer" id="plugins-text" />
             </div>
           )}
           <Card theme={customCardTheme} className="relative mt-4">
@@ -511,7 +513,7 @@ const Plugin = (props: IPluginProps) => {
               </div>
             </div>
           )}
-        </div>
+        </ResponsiveLayout>
       </div>
       <Footer />
     </div>
@@ -553,6 +555,7 @@ export const getStaticProps = async ({ params }) => {
     description: p.description,
     author: p.author,
     createdAt: p.createdAt,
+    osCategory: p.osCategory,
   }));
 
   const title = `${plugin.name} ${!!plugin.description ? `- ${plugin.description}` : ''}`;

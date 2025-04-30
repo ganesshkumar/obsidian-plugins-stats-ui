@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 
 type IEthicalAdProps = {
-  type: 'text' | 'image';
+  type: 'text' | 'image' | 'fixed-footer';
   id?: string;
 }
 
@@ -25,6 +25,10 @@ const EthicalAd = ({ type, id }: IEthicalAdProps) => {
       }
     };
   }, []);
+
+  if (type === 'fixed-footer') {
+    return <div data-ea-publisher="obsidianstatscom" data-ea-type="text" data-ea-style="fixedfooter" />;
+  }
 
   if (type === 'text') {
     return <div ref={adRef} data-ea-publisher="obsidianstatscom" data-ea-type="text" id={id} />;
