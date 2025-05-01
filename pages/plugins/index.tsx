@@ -78,11 +78,11 @@ const queryPlugins = (query: string, plugins: any[] = []): any[] => {
       return exactMatch(query, plugin.name);
     })
   );
-  addToResult(
-    plugins.filter((plugin) => {
-      return exactMatch(query, plugin.description);
-    })
-  );
+  // addToResult(
+  //   plugins.filter((plugin) => {
+  //     return exactMatch(query, plugin.description);
+  //   })
+  // );
   addToResult(
     plugins.filter((plugin) => {
       return exactMatch(query, plugin.author);
@@ -135,6 +135,61 @@ const queryPlugins = (query: string, plugins: any[] = []): any[] => {
 
   return result;
 };
+
+function countOccurrences(text: string, token: string): number {
+  const regex = new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'); // escape token
+  return (text.match(regex) || []).length;
+}
+
+const queryPluginsV2 = (query: string, plugins: Plugin[] = []): Plugin[] => {
+  if (!query) {
+    return plugins;
+  }
+
+  const results: {
+    plugin: Plugin;
+    score: number;
+  }[] = []; 
+
+  query = query.toLowerCase();
+  const tokens = query.toLowerCase().trim().split(/\s+/).filter((t) => t.length > 0);
+
+  plugins.forEach(plugin => {
+    const nameLower = plugin.name.toLowerCase();
+    const descriptionLower = (plugin.description ?? '').toLowerCase();
+    const authorLower = (plugin.author ?? '').toLowerCase();
+
+    const text = `${nameLower} ${descriptionLower} ${authorLower}`;
+    const isMatch = tokens.every(token => text.includes(token));
+    
+    if (!isMatch) {
+      return;
+    }
+
+    let score = 0;
+    if (nameLower === query) {
+      score = 1000;
+    } else if (authorLower == query) {
+      score = 500;
+    } else {
+      if (tokens.length > 1 ) {
+        score += nameLower.includes(query) ? 90 : 0;
+        score += descriptionLower.includes(query) ? 60 : 0;
+        score += authorLower.includes(query) ? 30 : 0;
+      }
+
+      for (const token of tokens) {
+        score += countOccurrences(nameLower, token) * 3;
+        score += countOccurrences(descriptionLower, token) * 2;
+        score += countOccurrences(authorLower, token) * 1;
+      }
+    }
+
+    results.push({ plugin, score });
+  })
+  
+  return results.sort((a, b) => b.score - a.score).map(item => item.plugin);
+}
 
 const suggestedTools = [
   {
@@ -232,20 +287,23 @@ const Plugins = (props: IPageProps) => {
     updateQuery({ view: value });
   }
 
+  const isPluginInFavorites = (plugin: Plugin) => favoritesFilter ? favorites.includes(plugin.pluginId) : true;
+  
+  const isPluginInFilterCategory = (plugin: Plugin) => {
+    if (filterCategory === 'all') {
+      return true;
+    }
+    return plugin.osCategory === filterCategoryOptions[filterCategory];
+  }
+
   const filteredPlugins = useMemo(() => {
     const filterLowerCase = filter.toLowerCase();
-    const favAndCategoryFilteredPlugins = [...plugins]
-      .filter((plugin: Plugin) =>
-        favoritesFilter ? favorites.includes(plugin.pluginId) : true
-      )
-      .filter((plugin: Plugin) => {
-        if (filterCategory === 'all') {
-          return true;
-        }
-        return plugin.osCategory === filterCategoryOptions[filterCategory];
-      });
 
-    const queriedPlugins = queryPlugins(
+    const favAndCategoryFilteredPlugins = [...plugins]
+      .filter(isPluginInFavorites)
+      .filter(isPluginInFilterCategory);
+
+    const queriedPlugins = queryPluginsV2(
       filterLowerCase,
       favAndCategoryFilteredPlugins
     );
@@ -302,15 +360,12 @@ const Plugins = (props: IPageProps) => {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col min-h-screen">
         <Header {...props} />
         <Navbar current="all" />
         <div className="bg-white pt-5 grow">
           <ResponsiveLayout sidebar={sidebar}>
-            <div className="flex flex-col h-full">
-              {/* <div className='text-2xl py-2 px-2 text-bold text-violet-900'>
-                All Plugins 
-              </div> */}
+            <div className="flex flex-col">
               <div className="text-xl py-2 px-2 text-semibold text-gray-800">
                 Showing {filteredPlugins.length} / {plugins.length} plugins available from the community.
               </div>
@@ -481,7 +536,7 @@ const Plugins = (props: IPageProps) => {
                     size="sm"
                     value={sortby}
                   >
-                    {sortby === 'relevance' && (
+                    {(sortby === 'relevance' || !!query) && (
                       <Dropdown.Item onClick={() => handleSorytbyChange('relevance')}>
                         {sortByOptions['relevance']}
                       </Dropdown.Item>
@@ -527,7 +582,7 @@ const Plugins = (props: IPageProps) => {
                   </Button>
                 </Button.Group>
               </div>
-              {isLessThanLarge && <EthicalAd type="text" id="plugins-text" />}
+              {isLessThanLarge && <EthicalAd type="fixed-footer" id="plugins-text" />}
               <AllPluginsMultiView
                 highlight={Array.isArray(filter) ? filter[0]: filter}
                 plugins={filteredPlugins}

@@ -86,6 +86,53 @@ export class PluginsCache {
    */
   private static async fetch(): Promise<Plugin[]> {
     let prisma: PrismaClient = new PrismaClient();
-    return await prisma.plugin.findMany({});
+    let plugins = await prisma.plugin.findMany({});
+    
+    plugins.forEach((plugin) => {
+      plugin.osDescription = plugin.osDescription ? sanitizeInvisibleCharacters(sanitizeQuoteVariations(sanitizeDashVariations(plugin.osDescription))) : '';
+      plugin.osTags = plugin.osTags ? sanitizeInvisibleCharacters(sanitizeQuoteVariations(sanitizeDashVariations(plugin.osTags))) : '';
+      plugin.osCategory = plugin.osCategory ? sanitizeInvisibleCharacters(sanitizeQuoteVariations(sanitizeDashVariations(plugin.osCategory))) : '';
+    });
+
+    return plugins;
   }
 }
+
+// Define the invisible characters array once to avoid repetition
+const invisibleCharacters = [
+  /\u0000/g, // NULL
+  /\u0001/g, // START OF HEADING
+  /\u0003/g, // END OF TEXT
+  /\u0008/g, // BACKSPACE
+  ///\u000D/g, // CARRIAGE RETURN
+  ///\u000A/g, // LINE FEED
+  /\u001B/g, // ESCAPE
+  /\u200B/g, // ZERO WIDTH SPACE
+  /\u200C/g, // ZERO WIDTH NON-JOINER
+  /\u200D/g, // ZERO WIDTH JOINER
+  /\uFEFF/g, // ZERO WIDTH NO-BREAK SPACE
+  /\u00A0/g, // NO-BREAK SPACE
+  /\u202F/g, // NARROW NO-BREAK SPACE
+  /\u205F/g, // MEDIUM MATHEMATICAL SPACE
+];
+
+const sanitizeInvisibleCharacters = (input: string): string => {
+  return invisibleCharacters.reduce((sanitized, regex) => {
+    return sanitized.replace(regex, '');
+  }, input);
+};
+
+const sanitizeQuoteVariations = (text: string): string => {
+  const quoteVariations = /[“”‘’′″`]/g;
+  return text.replace(quoteVariations, (match) => {
+    if (['“', '”', '″'].includes(match)) return '"';
+    if (['‘', '’', '′'].includes(match)) return "'";
+    return match;
+  });
+};
+
+const dashRegex = /[—–‒―⁓]/g;
+
+export const sanitizeDashVariations = (input: string): string => {
+  return input.replace(dashRegex, '-');
+};

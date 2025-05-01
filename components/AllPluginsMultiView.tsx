@@ -8,21 +8,47 @@ import { CategoryIcon } from './Category';
 import { Score } from './Score';
 import { getScoreBgClass } from '../lib/customThemes';
 import { Plugin } from '@prisma/client';
+import { Virtuoso } from 'react-virtuoso';
 
-const highlightMatch = (name, query) => {
-  if (!name || !query) return name;
+const highlightMatch = (text: string, query: string) => {
+  if (!text || !query) return text;
 
-  const parts = name.split(new RegExp(`(${query})`, 'gi'));
-  return parts.map((part, index) =>
-    part.toLowerCase() === query.toLowerCase() ? (
-      <span key={index} style={{ backgroundColor: 'yellow' }}>
-        {part}
-      </span>
-    ) : (
-      part
-    )
-  );
+  query = query.toLowerCase();
+  text = text.toLowerCase();
+
+  const tokens = query.toLowerCase().trim().split(/\s+/);
+
+  const parts = text.split(new RegExp(`(${query})`, 'gi'));
+  return parts.map((part, index) => {
+    if (part === query) {
+      return (
+        <span key={index} style={{ backgroundColor: 'yellow' }}>
+          {part}
+        </span>
+      );
+    }
+  });
 };
+
+function highlightMatchesV2(text: string, query: string): string {
+  if (!query || !query.length || !text || !text.length) {
+    return text;
+  }
+
+  query = query.toLowerCase().trim();
+  const tokens = query.toLowerCase().trim().split(/\s+/).filter((t) => t.length > 0);
+
+  const regex = new RegExp(
+    `(${tokens.map(t => escapeRegex(t)).join("|")})`,
+    "gi"
+  );
+
+  return text.replace(regex, (match) => `<mark>${match}</mark>`);
+}
+
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 interface IAllPluginsMultiViewProps {
   plugins: Plugin[];
@@ -40,22 +66,25 @@ export const AllPluginsMultiView = ({
   view,
 }: IAllPluginsMultiViewProps) => {
   return (
-    <div className="flex-col grow relative">
+    <div className="flex-col">
       {view === 'list' && plugins && plugins.length ? (
-        // <div data-testid="plugins-list">
-          <VList style={{ height: '100%' }} data-testid="plugins-list">
-            {plugins.map((plugin, index) => (
-              <PluginListItem
-                key={plugin.pluginId}
-                plugin={plugins[index]}
-                index={index}
-                favorites={favorites}
-                setFavorites={setFavorites}
-                highlight={highlight}
-              />
-            ))}
-          </VList>
-        // </div>
+          <Virtuoso
+            useWindowScroll
+            totalCount={plugins.length}
+            itemContent={(index) => {
+              const plugin = plugins[index];
+              return (
+                <PluginListItem
+                  key={plugin.pluginId}
+                  plugin={plugins[index]}
+                  index={index}
+                  favorites={favorites}
+                  setFavorites={setFavorites}
+                  highlight={highlight}
+                />
+              );
+            }}
+          />
       ) : undefined}
       {view === 'table' && plugins && plugins.length ? (
         <div
@@ -91,20 +120,39 @@ export const AllPluginsMultiView = ({
       ) : undefined}
       {view === 'table' && plugins && plugins.length ? (
         // <div data-testid="plugins-table" className='relative'>
-          <VList style={{ height: '100%' }} data-testid="plugins-table">
-            {plugins.map((plugin, index) => (
-              <PluginTableItem
-                key={plugin.pluginId}
-                plugin={plugins[index]}
-                index={index}
-                favorites={favorites}
-                setFavorites={setFavorites}
-                highlight={highlight}
-                showDescription={true}
-                showDownloadStat={false}
-              />
-            ))}
-          </VList>
+          // <VList style={{ height: '100%' }} data-testid="plugins-table">
+          //   {plugins.map((plugin, index) => (
+          //     <PluginTableItem
+          //       key={plugin.pluginId}
+          //       plugin={plugins[index]}
+          //       index={index}
+          //       favorites={favorites}
+          //       setFavorites={setFavorites}
+          //       highlight={highlight}
+          //       showDescription={true}
+          //       showDownloadStat={false}
+          //     />
+          //   ))}
+          // </VList>
+          <Virtuoso
+            useWindowScroll
+            totalCount={plugins.length}
+            itemContent={(index) => {
+              const plugin = plugins[index];
+              return (
+                <PluginTableItem
+                  key={plugin.pluginId}
+                  plugin={plugins[index]}
+                  index={index}
+                  favorites={favorites}
+                  setFavorites={setFavorites}
+                  highlight={highlight}
+                  showDescription={true}
+                  showDownloadStat={false}
+                />
+              );
+            }}
+          />
         // </div>
       ) : undefined}
     </div>
@@ -122,13 +170,13 @@ const UnindexedPluginListItemInternal = (props) => {
         href={`/plugins/${plugin.pluginId}`}
         className="text-xl font-semibold text-violet-800"
       >
-        {highlight ? highlightMatch(plugin.name, highlight) : plugin.name}
+        <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(plugin.name, highlight) : plugin.name }} />
       </Link>
       <div className="flex items-center space-x-2 text-sm text-gray-500">
         <span>
           {moment(plugin.createdAt).fromNow()} by{' '}
           <span className="text-gray-700">
-            {highlight ? highlightMatch(plugin.author, highlight) : plugin.author}
+            <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(plugin.author, highlight) : plugin.name }} />
           </span>
         </span>
         <Favorites
@@ -175,9 +223,9 @@ const UnindexedPluginListItemInternal = (props) => {
           </div>
         </div>
       )} */}
-      <div className="my-4">
+      <div className="my-4 text-sm md:text-base">
         {highlight
-          ? highlightMatch(getDescription(plugin), highlight)
+          ? <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(getDescription(plugin), highlight) : plugin.name }} />
           : getDescription(plugin)}
       </div>
       <Link
@@ -197,10 +245,10 @@ const UnindexedPluginTableItemInternal = (props) => {
   return (
     <div
       key={plugin.pluginId}
-      className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'} dark:border-gray-700 dark:bg-gray-800 grid grid-cols-12 gap-4 py-2`}
+      className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'} dark:border-gray-700 dark:bg-gray-800 grid grid-cols-12 gap-4 py-2 px-1`}
     >
       <div key={`${plugin.pluginId}-name`} className="col-span-8 md:col-span-3">
-        {highlight ? highlightMatch(plugin.name, highlight) : plugin.name}
+        <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(plugin.name, highlight) : plugin.name }} />
       </div>
       <div
         key={`${plugin.pluginId}-score`}
@@ -215,10 +263,10 @@ const UnindexedPluginTableItemInternal = (props) => {
       </div>
       <div
         key={`${plugin.pluginId}-description`}
-        className="overflow-hidden whitespace-nowrap text-ellipsis col-span-7 hidden md:block"
+        className="overflow-hidden whitespace-nowrap text-ellipsis col-span-7 hidden md:block text-sm lg:text-base"
       >
         {highlight
-          ? highlightMatch(plugin.description, highlight)
+          ? <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(plugin.description, highlight) : plugin.name }} />
           : plugin.description}
       </div>
       <div key={`${plugin.pluginId}-link`} className="col-span-2 md:col-span-1">

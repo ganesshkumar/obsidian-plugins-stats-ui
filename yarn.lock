@@ -6870,6 +6870,11 @@ react-simple-code-editor@^0.14.1:
   resolved "https://registry.yarnpkg.com/react-simple-code-editor/-/react-simple-code-editor-0.14.1.tgz#fd37eb3349f5def45900dd46acf296f796d81d2c"
   integrity sha512-BR5DtNRy+AswWJECyA17qhUDvrrCZ6zXOCfkQY5zSmb96BVUbpVAv03WpcjcwtCwiLbIANx3gebHOcXYn1EHow==
 
+react-virtuoso@^4.12.6:
+  version "4.12.6"
+  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-4.12.6.tgz#20fe374d43cce3c9821e29f4cc4d050596d06d01"
+  integrity sha512-bfvS6aCL1ehXmq39KRiz/vxznGUbtA27I5I24TYCe1DhMf84O3aVNCIwrSjYQjkJGJGzY46ihdN8WkYlemuhMQ==
+
 react@^19.0.0-rc-1460d67c-20241003:
   version "19.0.0-rc-1460d67c-20241003"
   resolved "https://registry.yarnpkg.com/react/-/react-19.0.0-rc-1460d67c-20241003.tgz#ec6f7746602eec2ce085b054757bec7ca4db1f27"
