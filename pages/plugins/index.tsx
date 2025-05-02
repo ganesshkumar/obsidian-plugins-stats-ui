@@ -18,6 +18,9 @@ import EthicalAd from '../../components/EthicalAd';
 import ResponsiveLayout from '../_responsive-layout';
 import { getGraidentFrom, getGraidentTo } from '../../lib/customThemes';
 import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
+import { generateSuggestions } from '../../domain/suggestions';
+import { Suggestions } from '../../domain/suggestions/models';
+import { Sidebar } from '../../components/Sidebar';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -191,21 +194,9 @@ const queryPluginsV2 = (query: string, plugins: Plugin[] = []): Plugin[] => {
   return results.sort((a, b) => b.score - a.score).map(item => item.plugin);
 }
 
-const suggestedTools = [
-  {
-    name: 'Dataview Query Wizard',
-    description: 'A GPT to help writing Dataview queries.',
-    link: '/tools/dataview-query-wizard'
-  },
-  {
-    'name': 'Custom Scorer',
-    'description': 'Write custom scoring functions for plugins',
-    'link': '/posts/2025-01-18-building-a-custom-score-function'
-  }
-]
-
 interface IPageProps extends IHeaderProps {
   plugins: Plugin[];
+  suggestions: Suggestions
 }
 
 const Plugins = (props: IPageProps) => {
@@ -338,25 +329,7 @@ const Plugins = (props: IPageProps) => {
 
   const isLessThanLarge = useIsLessThanLarge();
 
-  const sidebar = (
-    <div className='w-full mt-10 lg:mt-0 lg:sticky lg:top-10'>
-      {!isLessThanLarge && <EthicalAd type="image" id="plugins-image" />}
-      <h2 className="mt-1 mb-4 text-2xl text-center">Suggested Tools</h2>
-      <div className='flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center'>
-        {suggestedTools.map((tool, index) => (
-          <a key={index} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`${tool.link}`}>
-            <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}>
-              <Tool size={48} color="white" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4 font-semibold">{tool.name}</p>
-              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4">{tool.description}</p>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
+  const sidebar = <Sidebar pageInfo={{ type: 'plugins', slug: '' }} suggestions={props.suggestions} />;
 
   return (
     <div className="flex flex-col">
@@ -582,7 +555,7 @@ const Plugins = (props: IPageProps) => {
                   </Button>
                 </Button.Group>
               </div>
-              {isLessThanLarge && <EthicalAd type="fixed-footer" id="plugins-text" />}
+              {isLessThanLarge && <EthicalAd type="fixed-footer" id="plugins-fixed-footer" />}
               <AllPluginsMultiView
                 highlight={Array.isArray(filter) ? filter[0]: filter}
                 plugins={filteredPlugins}
@@ -610,6 +583,7 @@ export const getStaticProps = async () => {
   const canonical = 'https://www.obsidianstats.com/plugins';
   const image = '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getPluginsPageSchema(plugins, title, description, canonical, image);
+  const suggestions = await generateSuggestions({ type: 'plugins', slug: '' });
 
   return {
     props: {
@@ -618,7 +592,8 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      plugins
+      plugins,
+      suggestions
     }
   };
 };

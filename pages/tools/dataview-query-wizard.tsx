@@ -18,6 +18,9 @@ import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 import { getGraidentFrom, getGraidentTo } from '../../lib/customThemes';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Comments from '../../components/Comments';
+import { Suggestions } from '../../domain/suggestions/models';
+import { generateSuggestions } from '../../domain/suggestions';
+import { Sidebar } from '../../components/Sidebar';
 
 
 const markdown = `
@@ -82,44 +85,20 @@ Happy note-taking!
 **Note**: We'd love to hear your suggestions and feedback to make this custom GPT tool even better—please share your thoughts in the comments!
 `;
 
-const suggestedTools = [
-  {
-    'name': 'Custom Scorer',
-    'description': 'Write custom scoring functions for plugins',
-    'link': '/posts/2025-01-18-building-a-custom-score-function'
-  }
-]
 
 interface ITagsPageProps extends IHeaderProps {
   tags: string[];
   pluginCountByTags: Record<string, number>;
   contentHtml: string;
   afterCTAHtml: string;
+  suggestions: Suggestions;
 }
 
 const DataviewQueryWizard = (props: ITagsPageProps) => {
   const isLessThanLarge = useIsLessThanLarge();
 
-  const sidebar = (
-    <div className='w-full mt-10 lg:mt-0 lg:sticky lg:top-10'>
-      {!isLessThanLarge && <EthicalAd type="image" id="tool-sidebar-image" />}
-      <h2 className="mt-1 mb-4 text-2xl text-center">Suggested Tools</h2>
-      <div className='flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center'>
-        {suggestedTools.map((tool, index) => (
-          <a key={index} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`${tool.link}`}>
-            <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}>
-              <Tool size={48} color="white" />
-            </div>
-            <div>
-              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4 font-semibold">{tool.name}</p>
-              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4">{tool.description}</p>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-
+  const sidebar = <Sidebar pageInfo={{ type: 'tool', slug: 'dataview-query-wizard' }} suggestions={props.suggestions} />;
+  
   const ctaButton = (
     <Button color='purple' className='mt-8'>
       <Link href="https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard" className='flex gap-4 items-center' prefetch={false}>
@@ -146,7 +125,7 @@ const DataviewQueryWizard = (props: ITagsPageProps) => {
             </p>
             {ctaButton}
           </div>
-          {isLessThanLarge && <EthicalAd type="image" id="tool-content-image" />}
+          {isLessThanLarge && <EthicalAd type="fixed-footer" id="tool-fixed-footer" />}
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
             <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
           </article>
@@ -182,6 +161,7 @@ export const getStaticProps = async () => {
   const canonical = "https://obsidianstats.com/tools/dataview-query-wizard";
   const image = "/images/obsidian-stats-ogImage.png";
   const jsonLdSchema = JsonLdSchema.getToolPageSchema(title, description, canonical, image);
+  const suggestions = await generateSuggestions({ type: 'tool', slug: 'dataview-query-wizard' });
 
   return {
     props: {
@@ -192,6 +172,7 @@ export const getStaticProps = async () => {
       jsonLdSchema,
       contentHtml,
       afterCTAHtml,
+      suggestions,
     },
   };
 };

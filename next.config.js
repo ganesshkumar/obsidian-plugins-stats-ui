@@ -1,6 +1,12 @@
+const autoprefixer = require("autoprefixer");
+
 module.exports = {
   experimental: {
     middleware: false,
+    legacyBrowsers: false,
+  },
+  devIndicators: {
+    autoPrerender: false,
   },
   i18n: {
     locales: ['en-US'],
@@ -11,4 +17,3 @@ module.exports = {
     minimumCacheTTL: 604800, // 7 days
   },
 };
-  

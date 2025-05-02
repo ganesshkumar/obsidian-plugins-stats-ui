@@ -73,7 +73,5 @@ export const getStaticProps = async () => {
     plugins: pluginsData
   };
 
-  console.log('props', props);
-
   return { props };
 };

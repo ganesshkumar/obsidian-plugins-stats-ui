@@ -10,9 +10,15 @@ import { PostIcon } from '../../components/post/PostIcon';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import { Post } from '../../lib/abstractions';
 import EthicalAd from '../../components/EthicalAd';
+import { generateSuggestions } from '../../domain/suggestions';
+import { Suggestions } from '../../domain/suggestions/models';
+import ResponsiveLayout from '../_responsive-layout';
+import { Sidebar } from '../../components/Sidebar';
+import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 
 interface IPostsPageProps extends IHeaderProps {
   allPostsData: Post[];
+  suggestions: Suggestions;
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -22,6 +28,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const canonical = 'https://www.obsidianstats.com/posts';
   const image = '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getPostsPageSchema(allPostsData, title, description, canonical, image);
+  const suggestions = await generateSuggestions({ type: 'posts', slug: '' });
 
   return {
     props: {
@@ -31,19 +38,26 @@ export const getStaticProps: GetStaticProps = async () => {
       image,
       jsonLdSchema,
       allPostsData,
+      suggestions,
     },
   };
 };
 
 const Blog = (props: IPostsPageProps) => {
-  const postsByYear = props.allPostsData.reduce((acc, post) => {
+  const postsByMonth = props.allPostsData.reduce((acc, post) => {
     const year = post.publishedDate === post.modifiedDate ? post.publishedDate.split('-')[0] : post.modifiedDate.split('-')[0];
-    if (!acc[year]) {
-      acc[year] = [];
+    const month = post.publishedDate === post.modifiedDate ? post.publishedDate.split('-')[1] : post.modifiedDate.split('-')[1];
+    const key = `${year}-${month}`;
+
+    if (!acc[key]) {
+      acc[key] = [];
     }
-    acc[year].push(post);
+    acc[key].push(post);
     return acc;
   }, {});
+
+  const isLessThanLarge = useIsLessThanLarge();
+  const sidebar = <Sidebar pageInfo={{ type: 'posts', slug: '' }} suggestions={props.suggestions} />;
 
   return (
     <div>
@@ -52,15 +66,15 @@ const Blog = (props: IPostsPageProps) => {
         <Navbar current="posts" />
       </div>
       <div className="bg-white pt-5">
-        <div className="max-w-6xl mx-auto px-2">
+        <ResponsiveLayout sidebar={sidebar}>
           <InfoBar title="Posts" />
-          <EthicalAd type="text" id="posts-text" />
+          {isLessThanLarge && <EthicalAd type="fixed-footer" id="posts-fixed-footer" />}
           <ul>
-            {Object.keys(postsByYear).sort((a, b) => parseInt(b) - parseInt(a)).map((year) => (
+            {Object.keys(postsByMonth).sort((a, b) => parseInt(b) - parseInt(a)).map((year) => (
               <li key={year}>
-                <h2 className="text-xl mb-2 font-semibold">{year}</h2>
+                <h2 className="text-2xl mb-2 font-semibold text-gray-700 mt-8">{moment(year, 'YYYY-MM').format('MMMM YYYY')}</h2>
                 <ul className="flex flex-col divide-y">
-                  {postsByYear[year].map((post) => (
+                  {postsByMonth[year].map((post) => (
                     <li key={post.id}>
                       <Link
                         href={`/posts/${post.id}`}
@@ -71,16 +85,16 @@ const Blog = (props: IPostsPageProps) => {
                           <div className="grid place-items-start">
                             <PostIcon tags={post.tags} />
                           </div>
-                          <div className="flex flex-col">
-                            <div className="text-xl font-semibold hover:underline text-gray-800">
+                          <div className="text-lg flex flex-col">
+                            <div className="font-semibold hover:underline text-gray-800">
                               {post.title}
                             </div>
-                            <div className="text-medium text-gray-600 flex items-end">
+                            <div className="text-sm text-gray-500 flex items-end">
                               {moment(post.publisedDate === post.modifiedDate ? post.publishedDate : post.modifiedDate).format(
                                 'MMMM DD, YYYY'
                               )}
                             </div>
-                            <div className="text-medium text-gray-800 mt-4">
+                            <div className="text-sm text-gray-800 mt-1">
                               {post.excerpt}
                             </div>
                           </div>
@@ -92,7 +106,7 @@ const Blog = (props: IPostsPageProps) => {
               </li>
             ))}
           </ul>
-        </div>
+        </ResponsiveLayout>
       </div>
       <Footer />
     </div>

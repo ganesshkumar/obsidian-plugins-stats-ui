@@ -38,6 +38,9 @@ import EthicalAd from '../../components/EthicalAd';
 import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 import ResponsiveLayout from '../_responsive-layout';
 import { getCategoryBgClass } from '../../lib/customThemes';
+import { Suggestions } from '../../domain/suggestions/models';
+import { generateSuggestions } from '../../domain/suggestions';
+import { Sidebar } from '../../components/Sidebar';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -50,6 +53,7 @@ interface IPluginProps extends IHeaderProps {
   tags: string[];
   similarPlugins: any[];
   isTrending: boolean;
+  suggestions: Suggestions;
 }
 
 const Plugin = (props: IPluginProps) => {
@@ -89,39 +93,7 @@ const Plugin = (props: IPluginProps) => {
   const isNotADayOld = isNotXDaysOld(props.plugin.createdAt, 1);
 
   const isLessThanLarge = useIsLessThanLarge();
-
-  const sidebar = (
-    <div className='w-full mt-10 lg:mt-0 lg:sticky lg:top-10'>
-      {!isLessThanLarge && <EthicalAd type="image" id="plugins-image" />}
-      <h2 className="mt-1 mb-4 text-2xl text-center">Similar Plugins</h2>
-      <div className='flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center'>
-        {props.similarPlugins.slice(0, 5).map((similarPlugin, index) => (
-          <a key={index} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`/plugins/${similarPlugin.pluginId}`}>
-            <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] ${getCategoryBgClass(similarPlugin.osCategory)} flex justify-center items-center self-center`}>
-              <CategoryIcon
-                category={similarPlugin.osCategory}
-                size={44}
-              />
-            </div>
-            <div>
-              <p className="text-gray-700 px-2 pt-2 font-semibold">{similarPlugin.name}</p>
-              <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-2">{similarPlugin.description}</p>
-            </div>
-          </a>
-        ))}
-        {props.similarPlugins.length > 5 && (
-          <a
-            key="all-similar-plugins"
-            href="#similar-plugins"
-            className="relative w-80 flex-col justify-center group shrink-0 my-1 px-5 py-2 border rounded-md shadow-lg cursor-pointer
-                        hover:shadow-violet-200/50 shadow-slate-200/50 grid content-center"
-          >
-            View all
-          </a>
-        )}
-      </div>
-    </div>
-  );
+  const sidebar = <Sidebar pageInfo={{ type: 'plugin', slug: props.plugin.pluginId }} suggestions={props.suggestions} />;
 
   return (
     <div>
@@ -200,7 +172,7 @@ const Plugin = (props: IPluginProps) => {
           </Card>
           {isLessThanLarge && (
             <div className='sticky top-0 z-20 bg-white'>
-              <EthicalAd type="fixed-footer" id="plugins-text" />
+              <EthicalAd type="fixed-footer" id="plugin-fixed-footer" />
             </div>
           )}
           <Card theme={customCardTheme} className="relative mt-4">
@@ -564,6 +536,7 @@ export const getStaticProps = async ({ params }) => {
   const canonical = `https://www.obsidianstats.com/plugins/${plugin.pluginId}`;
   const image = '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getPluginPageSchema(plugin, title, description, canonical, image);
+  const suggestions = await generateSuggestions({ type: 'plugin', slug: plugin.pluginId });
 
   return {
     props: {
@@ -575,6 +548,8 @@ export const getStaticProps = async ({ params }) => {
       plugin,
       tags,
       similarPlugins: reducedSimilarPlugins,
+      hasMoreSimilarPlugins: suggestions.hasMoreSimilarPlugins,
+      suggestions,
       isTrending:
         [...plugins]
           .sort((a, b) => b.zScoreTrending - a.zScoreTrending)
