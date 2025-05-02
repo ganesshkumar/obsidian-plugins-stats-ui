@@ -8,5 +8,7 @@ module.exports = {
   },
   images: {
     domains: ['github.com', 'raw.githubusercontent.com'],
+    minimumCacheTTL: 604800, // 7 days
   },
 };
+  

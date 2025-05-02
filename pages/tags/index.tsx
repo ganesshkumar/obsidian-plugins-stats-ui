@@ -34,6 +34,7 @@ const Tags = (props: ITagsPageProps) => {
                   href={`/tags/${tag}`}
                   className="group mx-1 my-1 flex transition hover:scale-110 cursor-pointer"
                   id={`tag-${tag}`}
+                  prefetch={false}
                 >
                   <div className="border border-dotted border-r-0 rounded-l-md border-violet-700 bg-violet-100 group-hover:bg-violet-900 px-1 pb-1 mr-1/2 group-hover:text-gray-100">
                     {tag}

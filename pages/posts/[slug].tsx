@@ -1,5 +1,3 @@
-'use client';
-
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getAllPostIds, getPostData, getSortedPostsData } from '../../lib/posts';
 import Navbar from '../../components/Navbar';
@@ -7,7 +5,7 @@ import { Footer } from '../../components/Footer';
 import moment from 'moment';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { PluginsShareView } from '../share';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Button } from 'flowbite-react';
 import { Post as PostData } from '../../lib/abstractions';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
@@ -18,11 +16,11 @@ import remarkRehype from 'remark-rehype';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
-import { useRouter } from 'next/router';
 import { PostIcon } from '../../components/post/PostIcon';
 import EthicalAd from '../../components/EthicalAd';
 import Comments from '../../components/Comments';
 import ResponsiveLayout from '../_responsive-layout';
+import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 
 function remarkPluginHandler() {
   return async (tree) => {
@@ -218,17 +216,7 @@ const Post = (props: IPostPageProps) => {
     return 'to-brown-100';
   }
 
-  const [isLessThanLarge, setIsLessThanLarge] = useState(false);
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLessThanLarge(window.innerWidth < 1024); // Tailwind's `md` breakpoint is 768px
-    };
-
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
+  const isLessThanLarge = useIsLessThanLarge();
 
   const sidebar = (
     <div className='mt-10 lg:mt-0 lg:sticky lg:top-10'>

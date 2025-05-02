@@ -5,7 +5,25 @@
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=86400, immutable"
+          "value": "public, max-age=604800, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(?:plugins|categories|posts|scorer|tags|tools)(?:/.*)?",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/(?:404|favorites|migrate|most-downloaded|new|share|timeline|trending|updates)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
         }
       ]
     }

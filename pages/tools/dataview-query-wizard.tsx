@@ -122,7 +122,7 @@ const DataviewQueryWizard = (props: ITagsPageProps) => {
 
   const ctaButton = (
     <Button color='purple' className='mt-8'>
-      <Link href="https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard" className='flex gap-4 items-center'>
+      <Link href="https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard" className='flex gap-4 items-center' prefetch={false}>
         Chat with Wizard <RiOpenaiFill size={24} />
       </Link>
     </Button>

@@ -65,6 +65,7 @@ const Blog = (props: IPostsPageProps) => {
                       <Link
                         href={`/posts/${post.id}`}
                         className="flex justify-between py-4 px-2"
+                        prefetch={false}
                       >
                         <div className="flex gap-x-2">
                           <div className="grid place-items-start">

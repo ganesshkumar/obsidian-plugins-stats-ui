@@ -102,6 +102,7 @@ export const PluginsComparisionTable = ({ plugins }) => {
                   href={`/plugins/${plugin.pluginId}`}
                   className="underline text-blue-500"
                   target="_blank"
+                  prefetch={false}
                 >
                   Open Plugin
                 </Link>

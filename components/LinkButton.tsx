@@ -13,6 +13,7 @@ export const LinkButton = (props: LinkButtonProps) => {
     return (
       <Link
         {...rest}
+        prefetch={false}
         className="font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center text-sm"
       >
         {props.content}
@@ -22,6 +23,7 @@ export const LinkButton = (props: LinkButtonProps) => {
   return (
     <Link
       {...rest}
+      prefetch={false}
       className="font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center"
     >
       {props.content}

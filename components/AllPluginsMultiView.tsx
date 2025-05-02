@@ -169,6 +169,7 @@ const UnindexedPluginListItemInternal = (props) => {
       <Link
         href={`/plugins/${plugin.pluginId}`}
         className="text-xl font-semibold text-violet-800"
+        prefetch={false}
       >
         <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(plugin.name, highlight) : plugin.name }} />
       </Link>
@@ -211,6 +212,7 @@ const UnindexedPluginListItemInternal = (props) => {
                         href={`/tags/${tag}`}
                         key={tag}
                         className="px-2 bg-gray-200 rounded-md"
+                        prefetch={false}
                       >
                         <span className="text-gray-400">#</span>
                         {tag}
@@ -231,6 +233,7 @@ const UnindexedPluginListItemInternal = (props) => {
       <Link
         href={`/plugins/${plugin.pluginId}`}
         className="underline text-gray-600 font-seminbold"
+        prefetch={false}
       >
         View Details
       </Link>

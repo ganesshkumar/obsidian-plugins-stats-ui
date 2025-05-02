@@ -43,6 +43,7 @@ const Categories = (props: ICategoriesPageProps) => {
                           href={`/categories/${category}`}
                           id={`category-${category}`}
                           className="text-xl font-bold underline text-gray-800"
+                          prefetch={false}
                         >
                           {category}
                         </Link>
@@ -63,6 +64,7 @@ const Categories = (props: ICategoriesPageProps) => {
                                 href={`/plugins/${plugin.pluginId}`}
                                 key={plugin.pluginId}
                                 className="flex items-center space-x-2 px-1 cursor-pointer text-sm text-gray-700 hover:bg-gray-700 hover:text-slate-100"
+                                prefetch={false}
                               >
                                 <span>
                                   {idx + 1}. {plugin.name}

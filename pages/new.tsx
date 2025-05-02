@@ -48,21 +48,21 @@ const New = (props: INewPageProps) => {
                 <ul className="list-disc list-inside mt-2">
                   <li>
                     Take a look at{' '}
-                    <Link href="/trending" className="underline">
+                    <Link href="/trending" className="underline" prefetch={false}>
                       trending plugins
                     </Link>
                     .
                   </li>
                   <li>
                     View{' '}
-                    <Link href="/most-downloaded" className="underline">
+                    <Link href="/most-downloaded" className="underline" prefetch={false}>
                       most downloaded plugins
                     </Link>
                     .
                   </li>
                   <li>
                     Read our{' '}
-                    <Link href="/posts" className="underline">
+                    <Link href="/posts" className="underline" prefetch={false}>
                       latest post
                     </Link>
                     .

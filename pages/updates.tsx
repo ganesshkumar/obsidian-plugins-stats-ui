@@ -60,6 +60,7 @@ const Updates = (props: IUpdatePageProps) => {
                     <Link
                       href={`/plugins/${plugin.pluginId}`}
                       className="text-xl font-semibold text-violet-800"
+                      prefetch={false}
                     >
                       {plugin.name}
                     </Link>
@@ -109,6 +110,7 @@ const Updates = (props: IUpdatePageProps) => {
                     <Link
                       href={`/plugins/${plugin.pluginId}`}
                       className="underline text-gray-600 font-seminbold"
+                      prefetch={false}
                     >
                       View Details
                     </Link>
