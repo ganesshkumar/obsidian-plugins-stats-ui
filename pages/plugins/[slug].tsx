@@ -42,6 +42,7 @@ import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
 import { supabase } from '../../lib/supabase';
+import { GivePluginReview } from '@/components/GivePluginRating';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -151,7 +152,7 @@ const Plugin = (props: IPluginProps) => {
                   isFavorite={isFavorite}
                   setFavorites={setFavorites}
                 />
-                <LoginButton />
+                <GivePluginReview pluginId={props.plugin.pluginId} />
                 {/* <div className='my-2'>{props.plugin.description}</div> */}
                 <div className="flex flex-wrap space-x-4 mt-6">
                   <a
@@ -494,30 +495,6 @@ const Plugin = (props: IPluginProps) => {
     </div>
   );
 };
-
-const LoginButton = () => {
-  const loginHandler = useCallback(() => {
-    const handleLogin = async () => {
-      const returnTo = window.location.pathname;
-
-      await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback?returnTo=${encodeURIComponent(returnTo)}`
-        }
-      });
-    };
-
-    handleLogin();
-  }, []);
-
-  return (
-    <Button onClick={loginHandler}>
-      Login with Google
-    </Button>
-  );
-};
-
 
 export const getStaticPaths = async () => {
   const plugins = await PluginsCache.get();
