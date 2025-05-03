@@ -15,8 +15,7 @@ interface ISidebarProps {
 
 export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
   const isLessThanLarge = useIsLessThanLarge();
-  console.log('ui', suggestions)
-
+  
   let content
   if (pageInfo.type === 'plugin') {
     content = (

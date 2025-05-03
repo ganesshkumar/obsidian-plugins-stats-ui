@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import AppNavbar from '../../components/Navbar';
 
 import Link from 'next/link';
@@ -25,6 +25,7 @@ import {
   Activity,
 } from 'react-feather';
 import {
+  Button,
   Card,
   CustomFlowbiteTheme,
   Tooltip,
@@ -37,10 +38,10 @@ import Header, { IHeaderProps } from '../../components/Header';
 import EthicalAd from '../../components/EthicalAd';
 import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 import ResponsiveLayout from '../_responsive-layout';
-import { getCategoryBgClass } from '../../lib/customThemes';
 import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
+import { supabase } from '../../lib/supabase';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -150,6 +151,7 @@ const Plugin = (props: IPluginProps) => {
                   isFavorite={isFavorite}
                   setFavorites={setFavorites}
                 />
+                <LoginButton />
                 {/* <div className='my-2'>{props.plugin.description}</div> */}
                 <div className="flex flex-wrap space-x-4 mt-6">
                   <a
@@ -492,6 +494,30 @@ const Plugin = (props: IPluginProps) => {
     </div>
   );
 };
+
+const LoginButton = () => {
+  const loginHandler = useCallback(() => {
+    const handleLogin = async () => {
+      const returnTo = window.location.pathname;
+
+      await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?returnTo=${encodeURIComponent(returnTo)}`
+        }
+      });
+    };
+
+    handleLogin();
+  }, []);
+
+  return (
+    <Button onClick={loginHandler}>
+      Login with Google
+    </Button>
+  );
+};
+
 
 export const getStaticPaths = async () => {
   const plugins = await PluginsCache.get();

@@ -21,6 +21,7 @@
     "@microsoft/applicationinsights-web": "3.3.2",
     "@next/third-parties": "^14.2.14",
     "@prisma/client": "5.19.1",
+    "@supabase/supabase-js": "^2.49.4",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "10.4.2",
