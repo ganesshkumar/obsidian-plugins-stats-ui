@@ -11,7 +11,6 @@ const AuthCallback = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [returnTo, _] = useState(searchParams.get('returnTo') || '/');
   const [loggedIn, setLoggedIn] = useState(false);
   const [needUsername, setNeedUsername] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
@@ -38,7 +37,6 @@ const AuthCallback = () => {
 
       if (!existing) {
         setNeedUsername(true);
-        // await supabase.from('users').insert({ id: user.id, username });
       } else {
         setNeedUsername(false);
         setUsername(existing.username);
@@ -46,17 +44,15 @@ const AuthCallback = () => {
     };
 
     check();
-  }, [router, returnTo]);
+  }, [router]);
 
   useEffect(() => {
     if (!username) return;
-    router.replace(returnTo);
+    router.replace(searchParams.get('returnTo'));
   }, [username])
 
   const handleConfirm = useCallback(() => {
     let valid = true;
-    console.log('usernameInput', usernameInput);
-    console.log('termsAccepted', termsAccepted);
 
     const upsertUsername = async () => {
       const { data: sessionData } = await supabase.auth.getSession();
@@ -67,9 +63,9 @@ const AuthCallback = () => {
       const { error } = await supabase.from('users').insert({ id: user.id, username: usernameInput });
 
       if (error) {
-        setUsername(usernameInput);
-      } else {
         setErrorMessage('An error occurred while saving your username. Please try again later.');
+      } else {
+        setUsername(usernameInput);        
       }
     }
 
@@ -106,9 +102,12 @@ const AuthCallback = () => {
 
   if (!needUsername) {
     return (
-      <main className='w-screen h-screen flex items-center justify-center'>
-        <div>Welcome {username}</div>
-        <a href="/">Go home</a>
+      <main className='w-screen h-screen flex items-center justify-center gap-y-2'>
+        <div className='text-xl'>Welcome <strong>{username}</strong></div>
+        <div>You will be redirected shortly. If not, <a href={searchParams.get('returnTo')}>click here</a> to go back</div>
+        <a href="/">
+          <Button>Go to Home</Button>
+        </a>
       </main>
     );
   }

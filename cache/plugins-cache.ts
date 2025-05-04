@@ -1,4 +1,7 @@
-import { Plugin, PrismaClient } from '@prisma/client';
+import { Plugin as PluginRecord, PrismaClient } from '@prisma/client';
+import { supabaseServer } from '@/lib/supabase-server';
+import { PluginRatingInfo } from '@/domain/plugins/models/PluginRatingInfo';
+import { Plugin } from '@/domain/plugins/models/Plugin';
 
 export type PluginMetrics = {
   pluginId: string;
@@ -29,24 +32,25 @@ export type PluginMetrics = {
 export class PluginsCache {
   /**
    * Cached plugins data.
-   * @type {Plugin[]}
+   * @type {PluginRecord[]}
    */
-  static plugins: Plugin[];
+  static plugins: PluginRecord[];
 
   /**
    * Retrieves the cached plugins data. If the data is not cached, it fetches the data from the database.
-   * @returns {Promise<Plugin[]>} The cached plugins data.
+   * @returns {Promise<PluginRecord[]>} The cached plugins data.
    */
-  static async get(): Promise<Plugin[]> {
+  static async get(): Promise<PluginRecord[]> {
     if (!PluginsCache.plugins) {
       PluginsCache.plugins = await PluginsCache.fetch();
     }
+
     return PluginsCache.plugins;
   }
 
     /**
    * Retrieves the cached plugins data. If the data is not cached, it fetches the data from the database.
-   * @returns {Promise<Plugin[]>} The cached plugins data.
+   * @returns {Promise<PluginRecord[]>} The cached plugins data.
    */
     static async getMetrics(): Promise<PluginMetrics[]> {
       if (!PluginsCache.plugins) {
@@ -81,17 +85,47 @@ export class PluginsCache {
 
   /**
    * Fetches the plugins data from the database.
-   * @returns {Promise<Plugin[]>} The plugins data from the database.
+   * @returns {Promise<PluginRecord[]>} The plugins data from the database.
    * @private
    */
   private static async fetch(): Promise<Plugin[]> {
     let prisma: PrismaClient = new PrismaClient();
-    let plugins = await prisma.plugin.findMany({});
     
-    plugins.forEach((plugin) => {
+    let pluginRecords = await prisma.plugin.findMany({});
+    pluginRecords.forEach((plugin) => {
       plugin.osDescription = plugin.osDescription ? sanitizeInvisibleCharacters(sanitizeQuoteVariations(sanitizeDashVariations(plugin.osDescription))) : '';
       plugin.osTags = plugin.osTags ? sanitizeInvisibleCharacters(sanitizeQuoteVariations(sanitizeDashVariations(plugin.osTags))) : '';
       plugin.osCategory = plugin.osCategory ? sanitizeInvisibleCharacters(sanitizeQuoteVariations(sanitizeDashVariations(plugin.osCategory))) : '';
+    });
+
+    const { data, error } = await supabaseServer
+      .from('plugin_rating_summary')
+      .select('plugin_id, avg_rating, rating_count, star_5_count, star_4_count, star_3_count, star_2_count, star_1_count');
+
+    if (error) {
+      console.error('Error fetching plugin ratings:', error);
+      return pluginRecords;
+    }
+    
+    const ratingInfoMap: Record<string, PluginRatingInfo> = {};
+
+    data?.forEach((rating) => {
+      ratingInfoMap[rating.plugin_id] = {
+        avgRating: rating.avg_rating,
+        ratingCount: rating.rating_count,
+        star5Count: rating.star_5_count,
+        star4Count: rating.star_4_count,
+        star3Count: rating.star_3_count,
+        star2Count: rating.star_2_count,
+        star1Count: rating.star_1_count,
+      };
+    });
+
+    const plugins = pluginRecords.map((plugin) => {
+      return {
+        ...plugin,
+        ratingInfo: ratingInfoMap[plugin.pluginId] || null
+      } as Plugin;
     });
 
     return plugins;
