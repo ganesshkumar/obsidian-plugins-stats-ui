@@ -41,6 +41,7 @@ import { getCategoryBgClass } from '../../lib/customThemes';
 import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
+import AdContainer from '../../components/AdContainer';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -172,7 +173,7 @@ const Plugin = (props: IPluginProps) => {
           </Card>
           {isLessThanLarge && (
             <div className='sticky top-0 z-20 bg-white'>
-              <EthicalAd type="fixed-footer" id="plugin-fixed-footer" />
+              <AdContainer type="fixed-footer" id="plugin-fixed-footer" />
             </div>
           )}
           <Card theme={customCardTheme} className="relative mt-4">
