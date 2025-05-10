@@ -21,7 +21,9 @@ export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
     content = (
       <>
         {suggestions.similarPlugins.slice(0, 5).map((similarPlugin, index) => (
-          <a key={index} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`/plugins/${similarPlugin.pluginId}`}>
+          <a key={index} href={`/plugins/${similarPlugin.pluginId}`}
+            className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px] plausible-event-name=Suggestion+Click+Similar+Plugin"
+          >
             <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] ${getCategoryBgClass(similarPlugin.osCategory)} flex justify-center items-center self-center`}>
               <CategoryIcon
                 category={similarPlugin.osCategory}
@@ -39,7 +41,7 @@ export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
             key="all-similar-plugins"
             href="#similar-plugins"
             className="relative w-80 flex-col justify-center group shrink-0 my-1 px-5 py-2 border rounded-md shadow-lg cursor-pointer
-                        hover:shadow-violet-200/50 shadow-slate-200/50 grid content-center"
+                        hover:shadow-violet-200/50 shadow-slate-200/50 grid content-center plausible-event-name=Suggestion+Click+More+Similar+Plugin"
           >
             View all
           </a>
@@ -49,7 +51,9 @@ export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
   } else {
     content = <>
       {suggestions.tools.map((tool, index) => (
-        <a key={`tool-${index}`} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`${tool.link}`}>
+        <a key={`tool-${index}`} href={`${tool.link}`}
+          className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px] plausible-event-name=Suggestion+Click+Tool"
+        >
           <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}>
             <Tool size={48} color="white" />
           </div>
@@ -60,7 +64,9 @@ export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
         </a>
       ))}
       {suggestions.posts.map((post, index) => (
-        <a key={`post-${index}`} className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]" href={`/posts/${post.id}`}>
+        <a key={`post-${index}`} href={`/posts/${post.id}`}
+          className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px] plausible-event-name=Suggestion+Click+Post"
+        >
           <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}>
             <PostIcon tags={post.tags} size={60} />
           </div>
@@ -84,3 +90,5 @@ export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
     </div>
   );
 }
+
+

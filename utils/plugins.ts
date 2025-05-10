@@ -24,6 +24,10 @@ export const sanitizeTag = (tag) => {
 
   if (tag == 'publish' || tag == 'publisher' || tag == 'publishing' || tag.includes('publishing')) {
     tag = 'publish';
+  } else if (tag == 'recipe' || tag == 'recipes' || tag == 'recipe-import') {
+    tag = 'recipe';
+  } else if (tag == 'recording' || tag == 'recordings') {
+    tag = 'recording';
   }
 
   return tag;

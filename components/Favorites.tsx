@@ -32,9 +32,9 @@ const Favorites = ({ isFavorite, plugin, setFavorites }) => {
         <div className="flex items-center text-gray-700 underline space-x-1">
           <Minus size={8} />
           <div
-            className="text-xs cursor-pointer hover:underline"
+            className="text-xs cursor-pointer hover:underline plausible-event-name=Unfavorite+Button+Click"
             onClick={(_) => unsetFavorite(plugin.pluginId, setFavorites)}
-            id={`favorite-${plugin.pluginId}`}
+            id={`unfavorite-${plugin.pluginId}`}
           >
             unfavorite
           </div>
@@ -43,9 +43,9 @@ const Favorites = ({ isFavorite, plugin, setFavorites }) => {
         <div className="flex items-center text-gray-700 underline space-x-1">
           <Plus size={8} />
           <div
-            className="text-xs cursor-pointer hover:underline"
+            className="text-xs cursor-pointer hover:underline plausible-event-name=Favorite+Button+Click"
             onClick={(_) => setFavorite(plugin.pluginId, setFavorites)}
-            id={`unfavorite-${plugin.pluginId}`}
+            id={`favorite-${plugin.pluginId}`}
           >
             favorite
           </div>
