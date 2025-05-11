@@ -86,7 +86,20 @@ export class PluginsCache {
    */
   private static async fetch(): Promise<Plugin[]> {
     let prisma: PrismaClient = new PrismaClient();
-    let plugins = await prisma.plugin.findMany({});
+    let plugins: Plugin[];
+    
+    if (process.env.NODE_ENV === "development") {
+      plugins = await prisma.plugin.findMany({
+        where: {
+          OR: [
+            {osTags: { contains: 'recipe' }},
+            {osTags: { contains: 'publish' }},
+          ]
+        }
+      });
+    } else {
+      plugins = await prisma.plugin.findMany({});
+    }
     
     plugins.forEach((plugin) => {
       plugin.osDescription = plugin.osDescription ? sanitizeInvisibleCharacters(sanitizeQuoteVariations(sanitizeDashVariations(plugin.osDescription))) : '';

@@ -35,6 +35,7 @@ import { getMostDownloadedPlugins } from '../lib/plugins';
 import { HiDownload, HiOutlineCalendar, HiOutlineCode, HiOutlinePencil, HiOutlineRefresh, HiOutlineSearch, HiOutlineStar, HiOutlineSwitchVertical, HiOutlineTag, HiOutlineTrendingUp } from "react-icons/hi";
 import { useRouter } from 'next/router';
 import EthicalAd from '../components/EthicalAd';
+import { usePlausible } from 'next-plausible';
 
 interface IHomeProps extends IHeaderProps {
   newPlugins: Plugin[];
@@ -54,6 +55,7 @@ const Home = (props: IHomeProps) => {
   const mdConverter = new showdown.Converter();
   mdConverter.setFlavor('github');
   const router = useRouter();
+  const plausible = usePlausible();
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -68,6 +70,11 @@ const Home = (props: IHomeProps) => {
     } else {
       router.push(page);
     }
+  }
+
+  const handleCTAButtonClicked = (page: string) => {
+    plausible(`Primary CTA Button Clicked: ${page}`);
+    router.push(`/${page}`);
   }
 
   return (
@@ -93,9 +100,9 @@ const Home = (props: IHomeProps) => {
             <p className='text-xl max-w-lg lg:max-w-3xl text-gray-600'>Discover the latest Obsidian plugins. Stay ahead with updates, downloads, and ratings that help you build your perfect setup.</p>
             <TextInput className='mt-8 w-full max-w-3xl rounded-xl' icon={HiOutlineSearch} placeholder='Search Plugins' onFocus={() => router.push('/plugins')} color="violet" />
             <div className="flex gap-4 mt-8">
-              <Button className='bg-violet-900 plausible-event-name=Primary+CTA+New' href="/new" id="stat-card-new">{props.newPluginsCount} New Plugins</Button>
-              <Button className='bg-violet-900 plausible-event-name=Primary+CTA+Plugins' href="/plugins" id="stat-card-all">All {props.totalPluginsCount} Plugins</Button>
-              <Button className='bg-violet-900 hidden md:block plausible-event-name=Primary+CTA+Updates' href="/updates" id="stat-card-updates">{props.newReleasesCount} Plugin Updates</Button>
+              <Button className='bg-violet-900' onClick={() => handleCTAButtonClicked('new')} id="stat-card-new">{props.newPluginsCount} New Plugins</Button>
+              <Button className='bg-violet-900' onClick={() => handleCTAButtonClicked('plugins')} id="stat-card-all">All {props.totalPluginsCount} Plugins</Button>
+              <Button className='bg-violet-900 hidden md:block' onClick={() => handleCTAButtonClicked('updates')} id="stat-card-updates">{props.newReleasesCount} Plugin Updates</Button>
             </div>
           </section>
         </div>
