@@ -58,6 +58,7 @@ const Home = (props: IHomeProps) => {
   const plausible = usePlausible();
 
   const scrollToSection = (sectionId: string) => {
+    plausible(`Home Nav - Scroll to Section: ${sectionId}`);
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
@@ -65,6 +66,7 @@ const Home = (props: IHomeProps) => {
   };
 
   const goToPage = (page: string, inNewTab = false) => {
+    plausible(`Home Nav - Go to Page: ${page}`);
     if (inNewTab) {
       window.open(page, '_blank');
     } else {
@@ -158,9 +160,9 @@ const Home = (props: IHomeProps) => {
 
       <div className="mt-20 max-w-md mx-auto text-center p-4 border rounded-2xl bg-white/60 backdrop-blur-md shadow-md">
         <a href="https://obsidian.md/blog/2024-goty-winners/" target="_blank">
-        <div className="text-2xl">🏆</div>
-        <p className="font-semibold text-gray-800">Runner-Up — Tool Category</p>
-        <p className="text-sm text-gray-600 italic">Obsidian Gems of the Year 2024</p>
+          <div className="text-2xl">🏆</div>
+          <p className="font-semibold text-gray-800">Runner-Up — Tool Category</p>
+          <p className="text-sm text-gray-600 italic">Obsidian Gems of the Year 2024</p>
         </a>
       </div>
 
@@ -182,8 +184,16 @@ const Home = (props: IHomeProps) => {
 };
 
 const NewPluginsSection = ({ newPlugins }) => {
+  const router = useRouter();
+  const plausible = usePlausible();
   const linkRef = useRef(null);
   const isInView = useInView(linkRef, { once: true });
+
+  const handlePluginClick = (pluginId: string) => {
+    plausible(`Home New Plugin Card Click`);
+    router.push(`/plugins/${pluginId}`);
+  }
+
   return (
     <div className="bg-transparent mt-16" id="new">
       <div className="max-w-6xl mx-auto px-2">
@@ -200,7 +210,7 @@ const NewPluginsSection = ({ newPlugins }) => {
                 ref={ref}
                 theme={CustomTheme.card}
                 key={plugin.id}
-                href={`/plugins/${plugin.pluginId}`}
+                onClick={() => handlePluginClick(plugin.pluginId)}
                 id={`new-plugin-${idx}`}
                 style={{
                   opacity: isInView ? 1 : 0,
@@ -247,10 +257,17 @@ const NewVersionsSection = ({ newReleases }) => {
   const isInView = useInView(linkRef, { once: true });
 
   const [favorites, setFavorites] = useState([]);
+  const router = useRouter();
+  const plausible = usePlausible();
 
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
+
+  const handlePluginClick = (pluginId: string) => {
+    plausible(`Home Plugin Update Card Click`);
+    router.push(`/plugins/${pluginId}`);
+  }
 
   const sortedNewReleases = newReleases.sort((a, b) =>
     favorites.includes(a.pluginId) ? -1 : 1
@@ -275,7 +292,7 @@ const NewVersionsSection = ({ newReleases }) => {
                 ref={ref}
                 theme={CustomTheme.card}
                 key={newRelease.id}
-                href={`/plugins/${newRelease.pluginId}`}
+                onClick={() => handlePluginClick(newRelease.pluginId)}
                 id={`plugin-update-${idx}`}
                 style={{
                   opacity: isInView ? 1 : 0,
@@ -329,10 +346,17 @@ const TrendingPlugins = ({ plugins }) => {
   const [offsetX, setOffsetX] = React.useState(0);
   const speed = 0.05; // Adjust speed of the scroll
   const containerWidth = 3100; // Width of the scrolling content (calculated to avoid jumps)
+  const router = useRouter();
+  const plausible = usePlausible();
 
   useAnimationFrame((_, delta) => {
     setOffsetX((prev) => prev - delta * speed);
   });
+
+  const handlePluginClick = (pluginId: string) => {
+    plausible(`Home Trending Plugin Card Click`);
+    router.push(`/plugins/${pluginId}`);
+  }
 
   const scrollContainerStyle: React.CSSProperties = {
     display: 'flex',
@@ -364,8 +388,8 @@ const TrendingPlugins = ({ plugins }) => {
             <a
               key={plugin.pluginId}
               style={scrollItemStyle}
-              href={`/plugins/${plugin.pluginId}`}
-              className="border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-gradient-to-br from-violet-100 to-purple-200"
+              onClick={() => handlePluginClick(plugin.pluginId)}
+              className="border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-gradient-to-br from-violet-100 to-purple-200 cursor-pointer"
             >
               <div className="text-base">
                 {idx + 1}. {plugin.name}

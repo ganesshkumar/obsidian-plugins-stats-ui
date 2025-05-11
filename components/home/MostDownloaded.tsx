@@ -4,6 +4,8 @@ import InfoBar from '../InfoBar';
 import { LinkButton } from '../LinkButton';
 import { Plugin } from '@prisma/client';
 import { Download } from 'react-feather';
+import { useRouter } from 'next/router';
+import { usePlausible } from 'next-plausible';
 
 interface IMostDownloadedProps {
   overall: Plugin[];
@@ -33,17 +35,25 @@ export const MostDownloadedPlugins = ({ overall, last7Days, last30Days }: IMostD
 };
 
 const List = ({ plugins, title }) => {
+  const router = useRouter();
+  const plausible = usePlausible();
+
+  const handlePluginClick = (pluginId: string) => {
+    plausible(`Home Most Downloaded Plugin Card Click`);
+    router.push(`/plugins/${pluginId}`);
+  }
+
   return (
     <div className='grid grid-cols-1 content-center border border-gray-700'>
       <div className='text-center font-bold text-xl bg-violet-500 text-slate-100'>{title}</div>
       {plugins.map((plugin, index) => {
         return (
-          <a
+          <div
             key={plugin.id}
-            href={`/plugins/${plugin.pluginId}`}
+            onClick={() => handlePluginClick(plugin.pluginId)}
             id={`most-downloaded-${index}`}
             //theme={ComponentTheme.mostDownloadedCardTheme}
-            className={`flex justify-between w-full ${index % 2 === 0 ? 'bg-tranparent' : 'bg-gray-100'}`}
+            className={`flex justify-between w-full ${index % 2 === 0 ? 'bg-tranparent' : 'bg-gray-100'} cursor-pointer`}
           >
             <div className='flex justify-start gap-x-2 w-full px-1'>
               <div className="text">
@@ -58,7 +68,7 @@ const List = ({ plugins, title }) => {
                 <Download size={12} /> {plugin.totalDownloads.toLocaleString('en-US')}
               </div>
             </div>
-          </a>
+          </div>
         );
       })}
     </div>

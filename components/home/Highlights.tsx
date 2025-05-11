@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { Highlight } from '../../lib/abstractions';
+import { useRouter } from 'next/router';
+import { usePlausible } from 'next-plausible';
 
 const withCarousel = (children: ReactNode) => {
   return (
@@ -23,6 +25,14 @@ interface IHightlightsProps {
 }
 
 export const Highlights = ({ highlights }: IHightlightsProps) => {
+  const router = useRouter();
+  const plausible = usePlausible();
+
+  const handleHighlightClick = (link: string) => {
+    plausible('Highlight Click');
+    router.push(link);
+  };
+
   const cards = highlights.map((item, index) => (
     <Card key={index} className={`px-8 ${item.bgClasses}`}>
       <div className="text-center text-4xl font-bold mb-4">{item.title}</div>
@@ -55,13 +65,12 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
           whileTap={{ scale: 0.9 }}
           className="grid content-center"
         >
-          <Link
+          <button
             className="text-center bg-gray-800 rounded text-white px-4 py-2"
-            href={item.link}
-            prefetch={false}
+            onClick={() => handleHighlightClick(item.link)}
           >
             {item.ctaText}
-          </Link>
+          </button>
         </motion.div>
       </div>
     </Card>

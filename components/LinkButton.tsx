@@ -1,4 +1,6 @@
+import { usePlausible } from 'next-plausible';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ComponentProps } from 'react';
 
 interface LinkButtonProps extends ComponentProps<'a'> {
@@ -7,26 +9,49 @@ interface LinkButtonProps extends ComponentProps<'a'> {
   size?: string;
 }
 
+const capitalizeFirstLetter = (val) => {
+  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
 export const LinkButton = (props: LinkButtonProps) => {
-  const { content, ...rest } = props;
+  const { content, href } = props;
+  const router = useRouter();
+  const plausible = usePlausible();
+
+  const handleClick = () => {
+    let eventName = '';
+    if (href === '/new') {
+      eventName = 'See All New Plugins Button Click';
+    } else if (href === '/updates') {
+      eventName = 'See All Updated Plugins Button Click';
+    } else if (href === '/most-downloaded') {
+      eventName = 'See All Most Downloaded Plugins Button Click';
+    } else if (href === '/trending') {
+      eventName = 'See All Trending Plugins Button Click';
+    } else {
+      eventName = `See All ${capitalizeFirstLetter(href.split('/')[1] || '')} Plugins Button Click`;
+    }
+      
+    plausible(eventName);
+    router.push(href);
+  };
+
   if (props.size === 'small') {
     return (
-      <Link
-        {...rest}
-        prefetch={false}
+      <button
+        onClick={handleClick}
         className="font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center text-sm"
       >
-        {props.content}
-      </Link>
+        {content}
+      </button>
     );
   }
   return (
-    <Link
-      {...rest}
-      prefetch={false}
+    <button
+      onClick={handleClick}
       className="font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center"
     >
-      {props.content}
-    </Link>
+      {content}
+    </button>
   );
 };

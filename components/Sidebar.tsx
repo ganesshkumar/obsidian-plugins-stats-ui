@@ -7,6 +7,8 @@ import { getCategoryBgClass, getGraidentFrom, getGraidentTo } from "../lib/custo
 import { CategoryIcon } from "./Category";
 import EthicalAd from "./EthicalAd";
 import { PostIcon } from "./post/PostIcon";
+import { usePlausible } from "next-plausible";
+import { useRouter } from 'next/router';
 
 interface ISidebarProps {
   pageInfo: PageInfo
@@ -15,14 +17,22 @@ interface ISidebarProps {
 
 export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
   const isLessThanLarge = useIsLessThanLarge();
+  const plausible = usePlausible();
+  const router = useRouter();
+
+  const handleSuggestedContentClick = (url: string, eventName: string) => {
+    plausible(eventName);
+    router.push(url);
+  }
 
   let content
   if (pageInfo.type === 'plugin') {
     content = (
       <>
         {suggestions.similarPlugins.slice(0, 5).map((similarPlugin, index) => (
-          <a key={index} href={`/plugins/${similarPlugin.pluginId}`}
-            className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px] plausible-event-name=Suggestion+Click+Similar+Plugin"
+          <div key={index}
+            onClick={() => handleSuggestedContentClick(`/plugins/${similarPlugin.pluginId}`, 'Suggestion Click Similar Plugin')}
+            className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]"
           >
             <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] ${getCategoryBgClass(similarPlugin.osCategory)} flex justify-center items-center self-center`}>
               <CategoryIcon
@@ -34,25 +44,26 @@ export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
               <p className="text-gray-700 px-2 pt-2 font-semibold">{similarPlugin.name}</p>
               <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-2">{similarPlugin.description}</p>
             </div>
-          </a>
+          </div>
         ))}
         {suggestions.hasMoreSimilarPlugins && (
-          <a
+          <div
             key="all-similar-plugins"
-            href="#similar-plugins"
+            onClick={() => handleSuggestedContentClick('#similar-plugins', 'Suggestion Click All Similar Plugins Button')}
             className="relative w-80 flex-col justify-center group shrink-0 my-1 px-5 py-2 border rounded-md shadow-lg cursor-pointer
-                        hover:shadow-violet-200/50 shadow-slate-200/50 grid content-center plausible-event-name=Suggestion+Click+More+Similar+Plugin"
+                        hover:shadow-violet-200/50 shadow-slate-200/50 grid content-center"
           >
             View all
-          </a>
+          </div>
         )}
       </>
     )
   } else {
     content = <>
       {suggestions.tools.map((tool, index) => (
-        <a key={`tool-${index}`} href={`${tool.link}`}
-          className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px] plausible-event-name=Suggestion+Click+Tool"
+        <div key={`tool-${index}`}
+          onClick={() => handleSuggestedContentClick(`${tool.link}`, 'Suggestion Click Tool')}
+          className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]"
         >
           <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}>
             <Tool size={48} color="white" />
@@ -61,17 +72,18 @@ export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
             <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4 font-semibold">{tool.name}</p>
             <p className="text-sm text-gray-700 px-2 pt-2 line-clamp-4">{tool.description}</p>
           </div>
-        </a>
+        </div>
       ))}
       {suggestions.posts.map((post, index) => (
-        <a key={`post-${index}`} href={`/posts/${post.id}`}
-          className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px] plausible-event-name=Suggestion+Click+Post"
+        <div key={`post-${index}`}
+          onClick={() => handleSuggestedContentClick(`/posts/${post.id}`, 'Suggestion Click Post')}
+          className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]"
         >
           <div className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}>
             <PostIcon tags={post.tags} size={60} />
           </div>
           <p className="text-sm text-gray-700 p-2 line-clamp-4">{post.title}</p>
-        </a>
+        </div>
       ))}
     </>
   }
@@ -90,5 +102,3 @@ export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
     </div>
   );
 }
-
-

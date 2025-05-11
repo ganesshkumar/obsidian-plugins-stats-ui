@@ -3,7 +3,7 @@ import { CustomFlowbiteTheme } from 'flowbite-react';
 export const CustomTheme = {
   card: {
     root: {
-      children: 'flex h-full flex-col justify-center gap-0 p-4',
+      children: 'flex h-full flex-col justify-center gap-0 p-4 cursor-pointer',
     },
   } as CustomFlowbiteTheme['card'],
   tabs: {

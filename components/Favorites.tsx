@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { setFavorite, unsetFavorite } from '../utils/favorites';
 
 import { Plus, Minus, Share2 } from 'react-feather';
+import { usePlausible } from 'next-plausible';
 
 const Favorites = ({ isFavorite, plugin, setFavorites }) => {
   const [shareText, setShareText] = React.useState('share');
+  const plausible = usePlausible();
 
   const hostname =
     process.env.hostname ||
     process.env.VERCEL_URL ||
     process.env.NODE_ENV === 'production'
       ? 'https://www.obsidianstats.com'
-      : 'http://localhost:4000';
+      : 'http://localhost:5000';
 
   const shareClicked = () => {
     if (navigator) {
@@ -26,6 +28,16 @@ const Favorites = ({ isFavorite, plugin, setFavorites }) => {
     }
   }, [shareText]);
 
+  const handleSetFavoriteClicked = useCallback(() => {
+    plausible('Favorite Button Click');
+    setFavorite(plugin.pluginId, setFavorites);
+  }, [plugin.pluginId, setFavorites]);
+
+  const handleUnsetFavoriteClicked = useCallback(() => {
+    plausible('Unfavorite Button Click');
+    unsetFavorite(plugin.pluginId, setFavorites);
+  }, [plugin.pluginId, setFavorites]);
+
   return (
     <div className="flex flex-wrap space-x-2">
       {isFavorite ? (
@@ -33,7 +45,7 @@ const Favorites = ({ isFavorite, plugin, setFavorites }) => {
           <Minus size={8} />
           <div
             className="text-xs cursor-pointer hover:underline plausible-event-name=Unfavorite+Button+Click"
-            onClick={(_) => unsetFavorite(plugin.pluginId, setFavorites)}
+            onClick={handleUnsetFavoriteClicked}
             id={`unfavorite-${plugin.pluginId}`}
           >
             unfavorite
@@ -44,7 +56,7 @@ const Favorites = ({ isFavorite, plugin, setFavorites }) => {
           <Plus size={8} />
           <div
             className="text-xs cursor-pointer hover:underline plausible-event-name=Favorite+Button+Click"
-            onClick={(_) => setFavorite(plugin.pluginId, setFavorites)}
+            onClick={handleSetFavoriteClicked}
             id={`favorite-${plugin.pluginId}`}
           >
             favorite
