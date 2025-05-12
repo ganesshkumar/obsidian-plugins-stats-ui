@@ -2,11 +2,11 @@ import React, { useCallback, useEffect } from 'react';
 import { setFavorite, unsetFavorite } from '../utils/favorites';
 
 import { Plus, Minus, Share2 } from 'react-feather';
-import { usePlausible } from 'next-plausible';
+import { useAnalytics } from '../lib/analytics/analytics';
 
 const Favorites = ({ isFavorite, plugin, setFavorites }) => {
   const [shareText, setShareText] = React.useState('share');
-  const plausible = usePlausible();
+  const { trackEvent } = useAnalytics();
 
   const hostname =
     process.env.hostname ||
@@ -29,12 +29,12 @@ const Favorites = ({ isFavorite, plugin, setFavorites }) => {
   }, [shareText]);
 
   const handleSetFavoriteClicked = useCallback(() => {
-    plausible('Favorite Button Click');
+    trackEvent('Favorite Button Click');
     setFavorite(plugin.pluginId, setFavorites);
   }, [plugin.pluginId, setFavorites]);
 
   const handleUnsetFavoriteClicked = useCallback(() => {
-    plausible('Unfavorite Button Click');
+    trackEvent('Unfavorite Button Click');
     unsetFavorite(plugin.pluginId, setFavorites);
   }, [plugin.pluginId, setFavorites]);
 

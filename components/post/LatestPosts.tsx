@@ -1,18 +1,17 @@
-import Link from 'next/link';
 import InfoBar from '../InfoBar';
 import { PostIcon } from './PostIcon';
 import moment from 'moment';
 import { LinkButton } from '../LinkButton';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { usePlausible } from 'next-plausible';
+import { useAnalytics } from '../../lib/analytics/analytics';
 
 export const LatestPosts = ({ posts }) => {
   const router = useRouter();
-  const plausible = usePlausible();
+  const { trackEvent } = useAnalytics();
 
   const handlePostClick = (postId) => {
-    plausible('Home Latest Posts Click');
+    trackEvent('Home Latest Posts Click');
     router.push(`/posts/${postId}`);
   };
 

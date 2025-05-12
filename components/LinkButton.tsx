@@ -1,7 +1,6 @@
-import { usePlausible } from 'next-plausible';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ComponentProps } from 'react';
+import { useAnalytics } from '../lib/analytics/analytics';
 
 interface LinkButtonProps extends ComponentProps<'a'> {
   href: string;
@@ -16,7 +15,7 @@ const capitalizeFirstLetter = (val) => {
 export const LinkButton = (props: LinkButtonProps) => {
   const { content, href } = props;
   const router = useRouter();
-  const plausible = usePlausible();
+  const { trackEvent } = useAnalytics();
 
   const handleClick = () => {
     let eventName = '';
@@ -32,7 +31,7 @@ export const LinkButton = (props: LinkButtonProps) => {
       eventName = `See All ${capitalizeFirstLetter(href.split('/')[1] || '')} Plugins Button Click`;
     }
       
-    plausible(eventName);
+    trackEvent(eventName);
     router.push(href);
   };
 

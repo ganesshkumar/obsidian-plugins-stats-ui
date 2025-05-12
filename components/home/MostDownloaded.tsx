@@ -1,11 +1,9 @@
-import { Card } from 'flowbite-react';
-import { ComponentTheme } from '../../lib/customThemes';
 import InfoBar from '../InfoBar';
 import { LinkButton } from '../LinkButton';
 import { Plugin } from '@prisma/client';
 import { Download } from 'react-feather';
 import { useRouter } from 'next/router';
-import { usePlausible } from 'next-plausible';
+import { useAnalytics } from '../../lib/analytics/analytics';
 
 interface IMostDownloadedProps {
   overall: Plugin[];
@@ -36,10 +34,10 @@ export const MostDownloadedPlugins = ({ overall, last7Days, last30Days }: IMostD
 
 const List = ({ plugins, title }) => {
   const router = useRouter();
-  const plausible = usePlausible();
+  const { trackEvent } = useAnalytics();
 
   const handlePluginClick = (pluginId: string) => {
-    plausible(`Home Most Downloaded Plugin Card Click`);
+    trackEvent(`Home Most Downloaded Plugin Card Click`);
     router.push(`/plugins/${pluginId}`);
   }
 

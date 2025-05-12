@@ -1,11 +1,10 @@
 import { Card, Carousel } from 'flowbite-react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import { ReactNode } from 'react';
 import { Highlight } from '../../lib/abstractions';
 import { useRouter } from 'next/router';
-import { usePlausible } from 'next-plausible';
+import { useAnalytics } from '../../lib/analytics/analytics';
 
 const withCarousel = (children: ReactNode) => {
   return (
@@ -26,10 +25,10 @@ interface IHightlightsProps {
 
 export const Highlights = ({ highlights }: IHightlightsProps) => {
   const router = useRouter();
-  const plausible = usePlausible();
+  const { trackEvent } = useAnalytics();
 
   const handleHighlightClick = (link: string) => {
-    plausible('Highlight Click');
+    trackEvent('Highlight Click');
     router.push(link);
   };
 

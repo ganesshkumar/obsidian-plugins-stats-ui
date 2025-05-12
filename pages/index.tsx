@@ -35,7 +35,7 @@ import { getMostDownloadedPlugins } from '../lib/plugins';
 import { HiDownload, HiOutlineCalendar, HiOutlineCode, HiOutlinePencil, HiOutlineRefresh, HiOutlineSearch, HiOutlineStar, HiOutlineSwitchVertical, HiOutlineTag, HiOutlineTrendingUp } from "react-icons/hi";
 import { useRouter } from 'next/router';
 import EthicalAd from '../components/EthicalAd';
-import { usePlausible } from 'next-plausible';
+import { useAnalytics } from '../lib/analytics/analytics';
 
 interface IHomeProps extends IHeaderProps {
   newPlugins: Plugin[];
@@ -55,10 +55,10 @@ const Home = (props: IHomeProps) => {
   const mdConverter = new showdown.Converter();
   mdConverter.setFlavor('github');
   const router = useRouter();
-  const plausible = usePlausible();
+  const { trackEvent } = useAnalytics();
 
   const scrollToSection = (sectionId: string) => {
-    plausible(`Home Nav - Scroll to Section: ${sectionId}`);
+    trackEvent(`Home Nav - Scroll to Section: ${sectionId}`);
     const section = document.getElementById(sectionId);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
@@ -66,7 +66,7 @@ const Home = (props: IHomeProps) => {
   };
 
   const goToPage = (page: string, inNewTab = false) => {
-    plausible(`Home Nav - Go to Page: ${page}`);
+    trackEvent(`Home Nav - Go to Page: ${page}`);
     if (inNewTab) {
       window.open(page, '_blank');
     } else {
@@ -75,7 +75,7 @@ const Home = (props: IHomeProps) => {
   }
 
   const handleCTAButtonClicked = (page: string) => {
-    plausible(`Primary CTA Button Clicked: ${page}`);
+    trackEvent(`Primary CTA Button Clicked: ${page}`);
     router.push(`/${page}`);
   }
 
@@ -185,12 +185,12 @@ const Home = (props: IHomeProps) => {
 
 const NewPluginsSection = ({ newPlugins }) => {
   const router = useRouter();
-  const plausible = usePlausible();
+  const { trackEvent } = useAnalytics();
   const linkRef = useRef(null);
   const isInView = useInView(linkRef, { once: true });
 
   const handlePluginClick = (pluginId: string) => {
-    plausible(`Home New Plugin Card Click`);
+    trackEvent(`Home New Plugin Card Click`);
     router.push(`/plugins/${pluginId}`);
   }
 
@@ -258,14 +258,14 @@ const NewVersionsSection = ({ newReleases }) => {
 
   const [favorites, setFavorites] = useState([]);
   const router = useRouter();
-  const plausible = usePlausible();
+  const { trackEvent } = useAnalytics();
 
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
 
   const handlePluginClick = (pluginId: string) => {
-    plausible(`Home Plugin Update Card Click`);
+    trackEvent(`Home Plugin Update Card Click`);
     router.push(`/plugins/${pluginId}`);
   }
 
@@ -347,14 +347,14 @@ const TrendingPlugins = ({ plugins }) => {
   const speed = 0.05; // Adjust speed of the scroll
   const containerWidth = 3100; // Width of the scrolling content (calculated to avoid jumps)
   const router = useRouter();
-  const plausible = usePlausible();
+  const { trackEvent } = useAnalytics();
 
   useAnimationFrame((_, delta) => {
     setOffsetX((prev) => prev - delta * speed);
   });
 
   const handlePluginClick = (pluginId: string) => {
-    plausible(`Home Trending Plugin Card Click`);
+    trackEvent(`Home Trending Plugin Card Click`);
     router.push(`/plugins/${pluginId}`);
   }
 

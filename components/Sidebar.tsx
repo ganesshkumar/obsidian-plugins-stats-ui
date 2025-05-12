@@ -7,8 +7,8 @@ import { getCategoryBgClass, getGraidentFrom, getGraidentTo } from "../lib/custo
 import { CategoryIcon } from "./Category";
 import EthicalAd from "./EthicalAd";
 import { PostIcon } from "./post/PostIcon";
-import { usePlausible } from "next-plausible";
 import { useRouter } from 'next/router';
+import { useAnalytics } from "../lib/analytics/analytics";
 
 interface ISidebarProps {
   pageInfo: PageInfo
@@ -17,11 +17,11 @@ interface ISidebarProps {
 
 export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
   const isLessThanLarge = useIsLessThanLarge();
-  const plausible = usePlausible();
   const router = useRouter();
+  const { trackEvent } = useAnalytics();
 
   const handleSuggestedContentClick = (url: string, eventName: string) => {
-    plausible(eventName);
+    trackEvent(eventName);
     router.push(url);
   }
 
@@ -88,7 +88,7 @@ export const Sidebar = ({pageInfo, suggestions}: ISidebarProps) => {
     </>
   }
 
-  const adId = `${pageInfo.type}-image"`;
+  const adId = `${pageInfo.type}-image`;
 
   return (
     <div className='w-full mt-10 lg:mt-0 lg:sticky lg:top-10'>
