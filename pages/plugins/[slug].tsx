@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppNavbar from '../../components/Navbar';
 
 import Link from 'next/link';
@@ -25,7 +25,6 @@ import {
   Activity,
 } from 'react-feather';
 import {
-  Button,
   Card,
   CustomFlowbiteTheme,
   Tooltip,
@@ -41,9 +40,9 @@ import ResponsiveLayout from '../_responsive-layout';
 import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
-import { supabase } from '../../lib/supabase';
 import { GivePluginReview } from '@/components/GivePluginRating';
 import { StarRating } from '@/components/StarRating';
+import { useFeatureFlag } from '@/lib/feature-flag/feature-flags';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -66,7 +65,7 @@ const Plugin = (props: IPluginProps) => {
   const [favorites, setFavorites] = useState([]);
   const [readmeContent, setReadmeContent] = useState('');
 
-  const [enableRating, setEnableRating] = useState(false);
+  const enableRating = useFeatureFlag("enablePluginRating", false);
 
   const now = moment();
 
@@ -93,13 +92,6 @@ const Plugin = (props: IPluginProps) => {
         setReadmeContent(newData);
       });
   }, []);
-
-  useEffect(() => {
-    const storedEnableRating = localStorage.getItem('enableRating');
-    if (storedEnableRating !== null) {
-      setEnableRating(storedEnableRating === 'true');
-    }
-  }, [])
 
   const isFavorite = favorites.includes(props.plugin.pluginId);
   const isNotADayOld = isNotXDaysOld(props.plugin.createdAt, 1);

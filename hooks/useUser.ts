@@ -30,7 +30,6 @@ const useUser = () => {
     };
 
     const logout = async () => {
-        console.log('Logging out...');
         await supabase.auth.signOut();
         setUser(null);
         setAuthChanged((prev) => !prev);

@@ -2,12 +2,12 @@
 
 import { ReactNode, useEffect, useRef } from "react";
 import { GrowthBook, GrowthBookProvider, useGrowthBook } from "@growthbook/growthbook-react";
-import { FeatureFlagKey, FeatureFlags } from "./types/flags";
+import { FeatureFlagKey, FeatureFlagKeyMap, FeatureFlags } from "./types/flags";
 import { useAnalytics } from "../analytics/analytics";
 
 const growthbook = new GrowthBook({
   apiHost: "https://growthbookapi.obsidianstats.com",
-  clientKey: "sdk-LX4vbNdwC77FVA",
+  clientKey: "sdk-enqBUVjMi1J4Nvcx", // dev = "sdk-LX4vbNdwC77FVA",
   enableDevMode: process.env.NODE_ENV === "development",
   trackingCallback: (experiment, result) => {
     // This is where you would send an event to your analytics provider
@@ -18,16 +18,15 @@ const growthbook = new GrowthBook({
   },
 });
 
-growthbook.init({
-  // Optional, enable streaming updates
-  streaming: false
-})
-
 type Props = {
   children: ReactNode;
 };
 
 const getGbAnonUserId = () => {
+  if (typeof window === "undefined") {
+    return 'nouser'
+  }
+
   let anonId = localStorage.getItem('gbAnonUserId');
   if (!anonId) {
     anonId = crypto.randomUUID();
@@ -39,7 +38,23 @@ const getGbAnonUserId = () => {
 export const FeatureFlagProvider = ({ children }: Props) => {
   useEffect(() => {
     growthbook.setAttributes({
-      id: getGbAnonUserId(),
+      id: getGbAnonUserId()
+    });
+    
+    if (typeof window !== "undefined" && !!localStorage) {
+      growthbook.updateAttributes({
+        "com": {
+          "obsidianstats": {
+            "plugins": {
+              "enableRating": localStorage.getItem('com.obsidianstats.plugins.enableRating') === 'true'
+            }
+          }
+        }
+      });
+    }
+
+    growthbook.init({
+      streaming: false
     });
   }, []);
 
@@ -54,22 +69,24 @@ export const useFeatureFlag = <K extends FeatureFlagKey>(
   flagKey: K,
   defaultValue: FeatureFlags[K]
 ): FeatureFlags[K] => {
+  const sbFlagkey = FeatureFlagKeyMap[flagKey];
+
   const gb = useGrowthBook();
   const { trackEvent } = useAnalytics();
   const tracked = useRef(false);
-
-  const value = (gb?.getFeatureValue?.(flagKey, defaultValue) ?? defaultValue) as FeatureFlags[K];
+  const value = (gb?.getFeatureValue?.(sbFlagkey, defaultValue) ?? defaultValue) as FeatureFlags[K];
 
   useEffect(() => {
     if (typeof window === "undefined") return; // skip SSR
     if (!tracked.current) {
-      trackEvent("Feature Flag Exposed", {
-        flag: flagKey,
-        value,
+      trackEvent(`Feature Flag: ${sbFlagkey}`, {
+        props: {
+          value,
+        }
       });
       tracked.current = true;
     }
-  }, [flagKey, value, trackEvent]);
+  }, [sbFlagkey, value, trackEvent]);
 
   return value;
 }

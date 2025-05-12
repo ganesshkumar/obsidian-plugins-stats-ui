@@ -1,3 +1,4 @@
+import { FeatureFlagProvider } from '@/lib/feature-flag/feature-flags';
 import { AnalyticsProvider } from '../lib/analytics/analytics';
 import '../styles/globals.css';
 import 'dotenv/config'
@@ -5,7 +6,9 @@ import 'dotenv/config'
 const ObsidianPluginStatsApp = ({ Component, pageProps }) => {
   return (
     <AnalyticsProvider>
-      <Component {...pageProps} />
+      <FeatureFlagProvider>
+        <Component {...pageProps} />
+      </FeatureFlagProvider>
     </AnalyticsProvider>
   );
 }
