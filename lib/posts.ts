@@ -26,9 +26,11 @@ export function getSortedPostsData(): Post[] {
 
   const now = new Date();
   return allPostsData
-    .filter((post) => isLocal ? true : new Date(post.publishedDate) < now)
+    .filter((post) => (isLocal ? true : new Date(post.publishedDate) < now))
     .sort(
-      (a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
+      (a, b) =>
+        new Date(b.publishedDate).getTime() -
+        new Date(a.publishedDate).getTime()
     );
 }
 

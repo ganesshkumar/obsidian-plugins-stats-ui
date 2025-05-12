@@ -31,8 +31,8 @@ const plugin: Plugin = {
   osCategory: 'Productivity',
   osTags: 'automation, productivity',
   score: 0.45,
-  scoreReason: 'High user ratings and active development.'
-}
+  scoreReason: 'High user ratings and active development.',
+};
 
 describe('JsonLdSchema', () => {
   test('getHomePageSchema returns correct schema', () => {
@@ -42,8 +42,13 @@ describe('JsonLdSchema', () => {
     expect(schema).toHaveProperty('@graph');
     expect(Array.isArray(schema['@graph'])).toBe(true);
 
-    const website = schema['@graph'].find(item => item['@type'] === 'WebSite');
-    expect(website).toHaveProperty('@id', 'https://www.obsidianstats.com/#website');
+    const website = schema['@graph'].find(
+      (item) => item['@type'] === 'WebSite'
+    );
+    expect(website).toHaveProperty(
+      '@id',
+      'https://www.obsidianstats.com/#website'
+    );
   });
 
   test('getFavoritesPageSchema returns correct schema', () => {
@@ -51,7 +56,10 @@ describe('JsonLdSchema', () => {
 
     expect(schema).toHaveProperty('@context', 'https://schema.org');
     expect(schema).toHaveProperty('@type', 'WebPage');
-    expect(schema).toHaveProperty('url', 'https://www.obsidianstats.com/favorites');
+    expect(schema).toHaveProperty(
+      'url',
+      'https://www.obsidianstats.com/favorites'
+    );
   });
 
   test('getMostDownloadedPageSchema processes plugins correctly', () => {
@@ -60,12 +68,21 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/most-downloaded';
     const image = 'https://example.com/image.png';
 
-    const schema = JsonLdSchema.getMostDownloadedPageSchema([plugin], title, description, canonical, image);
+    const schema = JsonLdSchema.getMostDownloadedPageSchema(
+      [plugin],
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('mainEntity');
     expect(Array.isArray(schema.mainEntity)).toBe(true);
     expect(schema.mainEntity[0]).toHaveProperty('name', 'Plugin A');
-    expect(schema.mainEntity[0]).toHaveProperty('aggregateRating.ratingValue', 45);
+    expect(schema.mainEntity[0]).toHaveProperty(
+      'aggregateRating.ratingValue',
+      45
+    );
   });
 
   test('getNewPageSchema handles multiple plugins', () => {
@@ -74,7 +91,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/new';
     const image = 'https://example.com/new-image.png';
 
-    const schema = JsonLdSchema.getNewPageSchema([plugin], title, description, canonical, image);
+    const schema = JsonLdSchema.getNewPageSchema(
+      [plugin],
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('mainEntity');
     expect(schema.mainEntity.length).toBe(1);
@@ -88,7 +111,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/tags';
     const image = 'https://example.com/tags-image.png';
 
-    const schema = JsonLdSchema.getTagsPageSchema(tags, title, description, canonical, image);
+    const schema = JsonLdSchema.getTagsPageSchema(
+      tags,
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('mainEntity');
     expect(schema.mainEntity.length).toBe(tags.length);
@@ -109,7 +138,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/posts/sample-post';
     const image = 'https://example.com/post-image.png';
 
-    const schema = JsonLdSchema.getPostPageSchema(post, title, description, canonical, image);
+    const schema = JsonLdSchema.getPostPageSchema(
+      post,
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('@type', 'BlogPosting');
     expect(schema).toHaveProperty('headline', 'Sample Post');
@@ -123,7 +158,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/trending';
     const image = 'https://example.com/trending-image.png';
 
-    const schema = JsonLdSchema.getTrendingPageSchema([plugin], title, description, canonical, image);
+    const schema = JsonLdSchema.getTrendingPageSchema(
+      [plugin],
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('mainEntity');
     expect(schema.mainEntity.length).toBe(1);
@@ -136,7 +177,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/plugin/plugin-a';
     const image = 'https://example.com/plugin-image.png';
 
-    const schema = JsonLdSchema.getPluginPageSchema(plugin, title, description, canonical, image);
+    const schema = JsonLdSchema.getPluginPageSchema(
+      plugin,
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('@type', 'SoftwareApplication');
     expect(schema).toHaveProperty('name', 'Plugin A');
@@ -150,7 +197,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/updates';
     const image = 'https://example.com/updates-image.png';
 
-    const schema = JsonLdSchema.getUpdatesPageSchema([plugin], title, description, canonical, image);
+    const schema = JsonLdSchema.getUpdatesPageSchema(
+      [plugin],
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('mainEntity');
     expect(schema.mainEntity.length).toBe(1);
@@ -163,7 +216,12 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/share';
     const image = 'https://example.com/share-image.png';
 
-    const schema = JsonLdSchema.getSharePageSchema(title, description, canonical, image);
+    const schema = JsonLdSchema.getSharePageSchema(
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('@type', 'WebPage');
     expect(schema).toHaveProperty('url', 'https://www.obsidianstats.com/share');
@@ -176,7 +234,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/categories';
     const image = 'https://example.com/categories-image.png';
 
-    const schema = JsonLdSchema.getCategoriesPageSchema(categories, title, description, canonical, image);
+    const schema = JsonLdSchema.getCategoriesPageSchema(
+      categories,
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('mainEntity');
     expect(schema.mainEntity.length).toBe(categories.length);
@@ -191,7 +255,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/category/productivity';
     const image = 'https://example.com/productivity-image.png';
 
-    const schema = JsonLdSchema.getCategoryPageSchema(plugins, title, description, canonical, image);
+    const schema = JsonLdSchema.getCategoryPageSchema(
+      plugins,
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('mainEntity');
     expect(schema.mainEntity.length).toBe(plugins.length);
@@ -206,7 +276,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/tag/productivity';
     const image = 'https://example.com/productivity-image.png';
 
-    const schema = JsonLdSchema.getTagPageSchema(plugins, title, description, canonical, image);
+    const schema = JsonLdSchema.getTagPageSchema(
+      plugins,
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('mainEntity');
     expect(schema.mainEntity.length).toBe(plugins.length);
@@ -237,7 +313,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/posts';
     const image = 'https://example.com/posts-image.png';
 
-    const schema = JsonLdSchema.getPostsPageSchema(posts, title, description, canonical, image);
+    const schema = JsonLdSchema.getPostsPageSchema(
+      posts,
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema).toHaveProperty('mainEntity');
     expect(schema.mainEntity.length).toBe(posts.length);
@@ -252,7 +334,13 @@ describe('JsonLdSchema', () => {
     const canonical = 'https://www.obsidianstats.com/plugins';
     const image = 'https://example.com/plugins-image.png';
 
-    const schema = JsonLdSchema.getPluginsPageSchema(plugins, title, description, canonical, image);
+    const schema = JsonLdSchema.getPluginsPageSchema(
+      plugins,
+      title,
+      description,
+      canonical,
+      image
+    );
 
     expect(schema['@type']).toBe('WebPage');
     expect(schema.name).toBe('Plugins');

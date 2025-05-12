@@ -4,6 +4,6 @@ export interface FeatureFlags {
 
 export const FeatureFlagKeyMap = {
   enablePluginRating: 'enable-plugin-rating',
-}
+};
 
 export type FeatureFlagKey = keyof FeatureFlags;

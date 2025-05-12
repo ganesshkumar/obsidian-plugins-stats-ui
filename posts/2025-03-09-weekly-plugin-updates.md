@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-02-23 to 2025-03-01
-description: "new obsidian plugins from 2025-02-23 to 2025-03-01 - GridExplorer, Media Viewer, My Thesaurus, Paste Image Into Property, Extended Markdown Syntax, Rsync, Image Size, YourPulse - Your Writing Activity Visualised, Paste Quote, LLM Tagger, Daily Routine, FolderFile Splitter, Hide Commands in Menu, Vault File Renamer, PDF Paste, PDF Writer, Extended File Support, Checkbox Sync, HTML checkboxes, Last Position, Thecap cv generator, Timecodes, Idle Monitor, Flowcharts, On This Day"
+description: 'new obsidian plugins from 2025-02-23 to 2025-03-01 - GridExplorer, Media Viewer, My Thesaurus, Paste Image Into Property, Extended Markdown Syntax, Rsync, Image Size, YourPulse - Your Writing Activity Visualised, Paste Quote, LLM Tagger, Daily Routine, FolderFile Splitter, Hide Commands in Menu, Vault File Renamer, PDF Paste, PDF Writer, Extended File Support, Checkbox Sync, HTML checkboxes, Last Position, Thecap cv generator, Timecodes, Idle Monitor, Flowcharts, On This Day'
 excerpt: There are 25 new plugins and 71 plugin updates in the last one week's time.
-publishedDate: "2025-03-09"
-modifiedDate: "2025-03-09"
-tags: 
+publishedDate: '2025-03-09'
+modifiedDate: '2025-03-09'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -267,4 +267,3 @@ The **On This Day** plugin enhances journaling in Obsidian by displaying past da
 ## 🔁 Plugin Updates
 
 We got 71 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

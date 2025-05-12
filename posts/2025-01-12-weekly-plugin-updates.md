@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-01-05 to 2025-01-11
-description: "new obsidian plugins from 2025-01-05 to 2025-01-11 - Better Plugins Manager, Contact Cards, Open Editors, Easy Timeline, Photopea Editor, External File Embed and Link, Jira Issue managing, Atomizer, Inbox Organiser, Structured Copy: Files & Folders, BetaX NAS Sync, Click Hint, Replicate"
+description: 'new obsidian plugins from 2025-01-05 to 2025-01-11 - Better Plugins Manager, Contact Cards, Open Editors, Easy Timeline, Photopea Editor, External File Embed and Link, Jira Issue managing, Atomizer, Inbox Organiser, Structured Copy: Files & Folders, BetaX NAS Sync, Click Hint, Replicate'
 excerpt: There are 13 new plugins and 69 plugin updates in the last one week's time.
-publishedDate: "2025-01-12"
-modifiedDate: "2025-01-12"
-tags: 
+publishedDate: '2025-01-12'
+modifiedDate: '2025-01-12'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -160,4 +160,3 @@ The **Replicate** plugin integrates Obsidian with Replicate.com, allowing users 
 ## 🔁 Plugin Updates
 
 We got 69 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

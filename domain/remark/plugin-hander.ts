@@ -1,4 +1,4 @@
-import { PluginsCache } from "../../cache/plugins-cache";
+import { PluginsCache } from '../../cache/plugins-cache';
 import { visit } from 'unist-util-visit';
 import moment from 'moment';
 
@@ -17,7 +17,7 @@ export const remarkPluginHandler = () => {
           }
         });
 
-        const index = data['index']
+        const index = data['index'];
         const pluginId = data['pluginId'];
         const plugin = plugins.find((p) => p.pluginId === pluginId);
         const authorUrl = `https://github.com/${plugin.repo.split('/')[0]}`;
@@ -30,7 +30,7 @@ export const remarkPluginHandler = () => {
           <div class="plugin-content">
             <div class="plugin-details">
               <div class="text-sm text-gray-600">
-                Released on ${moment(plugin.createdAt).format("YYYY-MM-DD")} by <a href="${authorUrl}">${plugin.author}</a>
+                Released on ${moment(plugin.createdAt).format('YYYY-MM-DD')} by <a href="${authorUrl}">${plugin.author}</a>
               </div>
               <p>${plugin.osDescription.replace('**', '<b>').replace('**', '</b>')}</p>
               <a href="/plugins/${plugin.pluginId}" target="_blank" rel="noopener noreferrer" class="font-medium w-fit border bg-yellow-300 hover:bg-amber-300 text-voilet-700 px-2 py-1 rounded text-center no-underline">
@@ -42,4 +42,4 @@ export const remarkPluginHandler = () => {
       }
     });
   };
-}
+};

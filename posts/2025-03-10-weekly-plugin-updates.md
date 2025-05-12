@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-03-02 to 2025-03-08
-description: "new obsidian plugins from 2025-03-02 to 2025-03-08 - Hârn Weather Generator, Export Graph View, Reading View j/k Scroll, Write Good, Tier List, Spaced Repetition AI, Blog AI Generator, Memos AI Sync, Chat clips, AI Tagger Universe, KOI Sync, ASCII Tree Generator, Manual Sorting, Content Cards, VaultSync, Asana, Vision Recall, Cursor Position History, Title As Link Text, Task Mover, Infio Copilot"
+description: 'new obsidian plugins from 2025-03-02 to 2025-03-08 - Hârn Weather Generator, Export Graph View, Reading View j/k Scroll, Write Good, Tier List, Spaced Repetition AI, Blog AI Generator, Memos AI Sync, Chat clips, AI Tagger Universe, KOI Sync, ASCII Tree Generator, Manual Sorting, Content Cards, VaultSync, Asana, Vision Recall, Cursor Position History, Title As Link Text, Task Mover, Infio Copilot'
 excerpt: There are 21 new plugins and 83 plugin updates in the last one week's time.
-publishedDate: "2025-03-10"
-modifiedDate: "2025-03-10"
-tags: 
+publishedDate: '2025-03-10'
+modifiedDate: '2025-03-10'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -229,4 +229,3 @@ The **Infio Copilot** plugin enhances Obsidian with AI-powered autocomplete, inl
 ## 🔁 Plugin Updates
 
 We got 83 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

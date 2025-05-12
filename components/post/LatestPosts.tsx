@@ -18,7 +18,7 @@ export const LatestPosts = ({ posts }) => {
   return (
     <div className="max-w-6xl mx-auto px-2" id="posts">
       <InfoBar title="Latest Posts" as="h2" />
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-x-4'>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
         <div>
           <ul className="flex flex-col divide-y mb-4">
             {posts.map((post) => (
@@ -50,7 +50,12 @@ export const LatestPosts = ({ posts }) => {
           <LinkButton href="/posts" content={`View all posts ⟶`} />
         </div>
         <div className="relative max-w-xl hidden md:flex justify-center items-center w-full h-full">
-          <Image src="/images/gk-coding.webp" alt="Latest Posts" width={576} height={384} />
+          <Image
+            src="/images/gk-coding.webp"
+            alt="Latest Posts"
+            width={576}
+            height={384}
+          />
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 /**
  * Utility class for scoring-related functions.
- * 
+ *
  * @category Scorer
  */
 export class ScorerUtils {
@@ -15,7 +15,7 @@ export class ScorerUtils {
    *          Returns 1 if the value is greater than or equal to the maximum.
    *          Returns 0.5 if the minimum and maximum values are equal.
    */
-  normalize (value: number, min: number, max: number): number {
+  normalize(value: number, min: number, max: number): number {
     if (value <= min) return 0;
     if (value >= max) return 1;
     if (min === max) return 0.5;
@@ -34,7 +34,12 @@ export class ScorerUtils {
    *          Returns 1 if the value is greater than the maximum.
    *          Returns 0.5 if the minimum and maximum values are equal.
    */
-  normalizedSigmoid(x: number, min: number, max: number, k: number = 0.1): number {
+  normalizedSigmoid(
+    x: number,
+    min: number,
+    max: number,
+    k: number = 0.1
+  ): number {
     if (x < min) return 0;
     if (x > max) return 1;
     if (max === min) return 0.5;

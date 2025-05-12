@@ -1,4 +1,4 @@
-import { Button } from "flowbite-react";
+import { Button } from 'flowbite-react';
 
 export const Sponsorship = (props) => {
   const sponsors = props.sponsors || [];
@@ -9,17 +9,20 @@ export const Sponsorship = (props) => {
         <FirstSponsorship />
       </div>
     </div>
-  )
-}
+  );
+};
 
 const FirstSponsorship = () => {
   return (
     <div className="flex justify-center">
       <a href="mailto:rpganesshkumar@gmail.com?subject=Obsidian Stats - Sponsorship">
-        <Button color="light" className="border-2 border-purple-700 rounded-none text-purple-700">
+        <Button
+          color="light"
+          className="border-2 border-purple-700 rounded-none text-purple-700"
+        >
           Become a sponsor
         </Button>
       </a>
     </div>
-  )
-}
+  );
+};

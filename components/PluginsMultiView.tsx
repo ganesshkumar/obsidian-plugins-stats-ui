@@ -21,13 +21,22 @@ interface IPluginsMultiViewProps {
 }
 
 export const PluginsMultiView = (props: IPluginsMultiViewProps) => {
-  const { favorites, setFavorites, showDownloads, showDescription, showAuthor, showCreatedAt, view, setView } = props;
+  const {
+    favorites,
+    setFavorites,
+    showDownloads,
+    showDescription,
+    showAuthor,
+    showCreatedAt,
+    view,
+    setView,
+  } = props;
   const plugins = useCustomScoreWithScoreUpdater(props.plugins);
 
   const [componentView, componentSetView] = useState<'list' | 'table'>('list');
   const handleViewChange = (view: 'list' | 'table') => {
     setView ? setView(view) : componentSetView(view);
-  }
+  };
 
   return (
     <div className="flex-col stripped">
@@ -50,7 +59,7 @@ export const PluginsMultiView = (props: IPluginsMultiViewProps) => {
             onClick={() => handleViewChange('table')}
             size="xs"
             className={`focus:text-gray-800 border-r rounded-r-lg ${(view !== undefined ? view : componentView) === 'table' && 'bg-violet-200'}`}
-            >
+          >
             <TableIcon className="mr-3 h-4 w-4" />
             Table
           </Button>
@@ -59,23 +68,24 @@ export const PluginsMultiView = (props: IPluginsMultiViewProps) => {
       <EthicalAd type="text" id="plugins-multiview-text" />
       {plugins && plugins.length && (
         <div className="mt-4">
-          {(view !== undefined ? view : componentView) === 'list' ?
+          {(view !== undefined ? view : componentView) === 'list' ? (
             <PluginsListView
               data-testid="plugins-list-view"
               plugins={plugins}
               favorites={favorites}
               setFavorites={setFavorites}
               showDownloadStat={showDownloads}
-            /> :
-            <PluginsTableView
-                data-testid="plugins-table-view"
-                plugins={plugins}
-                showDownloadStat={showDownloads}
-                showDescription={showDescription}
-                showCreatedAt={showCreatedAt}
-                showAuthor={showAuthor}
             />
-          }
+          ) : (
+            <PluginsTableView
+              data-testid="plugins-table-view"
+              plugins={plugins}
+              showDownloadStat={showDownloads}
+              showDescription={showDescription}
+              showCreatedAt={showCreatedAt}
+              showAuthor={showAuthor}
+            />
+          )}
         </div>
       )}
     </div>

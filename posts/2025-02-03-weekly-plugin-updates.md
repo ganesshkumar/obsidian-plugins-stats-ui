@@ -1,18 +1,16 @@
 ---
 title: Obsidian Plugin Updates 2025-01-26 to 2025-02-01
-description: "new obsidian plugins from 2025-01-26 to 2025-02-01 - Goal Tracker, Current File Tags, Missing Link File Creator, Paperless, Cooksync, Recent Notes, Mahgen Renderer, Backgroundset, Friend Tracker, Anchor Link Display Text"
+description: 'new obsidian plugins from 2025-01-26 to 2025-02-01 - Goal Tracker, Current File Tags, Missing Link File Creator, Paperless, Cooksync, Recent Notes, Mahgen Renderer, Backgroundset, Friend Tracker, Anchor Link Display Text'
 excerpt: There are 10 new plugins and 65 plugin updates in the last one week's time.
-publishedDate: "2025-02-03"
-modifiedDate: "2025-02-03"
-tags: 
+publishedDate: '2025-02-03'
+modifiedDate: '2025-02-03'
+tags:
   - weekly-plugin-updates
 ---
 
 ![Weekly Updates](/images/2025-02-01-weekly-plugin-updates.webp)
 
 > There are 10 new plugins and 65 plugin updates in the last one week's time.
-
-
 
 This week, we’ve got 10 brand-new plugins designed to enhance productivity, streamline workflows, and introduce fresh capabilities. From goal tracking to automatic link creation, seamless PDF management, and even Mahjong hand rendering, there's something for everyone.
 
@@ -123,4 +121,3 @@ The **Anchor Link Display Text** plugin enhances the readability of anchor links
 ## 🔁 Plugin Updates
 
 We got 65 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

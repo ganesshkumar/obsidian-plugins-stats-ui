@@ -1,6 +1,6 @@
-"use client";
-import React, { useRef, useEffect } from "react";
-import * as Icons from "react-icons";
+'use client';
+import React, { useRef, useEffect } from 'react';
+import * as Icons from 'react-icons';
 
 const getRandom = (min, max) => Math.random() * (max - min) + min;
 
@@ -9,27 +9,29 @@ export function PluginsBanner({ iconNames = [] }) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     const width = (canvas.width = window.innerWidth);
     const height = (canvas.height = 300);
 
     // Create floating icons
     const icons = iconNames.map((name) => {
       const IconComponent = Icons[name];
-      const wrapper = document.createElement("div");
+      const wrapper = document.createElement('div');
 
       // Apply styles to icon
-      wrapper.style.position = "absolute";
-      wrapper.style.pointerEvents = "none";
+      wrapper.style.position = 'absolute';
+      wrapper.style.pointerEvents = 'none';
       wrapper.style.fontSize = `${getRandom(20, 40)}px`;
-      wrapper.style.color = "white";
-      wrapper.style.opacity = "0.8";
+      wrapper.style.color = 'white';
+      wrapper.style.opacity = '0.8';
       wrapper.style.transform = `translate(-50%, -50%)`;
-      wrapper.style.zIndex = "10";
+      wrapper.style.zIndex = '10';
 
       // Render icon inside div
-      const iconMarkup = document.createElement("span");
-      iconMarkup.innerHTML = (React.createElement(IconComponent).props as any).children;
+      const iconMarkup = document.createElement('span');
+      iconMarkup.innerHTML = (
+        React.createElement(IconComponent).props as any
+      ).children;
       wrapper.appendChild(iconMarkup);
 
       document.body.appendChild(wrapper);
@@ -45,9 +47,9 @@ export function PluginsBanner({ iconNames = [] }) {
 
     const drawGradient = () => {
       const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, "#0f2027");
-      gradient.addColorStop(0.5, "#203a43");
-      gradient.addColorStop(1, "#2c5364");
+      gradient.addColorStop(0, '#0f2027');
+      gradient.addColorStop(0.5, '#203a43');
+      gradient.addColorStop(1, '#2c5364');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
     };

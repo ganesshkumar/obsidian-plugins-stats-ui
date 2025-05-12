@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-04-06 to 2025-04-12
-description: "new obsidian plugins from 2025-04-06 to 2025-04-12 - Data Fetcher, Theme toggle, Jira Issue Manager, Anki Integration, White Noise, Rename File to Selection, Related Notes, Browser History, Smart Vault Visualizer, WeWrite"
+description: 'new obsidian plugins from 2025-04-06 to 2025-04-12 - Data Fetcher, Theme toggle, Jira Issue Manager, Anki Integration, White Noise, Rename File to Selection, Related Notes, Browser History, Smart Vault Visualizer, WeWrite'
 excerpt: There are 10 new plugins and 96 plugin updates in the last one week's time.
-publishedDate: "2025-04-13"
-modifiedDate: "2025-04-13"
-tags: 
+publishedDate: '2025-04-13'
+modifiedDate: '2025-04-13'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -135,4 +135,3 @@ The **WeWrite** plugin transforms Obsidian into a full-featured publishing tool 
 ## 🔁 Plugin Updates
 
 We got 96 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

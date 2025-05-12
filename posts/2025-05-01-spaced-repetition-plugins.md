@@ -18,7 +18,6 @@ If you've ever wished your notes could do more than just sit in your vault - lik
 
 As of May 1, 2025, we've curated a list of 26 plugins that make it easy to review, recall, and retain your notes. Whether you're prepping for exams, learning a language, or just want to remember what you read last month, these tools are built to help you study smarter - not harder.
 
-
 ```plugin
 index=01
 pluginId=obsidian-to-anki-plugin

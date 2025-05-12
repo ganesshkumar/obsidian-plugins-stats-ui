@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export interface IResponsiveLayoutProps {
   children: React.ReactNode;
@@ -17,25 +17,25 @@ const ResponsiveLayout: React.FC<IResponsiveLayoutProps> = ({
     };
 
     checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   if (!sidebar) {
-    return (
-      <div className='max-w-4xl mx-auto px-2'>
-        {children}
-      </div>
-    )
+    return <div className="max-w-4xl mx-auto px-2">{children}</div>;
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-12 2xl:flex 2xl:justify-center 2xl:gap-x-24 gap-4 p-4 md:p-6 xl:p-8 min-h-screen">
       {/* Left Spacer */}
-      <div className={`hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hidden'}`} />
+      <div
+        className={`hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hidden'}`}
+      />
 
       {/* Main Content */}
-      <main className={`col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-8 xl:col-span-7 2xl:max-w-4xl 2xl:grow`}>
+      <main
+        className={`col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-8 xl:col-span-7 2xl:max-w-4xl 2xl:grow`}
+      >
         {children}
         {isLessThanLarge && sidebar}
       </main>
@@ -46,9 +46,11 @@ const ResponsiveLayout: React.FC<IResponsiveLayoutProps> = ({
           {sidebar}
         </aside>
       )}
-      
+
       {/* Right Spacer */}
-      <div className={`hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hiddens`} />
+      <div
+        className={`hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hiddens`}
+      />
     </div>
   );
 };

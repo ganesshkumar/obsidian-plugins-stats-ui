@@ -78,7 +78,7 @@ const Plugins = (props: ISharePageProps) => {
                 {author} has shared {filteredPlugins.length} plugins.
               </div>
             )}
-            <EthicalAd type="text" id="share-text"/>1
+            <EthicalAd type="text" id="share-text" />1
             <PluginsShareView
               pluginIds={pluginIds}
               filteredPlugins={filteredPlugins}
@@ -109,9 +109,7 @@ export const PluginsShareView = (props) => {
               />
             </Tabs.Item>
             <Tabs.Item title="Table" icon={Table}>
-              <PluginsComparisionTable
-                plugins={plugins}
-              />
+              <PluginsComparisionTable plugins={plugins} />
             </Tabs.Item>
           </Tabs>
         </div>
@@ -126,11 +124,17 @@ export const getStaticProps = async () => {
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
   );
 
-  const title = 'Obsidian Plugins Share - Compare and Discover Plugins'
-  const description = 'Add a list of plugins and compare them. Use this to share a list of plugins with others for quick comparison and discovery.'
-  const canonical = "https://obsidianstats.com/share";
-  const image = "/images/obsidian-stats-ogImage.png"
-  const jsonLdSchema = JsonLdSchema.getSharePageSchema(title, description, canonical, image);
+  const title = 'Obsidian Plugins Share - Compare and Discover Plugins';
+  const description =
+    'Add a list of plugins and compare them. Use this to share a list of plugins with others for quick comparison and discovery.';
+  const canonical = 'https://obsidianstats.com/share';
+  const image = '/images/obsidian-stats-ogImage.png';
+  const jsonLdSchema = JsonLdSchema.getSharePageSchema(
+    title,
+    description,
+    canonical,
+    image
+  );
 
   return {
     props: {
@@ -139,8 +143,8 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      plugins
-    }
+      plugins,
+    },
   };
 };
 

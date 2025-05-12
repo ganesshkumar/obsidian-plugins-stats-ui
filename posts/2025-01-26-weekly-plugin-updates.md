@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-01-19 to 2025-01-25
-description: "new obsidian plugins from 2025-01-19 to 2025-01-25 - ShaahMaat-md, Sentinel, Boardgame Search, Keep the Rhythm, Easy Test, Hanko, Clipper Catalog, Frontmatter Markdown Links, pycalc, Note Annotations"
+description: 'new obsidian plugins from 2025-01-19 to 2025-01-25 - ShaahMaat-md, Sentinel, Boardgame Search, Keep the Rhythm, Easy Test, Hanko, Clipper Catalog, Frontmatter Markdown Links, pycalc, Note Annotations'
 excerpt: There are 10 new plugins and 89 plugin updates in the last one week's time.
-publishedDate: "2025-01-26"
-modifiedDate: "2025-01-26"
-tags: 
+publishedDate: '2025-01-26'
+modifiedDate: '2025-01-26'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -12,7 +12,7 @@ tags:
 
 > There are 10 new plugins and 89 plugin updates in the last one week's time.
 
-🥉 Exciting news! We’re thrilled to share that we’ve been named second runner-up in the "Tools" category of [Obsidian Gems of the Year 2024](https://obsidian.md/blog/2024-goty-winners/)! 🎉 A huge thank you to the Obsidian community for your support. 
+🥉 Exciting news! We’re thrilled to share that we’ve been named second runner-up in the "Tools" category of [Obsidian Gems of the Year 2024](https://obsidian.md/blog/2024-goty-winners/)! 🎉 A huge thank you to the Obsidian community for your support.
 
 ## ⭐ New Plugins: We have 10 new plugins.
 
@@ -119,4 +119,3 @@ The **Note Annotations** plugin enhances the reading experience in Obsidian by p
 ## 🔁 Plugin Updates
 
 We got 89 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

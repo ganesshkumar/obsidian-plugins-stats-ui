@@ -15,7 +15,6 @@ export const Footer = () => {
     <>
       <Sponsorship />
       <section className="w-full bg-gray-200 mt-16 border-b-8 border-b-violet-800">
-        
         <FlowbiteFooter
           className="max-w-6xl mx-auto flex flex-col bg-gray-200 rounded-none border-none shadow-none py-8 px-2"
           theme={customTheme}
@@ -31,7 +30,10 @@ export const Footer = () => {
             </div>
             <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 lg:grid-cols-4 sm:gap-6">
               <div>
-                <FlowbiteFooter.Title className="text-gray-900" title="Plugins" />
+                <FlowbiteFooter.Title
+                  className="text-gray-900"
+                  title="Plugins"
+                />
                 <FlowbiteFooter.LinkGroup col>
                   <FlowbiteFooter.Link
                     className={footerLinkClass}
@@ -74,7 +76,10 @@ export const Footer = () => {
               <div>
                 <FlowbiteFooter.Title className="text-gray-900" title="Posts" />
                 <FlowbiteFooter.LinkGroup col>
-                  <FlowbiteFooter.Link className={footerLinkClass} href="/posts">
+                  <FlowbiteFooter.Link
+                    className={footerLinkClass}
+                    href="/posts"
+                  >
                     All Posts
                   </FlowbiteFooter.Link>
                 </FlowbiteFooter.LinkGroup>
@@ -82,16 +87,28 @@ export const Footer = () => {
               <div>
                 <FlowbiteFooter.Title className="text-gray-900" title="Tools" />
                 <FlowbiteFooter.LinkGroup col>
-                  <FlowbiteFooter.Link className={footerLinkClass} href="/scorer">
+                  <FlowbiteFooter.Link
+                    className={footerLinkClass}
+                    href="/scorer"
+                  >
                     Custom Scorers
                   </FlowbiteFooter.Link>
-                  <FlowbiteFooter.Link className={footerLinkClass} href="/scorer/build">
+                  <FlowbiteFooter.Link
+                    className={footerLinkClass}
+                    href="/scorer/build"
+                  >
                     Build Scorer
                   </FlowbiteFooter.Link>
-                  <FlowbiteFooter.Link className={footerLinkClass} href="/migrate">
+                  <FlowbiteFooter.Link
+                    className={footerLinkClass}
+                    href="/migrate"
+                  >
                     Migrate/Sync
                   </FlowbiteFooter.Link>
-                  <FlowbiteFooter.Link className={footerLinkClass} href="/timeline">
+                  <FlowbiteFooter.Link
+                    className={footerLinkClass}
+                    href="/timeline"
+                  >
                     Timeline
                   </FlowbiteFooter.Link>
                 </FlowbiteFooter.LinkGroup>

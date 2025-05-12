@@ -9,7 +9,15 @@ import {
 } from 'flowbite-react';
 import Constants from '../constants';
 import Image from 'next/image';
-import { Rss, HelpCircle, List, Tool, RotateCw, RefreshCw, Calendar } from 'react-feather';
+import {
+  Rss,
+  HelpCircle,
+  List,
+  Tool,
+  RotateCw,
+  RefreshCw,
+  Calendar,
+} from 'react-feather';
 import { RiOpenaiFill } from 'react-icons/ri';
 
 interface INavbarProps {
@@ -122,36 +130,59 @@ const NavBar = ({ current, children }: INavbarProps) => {
               </Dropdown>
             </li>
             <Navbar.Link>
-              <MegaMenu.Dropdown toggle={<span className={`text-lg font-medium z-50 ${['scorer', 'build-scorer', 'migrate'].includes(current) ? 'text-purple-700 dark:text-primary-500' : ''}`}>Tools</span>}>
+              <MegaMenu.Dropdown
+                toggle={
+                  <span
+                    className={`text-lg font-medium z-50 ${['scorer', 'build-scorer', 'migrate'].includes(current) ? 'text-purple-700 dark:text-primary-500' : ''}`}
+                  >
+                    Tools
+                  </span>
+                }
+              >
                 <ul className="grid grid-cols-1">
                   <div className="space-y-4 p-4">
                     <li>
-                      <a href="/tools/dataview-query-wizard" className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}>
-                        <RiOpenaiFill size={24}/>
+                      <a
+                        href="/tools/dataview-query-wizard"
+                        className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}
+                      >
+                        <RiOpenaiFill size={24} />
                         Dataview Query Builder
                       </a>
                     </li>
                     <li>
-                      <a href="/scorer" className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}>
-                        <List size={18}/>
+                      <a
+                        href="/scorer"
+                        className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}
+                      >
+                        <List size={18} />
                         Custom Scorers
                       </a>
                     </li>
                     <li>
-                      <a href="/scorer/build" className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'build-scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}>
-                        <Tool size={18}/>
+                      <a
+                        href="/scorer/build"
+                        className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'build-scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}
+                      >
+                        <Tool size={18} />
                         Build Scorer
                       </a>
                     </li>
                     <li>
-                      <a href="/migrate" className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'migrate' ? 'text-purple-700 dark:text-primary-500' : ''}`}>
-                        <RefreshCw size={18}/>
+                      <a
+                        href="/migrate"
+                        className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'migrate' ? 'text-purple-700 dark:text-primary-500' : ''}`}
+                      >
+                        <RefreshCw size={18} />
                         Migrate/Sync
                       </a>
                     </li>
                     <li>
-                      <a href="/timeline" className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'timeline' ? 'text-purple-700 dark:text-primary-500' : ''}`}>
-                        <Calendar size={18}/>
+                      <a
+                        href="/timeline"
+                        className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'timeline' ? 'text-purple-700 dark:text-primary-500' : ''}`}
+                      >
+                        <Calendar size={18} />
                         Timeline
                       </a>
                     </li>
@@ -221,27 +252,25 @@ const Sponsorhip = () => {
               &nbsp;&nbsp;• Backend system that actively monitors new plugin
               releases and updates.
               <br />
-              &nbsp;&nbsp;• Ensuring timely and accurate information
-              delivery.
+              &nbsp;&nbsp;• Ensuring timely and accurate information delivery.
               <br />
               &nbsp;&nbsp;• Weekly posts highlighting new plugins.
               <br />
-              &nbsp;&nbsp;• Comprehensive resources, such as the "Wrapped
-              2024" report.
+              &nbsp;&nbsp;• Comprehensive resources, such as the "Wrapped 2024"
+              report.
             </div>
           </div>
           <hr className="my-4" />
           <div>
-            <b>Your sponsorship</b> directly supports these efforts by
-            helping us cover operational costs and enabling us to continue
-            delivering high-quality, valuable content to the community.
+            <b>Your sponsorship</b> directly supports these efforts by helping
+            us cover operational costs and enabling us to continue delivering
+            high-quality, valuable content to the community.
             <div className="mt-2">
               With your support, we can
               <br />
               &nbsp;&nbsp;• Sustain and expand our offerings.
               <br />
-              &nbsp;&nbsp;• Keep the community engaged, informed, and
-              inspired.
+              &nbsp;&nbsp;• Keep the community engaged, informed, and inspired.
             </div>
           </div>
         </Modal.Body>
@@ -252,7 +281,7 @@ const Sponsorhip = () => {
         </Modal.Footer>
       </Modal>
     </>
-  )
-}
+  );
+};
 
 export default NavBar;

@@ -63,11 +63,19 @@ pre * {
 }
 
 .mask-gradient-left {
-  mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0.3) 100%);
-  -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0.3) 100%);
+  mask-image: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 90%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 90%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
 }
-
-
 
 @layer base {
   :root {
@@ -124,8 +132,6 @@ pre * {
     --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {

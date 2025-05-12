@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-03-30 to 2025-04-05
-description: "new obsidian plugins from 2025-03-30 to 2025-04-05 - GitHub Tracker, Duplicate line, Smooth Navigator, Open in GitHub, Simple File Info, Project Euler Stats, GitHub Stars, Private Mode, HiNote, Note to RED, Sticky Notes, PDF Folder to Markdowns, Generate Timeline, PomoBar, Kanban Status Updater, Smart DayNight switcher, Node Factor, Markitdown File Converter, AI Note Tagger, Outlook Meeting Notes, WordCraft, Docusaurus Style Admonitions, Quick Nav"
+description: 'new obsidian plugins from 2025-03-30 to 2025-04-05 - GitHub Tracker, Duplicate line, Smooth Navigator, Open in GitHub, Simple File Info, Project Euler Stats, GitHub Stars, Private Mode, HiNote, Note to RED, Sticky Notes, PDF Folder to Markdowns, Generate Timeline, PomoBar, Kanban Status Updater, Smart DayNight switcher, Node Factor, Markitdown File Converter, AI Note Tagger, Outlook Meeting Notes, WordCraft, Docusaurus Style Admonitions, Quick Nav'
 excerpt: There are 23 new plugins and 85 plugin updates in the last one week's time.
-publishedDate: "2025-04-08"
-modifiedDate: "2025-04-08"
-tags: 
+publishedDate: '2025-04-08'
+modifiedDate: '2025-04-08'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -253,4 +253,3 @@ The **Quick Nav** plugin enhances text navigation and selection in Obsidian by a
 ## 🔁 Plugin Updates
 
 We got 85 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

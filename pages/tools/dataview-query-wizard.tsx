@@ -1,4 +1,4 @@
-import React, {  } from 'react';
+import React from 'react';
 import Header, { IHeaderProps } from '../../components/Header';
 import Navbar from '../../components/Navbar';
 
@@ -8,7 +8,7 @@ import remarkParse from 'remark-parse';
 import EthicalAd from '../../components/EthicalAd';
 import ResponsiveLayout from '../../pages/_responsive-layout';
 import { Button } from 'flowbite-react';
-import { RiOpenaiFill } from "react-icons/ri";
+import { RiOpenaiFill } from 'react-icons/ri';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import remarkRehype from 'remark-rehype';
@@ -21,7 +21,6 @@ import Comments from '../../components/Comments';
 import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
-
 
 const markdown = `
 ## Why This Tool?
@@ -85,7 +84,6 @@ Happy note-taking!
 **Note**: We'd love to hear your suggestions and feedback to make this custom GPT tool even better—please share your thoughts in the comments!
 `;
 
-
 interface ITagsPageProps extends IHeaderProps {
   tags: string[];
   pluginCountByTags: Record<string, number>;
@@ -97,11 +95,20 @@ interface ITagsPageProps extends IHeaderProps {
 const DataviewQueryWizard = (props: ITagsPageProps) => {
   const isLessThanLarge = useIsLessThanLarge();
 
-  const sidebar = <Sidebar pageInfo={{ type: 'tool', slug: 'dataview-query-wizard' }} suggestions={props.suggestions} />;
-  
+  const sidebar = (
+    <Sidebar
+      pageInfo={{ type: 'tool', slug: 'dataview-query-wizard' }}
+      suggestions={props.suggestions}
+    />
+  );
+
   const ctaButton = (
-    <Button color='purple' className='mt-8'>
-      <Link href="https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard" className='flex gap-4 items-center' prefetch={false}>
+    <Button color="purple" className="mt-8">
+      <Link
+        href="https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard"
+        className="flex gap-4 items-center"
+        prefetch={false}
+      >
         Chat with Wizard <RiOpenaiFill size={24} />
       </Link>
     </Button>
@@ -113,28 +120,35 @@ const DataviewQueryWizard = (props: ITagsPageProps) => {
       <Navbar current="tags" />
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar}>
-          <div className='flex flex-col items-center lg:px-20 mb-24'>
-            <div className='flex justify-center'>
-              <span className='text-4xl 2xl:text-5xl font-bold tracking-tight mb-8 text-gray-800'>Dataview Query Wizard</span>
+          <div className="flex flex-col items-center lg:px-20 mb-24">
+            <div className="flex justify-center">
+              <span className="text-4xl 2xl:text-5xl font-bold tracking-tight mb-8 text-gray-800">
+                Dataview Query Wizard
+              </span>
             </div>
-            <p className='text-xl max-w-lg lg:max-w-3xl text-gray-600 mt-4 text-center'>
-              A custom GPT that helps Obsidian users write, understand, and debug Dataview queries. Supports YAML, inline fields, and DataviewJS.
+            <p className="text-xl max-w-lg lg:max-w-3xl text-gray-600 mt-4 text-center">
+              A custom GPT that helps Obsidian users write, understand, and
+              debug Dataview queries. Supports YAML, inline fields, and
+              DataviewJS.
             </p>
-            <p className='text-xl max-w-lg lg:max-w-3xl text-gray-600 mt-4 text-center'>
-              Great for creating tables, tracking tasks, filtering notes, and exploring metadata in your vault.
+            <p className="text-xl max-w-lg lg:max-w-3xl text-gray-600 mt-4 text-center">
+              Great for creating tables, tracking tasks, filtering notes, and
+              exploring metadata in your vault.
             </p>
             {ctaButton}
           </div>
-          {isLessThanLarge && <EthicalAd type="fixed-footer" id="tool-fixed-footer" />}
+          {isLessThanLarge && (
+            <EthicalAd type="fixed-footer" id="tool-fixed-footer" />
+          )}
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
             <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
           </article>
-          <div className='flex justify-center mt-12 mb-16'>{ctaButton}</div>
+          <div className="flex justify-center mt-12 mb-16">{ctaButton}</div>
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
             <div dangerouslySetInnerHTML={{ __html: props.afterCTAHtml }} />
           </article>
           <Comments />
-        </ResponsiveLayout>  
+        </ResponsiveLayout>
       </div>
       <Footer />
     </div>
@@ -142,26 +156,34 @@ const DataviewQueryWizard = (props: ITagsPageProps) => {
 };
 
 export const getStaticProps = async () => {
-
   const processor = unified()
     .use(remarkParse)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
     //.use(rehypeToc, { headings: ['h1', 'h2', 'h3'], cssClasses:  { listItem: 'list-none [&>li>a]:no-underline'  } })
-    .use(rehypeStringify, { allowDangerousHtml: true })
-  
+    .use(rehypeStringify, { allowDangerousHtml: true });
+
   const processedContent = await processor.process(markdown);
   const processedAfterCTA = await processor.process(afterCTA);
-  
+
   const contentHtml = processedContent.toString();
   const afterCTAHtml = processedAfterCTA.toString();
 
   const title = 'Obsidian Dataview Query Wizard';
-  const description = 'A custom GPT that helps Obsidian users write, understand, learn, and debug Obsidian Dataview queries.';
-  const canonical = "https://obsidianstats.com/tools/dataview-query-wizard";
-  const image = "/images/obsidian-stats-ogImage.png";
-  const jsonLdSchema = JsonLdSchema.getToolPageSchema(title, description, canonical, image);
-  const suggestions = await generateSuggestions({ type: 'tool', slug: 'dataview-query-wizard' });
+  const description =
+    'A custom GPT that helps Obsidian users write, understand, learn, and debug Obsidian Dataview queries.';
+  const canonical = 'https://obsidianstats.com/tools/dataview-query-wizard';
+  const image = '/images/obsidian-stats-ogImage.png';
+  const jsonLdSchema = JsonLdSchema.getToolPageSchema(
+    title,
+    description,
+    canonical,
+    image
+  );
+  const suggestions = await generateSuggestions({
+    type: 'tool',
+    slug: 'dataview-query-wizard',
+  });
 
   return {
     props: {

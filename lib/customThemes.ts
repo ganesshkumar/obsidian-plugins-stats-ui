@@ -45,9 +45,9 @@ export const getGraidentFrom = (index: number) => {
   if (index % 10 === 7) return 'from-teal-100';
   if (index % 10 === 8) return 'from-indigo-100';
   return 'from-gray-100';
-}
+};
 
-export  const getGraidentTo = (index: number) => {
+export const getGraidentTo = (index: number) => {
   if (index % 10 === 0) return 'to-pink-100';
   if (index % 10 === 1) return 'to-yellow-100';
   if (index % 10 === 2) return 'to-purple-100';
@@ -58,7 +58,7 @@ export  const getGraidentTo = (index: number) => {
   if (index % 10 === 7) return 'to-indigo-100';
   if (index % 10 === 8) return 'to-orange-100';
   return 'to-brown-100';
-}
+};
 
 export const getScoreBgClass = (score: number) => {
   let scoreClass = '';
@@ -94,35 +94,35 @@ export const getScoreTextClass = (score: number) => {
 
 export const getCategoryBgClass = (category: string) => {
   switch (category) {
-      case 'Task Management':
-        return 'bg-green-50'
-      case 'File Management':
-        return 'bg-blue-50'
-      case 'Note Enhancements':
-        return 'bg-yellow-50'
-      case 'Data Visualization':
-        return 'bg-orange-50'
-      case '3rd Party Integrations':
-        return 'bg-cyan-50'
-      case 'Productivity Tools':
-        return 'bg-lime-50'
-      case 'Coding & Technical Tools':
-        return 'bg-teal-50'        
-      case 'Creative & Writing Tools':
-        return 'bg-rose-50'
-      case 'Privacy & Security':
-        return 'bg-gray-50'
-      case 'Customization & UI':
-        return 'bg-indigo-50'
-      case 'Collaboration & Sharing':
-        return 'bg-amber-50'
-      case 'Learning & Knowledge Management':
-        return 'bg-emerald-50'
-      case 'Miscellaneous':
-        return 'bg-rose-50'
-      case 'Uncategorized':
-        return 'bg-neutral-50'
-      default:
-        return 'bg-red-50'
-    }
-}
+    case 'Task Management':
+      return 'bg-green-50';
+    case 'File Management':
+      return 'bg-blue-50';
+    case 'Note Enhancements':
+      return 'bg-yellow-50';
+    case 'Data Visualization':
+      return 'bg-orange-50';
+    case '3rd Party Integrations':
+      return 'bg-cyan-50';
+    case 'Productivity Tools':
+      return 'bg-lime-50';
+    case 'Coding & Technical Tools':
+      return 'bg-teal-50';
+    case 'Creative & Writing Tools':
+      return 'bg-rose-50';
+    case 'Privacy & Security':
+      return 'bg-gray-50';
+    case 'Customization & UI':
+      return 'bg-indigo-50';
+    case 'Collaboration & Sharing':
+      return 'bg-amber-50';
+    case 'Learning & Knowledge Management':
+      return 'bg-emerald-50';
+    case 'Miscellaneous':
+      return 'bg-rose-50';
+    case 'Uncategorized':
+      return 'bg-neutral-50';
+    default:
+      return 'bg-red-50';
+  }
+};

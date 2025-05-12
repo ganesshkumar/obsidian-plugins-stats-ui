@@ -24,7 +24,7 @@ export type PluginMetrics = {
   mergedPR: number;
   commitCountInLastYear: number;
   score: number;
-}
+};
 
 /**
  * Class representing a cache for plugins.
@@ -48,40 +48,40 @@ export class PluginsCache {
     return PluginsCache.plugins;
   }
 
-    /**
+  /**
    * Retrieves the cached plugins data. If the data is not cached, it fetches the data from the database.
    * @returns {Promise<PluginRecord[]>} The cached plugins data.
    */
-    static async getMetrics(): Promise<PluginMetrics[]> {
-      if (!PluginsCache.plugins) {
-        PluginsCache.plugins = await PluginsCache.fetch();
-      }
-      const plugins = PluginsCache.plugins.map(plugin => {
-        return {
-          pluginId: plugin.pluginId,
-          name: plugin.name,
-          createdAt: plugin.createdAt,
-          lastCommitAt: plugin.lastCommitAt,
-          stargazers: plugin.stargazers,
-          subscribers: plugin.subscribers,
-          forks: plugin.forks,
-          latestRelease: plugin.latestRelease,
-          latestReleaseDesc: plugin.latestReleaseDesc,
-          latestReleaseAt: plugin.latestReleaseAt,
-          totalDownloads: plugin.totalDownloads,
-          totalIssues: plugin.totalIssues,
-          closedIssues: plugin.closedIssues,
-          openIssues: plugin.openIssues,
-          totalPR: plugin.totalPR,
-          openPR: plugin.openPR,
-          closedPR: plugin.closedPR,
-          mergedPR: plugin.mergedPR,
-          commitCountInLastYear: plugin.commitCountInLastYear,
-          score: plugin.score,
-        } as PluginMetrics;
-      });
-      return plugins;
+  static async getMetrics(): Promise<PluginMetrics[]> {
+    if (!PluginsCache.plugins) {
+      PluginsCache.plugins = await PluginsCache.fetch();
     }
+    const plugins = PluginsCache.plugins.map((plugin) => {
+      return {
+        pluginId: plugin.pluginId,
+        name: plugin.name,
+        createdAt: plugin.createdAt,
+        lastCommitAt: plugin.lastCommitAt,
+        stargazers: plugin.stargazers,
+        subscribers: plugin.subscribers,
+        forks: plugin.forks,
+        latestRelease: plugin.latestRelease,
+        latestReleaseDesc: plugin.latestReleaseDesc,
+        latestReleaseAt: plugin.latestReleaseAt,
+        totalDownloads: plugin.totalDownloads,
+        totalIssues: plugin.totalIssues,
+        closedIssues: plugin.closedIssues,
+        openIssues: plugin.openIssues,
+        totalPR: plugin.totalPR,
+        openPR: plugin.openPR,
+        closedPR: plugin.closedPR,
+        mergedPR: plugin.mergedPR,
+        commitCountInLastYear: plugin.commitCountInLastYear,
+        score: plugin.score,
+      } as PluginMetrics;
+    });
+    return plugins;
+  }
 
   /**
    * Fetches the plugins data from the database.
@@ -91,35 +91,51 @@ export class PluginsCache {
   private static async fetch(): Promise<Plugin[]> {
     let prisma: PrismaClient = new PrismaClient();
     let pluginRecords: Plugin[];
-    
-    if (process.env.NODE_ENV === "development") {
+
+    if (process.env.NODE_ENV === 'development') {
       pluginRecords = await prisma.plugin.findMany({
         where: {
           OR: [
-            {osTags: { contains: 'recipe' }},
-            {osTags: { contains: 'publish' }},
-          ]
-        }
+            { osTags: { contains: 'recipe' } },
+            { osTags: { contains: 'publish' } },
+          ],
+        },
       });
     } else {
       pluginRecords = await prisma.plugin.findMany({});
     }
-    
+
     pluginRecords.forEach((plugin) => {
-      plugin.osDescription = plugin.osDescription ? sanitizeInvisibleCharacters(sanitizeQuoteVariations(sanitizeDashVariations(plugin.osDescription))) : '';
-      plugin.osTags = plugin.osTags ? sanitizeInvisibleCharacters(sanitizeQuoteVariations(sanitizeDashVariations(plugin.osTags))) : '';
-      plugin.osCategory = plugin.osCategory ? sanitizeInvisibleCharacters(sanitizeQuoteVariations(sanitizeDashVariations(plugin.osCategory))) : '';
+      plugin.osDescription = plugin.osDescription
+        ? sanitizeInvisibleCharacters(
+            sanitizeQuoteVariations(
+              sanitizeDashVariations(plugin.osDescription)
+            )
+          )
+        : '';
+      plugin.osTags = plugin.osTags
+        ? sanitizeInvisibleCharacters(
+            sanitizeQuoteVariations(sanitizeDashVariations(plugin.osTags))
+          )
+        : '';
+      plugin.osCategory = plugin.osCategory
+        ? sanitizeInvisibleCharacters(
+            sanitizeQuoteVariations(sanitizeDashVariations(plugin.osCategory))
+          )
+        : '';
     });
 
     const { data, error } = await supabaseServer
       .from('plugin_rating_summary')
-      .select('plugin_id, avg_rating, rating_count, star_5_count, star_4_count, star_3_count, star_2_count, star_1_count');
+      .select(
+        'plugin_id, avg_rating, rating_count, star_5_count, star_4_count, star_3_count, star_2_count, star_1_count'
+      );
 
     if (error) {
       console.error('Error fetching plugin ratings:', error);
       return pluginRecords;
     }
-    
+
     const ratingInfoMap: Record<string, PluginRatingInfo> = {};
 
     data?.forEach((rating) => {
@@ -137,7 +153,7 @@ export class PluginsCache {
     const plugins = pluginRecords.map((plugin) => {
       return {
         ...plugin,
-        ratingInfo: ratingInfoMap[plugin.pluginId] || null
+        ratingInfo: ratingInfoMap[plugin.pluginId] || null,
       } as Plugin;
     });
 

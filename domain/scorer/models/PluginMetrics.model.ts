@@ -1,6 +1,6 @@
 /**
  * Represents the metrics of a plugin.
- * 
+ *
  * @category Scorer
  * @typedef {object} PluginMetrics
  */
@@ -104,4 +104,4 @@ export type PluginMetrics = {
    * The score of the plugin based on various metrics.
    */
   score: number;
-}
+};

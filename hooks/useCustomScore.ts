@@ -8,12 +8,17 @@ export const useCustomScore = (initialPlugins: PluginMetrics[] | Plugin[]) => {
   const pluginsScoreMap = useScoreListStore((state) => state.scores);
   const getActiveScorer = useScorerStore((state) => state.getActiveScorer);
   const activeScorer = getActiveScorer();
-  const enableCustomScorer = useScorerStore((state) => state.enableCustomScorer);
+  const enableCustomScorer = useScorerStore(
+    (state) => state.enableCustomScorer
+  );
   const [plugins, setPlugins] = useState(initialPlugins);
-  
+
   useEffect(() => {
     if (enableCustomScorer && activeScorer) {
-      const patchedPlugins = patchPluginsWithCustomScore(initialPlugins, pluginsScoreMap);
+      const patchedPlugins = patchPluginsWithCustomScore(
+        initialPlugins,
+        pluginsScoreMap
+      );
       setPlugins(patchedPlugins);
     }
   }, [pluginsScoreMap]);

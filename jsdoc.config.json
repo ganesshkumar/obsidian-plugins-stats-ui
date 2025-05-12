@@ -1,8 +1,5 @@
 {
-  "plugins": [
-    "node_modules/better-docs/typescript",
-    "better-docs/category"
-  ],
+  "plugins": ["node_modules/better-docs/typescript", "better-docs/category"],
   "source": {
     "include": ["./domain/scorer"],
     "includePattern": ".+\\.ts$"

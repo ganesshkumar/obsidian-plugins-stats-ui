@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-03-16 to 2025-03-22
-description: "new obsidian plugins from 2025-03-16 to 2025-03-22 - File Title Updater, Annotate Audio, Smooth Cursor, Time Bullet, Multiple Daily Notes, Paper Clipper, Idealogs Annotator, Attachments Cache, Tagvis, Dropbox Photo Grid, Bookshelf, CSV All-in-One, Note Favicon, Image Picker, InfoFlow"
+description: 'new obsidian plugins from 2025-03-16 to 2025-03-22 - File Title Updater, Annotate Audio, Smooth Cursor, Time Bullet, Multiple Daily Notes, Paper Clipper, Idealogs Annotator, Attachments Cache, Tagvis, Dropbox Photo Grid, Bookshelf, CSV All-in-One, Note Favicon, Image Picker, InfoFlow'
 excerpt: There are 15 new plugins and 82 plugin updates in the last one week's time.
-publishedDate: "2025-03-23"
-modifiedDate: "2025-03-23"
-tags: 
+publishedDate: '2025-03-23'
+modifiedDate: '2025-03-23'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -169,4 +169,3 @@ The **InfoFlow** plugin enables seamless synchronization between InfoFlow and Ob
 ## 🔁 Plugin Updates
 
 We got 82 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

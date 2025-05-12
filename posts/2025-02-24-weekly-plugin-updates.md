@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-02-16 to 2025-02-22
-description: "new obsidian plugins from 2025-02-16 to 2025-02-22 - Automatic Linker, Note ID, Forms, hello nemesis, SQLSeal Charts, Attachments MD Indexer, Pseudo Mica, Task Board, Emoji Picker, Media Link to HTML, Inkporter, Every Day Calendar, EUpload, NerdFont Icon Picker, Papyrus, Runsh, Inline Checkbox Groups, Hotstrings, Organized daily notes, Autofit Tabs, Combo Colors, Fold Properties By Default, Age Encrypt, Minote Sync, CAO, Confluence Converter, Glasp, Hanzi Writer, AI integration Hub, Memodack, Mastodon Threading, External File Linker, Sankey, Lancaster University Week Format, Callout Copy Buttons, Duplicate Detector, Feedly Annotations Sync, Vector Search, Varinote, Enhanced Canvas, WHISPERER.md, Folder overview, AI Providers, MCP Tools, Pixel Perfect Image, Readeck Importer, Explorer Colors"
+description: 'new obsidian plugins from 2025-02-16 to 2025-02-22 - Automatic Linker, Note ID, Forms, hello nemesis, SQLSeal Charts, Attachments MD Indexer, Pseudo Mica, Task Board, Emoji Picker, Media Link to HTML, Inkporter, Every Day Calendar, EUpload, NerdFont Icon Picker, Papyrus, Runsh, Inline Checkbox Groups, Hotstrings, Organized daily notes, Autofit Tabs, Combo Colors, Fold Properties By Default, Age Encrypt, Minote Sync, CAO, Confluence Converter, Glasp, Hanzi Writer, AI integration Hub, Memodack, Mastodon Threading, External File Linker, Sankey, Lancaster University Week Format, Callout Copy Buttons, Duplicate Detector, Feedly Annotations Sync, Vector Search, Varinote, Enhanced Canvas, WHISPERER.md, Folder overview, AI Providers, MCP Tools, Pixel Perfect Image, Readeck Importer, Explorer Colors'
 excerpt: There are 47 new plugins and 114 plugin updates in the last one week's time.
-publishedDate: "2025-02-24"
-modifiedDate: "2025-02-24"
-tags: 
+publishedDate: '2025-02-24'
+modifiedDate: '2025-02-24'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -290,7 +290,7 @@ The **Glasp** plugin allows users to sync their highlights and notes from Glasp 
 
 Released on 2025-02-19 by [Nikita Smirnov](https://github.com/pakrentos)
 
-The **Hanzi Writer** plugin enhances Obsidian by adding interactive Chinese character writing blocks. It provides real-time stroke animations, writing quizzes with stroke order validation, and customizable display options to facilitate learning. Users can embed character practice blocks within notes using a simple code block configuration. The plugin supports adjustable stroke speed, delay between strokes, outline visibility, and color customization. 
+The **Hanzi Writer** plugin enhances Obsidian by adding interactive Chinese character writing blocks. It provides real-time stroke animations, writing quizzes with stroke order validation, and customizable display options to facilitate learning. Users can embed character practice blocks within notes using a simple code block configuration. The plugin supports adjustable stroke speed, delay between strokes, outline visibility, and color customization.
 
 [View Details](/plugins/hanzi-writer), [Github](https://github.com/pakrentos/hanzi-writer-obsidian)
 
@@ -489,4 +489,3 @@ The **Explorer Colors** plugin allows users to customize the appearance of files
 ## 🔁 Plugin Updates
 
 We got 114 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

@@ -42,7 +42,7 @@ const Updates = (props: IUpdatePageProps) => {
           <InfoBar
             title={`New Releases ${props.newReleases && `(${props.newReleases.length})`}`}
           />
-          <EthicalAd type="text" id="updates-text"/>
+          <EthicalAd type="text" id="updates-text" />
           <List
             unstyled
             className="w-full divide-y divide-gray-200 dark:divide-gray-700"
@@ -133,11 +133,18 @@ export const getStaticProps = async () => {
   );
   newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
 
-  const title = 'Latest Plugin Updates - Obsidian Plugins Stats UI'
-  const description = 'Stay updated with the latest releases and updates of Obsidian plugins. Discover new features, improvements, and changelogs for your favorite plugins.'
-  const canonical = "https://www.obsidianstats.com/updates";
-  const image = "/images/obsidian-stats-ogImage.png";
-  const jsonLdSchema = JsonLdSchema.getUpdatesPageSchema(newReleases, title, description, canonical, image);
+  const title = 'Latest Plugin Updates - Obsidian Plugins Stats UI';
+  const description =
+    'Stay updated with the latest releases and updates of Obsidian plugins. Discover new features, improvements, and changelogs for your favorite plugins.';
+  const canonical = 'https://www.obsidianstats.com/updates';
+  const image = '/images/obsidian-stats-ogImage.png';
+  const jsonLdSchema = JsonLdSchema.getUpdatesPageSchema(
+    newReleases,
+    title,
+    description,
+    canonical,
+    image
+  );
 
   return {
     props: {
@@ -146,8 +153,8 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      newReleases
-    }
+      newReleases,
+    },
   };
 };
 

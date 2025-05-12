@@ -22,7 +22,12 @@ export const sanitizeTag = (tag) => {
     tag = 'indexing';
   }
 
-  if (tag == 'publish' || tag == 'publisher' || tag == 'publishing' || tag.includes('publishing')) {
+  if (
+    tag == 'publish' ||
+    tag == 'publisher' ||
+    tag == 'publishing' ||
+    tag.includes('publishing')
+  ) {
     tag = 'publish';
   } else if (tag == 'recipe' || tag == 'recipes' || tag == 'recipe-import') {
     tag = 'recipe';
@@ -47,7 +52,9 @@ export const getDescription = (plugin) => {
       !osDescription.startsWith('A Summary in 100 Words') &&
       !osDescription.startsWith('Here is a brief summary of') &&
       !osDescription.startsWith("You're an Obsidian plugin developer") &&
-      !osDescription.startsWith('This is a blog post about an Obsidian plugin') &&
+      !osDescription.startsWith(
+        'This is a blog post about an Obsidian plugin'
+      ) &&
       !osDescription.startsWith("I'm afraid I have some bad news") &&
       getWordCount(osDescription) < 500
     ) {

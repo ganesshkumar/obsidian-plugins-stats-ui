@@ -24,11 +24,7 @@ import {
   Disc,
   Activity,
 } from 'react-feather';
-import {
-  Card,
-  CustomFlowbiteTheme,
-  Tooltip,
-} from 'flowbite-react';
+import { Card, CustomFlowbiteTheme, Tooltip } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { CategoryIcon } from '../../components/Category';
 import { Score } from '../../components/Score';
@@ -65,7 +61,7 @@ const Plugin = (props: IPluginProps) => {
   const [favorites, setFavorites] = useState([]);
   const [readmeContent, setReadmeContent] = useState('');
 
-  const enableRating = useFeatureFlag("enablePluginRating", false);
+  const enableRating = useFeatureFlag('enablePluginRating', false);
 
   const now = moment();
 
@@ -97,7 +93,12 @@ const Plugin = (props: IPluginProps) => {
   const isNotADayOld = isNotXDaysOld(props.plugin.createdAt, 1);
 
   const isLessThanLarge = useIsLessThanLarge();
-  const sidebar = <Sidebar pageInfo={{ type: 'plugin', slug: props.plugin.pluginId }} suggestions={props.suggestions} />;
+  const sidebar = (
+    <Sidebar
+      pageInfo={{ type: 'plugin', slug: props.plugin.pluginId }}
+      suggestions={props.suggestions}
+    />
+  );
 
   return (
     <div>
@@ -128,12 +129,14 @@ const Plugin = (props: IPluginProps) => {
                   setFavorites={setFavorites}
                 />
                 {enableRating && (
-                  <div className='flex flex-col gap-y-2 my-4 mb-8'>
+                  <div className="flex flex-col gap-y-2 my-4 mb-8">
                     <StarRating ratingInfo={props.plugin.ratingInfo} />
                     <GivePluginReview pluginId={props.plugin.pluginId} />
                   </div>
                 )}
-                {props.plugin.score && props.plugin.scoreReason && <Score plugin={props.plugin} />}
+                {props.plugin.score && props.plugin.scoreReason && (
+                  <Score plugin={props.plugin} />
+                )}
                 <div className="flex gap-x-2 mb-2">
                   {isFavorite && (
                     <div
@@ -166,7 +169,10 @@ const Plugin = (props: IPluginProps) => {
                     href={`obsidian://show-plugin?id=${props.plugin.pluginId}`}
                     className="text-violet-50 flex justify-center items-center space-x-2s my-2 py-1 border border-violet-800 px-2 rounded-md bg-violet-800 transition hover:scale-110"
                   >
-                    <Download className="text-violet-50 inline mr-2" size={18} />{' '}
+                    <Download
+                      className="text-violet-50 inline mr-2"
+                      size={18}
+                    />{' '}
                     Install
                   </a>
                   <a
@@ -174,14 +180,15 @@ const Plugin = (props: IPluginProps) => {
                     target="_blank"
                     className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110"
                   >
-                    <GitHub className="text-gray-800 inline mr-2" size={18} /> Code
+                    <GitHub className="text-gray-800 inline mr-2" size={18} />{' '}
+                    Code
                   </a>
                 </div>
               </div>
             </div>
           </Card>
           {isLessThanLarge && (
-            <div className='sticky top-0 z-20 bg-white'>
+            <div className="sticky top-0 z-20 bg-white">
               <EthicalAd type="fixed-footer" id="plugin-fixed-footer" />
             </div>
           )}
@@ -190,19 +197,14 @@ const Plugin = (props: IPluginProps) => {
             <div className="flex mt-4 gap-x-2">
               {props.plugin.osCategory && (
                 <div className="flex items-end">
-                  <CategoryIcon
-                    category={props.plugin.osCategory}
-                    size={36}
-                  />
+                  <CategoryIcon category={props.plugin.osCategory} size={36} />
                 </div>
               )}
               <div>
                 {props.plugin.osCategory && (
                   <div className="text-gray-700">
                     Category:{' '}
-                    <span className="font-bold">
-                      {props.plugin.osCategory}
-                    </span>
+                    <span className="font-bold">{props.plugin.osCategory}</span>
                   </div>
                 )}
                 {props.plugin.osTags && (
@@ -211,7 +213,9 @@ const Plugin = (props: IPluginProps) => {
                       props.plugin.osTags
                         ?.split(',')
                         .map((tag) => sanitizeTag(tag))
-                        .filter((sanitizedTag) => !tagDenyList.includes(sanitizedTag))
+                        .filter(
+                          (sanitizedTag) => !tagDenyList.includes(sanitizedTag)
+                        )
                         .map((tag) => (
                           <Link
                             href={`/tags/${tag}`}
@@ -222,9 +226,7 @@ const Plugin = (props: IPluginProps) => {
                             <span className="text-gray-400">#</span>
                             {tag}
                           </Link>
-                        )
-                      )
-                    }
+                        ))}
                   </div>
                 )}
               </div>
@@ -413,7 +415,11 @@ const Plugin = (props: IPluginProps) => {
               </Tooltip>
             </div>
           </Card>
-          <Card theme={customCardTheme} className="relative mt-4" id="latest-version">
+          <Card
+            theme={customCardTheme}
+            className="relative mt-4"
+            id="latest-version"
+          >
             <div className="text-2xl">Latest Version</div>
             <div className="prose mt-4 !max-w-none">
               <div className="flex">
@@ -545,8 +551,17 @@ export const getStaticProps = async ({ params }) => {
   const description = `Obsidian Plugin: ${plugin.name} - ${plugin.description} by ${plugin.author}. Latest version: ${plugin.latestRelease} released on ${moment(plugin.latestReleaseAt).fromNow()}`;
   const canonical = `https://www.obsidianstats.com/plugins/${plugin.pluginId}`;
   const image = '/images/obsidian-stats-ogImage.png';
-  const jsonLdSchema = JsonLdSchema.getPluginPageSchema(plugin, title, description, canonical, image);
-  const suggestions = await generateSuggestions({ type: 'plugin', slug: plugin.pluginId });
+  const jsonLdSchema = JsonLdSchema.getPluginPageSchema(
+    plugin,
+    title,
+    description,
+    canonical,
+    image
+  );
+  const suggestions = await generateSuggestions({
+    type: 'plugin',
+    slug: plugin.pluginId,
+  });
 
   return {
     props: {

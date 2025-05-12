@@ -1,11 +1,18 @@
-import useUser from "@/hooks/useUser";
-import { supabase } from "@/lib/supabase";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { StarRatingInput } from "@/components/StarRatingInput";
-import { Input  } from "@/components/ui/input";
-import { Spinner } from "./ui/spinner";
+import useUser from '@/hooks/useUser';
+import { supabase } from '@/lib/supabase';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { StarRatingInput } from '@/components/StarRatingInput';
+import { Input } from '@/components/ui/input';
+import { Spinner } from './ui/spinner';
 
 interface GivePluginReviewProps {
   pluginId: string;
@@ -16,8 +23,21 @@ export const GivePluginReview = ({ pluginId }: GivePluginReviewProps) => {
 
   return (
     <>
-      <Button size="sm" variant="outline" className="border border-violet-600 text-violet-600 bg-violet-100 hover:text-gray-200 hover:bg-violet-600 hover:border-violet-800" onClick={() => setIsDialogOpen(true)}>Rate Plugin</Button>
-      {isDialogOpen && <GivePluginRatingDialog pluginId={pluginId} open={isDialogOpen} setOpen={setIsDialogOpen} />}
+      <Button
+        size="sm"
+        variant="outline"
+        className="border border-violet-600 text-violet-600 bg-violet-100 hover:text-gray-200 hover:bg-violet-600 hover:border-violet-800"
+        onClick={() => setIsDialogOpen(true)}
+      >
+        Rate Plugin
+      </Button>
+      {isDialogOpen && (
+        <GivePluginRatingDialog
+          pluginId={pluginId}
+          open={isDialogOpen}
+          setOpen={setIsDialogOpen}
+        />
+      )}
     </>
   );
 };
@@ -28,7 +48,11 @@ interface GivePluginRatingDialogProps {
   setOpen: (open: boolean) => void;
 }
 
-const GivePluginRatingDialog = ({ pluginId, open, setOpen }: GivePluginRatingDialogProps) => {
+const GivePluginRatingDialog = ({
+  pluginId,
+  open,
+  setOpen,
+}: GivePluginRatingDialogProps) => {
   const { user, loading, login } = useUser();
 
   const [isAuthenticatedLoading, setIsAuthenticatedLoading] = useState(true);
@@ -36,17 +60,17 @@ const GivePluginRatingDialog = ({ pluginId, open, setOpen }: GivePluginRatingDia
 
   const [hasUsernameLoading, setHasUsernameLoading] = useState(false);
   const [hasUsername, setHasUsername] = useState(false);
-  
+
   const [newUsername, setNewUsername] = useState('');
   const [newUsernameError, setNewUsernameError] = useState('');
-  
+
   const [userRating, setUserRating] = useState<number>(0);
   const [userRatingSaving, setUserRatingSaving] = useState('');
   const [userRatingError, setUserRatingError] = useState('');
   const [userRatingSuccess, setUserRatingSuccess] = useState('');
 
   const [updatedAt, setUpdatedAt] = useState('');
-  
+
   // check if user is authenticated
   useEffect(() => {
     if (loading) return;
@@ -66,7 +90,7 @@ const GivePluginRatingDialog = ({ pluginId, open, setOpen }: GivePluginRatingDia
       setHasUsername(!!existing?.username);
       setNewUsername(existing?.username ?? '');
       setHasUsernameLoading(false);
-    }
+    };
 
     if (isAuthenticated) {
       setHasUsernameLoading(true);
@@ -88,7 +112,7 @@ const GivePluginRatingDialog = ({ pluginId, open, setOpen }: GivePluginRatingDia
         setUserRating(ratingRow.rating ?? 0);
         setUpdatedAt(ratingRow.updated_at ?? '');
       }
-    }
+    };
 
     if (isAuthenticated && hasUsername) {
       fetchUserRating();
@@ -96,81 +120,107 @@ const GivePluginRatingDialog = ({ pluginId, open, setOpen }: GivePluginRatingDia
   }, [isAuthenticated, hasUsername]);
 
   const handleSetUsername = useCallback(async () => {
-    if (!newUsername.trim() || newUsername.length < 4 || newUsername.length > 24) {
+    if (
+      !newUsername.trim() ||
+      newUsername.length < 4 ||
+      newUsername.length > 24
+    ) {
       setNewUsernameError('Username must be between 4 and 24 characters long.');
       return;
     } else {
       setNewUsernameError('');
     }
 
-    const { error } = await supabase.from('users').insert({ id: user.id, username: newUsername });
+    const { error } = await supabase
+      .from('users')
+      .insert({ id: user.id, username: newUsername });
     if (error) {
-      setNewUsernameError('An error occurred while saving your username. Please try again later.');
+      setNewUsernameError(
+        'An error occurred while saving your username. Please try again later.'
+      );
       return;
     } else {
       setHasUsername(true);
     }
   }, [newUsername]);
 
-  const handleRatingChange = useCallback(async (newRating: number) => {
-    if (!user) return;
-    const oldRating = userRating;
+  const handleRatingChange = useCallback(
+    async (newRating: number) => {
+      if (!user) return;
+      const oldRating = userRating;
 
-    // optimistic UI BEGIN
-    setUserRatingError('');
-    setUserRatingSuccess('');
-    setUserRatingSaving('Saving your rating...');
-    setUserRating(newRating); 
-    // optimistic UI END
-
-    const { error, data: updatedRating } = await supabase.from('ratings').upsert({
-      plugin_id: pluginId,
-      user_id: user.id,
-      rating: newRating,
-      updated_at: new Date().toISOString(),
-    }, {
-      onConflict: 'plugin_id,user_id',
-    })
-    .select('rating, updated_at')
-    .single();
-
-    setUserRatingSaving('');
-    if (error) {
-      setUserRating(oldRating);
-      setUserRatingError('An error occurred while saving your rating. Please try again later.');
-    } else {
-      setUpdatedAt(updatedRating.updated_at ?? '');
-      setUserRatingSuccess('Rating saved successfully!');
+      // optimistic UI BEGIN
       setUserRatingError('');
-    }
-  }, [user, pluginId, userRating]);
+      setUserRatingSuccess('');
+      setUserRatingSaving('Saving your rating...');
+      setUserRating(newRating);
+      // optimistic UI END
 
-  let description 
-  let content
-  let footer  
+      const { error, data: updatedRating } = await supabase
+        .from('ratings')
+        .upsert(
+          {
+            plugin_id: pluginId,
+            user_id: user.id,
+            rating: newRating,
+            updated_at: new Date().toISOString(),
+          },
+          {
+            onConflict: 'plugin_id,user_id',
+          }
+        )
+        .select('rating, updated_at')
+        .single();
+
+      setUserRatingSaving('');
+      if (error) {
+        setUserRating(oldRating);
+        setUserRatingError(
+          'An error occurred while saving your rating. Please try again later.'
+        );
+      } else {
+        setUpdatedAt(updatedRating.updated_at ?? '');
+        setUserRatingSuccess('Rating saved successfully!');
+        setUserRatingError('');
+      }
+    },
+    [user, pluginId, userRating]
+  );
+
+  let description;
+  let content;
+  let footer;
   if (isAuthenticatedLoading || hasUsernameLoading) {
     description = ' ';
-    content = <Spinner size="large" />
+    content = <Spinner size="large" />;
   } else if (!isAuthenticated) {
     description = 'Log in to rate this plugin.';
     content = (
       <div className="flex flex-col items-center justify-center p-4">
-        <p className="text-sm text-gray-700">You need to be logged in to rate a plugin.</p>
-        <Button onClick={() => login()} className="mt-2">Sign in with Google</Button>
+        <p className="text-sm text-gray-700">
+          You need to be logged in to rate a plugin.
+        </p>
+        <Button onClick={() => login()} className="mt-2">
+          Sign in with Google
+        </Button>
       </div>
     );
   } else if (!hasUsername) {
     description = 'Set a username to rate this plugin.';
     content = (
       <div className="flex flex-col items-center justify-center p-4">
-        <Input 
+        <Input
           placeholder="Enter your username"
           value={newUsername}
           onChange={(e) => setNewUsername(e.target.value)}
           className="mt-2 w-full max-w-xs"
         />
-        {newUsernameError && <p className="text-red-600 text-sm">{newUsernameError}</p>}
-        <Button onClick={handleSetUsername} className="mt-2">Save Username</Button>
+        {newUsernameError && (
+          <p className="text-red-600 text-sm">{newUsernameError}</p>
+        )}
+        <Button onClick={handleSetUsername} className="mt-2">
+          Save Username
+        </Button>
       </div>
     );
   } else {
@@ -178,31 +228,47 @@ const GivePluginRatingDialog = ({ pluginId, open, setOpen }: GivePluginRatingDia
     content = (
       <div className="flex flex-col items-center justify-center p-4">
         <StarRatingInput rating={userRating} setRating={handleRatingChange} />
-        {updatedAt && <span className="text-sm text-gray-500">Updated at: {updatedAt ? new Date(updatedAt).toLocaleString() : 'N/A'}</span>}
-        {userRatingError && <p className="text-red-600 text-sm">{userRatingError}</p>}
+        {updatedAt && (
+          <span className="text-sm text-gray-500">
+            Updated at:{' '}
+            {updatedAt ? new Date(updatedAt).toLocaleString() : 'N/A'}
+          </span>
+        )}
+        {userRatingError && (
+          <p className="text-red-600 text-sm">{userRatingError}</p>
+        )}
         {userRatingSuccess && (
           <div className="text-center">
             <p className="text-green-600 text-sm">{userRatingSuccess}</p>
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              pointerEvents: 'none'
-            }}>
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                pointerEvents: 'none',
+              }}
+            >
               <ConfettiBoomOnMount />
             </div>
           </div>
-        )} 
-        {userRatingSaving && <p className="text-gray-600 text-sm">{userRatingSaving}</p>}
+        )}
+        {userRatingSaving && (
+          <p className="text-gray-600 text-sm">{userRatingSaving}</p>
+        )}
       </div>
     );
     footer = (
       <>
-        {userRatingSuccess && <p className="text-gray-600 text-sm">It will take some time to update the aggregated rating on plugin page with your rating.</p>}
+        {userRatingSuccess && (
+          <p className="text-gray-600 text-sm">
+            It will take some time to update the aggregated rating on plugin
+            page with your rating.
+          </p>
+        )}
       </>
-    )
+    );
   }
 
   return (
@@ -213,12 +279,10 @@ const GivePluginRatingDialog = ({ pluginId, open, setOpen }: GivePluginRatingDia
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {content}
-        <DialogFooter className="flex justify-center">
-          {footer}
-        </DialogFooter>
+        <DialogFooter className="flex justify-center">{footer}</DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 };
 
 type Shape = 'square' | 'circle' | 'triangle' | 'star' | 'twirl';

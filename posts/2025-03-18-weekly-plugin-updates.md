@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-03-09 to 2025-03-15
-description: "new obsidian plugins from 2025-03-09 to 2025-03-15 - Student Repo, Inline Code Copy, URI Converter, Note Placeholder, Mode manager, Musical Text, Daily Note Metrics, IMSwitch in Math Block, Copy Local Graph Paths, tidit, Bible sidecar, Sync Vault CE, Jade Publisher, Media Slider, Waveform Player, File Ignore, Tab Group Arrangement, SQLite DB, Easy Fonts, Previous Daily Note"
+description: 'new obsidian plugins from 2025-03-09 to 2025-03-15 - Student Repo, Inline Code Copy, URI Converter, Note Placeholder, Mode manager, Musical Text, Daily Note Metrics, IMSwitch in Math Block, Copy Local Graph Paths, tidit, Bible sidecar, Sync Vault CE, Jade Publisher, Media Slider, Waveform Player, File Ignore, Tab Group Arrangement, SQLite DB, Easy Fonts, Previous Daily Note'
 excerpt: There are 20 new plugins and 75 plugin updates in the last one week's time.
-publishedDate: "2025-03-18"
-modifiedDate: "2025-03-18"
-tags: 
+publishedDate: '2025-03-18'
+modifiedDate: '2025-03-18'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -30,7 +30,7 @@ The **Student Repo** plugin helps students and parents systematically manage stu
 
 Released on 2025-03-14 by [Hongchen Lin](https://github.com/lhinxue)
 
-The **Inline Code Copy** plugin allows users to effortlessly copy inline code snippets in reading mode with a single click. This eliminates the need for manual text selection and copying, making it especially useful for quickly retrieving stored credentials, commands, or snippets. 
+The **Inline Code Copy** plugin allows users to effortlessly copy inline code snippets in reading mode with a single click. This eliminates the need for manual text selection and copying, making it especially useful for quickly retrieving stored credentials, commands, or snippets.
 
 [View Details](/plugins/inline-code-copy), [Github](https://github.com/lhinxue/obsidian-inline-code-copy-plugin)
 
@@ -219,4 +219,3 @@ The **Previous Daily Note** plugin allows users to quickly open the last daily n
 ## 🔁 Plugin Updates
 
 We got 75 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

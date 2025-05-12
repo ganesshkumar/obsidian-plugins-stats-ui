@@ -10,7 +10,7 @@ interface LinkButtonProps extends ComponentProps<'a'> {
 
 const capitalizeFirstLetter = (val) => {
   return String(val).charAt(0).toUpperCase() + String(val).slice(1);
-}
+};
 
 export const LinkButton = (props: LinkButtonProps) => {
   const { content, href } = props;
@@ -30,7 +30,7 @@ export const LinkButton = (props: LinkButtonProps) => {
     } else {
       eventName = `See All ${capitalizeFirstLetter(href.split('/')[1] || '')} Plugins Button Click`;
     }
-      
+
     trackEvent(eventName);
     router.push(href);
   };

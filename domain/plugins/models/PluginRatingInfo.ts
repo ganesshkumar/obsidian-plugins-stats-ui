@@ -6,4 +6,4 @@ export type PluginRatingInfo = {
   star3Count: number;
   star2Count: number;
   star1Count: number;
-}
+};

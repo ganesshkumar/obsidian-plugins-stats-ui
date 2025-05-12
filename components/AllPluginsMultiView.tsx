@@ -36,11 +36,15 @@ function highlightMatchesV2(text: string, query: string): string {
   }
 
   query = query.toLowerCase().trim();
-  const tokens = query.toLowerCase().trim().split(/\s+/).filter((t) => t.length > 0);
+  const tokens = query
+    .toLowerCase()
+    .trim()
+    .split(/\s+/)
+    .filter((t) => t.length > 0);
 
   const regex = new RegExp(
-    `(${tokens.map(t => escapeRegex(t)).join("|")})`,
-    "gi"
+    `(${tokens.map((t) => escapeRegex(t)).join('|')})`,
+    'gi'
   );
 
   return text.replace(regex, (match) => `<mark>${match}</mark>`);
@@ -68,23 +72,23 @@ export const AllPluginsMultiView = ({
   return (
     <div className="flex-col">
       {view === 'list' && plugins && plugins.length ? (
-          <Virtuoso
-            useWindowScroll
-            totalCount={plugins.length}
-            itemContent={(index) => {
-              const plugin = plugins[index];
-              return (
-                <PluginListItem
-                  key={plugin.pluginId}
-                  plugin={plugins[index]}
-                  index={index}
-                  favorites={favorites}
-                  setFavorites={setFavorites}
-                  highlight={highlight}
-                />
-              );
-            }}
-          />
+        <Virtuoso
+          useWindowScroll
+          totalCount={plugins.length}
+          itemContent={(index) => {
+            const plugin = plugins[index];
+            return (
+              <PluginListItem
+                key={plugin.pluginId}
+                plugin={plugins[index]}
+                index={index}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                highlight={highlight}
+              />
+            );
+          }}
+        />
       ) : undefined}
       {view === 'table' && plugins && plugins.length ? (
         <div
@@ -120,41 +124,41 @@ export const AllPluginsMultiView = ({
       ) : undefined}
       {view === 'table' && plugins && plugins.length ? (
         // <div data-testid="plugins-table" className='relative'>
-          // <VList style={{ height: '100%' }} data-testid="plugins-table">
-          //   {plugins.map((plugin, index) => (
-          //     <PluginTableItem
-          //       key={plugin.pluginId}
-          //       plugin={plugins[index]}
-          //       index={index}
-          //       favorites={favorites}
-          //       setFavorites={setFavorites}
-          //       highlight={highlight}
-          //       showDescription={true}
-          //       showDownloadStat={false}
-          //     />
-          //   ))}
-          // </VList>
-          <Virtuoso
-            useWindowScroll
-            totalCount={plugins.length}
-            itemContent={(index) => {
-              const plugin = plugins[index];
-              return (
-                <PluginTableItem
-                  key={plugin.pluginId}
-                  plugin={plugins[index]}
-                  index={index}
-                  favorites={favorites}
-                  setFavorites={setFavorites}
-                  highlight={highlight}
-                  showDescription={true}
-                  showDownloadStat={false}
-                />
-              );
-            }}
-          />
-        // </div>
-      ) : undefined}
+        // <VList style={{ height: '100%' }} data-testid="plugins-table">
+        //   {plugins.map((plugin, index) => (
+        //     <PluginTableItem
+        //       key={plugin.pluginId}
+        //       plugin={plugins[index]}
+        //       index={index}
+        //       favorites={favorites}
+        //       setFavorites={setFavorites}
+        //       highlight={highlight}
+        //       showDescription={true}
+        //       showDownloadStat={false}
+        //     />
+        //   ))}
+        // </VList>
+        <Virtuoso
+          useWindowScroll
+          totalCount={plugins.length}
+          itemContent={(index) => {
+            const plugin = plugins[index];
+            return (
+              <PluginTableItem
+                key={plugin.pluginId}
+                plugin={plugins[index]}
+                index={index}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                highlight={highlight}
+                showDescription={true}
+                showDownloadStat={false}
+              />
+            );
+          }}
+        />
+      ) : // </div>
+      undefined}
     </div>
   );
 };
@@ -171,13 +175,25 @@ const UnindexedPluginListItemInternal = (props) => {
         className="text-xl font-semibold text-violet-800"
         prefetch={false}
       >
-        <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(plugin.name, highlight) : plugin.name }} />
+        <span
+          dangerouslySetInnerHTML={{
+            __html: highlight
+              ? highlightMatchesV2(plugin.name, highlight)
+              : plugin.name,
+          }}
+        />
       </Link>
       <div className="flex items-center space-x-2 text-sm text-gray-500">
         <span>
           {moment(plugin.createdAt).fromNow()} by{' '}
           <span className="text-gray-700">
-            <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(plugin.author, highlight) : plugin.name }} />
+            <span
+              dangerouslySetInnerHTML={{
+                __html: highlight
+                  ? highlightMatchesV2(plugin.author, highlight)
+                  : plugin.name,
+              }}
+            />
           </span>
         </span>
         <Favorites
@@ -226,9 +242,17 @@ const UnindexedPluginListItemInternal = (props) => {
         </div>
       )} */}
       <div className="my-4 text-sm md:text-base">
-        {highlight
-          ? <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(getDescription(plugin), highlight) : plugin.name }} />
-          : getDescription(plugin)}
+        {highlight ? (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: highlight
+                ? highlightMatchesV2(getDescription(plugin), highlight)
+                : plugin.name,
+            }}
+          />
+        ) : (
+          getDescription(plugin)
+        )}
       </div>
       <Link
         href={`/plugins/${plugin.pluginId}`}
@@ -251,26 +275,39 @@ const UnindexedPluginTableItemInternal = (props) => {
       className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'} dark:border-gray-700 dark:bg-gray-800 grid grid-cols-12 gap-4 py-2 px-1`}
     >
       <div key={`${plugin.pluginId}-name`} className="col-span-8 md:col-span-3">
-        <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(plugin.name, highlight) : plugin.name }} />
+        <span
+          dangerouslySetInnerHTML={{
+            __html: highlight
+              ? highlightMatchesV2(plugin.name, highlight)
+              : plugin.name,
+          }}
+        />
       </div>
       <div
         key={`${plugin.pluginId}-score`}
         className="col-span-2 md:col-span-1"
       >
-        {(!!plugin.score || plugin.score === 0 ) ? 
+        {!!plugin.score || plugin.score === 0 ? (
           <span className={getScoreBgClass(plugin.score)}>
             {Math.round(plugin.score.toFixed(4) * 100)}
-          </span> :
-          undefined
-        }
+          </span>
+        ) : undefined}
       </div>
       <div
         key={`${plugin.pluginId}-description`}
         className="overflow-hidden whitespace-nowrap text-ellipsis col-span-7 hidden md:block text-sm lg:text-base"
       >
-        {highlight
-          ? <span dangerouslySetInnerHTML={{ __html: highlight ? highlightMatchesV2(plugin.description, highlight) : plugin.name }} />
-          : plugin.description}
+        {highlight ? (
+          <span
+            dangerouslySetInnerHTML={{
+              __html: highlight
+                ? highlightMatchesV2(plugin.description, highlight)
+                : plugin.name,
+            }}
+          />
+        ) : (
+          plugin.description
+        )}
       </div>
       <div key={`${plugin.pluginId}-link`} className="col-span-2 md:col-span-1">
         <a

@@ -36,7 +36,7 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
     <Card key={index} className={`px-8 ${item.bgClasses}`}>
       <div className="text-center text-4xl font-bold mb-4">{item.title}</div>
       <div className="grid md:grid-cols-6 gap-4">
-        {item.image && 
+        {item.image && (
           <div className="md:col-span-1 justify-center hidden md:flex relative">
             <Image
               src={item.image}
@@ -53,9 +53,13 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
               }}
             />
           </div>
-        }
-        <div className={`${item.image ? 'md:col-span-5' : 'md:col-span-6'} flex justify-center`}>
-          <div className={`${item.image ? '' : 'max-w-3xl text-center'}`}>{item.description}</div>
+        )}
+        <div
+          className={`${item.image ? 'md:col-span-5' : 'md:col-span-6'} flex justify-center`}
+        >
+          <div className={`${item.image ? '' : 'max-w-3xl text-center'}`}>
+            {item.description}
+          </div>
         </div>
       </div>
       <div className="flex justify-center">

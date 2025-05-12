@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-04-20 to 2025-04-26
-description: "new obsidian plugins from 2025-04-20 to 2025-04-26 - Proofreader, Auto Daily Note, Event Highlight, Inscribe, Note Locker, Advanced Debug Mode, Double row toolbar, CSV Lite, Paste Reformatter, ClipperMaster, Image Share, Open Tab Settings, Easy Copy, ProgressTracker, Mention Things, Cubox, Interactive Ratings, Come Down, Word Frequency, Auto Bullet, Minimal Quiz, Disciples Journal, QueryDash, Digital Sticky Notes, Folder Navigator, Crosslink Advanced, Hide Index Files, Large Language Models, On This Day I, Codeless Heatmap Calendar"
+description: 'new obsidian plugins from 2025-04-20 to 2025-04-26 - Proofreader, Auto Daily Note, Event Highlight, Inscribe, Note Locker, Advanced Debug Mode, Double row toolbar, CSV Lite, Paste Reformatter, ClipperMaster, Image Share, Open Tab Settings, Easy Copy, ProgressTracker, Mention Things, Cubox, Interactive Ratings, Come Down, Word Frequency, Auto Bullet, Minimal Quiz, Disciples Journal, QueryDash, Digital Sticky Notes, Folder Navigator, Crosslink Advanced, Hide Index Files, Large Language Models, On This Day I, Codeless Heatmap Calendar'
 excerpt: There are 30 new plugins and 76 plugin updates in the last one week's time.
-publishedDate: "2025-04-27"
-modifiedDate: "2025-04-27"
-tags: 
+publishedDate: '2025-04-27'
+modifiedDate: '2025-04-27'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -320,8 +320,8 @@ The **Codeless Heatmap Calendar** plugin brings rich, customizable heatmap visua
 
 We got 76 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
 
---- 
+---
 
 ## 🎨 New Themes
 
-There are no new themes this time! 
+There are no new themes this time!

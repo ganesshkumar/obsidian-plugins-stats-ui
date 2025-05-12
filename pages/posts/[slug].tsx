@@ -1,5 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { getAllPostIds, getPostData, getSortedPostsData } from '../../lib/posts';
+import {
+  getAllPostIds,
+  getPostData,
+  getSortedPostsData,
+} from '../../lib/posts';
 import Navbar from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import moment from 'moment';
@@ -42,7 +46,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const plugins = await PluginsCache.get();
   const postData = getPostData(params?.slug as string);
-  
+
   const processedContent = await unified()
     .use(remarkParse)
     //.use(remarkPostAd)
@@ -63,8 +67,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const description = postData.description;
   const canonical = `https://www.obsidianstats.com/posts/${postData.id}`;
   const image = postData.ogImage || `/images/obsidian-stats-ogImage.png`;
-  const jsonLdSchema = JsonLdSchema.getPostPageSchema(postData, title, description, canonical, image);
-  const suggestions = await generateSuggestions({type: 'post', slug: postData.id});
+  const jsonLdSchema = JsonLdSchema.getPostPageSchema(
+    postData,
+    title,
+    description,
+    canonical,
+    image
+  );
+  const suggestions = await generateSuggestions({
+    type: 'post',
+    slug: postData.id,
+  });
 
   return {
     props: {
@@ -77,7 +90,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ...postData,
         contentHtml,
       },
-      plugins: filteredPlugins, 
+      plugins: filteredPlugins,
       suggestions,
     },
   };
@@ -86,10 +99,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 const Post = (props: IPostPageProps) => {
   const { postData, plugins, suggestions } = props;
   const [comparePlugins, setComparePlugins] = useState(false);
-  
+
   const isLessThanLarge = useIsLessThanLarge();
 
-  const sidebar = <Sidebar pageInfo={{ type: 'post', slug: postData.id }} suggestions={suggestions} />;
+  const sidebar = (
+    <Sidebar
+      pageInfo={{ type: 'post', slug: postData.id }}
+      suggestions={suggestions}
+    />
+  );
 
   return (
     <div>
@@ -98,17 +116,21 @@ const Post = (props: IPostPageProps) => {
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar}>
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px] prose-h2:text-red-700">
-            <h1 className="mt-2 mb-0 text-3xl font-heading leading-20">{postData.title}</h1>
+            <h1 className="mt-2 mb-0 text-3xl font-heading leading-20">
+              {postData.title}
+            </h1>
             <div>
               Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
             </div>
-            {postData.publishedDate !== postData.modifiedDate  &&
+            {postData.publishedDate !== postData.modifiedDate && (
               <div>
                 Updated: {moment(postData.modifiedDate).format('DD-MMM-YYYY')}
               </div>
-            }
-            <div className='mt-4 flex justify-center'>
-            {isLessThanLarge && <EthicalAd type="fixed-footer" id="post-fixed-footer" />}
+            )}
+            <div className="mt-4 flex justify-center">
+              {isLessThanLarge && (
+                <EthicalAd type="fixed-footer" id="post-fixed-footer" />
+              )}
             </div>
             {plugins && plugins.length ? (
               <>

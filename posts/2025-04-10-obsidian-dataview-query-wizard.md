@@ -1,9 +1,9 @@
 ---
-title: "Master Your Obsidian Vault with the Dataview Query Wizard"
-description: "Boost your productivity with our custom GPT tool that simplifies Obsidian Dataview queries. Learn how to overcome common query frustrations and streamline your vault organization effortlessly."
-excerpt: "Tired of spending hours tweaking Dataview queries? Discover how our custom GPT Dataview Query Wizard transforms natural language requests into ready-to-use queries, saving you time and reducing stress."
-publishedDate: "2025-04-10"
-modifiedDate: "2025-04-10"
+title: 'Master Your Obsidian Vault with the Dataview Query Wizard'
+description: 'Boost your productivity with our custom GPT tool that simplifies Obsidian Dataview queries. Learn how to overcome common query frustrations and streamline your vault organization effortlessly.'
+excerpt: 'Tired of spending hours tweaking Dataview queries? Discover how our custom GPT Dataview Query Wizard transforms natural language requests into ready-to-use queries, saving you time and reducing stress.'
+publishedDate: '2025-04-10'
+modifiedDate: '2025-04-10'
 tags:
   - obsidian
   - dataview
@@ -24,6 +24,7 @@ If you’re like many Obsidian users, you enjoy the power of Dataview queries bu
 ## Why This Tool?
 
 Many users have shared their struggles on Reddit:
+
 - **Complex Syntax and Extra Effort:** Writing even simple Dataview queries often involves repeatedly checking docs and mimicking setups from other users. ([See discussion](https://www.reddit.com/r/ObsidianMD/comments/16hl907/struggling_with_dataview/))
 - **Formatting Issues:** Users complain about bullet lists coming out too nested, making the output messy instead of clean lists. ([Example here](https://www.reddit.com/r/ObsidianMD/comments/159hk8x/struggling_with_lists_in_dataview_query_how_to/))
 - **Linked Notes Troubles:** Another common frustration is that Dataview sometimes fails to display results when properties contain linked notes rather than plain text. ([More info](https://www.reddit.com/r/ObsidianMD/comments/1iu3k5z/why_wont_dataview_show_results_for_notes_as/))
@@ -42,13 +43,12 @@ The custom GPT tool lets you simply describe your query in plain English. No mor
 ## How It Works?
 
 1. **Input Your Request:** Simply type a detailed description of what you want.  
-   *Example:*  
+   _Example:_
    - "List all my meeting notes that include the tag #meeting and mention [[Project X]]."
 2. **Generate the Query:** The GPT tool uses its internal model—tuned with common Dataview examples and issues—to build a query that fits your setup.
 3. **Apply and Fine-Tune:** You can then paste this query into your Obsidian note. If it needs any adjustments (for instance, correcting nested list outputs), you’re guided toward simple modifications and CSS tweaks.
 
 For those curious about the custom GPT, check out the [Custom GPT for Obsidian Dataview Query Wizard](https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard).
-
 
 ### Guidelines to Prompting
 
@@ -65,8 +65,8 @@ For those curious about the custom GPT, check out the [Custom GPT for Obsidian D
   </center>
 </div>
 
-
 **Examples**: Here are some of the queries that I have made on the tool. You can see the interactions.
+
 - [How can I list all notes with a rating of 8 or higher?](https://chatgpt.com/share/67f776fe-5f84-8008-a7bc-9d00dba772f0)
 - [Can you show me a table of tasks with a due date this week?](https://chatgpt.com/share/67f779a3-f698-8008-ac5a-e1d9cc2d506c)
 - [What's the difference between inline fields and YAML frontmatter in Dataview?](https://chatgpt.com/share/67f77c36-89fc-8008-869c-7ea5756dc228)
@@ -75,10 +75,10 @@ For those curious about the custom GPT, check out the [Custom GPT for Obsidian D
 ---
 
 Using this tool means:
+
 - **Less Time Wasting:** Spend fewer hours fretting over syntax and more time focusing on your content.
 - **Reduced Frustration:** No more endless searching through documentation—get the query you need fast.
 - **Enhanced Organization:** With well-structured queries, you can better manage your vault and keep your notes seamlessly interlinked.
-
 
 If you’re tired of the back-and-forth hassle of writing Dataview queries and want to save time, give the Dataview Query Wizard a try. It’s built to ease your workflow and let you focus on what really matters: your ideas and insights.
 

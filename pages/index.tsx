@@ -32,7 +32,18 @@ import { MostDownloadedPlugins } from '../components/home/MostDownloaded';
 import { SiteData } from '../data/siteData';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
 import { getMostDownloadedPlugins } from '../lib/plugins';
-import { HiDownload, HiOutlineCalendar, HiOutlineCode, HiOutlinePencil, HiOutlineRefresh, HiOutlineSearch, HiOutlineStar, HiOutlineSwitchVertical, HiOutlineTag, HiOutlineTrendingUp } from "react-icons/hi";
+import {
+  HiDownload,
+  HiOutlineCalendar,
+  HiOutlineCode,
+  HiOutlinePencil,
+  HiOutlineRefresh,
+  HiOutlineSearch,
+  HiOutlineStar,
+  HiOutlineSwitchVertical,
+  HiOutlineTag,
+  HiOutlineTrendingUp,
+} from 'react-icons/hi';
 import { useRouter } from 'next/router';
 import EthicalAd from '../components/EthicalAd';
 import { useAnalytics } from '../lib/analytics/analytics';
@@ -61,7 +72,7 @@ const Home = (props: IHomeProps) => {
     trackEvent(`Home Nav - Scroll to Section: ${sectionId}`);
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      section.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -72,12 +83,12 @@ const Home = (props: IHomeProps) => {
     } else {
       router.push(page);
     }
-  }
+  };
 
   const handleCTAButtonClicked = (page: string) => {
     trackEvent(`Primary CTA Button Clicked: ${page}`);
     router.push(`/${page}`);
-  }
+  };
 
   return (
     <div className="relative scroll-smooth">
@@ -93,18 +104,48 @@ const Home = (props: IHomeProps) => {
         <div className="hidden xl:block 2xl:hidden">screen: xl</div>
         <div className="hidden 2xl:block">screen: 2xl</div>
       </div> */}
-      
-      <div className="bg-gray-50 px-8"> 
+
+      <div className="bg-gray-50 px-8">
         {/* bg-[url('/images/confetti-doodles.svg')] */}
-        <div className='w-full'>
+        <div className="w-full">
           <section className="max-w-6xl mx-auto text-gray-800 flex flex-col justify-center items-center text-center py-4 lg:py-20">
-            <h1 className='text-4xl 2xl:text-5xl font-bold tracking-tight mb-8 text-gray-800'>Personalize Obsidian with the <span className='text-violet-800'>Right Plugins</span></h1>
-            <p className='text-xl max-w-lg lg:max-w-3xl text-gray-600'>Discover the latest Obsidian plugins. Stay ahead with updates, downloads, and ratings that help you build your perfect setup.</p>
-            <TextInput className='mt-8 w-full max-w-3xl rounded-xl' icon={HiOutlineSearch} placeholder='Search Plugins' onFocus={() => router.push('/plugins')} color="violet" />
+            <h1 className="text-4xl 2xl:text-5xl font-bold tracking-tight mb-8 text-gray-800">
+              Personalize Obsidian with the{' '}
+              <span className="text-violet-800">Right Plugins</span>
+            </h1>
+            <p className="text-xl max-w-lg lg:max-w-3xl text-gray-600">
+              Discover the latest Obsidian plugins. Stay ahead with updates,
+              downloads, and ratings that help you build your perfect setup.
+            </p>
+            <TextInput
+              className="mt-8 w-full max-w-3xl rounded-xl"
+              icon={HiOutlineSearch}
+              placeholder="Search Plugins"
+              onFocus={() => router.push('/plugins')}
+              color="violet"
+            />
             <div className="flex gap-4 mt-8">
-              <Button className='bg-violet-900' onClick={() => handleCTAButtonClicked('new')} id="stat-card-new">{props.newPluginsCount} New Plugins</Button>
-              <Button className='bg-violet-900' onClick={() => handleCTAButtonClicked('plugins')} id="stat-card-all">All {props.totalPluginsCount} Plugins</Button>
-              <Button className='bg-violet-900 hidden md:block' onClick={() => handleCTAButtonClicked('updates')} id="stat-card-updates">{props.newReleasesCount} Plugin Updates</Button>
+              <Button
+                className="bg-violet-900"
+                onClick={() => handleCTAButtonClicked('new')}
+                id="stat-card-new"
+              >
+                {props.newPluginsCount} New Plugins
+              </Button>
+              <Button
+                className="bg-violet-900"
+                onClick={() => handleCTAButtonClicked('plugins')}
+                id="stat-card-all"
+              >
+                All {props.totalPluginsCount} Plugins
+              </Button>
+              <Button
+                className="bg-violet-900 hidden md:block"
+                onClick={() => handleCTAButtonClicked('updates')}
+                id="stat-card-updates"
+              >
+                {props.newReleasesCount} Plugin Updates
+              </Button>
             </div>
           </section>
         </div>
@@ -112,34 +153,97 @@ const Home = (props: IHomeProps) => {
 
       <div className="bg-gray-50 pt-8">
         <div className="max-w-6xl mx-auto px-2">
-          <div className='grid grid-cols-1 gap-4 text-gray-700'>
-            <div className='flex flex-col-reverse md:flex-row md:justify-around items-start flex-wrap gap-4 ml-8 lg:ml-0'>
-              <div className='hidden md:block'>
-                <div className='font-semibold'>Plugins</div>
-                <ul className='list-disc'>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => scrollToSection('new')}> <HiOutlineStar /> New Plugins</li>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => scrollToSection('trending')}> <HiOutlineTrendingUp /> Trending Plugins</li>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => scrollToSection('most-downloaded')}> <HiDownload /> Most Downloaded</li>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => scrollToSection('updates')}> <HiOutlineRefresh /> Plugin Updates</li>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('tags')}> <HiOutlineTag /> Tags</li>
+          <div className="grid grid-cols-1 gap-4 text-gray-700">
+            <div className="flex flex-col-reverse md:flex-row md:justify-around items-start flex-wrap gap-4 ml-8 lg:ml-0">
+              <div className="hidden md:block">
+                <div className="font-semibold">Plugins</div>
+                <ul className="list-disc">
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() => scrollToSection('new')}
+                  >
+                    {' '}
+                    <HiOutlineStar /> New Plugins
+                  </li>
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() => scrollToSection('trending')}
+                  >
+                    {' '}
+                    <HiOutlineTrendingUp /> Trending Plugins
+                  </li>
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() => scrollToSection('most-downloaded')}
+                  >
+                    {' '}
+                    <HiDownload /> Most Downloaded
+                  </li>
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() => scrollToSection('updates')}
+                  >
+                    {' '}
+                    <HiOutlineRefresh /> Plugin Updates
+                  </li>
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() => goToPage('tags')}
+                  >
+                    {' '}
+                    <HiOutlineTag /> Tags
+                  </li>
                 </ul>
               </div>
-              <div className='hidden md:block'>
-                <div className='font-semibold'>Posts</div>
-                <ul className='list-disc'>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => scrollToSection('posts')}> <HiOutlinePencil /> Posts</li>
+              <div className="hidden md:block">
+                <div className="font-semibold">Posts</div>
+                <ul className="list-disc">
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() => scrollToSection('posts')}
+                  >
+                    {' '}
+                    <HiOutlinePencil /> Posts
+                  </li>
                 </ul>
               </div>
-              <div className='hidden md:block'>
-                <div className='font-semibold'>Tools</div>
-                <ul className='list-disc'>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('tools/dataview-query-wizard', true)}> <HiOutlineSearch /> Dataview Query Wizard (GPT)</li>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('scorer')}> <HiOutlineCode /> Scorer</li>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('migrate')}> <HiOutlineSwitchVertical />Migrate</li>
-                  <li className='underline cursor-pointer flex items-center gap-x-1' onClick={() => goToPage('timeline')}> <HiOutlineCalendar /> Timeline</li>
+              <div className="hidden md:block">
+                <div className="font-semibold">Tools</div>
+                <ul className="list-disc">
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() =>
+                      goToPage('tools/dataview-query-wizard', true)
+                    }
+                  >
+                    {' '}
+                    <HiOutlineSearch /> Dataview Query Wizard (GPT)
+                  </li>
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() => goToPage('scorer')}
+                  >
+                    {' '}
+                    <HiOutlineCode /> Scorer
+                  </li>
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() => goToPage('migrate')}
+                  >
+                    {' '}
+                    <HiOutlineSwitchVertical />
+                    Migrate
+                  </li>
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() => goToPage('timeline')}
+                  >
+                    {' '}
+                    <HiOutlineCalendar /> Timeline
+                  </li>
                 </ul>
               </div>
-              <div className='grid content-center'>
+              <div className="grid content-center">
                 <EthicalAd type="image" id="home-image" />
               </div>
             </div>
@@ -156,13 +260,21 @@ const Home = (props: IHomeProps) => {
       <NewVersionsSection newReleases={props.newReleases} />
       <Divider />
       <LatestPosts posts={props.newPosts} />
-      <MostDownloadedPlugins overall={props.mostDownloaded} last30Days={props.mostDownloadedIn30Days} last7Days={props.mostDownloadedIn7Days}/>
+      <MostDownloadedPlugins
+        overall={props.mostDownloaded}
+        last30Days={props.mostDownloadedIn30Days}
+        last7Days={props.mostDownloadedIn7Days}
+      />
 
       <div className="mt-20 max-w-md mx-auto text-center p-4 border rounded-2xl bg-white/60 backdrop-blur-md shadow-md">
         <a href="https://obsidian.md/blog/2024-goty-winners/" target="_blank">
           <div className="text-2xl">🏆</div>
-          <p className="font-semibold text-gray-800">Runner-Up — Tool Category</p>
-          <p className="text-sm text-gray-600 italic">Obsidian Gems of the Year 2024</p>
+          <p className="font-semibold text-gray-800">
+            Runner-Up — Tool Category
+          </p>
+          <p className="text-sm text-gray-600 italic">
+            Obsidian Gems of the Year 2024
+          </p>
         </a>
       </div>
 
@@ -192,7 +304,7 @@ const NewPluginsSection = ({ newPlugins }) => {
   const handlePluginClick = (pluginId: string) => {
     trackEvent(`Home New Plugin Card Click`);
     router.push(`/plugins/${pluginId}`);
-  }
+  };
 
   return (
     <div className="bg-transparent mt-16" id="new">
@@ -267,7 +379,7 @@ const NewVersionsSection = ({ newReleases }) => {
   const handlePluginClick = (pluginId: string) => {
     trackEvent(`Home Plugin Update Card Click`);
     router.push(`/plugins/${pluginId}`);
-  }
+  };
 
   const sortedNewReleases = newReleases.sort((a, b) =>
     favorites.includes(a.pluginId) ? -1 : 1
@@ -356,7 +468,7 @@ const TrendingPlugins = ({ plugins }) => {
   const handlePluginClick = (pluginId: string) => {
     trackEvent(`Home Trending Plugin Card Click`);
     router.push(`/plugins/${pluginId}`);
-  }
+  };
 
   const scrollContainerStyle: React.CSSProperties = {
     display: 'flex',
@@ -458,11 +570,13 @@ export const getStaticProps = async () => {
   const newPluginsCount = newPlugins.length;
   const newReleasesCount = newReleases.length;
 
-  const title = "Explore New, Updated, Trending, Most Downloaded, and Top Rated Obsidian Plugins"
-  const description = "Discover all Obsidian plugins with the latest updates, trending plugins, and the most downloaded ones. Stay informed about the best plugins to enhance your Obsidian experience."
-  const canonical = "https://www.obsidianstats.com"
-  const image = "/images/obsidian-stats-ogImage.png"
-  const jsonLdSchema = JsonLdSchema.getHomePageSchema()
+  const title =
+    'Explore New, Updated, Trending, Most Downloaded, and Top Rated Obsidian Plugins';
+  const description =
+    'Discover all Obsidian plugins with the latest updates, trending plugins, and the most downloaded ones. Stay informed about the best plugins to enhance your Obsidian experience.';
+  const canonical = 'https://www.obsidianstats.com';
+  const image = '/images/obsidian-stats-ogImage.png';
+  const jsonLdSchema = JsonLdSchema.getHomePageSchema();
 
   return {
     props: {

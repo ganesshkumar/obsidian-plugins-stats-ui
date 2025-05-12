@@ -8,7 +8,9 @@ jest.mock('virtua', () => {
   const originalModule = jest.requireActual('virtua');
   return {
     ...originalModule,
-    VList: jest.fn(({ children, "data-testid": dataTestId }) => <div data-testid={dataTestId}>{children}</div>),
+    VList: jest.fn(({ children, 'data-testid': dataTestId }) => (
+      <div data-testid={dataTestId}>{children}</div>
+    )),
   };
 });
 

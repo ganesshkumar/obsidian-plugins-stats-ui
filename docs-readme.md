@@ -4,6 +4,7 @@
 
 - The score is a floating point number ranging from 0 to 1.
 - To score a function we must set the property score on plugins (that was passed as argument to the function)
+
 ```
 plugin.score = 0.5;
 ```
@@ -22,7 +23,8 @@ Click on `+ Create Scorer` button and start creating a scorer.
 ![Score Builder](/images/scorer/empty-builder.png)
 
 ### Signature of the custom score function
-To build a custom scorer, you must create a javascript function 
+
+To build a custom scorer, you must create a javascript function
 
 ```js
 function scorePlugins(plugins, utils) {
@@ -35,7 +37,7 @@ function scorePlugins(plugins, utils) {
 
 Let's build a simple score functions.
 
-### Example 1: Setting score of all plugins to 50 
+### Example 1: Setting score of all plugins to 50
 
 To set the scores of all plugins to 50, you can write the following custom score function.
 
@@ -61,9 +63,10 @@ Let's build something usable now. In the [/scorer/build](https://www.obsidiansta
 
 ### Example 2: Setting score based on downloads count
 
-Use the below code to build a custom score function based on download count (totalDownloads property) of the plugins. 
+Use the below code to build a custom score function based on download count (totalDownloads property) of the plugins.
 
 #### Get all the download values
+
 ```
 function scorePlugins(plugins, utils) {
   let downloads = plugins.map(plugin => plugin.totalDownloads);
@@ -71,6 +74,7 @@ function scorePlugins(plugins, utils) {
 ```
 
 #### Find min and max download counts among all plugins
+
 ```
 function scorePlugins(plugins, utils) {
   let downloads = plugins.map(plugin => plugin.totalDownloads);
@@ -80,6 +84,7 @@ function scorePlugins(plugins, utils) {
 ```
 
 #### Assign normalized value of a plugin's totalDownloads as it's score
+
 ```
 function scorePlugins(plugins, utils) {
   let downloads = plugins.map(plugin => plugin.totalDownloads);
@@ -97,16 +102,17 @@ function scorePlugins(plugins, utils) {
 - The above function will score Excalidraw as 100 and the second best plugin will have a score of 76.
 - To avoid this skew in number we can remove few extreme values (outliers) on the higher end (we can do it on lower end as well to avoid outliers with zero or very less totalDownloads)
 
-#### Remove outliers values before scoring 
+#### Remove outliers values before scoring
+
 ```
 function scorePlugins(plugins, utils) {
   let downloads = plugins
     .map(plugin => plugin.totalDownloads)
     .sort((a, b) => a - b);  // Let's sort all the totalDownload values
-  
+
   const outliersCount = Math.round(plugins.length * 0.005) // We are considering 0.5% values as outliers on either side
   downloads = downloads.slice(outliersCount, plugins.length - outliersCount) // Sliding off the outliers
-  
+
   const min = Math.min(...downloads);
   const max = Math.max(...downloads);
   plugins.forEach(plugin => {
@@ -116,19 +122,18 @@ function scorePlugins(plugins, utils) {
 }
 ```
 
-This change makes 10 plugins to score more than 80. 
+This change makes 10 plugins to score more than 80.
 
 Note: We must analyse the distribution of each dimension we use to determine the outliers. The 0.5% is just an example here!
 
-Validate, give a name and description and click `Save and Use`. 
+Validate, give a name and description and click `Save and Use`.
 
 ![normalized-download-count-scorer](/images/scorer/normalized-download-count-scorer.png)
-
 
 🚀 Our new custom score function is being used across the website.
 
 You can go to [all plugins](https://www.obsidianstats.com/plugins) and sort by "Score (High to Low)" and see your custom scores in action.
-Here is [magic link](https://www.obsidianstats.com/plugins?sortby=score_desc) for the same! 
+Here is [magic link](https://www.obsidianstats.com/plugins?sortby=score_desc) for the same!
 
 ![all-plugins-with-score](/images/scorer/all-plugins-with-score.png)
 
@@ -136,17 +141,15 @@ Go to [/scorer](https://www.obsidianstats.com/scorer) page to view the list of c
 
 ![all-plugins-with-score](/images/scorer/scorer-list-with-scorers.png)
 
-
 Note: Your custom score function score the plugin locally in the browser and the custom scores are saved locally in your browser's `localStorage`.
-
 
 ## Going forward
 
 - I want to fix the default score function with clear objective to cater new comers to Obsidian.
-- I want to add more functions to `utils` to make building score functions easier. 
+- I want to add more functions to `utils` to make building score functions easier.
 - Ofcourse, I want to develop a process to publish scorer function and let everyone use it just like how we use themes and plugins in Obsidian.
 
-## Contribution 
+## Contribution
 
 - All your feedback and suggestions are welcome at the [Github discussion](https://github.com/ganesshkumar/obsidian-plugins-stats-ui/discussions/52).
 - Will update the link to the source of the `plugins` and `utils` soon. (They are not published anywhere yet as I write this!)

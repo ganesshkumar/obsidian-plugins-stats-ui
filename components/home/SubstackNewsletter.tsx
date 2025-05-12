@@ -10,18 +10,29 @@ export const SubstackNewsletter = () => {
           <div className="text-center px-8 text-2xl font-bold text-gray-800 mt-8">
             Subscribe to our RSS feeds
           </div>
-          <div className='text-center px-8 text-gray-800'>
-            to get the latest updates on new plugins, weekly plugin updates, and posts.
+          <div className="text-center px-8 text-gray-800">
+            to get the latest updates on new plugins, weekly plugin updates, and
+            posts.
           </div>
           <div className="flex justify-center space-x-4 mt-4">
-            <a href="/weekly-plugin-updates-rss.xml" target="_blank" rel="noreferrer">
-              <Button color="dark" className="text-white font-bold py-2 px-4 rounded">
+            <a
+              href="/weekly-plugin-updates-rss.xml"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Button
+                color="dark"
+                className="text-white font-bold py-2 px-4 rounded"
+              >
                 <Rss className="mr-2" size={18} />
                 <div>Weekly Plugin Updates</div>
               </Button>
             </a>
             <a href="/rss.xml" target="_blank" rel="noreferrer">
-              <Button color="dark" className="text-white font-bold py-2 px-4 rounded">
+              <Button
+                color="dark"
+                className="text-white font-bold py-2 px-4 rounded"
+              >
                 <Rss className="mr-2" size={18} />
                 New Plugins + Posts
               </Button>
@@ -30,7 +41,16 @@ export const SubstackNewsletter = () => {
         </div>
         <div className="flex flex-col justify-center items-center mt-8 mb-4">
           <div className="text-center px-8 font-bold text-gray-800 text-sm">
-            We are also on <a href="https://obsidianpluginstats.substack.com" className="underline" target="_blank" rel="noopener noreferrer">Substack</a> newsletter!
+            We are also on{' '}
+            <a
+              href="https://obsidianpluginstats.substack.com"
+              className="underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Substack
+            </a>{' '}
+            newsletter!
           </div>
         </div>
 

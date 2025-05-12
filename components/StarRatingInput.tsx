@@ -5,11 +5,13 @@ interface StarRatingInputProps {
   setRating?: (rating: number) => void;
 }
 
-export const StarRatingInput = ({ rating = 0, setRating }: StarRatingInputProps) => {
+export const StarRatingInput = ({
+  rating = 0,
+  setRating,
+}: StarRatingInputProps) => {
   const [hoveredRating, setHoveredRating] = useState<number | null>(null);
   const stars = [];
 
-  
   const handleClick = (index: number) => {
     if (setRating) {
       setRating(index);

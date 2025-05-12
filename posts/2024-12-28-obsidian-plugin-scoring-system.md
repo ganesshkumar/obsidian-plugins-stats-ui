@@ -42,6 +42,7 @@ The scoring system evaluates plugins based on several important metrics and calc
 7. **Plugin Age**: Older plugins (`createdAt`) are considered more mature and stable, scoring higher. Newer plugins scale slightly lower. Weight: _0.15_
 
 ## Score Calculation Rules:
+
 1. The sum of all weights must equal 1 to ensure a balanced scoring system.
 2. Plugins created over a year ago get a higher score due to normalized age.
 3. Recently created plugins receive slightly lower scores.
@@ -52,7 +53,6 @@ The scoring system evaluates plugins based on several important metrics and calc
 8. Plugins with higher total downloads score higher.
 9. Plugins with recent releases (latestReleaseAt) score higher.
 10. Plugins with older creation dates (createdAt) score higher, as they reflect maturity and stability.
-
 
 ## Key adjustments for fairness
 
@@ -168,7 +168,7 @@ export const calculateNormalizationBounds = (plugins) =>{
         valuesSet.add(v);
       }
     });
-      
+
     let values = Array.from(valuesSet);
     // Trim outliers (TRIM_OUTLIERS_PERCENTAGE lowest and highest values)
     values.sort((a, b) => a - b);
@@ -236,8 +236,6 @@ This function makes sure that:
 
 Finally, the plugin scores are calculated by combining normalized metrics with their respective weights:
 
-
-
 ```javascript
 export const calculateScore = (plugin, bounds, debug = false) => {
   const weights = {
@@ -263,7 +261,7 @@ export const calculateScore = (plugin, bounds, debug = false) => {
   const derivedMetrics = {
     closedIssuesRatio,
     resolvedPRRatio,
-    createdAt: -plugin.createdAt
+    createdAt: -plugin.createdAt,
   };
 
   let score = 0;
@@ -272,7 +270,10 @@ export const calculateScore = (plugin, bounds, debug = false) => {
 
   // Calculate normalized and weighted score
   Object.keys(weights).forEach((metric) => {
-    const value = derivedMetrics[metric] !== undefined ? derivedMetrics[metric] : plugin[metric] || 0; // Get value
+    const value =
+      derivedMetrics[metric] !== undefined
+        ? derivedMetrics[metric]
+        : plugin[metric] || 0; // Get value
     const { min, max } = bounds[metric] || { min: 0, max: 1 }; // Get normalization bounds
 
     let normalizedValue = normalizedSigmoid(value, min, max, 0.25);
@@ -281,7 +282,9 @@ export const calculateScore = (plugin, bounds, debug = false) => {
     reason += `${!!reason ? '\n' : ''}${metric}:${value}:${normalizedValue.toFixed(2)}:${weights[metric].toFixed(2)}:${(normalizedValue * weights[metric]).toFixed(2)}`;
 
     if (debug) {
-      console.log(`Metric: ${metric}, Value: ${value}, Normalized: ${normalizedValue}, Weight: ${weights[metric]}, Contribution: ${normalizedValue * weights[metric]}`);
+      console.log(
+        `Metric: ${metric}, Value: ${value}, Normalized: ${normalizedValue}, Weight: ${weights[metric]}, Contribution: ${normalizedValue * weights[metric]}`
+      );
       console.log(`Score: ${score}\n`);
     }
   });
@@ -290,7 +293,7 @@ export const calculateScore = (plugin, bounds, debug = false) => {
     score,
     reason,
   };
-}
+};
 ```
 
 The score is calculated by:

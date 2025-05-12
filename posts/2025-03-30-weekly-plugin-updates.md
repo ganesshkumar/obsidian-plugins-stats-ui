@@ -2,9 +2,9 @@
 title: Obsidian Plugin Updates 2025-03-23 to 2025-03-29
 description: "new obsidian plugins from 2025-03-23 to 2025-03-29 - Xiaohongshu Importer, Git Changelog, AI Helper, Auto Folder Note Paste, Extended Graph, Command Line, CmdSearch, Collapsible Code Blocks, Wheel Tab Switcher, LLM Test Generator, GitHub Gitless Sync, Smart ChatGPT, Yesterday's note, Research Quest, Advanced Progress Bars, Backlink Full Path, Heading Decorator, Ink Player, Pinned Daily Notes, TG Emoji Search, Simple Archiver, File Compressor, One Step Wiki Link, Image to HTML, Canvas Format Brush, AutoMover, MathType, Wordflow Tracker, Daily News Briefing, Hover Reveal, LINE Notes Sync, Link Opening Restore, Chronotyper, Vault Nickname"
 excerpt: There are 34 new plugins and 102 plugin updates in the last one week's time.
-publishedDate: "2025-03-30"
-modifiedDate: "2025-03-30"
-tags: 
+publishedDate: '2025-03-30'
+modifiedDate: '2025-03-30'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -359,4 +359,3 @@ The **Vault Nickname** plugin allows users to assign custom display names to the
 ## 🔁 Plugin Updates
 
 We got 102 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

@@ -2,8 +2,8 @@
 title: Obsidian Plugin Updates 2025-04-13 to 2025-04-19
 description: "It's Easter week—while there are no new plugins, 83 plugins received updates in the Obsidian ecosystem."
 excerpt: It's a quiet Easter week with no new plugins released, but 83 existing ones have been refreshed with updates.
-publishedDate: "2025-04-20"
-modifiedDate: "2025-04-20"
+publishedDate: '2025-04-20'
+modifiedDate: '2025-04-20'
 tags:
   - weekly-plugin-updates
 ---
@@ -44,6 +44,6 @@ Did you know you can stay up-to-date about your favorite plugins in obsidianstat
 
 We got 3 new themes added during last week.
 
-- Dust - A fork of *obsidian-atom* [Repo](https://github.com/ph17/Dust)
+- Dust - A fork of _obsidian-atom_ [Repo](https://github.com/ph17/Dust)
 - Deep Submerge - Muted color and low contrast theme [Repo](https://github.com/incantatem2/Obsidian-deep-submerge)
 - Mono High Contrast Theme - Opposite of Deep Submerge with high contrast [Repo](https://github.com/manuelcoca/obsidian-mono-high-contrast-theme)

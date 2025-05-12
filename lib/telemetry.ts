@@ -28,7 +28,10 @@ export function initAmplitude() {
  * @param eventName string - The name of the event
  * @param eventProps Record<string, any> - Event properties
  */
-export function trackEvent(eventName: string, eventProps?: Record<string, any>) {
+export function trackEvent(
+  eventName: string,
+  eventProps?: Record<string, any>
+) {
   if (!initialized) {
     eventQueue.push({ eventName, eventProps });
     return;

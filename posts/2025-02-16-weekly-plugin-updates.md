@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-02-09 to 2025-02-15
-description: "new obsidian plugins from 2025-02-09 to 2025-02-15 - Media Companion, New Note Fixer, Data Files Editor, Spacekeys, Tag Tactician, InlineAI, WhatsApp export note, YouTube Video Summarizer, Plugin REPL, NetClip, Context Command Hider, WhatsApp backup importer, Hephaistos Importer, Clone Vault, Image Preview on Icon Hover, Dataview Autocompletion, Kikijiki Habit Tracker, Plugin Update Locker, AI Revisionist, BibDesk Integration"
+description: 'new obsidian plugins from 2025-02-09 to 2025-02-15 - Media Companion, New Note Fixer, Data Files Editor, Spacekeys, Tag Tactician, InlineAI, WhatsApp export note, YouTube Video Summarizer, Plugin REPL, NetClip, Context Command Hider, WhatsApp backup importer, Hephaistos Importer, Clone Vault, Image Preview on Icon Hover, Dataview Autocompletion, Kikijiki Habit Tracker, Plugin Update Locker, AI Revisionist, BibDesk Integration'
 excerpt: There are 20 new plugins and 85 plugin updates in the last one week's time.
-publishedDate: "2025-02-16"
-modifiedDate: "2025-02-16"
-tags: 
+publishedDate: '2025-02-16'
+modifiedDate: '2025-02-16'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -219,4 +219,3 @@ The **BibDesk Integration** plugin connects Obsidian with the macOS BibDesk appl
 ## 🔁 Plugin Updates
 
 We got 85 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Plugin Stats webapp](/updates).
-

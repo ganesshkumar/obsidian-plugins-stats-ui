@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-04-27 to 2025-05-03
-description: "new obsidian plugins from 2025-04-27 to 2025-05-03 - Sentence Rhythm, Model Viewer, Tick Tones, Reveal Folded, Reference Link Render, JupyMD, Daily Notes Automater, About Blank, Image Embedder, TOC compatible with Publish, Rainbow Folders Fixer, JW Library Linker, Advanced Note Composer, Quick Peek Sidebar, Completed Tasks, Date Range Expander, Reader Mode"
+description: 'new obsidian plugins from 2025-04-27 to 2025-05-03 - Sentence Rhythm, Model Viewer, Tick Tones, Reveal Folded, Reference Link Render, JupyMD, Daily Notes Automater, About Blank, Image Embedder, TOC compatible with Publish, Rainbow Folders Fixer, JW Library Linker, Advanced Note Composer, Quick Peek Sidebar, Completed Tasks, Date Range Expander, Reader Mode'
 excerpt: There are 17 new plugins and 89 plugin updates in the last one week's time.
-publishedDate: "2025-05-04"
-modifiedDate: "2025-05-04"
-tags: 
+publishedDate: '2025-05-04'
+modifiedDate: '2025-05-04'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -190,7 +190,7 @@ The **Reader Mode** plugin automatically opens filled notes in reading view, mak
 
 Couple of interesting plugins that are in beta stage (accessible via [BRAT](https://github.com/TfTHacker/obsidian42-brat)) are
 
-- [BibLib for Obsidian](https://github.com/callumalpass/obsidian-biblib) and 
+- [BibLib for Obsidian](https://github.com/callumalpass/obsidian-biblib) and
 - [Simple Banner](https://github.com/eatcodeplay/obsidian-simple-banner)
 
 ---
@@ -204,5 +204,3 @@ We got 89 plugin updates in the last one week's time. You can see all the plugin
 ## 🛤️ Workflows
 
 Recently we covered plugins related to [spaced repetition](/posts/2025-05-01-spaced-repetition-plugins) workflow. What other workflows are you interested in categorizing?
-
-

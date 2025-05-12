@@ -2,9 +2,9 @@
 title: Obsidian Plugin Updates 2024-12-29 to 2025-01-04
 description: new obsidian plugins from 2024-12-29 to 2025-01-04 - Smart Link Alias, Theme Controller, Insert Multiple Attachments, Smart Context, Cursor Position on Title Enter, Project Tasks, Send Note, NodeFlow, Export to HTML
 excerpt: There are 9 new plugins and 80 plugin updates in the last one week's time.
-publishedDate: "2025-01-05"
-modifiedDate: "2025-01-05"
-tags: 
+publishedDate: '2025-01-05'
+modifiedDate: '2025-01-05'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -109,4 +109,3 @@ The **Export to HTML** plugin for Obsidian allows you to easily export the conte
 ## 🔁 Plugin Updates
 
 We got 80 plugin updates in the last one week’s time. You can see all the plugin updates on [Obsidian Stats webapp](/updates).
-

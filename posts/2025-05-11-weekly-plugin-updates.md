@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-05-04 to 2025-05-10
-description: "new obsidian plugins from 2025-05-04 to 2025-05-10 - Backlink Settings, Custom Commands, Easy Keep View, logos-refs, Checkbox Sort, Inline Callouts, Byte Field Diagrams, DataCards, Title-Only Tab, Note Status, Another Name, LawList: Custom List Styles, Water Tracker, Reactive Notes, Draw Steel Retainer, VCF Contacts, Rainbow-Colored Sidebar, Limitless Lifelogs, YTSummarizer, Textfresser, aDHL"
+description: 'new obsidian plugins from 2025-05-04 to 2025-05-10 - Backlink Settings, Custom Commands, Easy Keep View, logos-refs, Checkbox Sort, Inline Callouts, Byte Field Diagrams, DataCards, Title-Only Tab, Note Status, Another Name, LawList: Custom List Styles, Water Tracker, Reactive Notes, Draw Steel Retainer, VCF Contacts, Rainbow-Colored Sidebar, Limitless Lifelogs, YTSummarizer, Textfresser, aDHL'
 excerpt: There are 21 new plugins and 79 plugin updates in the last one week's time.
-publishedDate: "2025-05-11"
-modifiedDate: "2025-05-11"
-tags: 
+publishedDate: '2025-05-11'
+modifiedDate: '2025-05-11'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -260,4 +260,3 @@ We got 6 new themes added during last week.
 - Soli Deo Gloria - inspiration is from old German bibles and Gothic Style of calligraphy - [Github](https://github.com/GodlyMan-bit/SoliDeoGloria)
 - RetroOS 98 - Experience the Windows 95/98 in Obisidian MD - [Github](https://github.com/ThePharaohArt/Obsidian-RetroOS98)
 - Ribbons Theme - Allows separating special Callouts in Ribbons. - [Github](https://github.com/ddspog/obsidian-ribbons-theme)
-

@@ -137,11 +137,13 @@ export const getStaticProps = async () => {
   );
   newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
 
-  const title = "Mark your favorite Obsidian plugins and stay updated on their latest releases"
-  const description = "Discover and track your favorite Obsidian plugins with our comprehensive stats and updates. Stay informed about the latest releases, trending plugins, and more. Perfect for Obsidian enthusiasts looking to enhance their productivity and plugin management."
-  const canonical = "https://www.obsidianstats.com/favorites"
-  const image = "/images/obsidian-stats-ogImage.png"
-  const jsonLdSchema = JsonLdSchema.getFavoritesPageSchema()
+  const title =
+    'Mark your favorite Obsidian plugins and stay updated on their latest releases';
+  const description =
+    'Discover and track your favorite Obsidian plugins with our comprehensive stats and updates. Stay informed about the latest releases, trending plugins, and more. Perfect for Obsidian enthusiasts looking to enhance their productivity and plugin management.';
+  const canonical = 'https://www.obsidianstats.com/favorites';
+  const image = '/images/obsidian-stats-ogImage.png';
+  const jsonLdSchema = JsonLdSchema.getFavoritesPageSchema();
 
   return {
     props: {
@@ -151,8 +153,8 @@ export const getStaticProps = async () => {
       image,
       jsonLdSchema,
       plugins,
-      newReleases
-    }
+      newReleases,
+    },
   };
 };
 

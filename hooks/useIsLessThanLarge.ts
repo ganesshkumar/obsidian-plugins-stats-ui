@@ -9,8 +9,8 @@ export const useIsLessThanLarge = () => {
     };
 
     checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   return isLessThanLarge;

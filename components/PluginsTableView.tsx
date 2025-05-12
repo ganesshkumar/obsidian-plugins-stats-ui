@@ -34,12 +34,18 @@ export const PluginsTableView = ({
           )}
           <Table.HeadCell key="plugin-score">Score</Table.HeadCell>
           {showCreatedAt && (
-            <Table.HeadCell key="plugin-created" className="hidden lg:table-cell">
+            <Table.HeadCell
+              key="plugin-created"
+              className="hidden lg:table-cell"
+            >
               Created
             </Table.HeadCell>
           )}
           {showAuthor && (
-            <Table.HeadCell key="plugin-author" className="hidden lg:table-cell">
+            <Table.HeadCell
+              key="plugin-author"
+              className="hidden lg:table-cell"
+            >
               Author
             </Table.HeadCell>
           )}
@@ -65,20 +71,25 @@ export const PluginsTableView = ({
                 </Table.Cell>
               )}
               <Table.Cell key={`${plugin.pluginId}-score`}>
-                {plugin.score ? 
+                {plugin.score ? (
                   <span className={getScoreBgClass(plugin.score)}>
                     {Math.round(parseFloat(plugin.score?.toFixed(4)) * 100)}
-                  </span> :
-                  undefined
-                }                
+                  </span>
+                ) : undefined}
               </Table.Cell>
               {showCreatedAt && (
-                <Table.Cell key={`${plugin.pluginId}-created`} className="hidden lg:table-cell">
+                <Table.Cell
+                  key={`${plugin.pluginId}-created`}
+                  className="hidden lg:table-cell"
+                >
                   {moment(plugin.createdAt).fromNow()}
                 </Table.Cell>
               )}
               {showAuthor && (
-                <Table.Cell key={`${plugin.pluginId}-author`} className="hidden lg:table-cell">
+                <Table.Cell
+                  key={`${plugin.pluginId}-author`}
+                  className="hidden lg:table-cell"
+                >
                   {plugin.author}
                 </Table.Cell>
               )}

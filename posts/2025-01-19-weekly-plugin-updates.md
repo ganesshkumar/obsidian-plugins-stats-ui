@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2025-01-12 to 2025-01-18
-description: "new obsidian plugins from 2025-01-12 to 2025-01-18 - New Filename, External Rename Handler, Type Chinese Like English, Christmas, Circuit Sketcher, Tengwar, Tencent COS for Imgur, Hoarder Sync, Confluence Space Sync, Clojure Plugin Host, MoreDraw, Publish to Discourse, Local Any Files, KoReader Highlight Importer, Simple Disguise, Syncthing status icon, Dynamic Outline, AI-AnkiSync, BuJo Bullets"
+description: 'new obsidian plugins from 2025-01-12 to 2025-01-18 - New Filename, External Rename Handler, Type Chinese Like English, Christmas, Circuit Sketcher, Tengwar, Tencent COS for Imgur, Hoarder Sync, Confluence Space Sync, Clojure Plugin Host, MoreDraw, Publish to Discourse, Local Any Files, KoReader Highlight Importer, Simple Disguise, Syncthing status icon, Dynamic Outline, AI-AnkiSync, BuJo Bullets'
 excerpt: There are 19 new plugins and 82 plugin updates in the last one week's time.
-publishedDate: "2025-01-19"
-modifiedDate: "2025-01-19"
-tags: 
+publishedDate: '2025-01-19'
+modifiedDate: '2025-01-19'
+tags:
   - weekly-plugin-updates
 ---
 
@@ -14,7 +14,7 @@ tags:
 
 🚀 **Timeline view**
 
-This week, I am thrilled to unveil a brand-new way to explore Obsidian plugins: the Timeline! Now, you can visually track changes over time, seeing the exact dates when plugins were added, updated, or removed. 
+This week, I am thrilled to unveil a brand-new way to explore Obsidian plugins: the Timeline! Now, you can visually track changes over time, seeing the exact dates when plugins were added, updated, or removed.
 
 You can check out the [Timeline View](/timeline) here.
 
@@ -217,7 +217,11 @@ We got 82 plugin updates in the last one week’s time. You can see all the plug
 A small list of my favorite plugin updates
 
 ### 1. [Pexels Banner](/plugins/pexels-banner) v2.20.3
+
 ### 2. [Vertical Tabs](/plugins/vertical-tabs) v0.14.0
+
 ### 3. [Advanced Canvas](/plugins/advanced-canvas) v3.4.0
+
 ### 4. [Meta Bind](/plugins/obsidian-meta-bind-plugin) v1.3.0
+
 ### 5. [Iconic](/plugins/iconic) v1.1.0

@@ -10,7 +10,6 @@ Stay informed about the Obsidian plugin ecosystem with Obsidian Stats! Whether y
 [![Tag 0.1.0](https://img.shields.io/badge/tag-0.1.0-blue)](https://github.com/ganesshkumar/obsidian-plugins-stats-ui)
 [![MIT License](https://img.shields.io/github/license/ganesshkumar/obsidian-plugins-stats-ui)](LICENSE)
 
-
 ## Features
 
 Explore [Obsidian](https://obsidian.md) plugins with these powerful features:
@@ -29,7 +28,6 @@ Explore [Obsidian](https://obsidian.md) plugins with these powerful features:
 - **[Share](https://www.obsidianstats.com/share)** – Share your favorite plugin lists with the community.
 
 ## Screenshots
-
 
 ## License
 

@@ -27,7 +27,13 @@ export const getStaticProps: GetStaticProps = async () => {
   const description = 'Blog posts about obsidain plugins';
   const canonical = 'https://www.obsidianstats.com/posts';
   const image = '/images/obsidian-stats-ogImage.png';
-  const jsonLdSchema = JsonLdSchema.getPostsPageSchema(allPostsData, title, description, canonical, image);
+  const jsonLdSchema = JsonLdSchema.getPostsPageSchema(
+    allPostsData,
+    title,
+    description,
+    canonical,
+    image
+  );
   const suggestions = await generateSuggestions({ type: 'posts', slug: '' });
 
   return {
@@ -45,8 +51,14 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Blog = (props: IPostsPageProps) => {
   const postsByMonth = props.allPostsData.reduce((acc, post) => {
-    const year = post.publishedDate === post.modifiedDate ? post.publishedDate.split('-')[0] : post.modifiedDate.split('-')[0];
-    const month = post.publishedDate === post.modifiedDate ? post.publishedDate.split('-')[1] : post.modifiedDate.split('-')[1];
+    const year =
+      post.publishedDate === post.modifiedDate
+        ? post.publishedDate.split('-')[0]
+        : post.modifiedDate.split('-')[0];
+    const month =
+      post.publishedDate === post.modifiedDate
+        ? post.publishedDate.split('-')[1]
+        : post.modifiedDate.split('-')[1];
     const key = `${year}-${month}`;
 
     if (!acc[key]) {
@@ -57,54 +69,67 @@ const Blog = (props: IPostsPageProps) => {
   }, {});
 
   const isLessThanLarge = useIsLessThanLarge();
-  const sidebar = <Sidebar pageInfo={{ type: 'posts', slug: '' }} suggestions={props.suggestions} />;
+  const sidebar = (
+    <Sidebar
+      pageInfo={{ type: 'posts', slug: '' }}
+      suggestions={props.suggestions}
+    />
+  );
 
   return (
     <div>
-      <Header {...props}/>
+      <Header {...props} />
       <div>
         <Navbar current="posts" />
       </div>
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar}>
           <InfoBar title="Posts" />
-          {isLessThanLarge && <EthicalAd type="fixed-footer" id="posts-fixed-footer" />}
+          {isLessThanLarge && (
+            <EthicalAd type="fixed-footer" id="posts-fixed-footer" />
+          )}
           <ul>
-            {Object.keys(postsByMonth).sort((a, b) => parseInt(b) - parseInt(a)).map((year) => (
-              <li key={year}>
-                <h2 className="text-2xl mb-2 font-semibold text-gray-700 mt-8">{moment(year, 'YYYY-MM').format('MMMM YYYY')}</h2>
-                <ul className="flex flex-col divide-y">
-                  {postsByMonth[year].map((post) => (
-                    <li key={post.id}>
-                      <Link
-                        href={`/posts/${post.id}`}
-                        className="flex justify-between py-4 px-2"
-                        prefetch={false}
-                      >
-                        <div className="flex gap-x-2">
-                          <div className="grid place-items-start">
-                            <PostIcon tags={post.tags} />
+            {Object.keys(postsByMonth)
+              .sort((a, b) => parseInt(b) - parseInt(a))
+              .map((year) => (
+                <li key={year}>
+                  <h2 className="text-2xl mb-2 font-semibold text-gray-700 mt-8">
+                    {moment(year, 'YYYY-MM').format('MMMM YYYY')}
+                  </h2>
+                  <ul className="flex flex-col divide-y">
+                    {postsByMonth[year].map((post) => (
+                      <li key={post.id}>
+                        <Link
+                          href={`/posts/${post.id}`}
+                          className="flex justify-between py-4 px-2"
+                          prefetch={false}
+                        >
+                          <div className="flex gap-x-2">
+                            <div className="grid place-items-start">
+                              <PostIcon tags={post.tags} />
+                            </div>
+                            <div className="text-lg flex flex-col">
+                              <div className="font-semibold hover:underline text-gray-800">
+                                {post.title}
+                              </div>
+                              <div className="text-sm text-gray-500 flex items-end">
+                                {moment(
+                                  post.publisedDate === post.modifiedDate
+                                    ? post.publishedDate
+                                    : post.modifiedDate
+                                ).format('MMMM DD, YYYY')}
+                              </div>
+                              <div className="text-sm text-gray-800 mt-1">
+                                {post.excerpt}
+                              </div>
+                            </div>
                           </div>
-                          <div className="text-lg flex flex-col">
-                            <div className="font-semibold hover:underline text-gray-800">
-                              {post.title}
-                            </div>
-                            <div className="text-sm text-gray-500 flex items-end">
-                              {moment(post.publisedDate === post.modifiedDate ? post.publishedDate : post.modifiedDate).format(
-                                'MMMM DD, YYYY'
-                              )}
-                            </div>
-                            <div className="text-sm text-gray-800 mt-1">
-                              {post.excerpt}
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
           </ul>
         </ResponsiveLayout>
       </div>

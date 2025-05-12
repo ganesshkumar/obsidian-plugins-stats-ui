@@ -48,14 +48,22 @@ const New = (props: INewPageProps) => {
                 <ul className="list-disc list-inside mt-2">
                   <li>
                     Take a look at{' '}
-                    <Link href="/trending" className="underline" prefetch={false}>
+                    <Link
+                      href="/trending"
+                      className="underline"
+                      prefetch={false}
+                    >
                       trending plugins
                     </Link>
                     .
                   </li>
                   <li>
                     View{' '}
-                    <Link href="/most-downloaded" className="underline" prefetch={false}>
+                    <Link
+                      href="/most-downloaded"
+                      className="underline"
+                      prefetch={false}
+                    >
                       most downloaded plugins
                     </Link>
                     .
@@ -92,11 +100,21 @@ export const getStaticProps = async () => {
   const newPlugins = plugins.filter((plugin) => plugin.createdAt > daysAgo(10));
   newPlugins.sort((a, b) => b.createdAt - a.createdAt);
 
-  const title = "New Obsidian Plugins - New plugins that got released in Last 7 days, 10 Days, 1 Month, 6 Months, and 1 Year";
-  const description = `Explore the newest Obsidian plugins released in the past 7 days, 10 Days, 1 Month, 6 Months, and 1 Year. ${newPlugins.slice(0, 20).map((plugin) => plugin.name).join(', ')}`;
-  const canonical = "https://www.obsidianstats.com/new";
-  const image = "/images/obsidian-stats-ogImage.png";
-  const jsonLdSchema = JsonLdSchema.getNewPageSchema(newPlugins, title, description, canonical, image);
+  const title =
+    'New Obsidian Plugins - New plugins that got released in Last 7 days, 10 Days, 1 Month, 6 Months, and 1 Year';
+  const description = `Explore the newest Obsidian plugins released in the past 7 days, 10 Days, 1 Month, 6 Months, and 1 Year. ${newPlugins
+    .slice(0, 20)
+    .map((plugin) => plugin.name)
+    .join(', ')}`;
+  const canonical = 'https://www.obsidianstats.com/new';
+  const image = '/images/obsidian-stats-ogImage.png';
+  const jsonLdSchema = JsonLdSchema.getNewPageSchema(
+    newPlugins,
+    title,
+    description,
+    canonical,
+    image
+  );
 
   return {
     props: {
@@ -105,8 +123,8 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      newPlugins
-    }
+      newPlugins,
+    },
   };
 };
 

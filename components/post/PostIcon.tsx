@@ -1,6 +1,5 @@
 import { Calendar, Cpu, FileText, List, Star, Zap } from 'react-feather';
 
-
 export const PostIcon = (props) => {
   if (props.tags && props.tags.includes('weekly-plugin-updates')) {
     return (

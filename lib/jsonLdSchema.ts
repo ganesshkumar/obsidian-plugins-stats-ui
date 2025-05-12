@@ -1,6 +1,6 @@
-import { Plugin } from "@prisma/client"
-import { Post } from "./abstractions"
-import Constants from "../constants";
+import { Plugin } from '@prisma/client';
+import { Post } from './abstractions';
+import Constants from '../constants';
 
 const author = {
   '@type': 'Person',
@@ -256,7 +256,7 @@ const breadcrumbs = {
           item: url,
         },
       ],
-    }
+    };
   },
   pluginsTags: {
     '@type': 'BreadcrumbList',
@@ -310,7 +310,7 @@ const breadcrumbs = {
           item: url,
         },
       ],
-    }
+    };
   },
   plugin: (name: string, url: string) => {
     return {
@@ -335,7 +335,7 @@ const breadcrumbs = {
           item: url,
         },
       ],
-    }
+    };
   },
   posts: {
     '@type': 'BreadcrumbList',
@@ -377,7 +377,7 @@ const breadcrumbs = {
           item: url,
         },
       ],
-    }
+    };
   },
   tool: (name: string, url: string) => {
     return {
@@ -402,9 +402,9 @@ const breadcrumbs = {
           item: url,
         },
       ],
-    }
-  }
-}
+    };
+  },
+};
 
 export const JsonLdSchema = {
   getHomePageSchema: () => {
@@ -420,10 +420,10 @@ export const JsonLdSchema = {
             '@id': 'https://www.codebuss.com/#organization',
           },
           potentialAction: {
-              "@type": "SearchAction",
-              "target": "https://www.obsidianstats.com/plugins?q={query}",
-              "query-input": "required name=query",
-              "query": "required"
+            '@type': 'SearchAction',
+            target: 'https://www.obsidianstats.com/plugins?q={query}',
+            'query-input': 'required name=query',
+            query: 'required',
           },
           inLanguage: 'en-US',
         },
@@ -438,10 +438,10 @@ export const JsonLdSchema = {
             'https://www.ganesshkumar.com',
             'https://github.com/ganesshkumar',
             'https://www.linkedin.com/in/ganessh-kumar-r-p-676a4719/',
-          ]
+          ],
         },
       ],
-    }
+    };
   },
   getFavoritesPageSchema: () => {
     return {
@@ -452,7 +452,8 @@ export const JsonLdSchema = {
           '@id': 'https://www.obsidianstats.com/favorites',
           url: 'https://www.obsidianstats.com/favorites',
           name: 'Mark your favorite Obsidian plugins and stay updated on their latest releases',
-          description: 'Discover and track your favorite Obsidian plugins with our comprehensive stats and updates. Stay informed about the latest releases, trending plugins, and more. Perfect for Obsidian enthusiasts looking to enhance their productivity and plugin management.',
+          description:
+            'Discover and track your favorite Obsidian plugins with our comprehensive stats and updates. Stay informed about the latest releases, trending plugins, and more. Perfect for Obsidian enthusiasts looking to enhance their productivity and plugin management.',
           inLanguage: 'en-US',
           isPartOf: {
             '@id': 'https://www.obsidianstats.com/#website',
@@ -460,22 +461,79 @@ export const JsonLdSchema = {
           author,
         },
         breadcrumbs.pluginsFavorites,
-      ]
-    }
+      ],
+    };
   },
-  getMostDownloadedPageSchema: (plugins: Plugin[], title: string, description: string, canonical: string, image: string) => {
-    return getJsonLdSchemaForPageWithPlugins(plugins, title, description, canonical, image, breadcrumbs.pluginsMostDownloaded);
+  getMostDownloadedPageSchema: (
+    plugins: Plugin[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
+    return getJsonLdSchemaForPageWithPlugins(
+      plugins,
+      title,
+      description,
+      canonical,
+      image,
+      breadcrumbs.pluginsMostDownloaded
+    );
   },
-  getNewPageSchema: (plugins: Plugin[], title: string, description: string, canonical: string, image: string) => {
-    return getJsonLdSchemaForPageWithPlugins(plugins, title, description, canonical, image, breadcrumbs.pluginsNew);
+  getNewPageSchema: (
+    plugins: Plugin[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
+    return getJsonLdSchemaForPageWithPlugins(
+      plugins,
+      title,
+      description,
+      canonical,
+      image,
+      breadcrumbs.pluginsNew
+    );
   },
-  getTrendingPageSchema: (plugins: Plugin[], title: string, description: string, canonical: string, image: string) => {
-    return getJsonLdSchemaForPageWithPlugins(plugins, title, description, canonical, image, breadcrumbs.pluginsTrending);
+  getTrendingPageSchema: (
+    plugins: Plugin[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
+    return getJsonLdSchemaForPageWithPlugins(
+      plugins,
+      title,
+      description,
+      canonical,
+      image,
+      breadcrumbs.pluginsTrending
+    );
   },
-  getUpdatesPageSchema: (plugins: Plugin[], title: string, description: string, canonical: string, image: string) => {
-    return getJsonLdSchemaForPageWithPlugins(plugins, title, description, canonical, image, breadcrumbs.pluginsUpdates);
+  getUpdatesPageSchema: (
+    plugins: Plugin[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
+    return getJsonLdSchemaForPageWithPlugins(
+      plugins,
+      title,
+      description,
+      canonical,
+      image,
+      breadcrumbs.pluginsUpdates
+    );
   },
-  getSharePageSchema: (title: string, description: string, canonical: string, image: string) => {
+  getSharePageSchema: (
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
     return {
       '@context': 'https://schema.org',
       '@graph': [
@@ -491,10 +549,16 @@ export const JsonLdSchema = {
           },
         },
         breadcrumbs.pluginsShare,
-      ]
-    }
+      ],
+    };
   },
-  getCategoriesPageSchema(categories: string[], title: string, description: string, canonical: string, image: string) {
+  getCategoriesPageSchema(
+    categories: string[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) {
     return {
       '@context': 'https://schema.org',
       '@graph': [
@@ -515,13 +579,33 @@ export const JsonLdSchema = {
           // })),
         },
         breadcrumbs.pluginsCategories,
-      ]
-    }
+      ],
+    };
   },
-  getCategoryPageSchema: (plugins: Plugin[], title: string, description: string, canonical: string, image: string, category: string) => {
-    return getJsonLdSchemaForPageWithPlugins(plugins, title, description, canonical, image, breadcrumbs.pluginsCategory(category, canonical));
+  getCategoryPageSchema: (
+    plugins: Plugin[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string,
+    category: string
+  ) => {
+    return getJsonLdSchemaForPageWithPlugins(
+      plugins,
+      title,
+      description,
+      canonical,
+      image,
+      breadcrumbs.pluginsCategory(category, canonical)
+    );
   },
-  getTagsPageSchema: (tags: string[], title: string, description: string, canonical: string, image: string) => {
+  getTagsPageSchema: (
+    tags: string[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
     return {
       '@context': 'https://schema.org',
       '@graph': [
@@ -542,14 +626,33 @@ export const JsonLdSchema = {
           // })),
         },
         breadcrumbs.pluginsTags,
-      ]
-      
-    }
+      ],
+    };
   },
-  getTagPageSchema: (plugins: Plugin[], title: string, description: string, canonical: string, image: string, tag: string) => {
-    return getJsonLdSchemaForPageWithPlugins(plugins, title, description, canonical, image, breadcrumbs.pluginsTag(title, canonical));
+  getTagPageSchema: (
+    plugins: Plugin[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string,
+    tag: string
+  ) => {
+    return getJsonLdSchemaForPageWithPlugins(
+      plugins,
+      title,
+      description,
+      canonical,
+      image,
+      breadcrumbs.pluginsTag(title, canonical)
+    );
   },
-  getPostsPageSchema: (posts: Post[], title: string, description: string, canonical: string, image: string) => {
+  getPostsPageSchema: (
+    posts: Post[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
     return {
       '@context': 'https://schema.org',
       '@graph': [
@@ -595,10 +698,16 @@ export const JsonLdSchema = {
           // }))
         },
         breadcrumbs.posts,
-      ]
-    }
+      ],
+    };
   },
-  getPostPageSchema: (post: Post, title: string, description: string, canonical: string, image: string) => {
+  getPostPageSchema: (
+    post: Post,
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
     return {
       '@context': 'https://schema.org',
       '@graph': [
@@ -628,10 +737,16 @@ export const JsonLdSchema = {
           },
         },
         breadcrumbs.post(post.title, canonical),
-      ]
-    }
+      ],
+    };
   },
-  getPluginsPageSchema: (plugins: Plugin[], title: string, description: string, canonical: string, image: string) => {
+  getPluginsPageSchema: (
+    plugins: Plugin[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
     return {
       '@context': 'https://schema.org',
       '@graph': [
@@ -648,10 +763,16 @@ export const JsonLdSchema = {
           author,
         },
         breadcrumbs.plugins,
-      ]
-    }
+      ],
+    };
   },
-  getPluginPageSchema: (plugin: Plugin, title: string, description: string, canonical: string, image: string) => {
+  getPluginPageSchema: (
+    plugin: Plugin,
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
     return {
       '@context': 'https://schema.org',
       '@graph': [
@@ -670,7 +791,7 @@ export const JsonLdSchema = {
             worstRating: 0,
             bestRating: 100,
             ratingValue: Math.round(plugin.score * 100),
-            ratingCount: plugin.stargazers + plugin.forks + 1,   
+            ratingCount: plugin.stargazers + plugin.forks + 1,
           },
           offers: {
             '@type': 'Offer',
@@ -688,31 +809,38 @@ export const JsonLdSchema = {
           },
         },
         breadcrumbs.plugin(plugin.name, canonical),
-      ]
-    }
+      ],
+    };
   },
   getTimelinePageSchema: () => {
     return {
-      "@context": "https://schema.org",
-      "@type": "Dataset",
-      "name": "Daily Plugin Changes Dataset",
-      "description": "A JSON dataset tracking daily plugin changes, including additions, removals, and updates by date.",
-      "url": "https://www.obsidianstats.com/data/plugins-history.json", 
-      "sameAs": "https://github.com/ganesshkumar/obsidian-stats-dataset/plugins-history.json", 
-      "creator": organization,
-      "keywords": "plugins, dataset, changes, version control, daily updates",
-      "license": "https://creativecommons.org/licenses/by/4.0/", 
-      "dateModified": "2025-01-14",
-      "distribution": [
+      '@context': 'https://schema.org',
+      '@type': 'Dataset',
+      name: 'Daily Plugin Changes Dataset',
+      description:
+        'A JSON dataset tracking daily plugin changes, including additions, removals, and updates by date.',
+      url: 'https://www.obsidianstats.com/data/plugins-history.json',
+      sameAs:
+        'https://github.com/ganesshkumar/obsidian-stats-dataset/plugins-history.json',
+      creator: organization,
+      keywords: 'plugins, dataset, changes, version control, daily updates',
+      license: 'https://creativecommons.org/licenses/by/4.0/',
+      dateModified: '2025-01-14',
+      distribution: [
         {
-          "@type": "DataDownload",
-          "encodingFormat": "application/json",
-          "contentUrl": "https://www.obsidianstats.com/data/plugins-history.json"
-        }
-      ]
-    }
+          '@type': 'DataDownload',
+          encodingFormat: 'application/json',
+          contentUrl: 'https://www.obsidianstats.com/data/plugins-history.json',
+        },
+      ],
+    };
   },
-  getToolPageSchema: (title: string, description: string, canonical: string, image: string) => {
+  getToolPageSchema: (
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
     return {
       '@context': 'https://schema.org',
       '@graph': [
@@ -731,7 +859,7 @@ export const JsonLdSchema = {
             worstRating: 0,
             bestRating: 5,
             ratingValue: 5,
-            ratingCount: 5,   
+            ratingCount: 5,
           },
           offers: {
             '@type': 'Offer',
@@ -749,12 +877,19 @@ export const JsonLdSchema = {
           },
         },
         breadcrumbs.plugin(title, canonical),
-      ]
-    }
-  }
-}
+      ],
+    };
+  },
+};
 
-const getJsonLdSchemaForPageWithPlugins = (plugins: Plugin[], title: string, description: string, canonical: string, image: string, breadcrumbSchema?: any) => {
+const getJsonLdSchemaForPageWithPlugins = (
+  plugins: Plugin[],
+  title: string,
+  description: string,
+  canonical: string,
+  image: string,
+  breadcrumbSchema?: any
+) => {
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -785,7 +920,7 @@ const getJsonLdSchemaForPageWithPlugins = (plugins: Plugin[], title: string, des
           },
         },
       },
-      ...plugins.map(plugin => ({
+      ...plugins.map((plugin) => ({
         '@type': 'SoftwareApplication',
         name: plugin.name,
         applicationCategory: plugin.osCategory,
@@ -815,5 +950,5 @@ const getJsonLdSchemaForPageWithPlugins = (plugins: Plugin[], title: string, des
       })),
       breadcrumbSchema ? breadcrumbSchema : null,
     ],
-  }
+  };
 };

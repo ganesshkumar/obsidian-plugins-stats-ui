@@ -8,9 +8,11 @@ export const useCustomScoreWithScoreUpdater = (initialPlugins: Plugin[]) => {
   const pluginsScoreMap = useScoreListStore((state) => state.scores);
   const getActiveScorer = useScorerStore((state) => state.getActiveScorer);
 
-  const enableCustomScorer = useScorerStore((state) => state.enableCustomScorer);
+  const enableCustomScorer = useScorerStore(
+    (state) => state.enableCustomScorer
+  );
   const activeScorer = getActiveScorer();
-  
+
   const scoringTimestamp = useScoreListStore((state) => state.scoringTimestamp);
   const setScores = useScoreListStore((state) => state.setScores);
 
@@ -18,11 +20,15 @@ export const useCustomScoreWithScoreUpdater = (initialPlugins: Plugin[]) => {
 
   useEffect(() => {
     if (enableCustomScorer && activeScorer) {
-      const hasNewPlugins = initialPlugins.some(plugin => !pluginsScoreMap[plugin.pluginId]);
+      const hasNewPlugins = initialPlugins.some(
+        (plugin) => !pluginsScoreMap[plugin.pluginId]
+      );
       const scoreOutdated = Date.now() - scoringTimestamp > 86400000; // Older than 24 hours
 
       if (hasNewPlugins || scoreOutdated) {
-        console.log(`useCustomScoreWithScoreUpdater: Scoring plugins with custom scorer ${activeScorer.id} ${activeScorer.name}`);
+        console.log(
+          `useCustomScoreWithScoreUpdater: Scoring plugins with custom scorer ${activeScorer.id} ${activeScorer.name}`
+        );
         try {
           const pluginsScoreMap = scorePlugins(initialPlugins, activeScorer);
           setScores(pluginsScoreMap, activeScorer.updatedAt, Date.now());
@@ -32,10 +38,13 @@ export const useCustomScoreWithScoreUpdater = (initialPlugins: Plugin[]) => {
       }
     }
   }, []);
-  
+
   useEffect(() => {
     if (enableCustomScorer && activeScorer) {
-      const patchedPlugins = patchPluginsWithCustomScore(initialPlugins, pluginsScoreMap);
+      const patchedPlugins = patchPluginsWithCustomScore(
+        initialPlugins,
+        pluginsScoreMap
+      );
       setPlugins(patchedPlugins);
     }
   }, [pluginsScoreMap]);

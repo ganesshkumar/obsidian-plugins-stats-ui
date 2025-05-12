@@ -6,14 +6,13 @@ const legalDocsDirectory = path.join(process.cwd(), 'legal-docs');
 
 export function getAllLegalDocIds() {
   const fileNames = fs.readdirSync(legalDocsDirectory);
-  return fileNames
-    .map((fileName) => {
-      return {
-        params: {
-          legal: fileName.replace(/\.md$/, ''),
-        },
-      };
-    });
+  return fileNames.map((fileName) => {
+    return {
+      params: {
+        legal: fileName.replace(/\.md$/, ''),
+      },
+    };
+  });
 }
 
 export function getLegalDocData(id: string) {
