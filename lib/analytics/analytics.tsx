@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { IAnalyticsStrategy } from "./types/analytics.interface";
+import { IAnalyticsStrategy } from "./types/analytics";
 import { usePlausibleStrategy, withPlausibleProvider } from "./strategies/plausible.strategy";
 
 interface AnalyticsContextType {

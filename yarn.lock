@@ -551,6 +551,20 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.8.tgz#21a907684723bbbaa5f0974cf7730bd797eb8e62"
   integrity sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==
 
+"@growthbook/growthbook-react@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@growthbook/growthbook-react/-/growthbook-react-1.5.1.tgz#6de3febe9c417a16e20d53b4895aaaa6edcf399d"
+  integrity sha512-SQlB9XJib1xajQYbEO2Za+e0BlXGD5LOqgfv2j1cWHhWQkBkwmr3IQu6KD8rVqDoD0WY6de3X3mKfgKlxzzO0Q==
+  dependencies:
+    "@growthbook/growthbook" "^1.5.1"
+
+"@growthbook/growthbook@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@growthbook/growthbook/-/growthbook-1.5.1.tgz#1787815c3fcf32b250a7004017f4a837656e79ba"
+  integrity sha512-t0cj+3i2YtZ4Y/v1xl2fThogLMvjjUy3fx7ywGoLPgKZdhYy2HSXUGY1lLM/I0FMTEd2L2lkJHEzeUKpW6Ew3g==
+  dependencies:
+    dom-mutator "^0.6.0"
+
 "@humanfs/core@^0.19.1":
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/@humanfs/core/-/core-0.19.1.tgz#17c55ca7d426733fe3c561906b8173c336b40a77"
@@ -2971,6 +2985,11 @@ dom-accessibility-api@^0.6.3:
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/dom-accessibility-api/-/dom-accessibility-api-0.6.3.tgz#993e925cc1d73f2c662e7d75dd5a5445259a8fd8"
   integrity sha512-7ZgogeTnjuHbo+ct10G9Ffp0mif17idi0IyWNVA/wcwcm7NPOD/WEHVP3n7n3MhXqxoIYm8d6MuZohYWIZ4T3w==
+
+dom-mutator@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/dom-mutator/-/dom-mutator-0.6.0.tgz#079d7a4b3e8981a562cd777548b99baab51d65c5"
+  integrity sha512-iCt9o0aYfXMUkz/43ZOAUFQYotjGB+GNbYJiJdz4TgXkyToXbbRy5S6FbTp72lRBtfpUMwEc1KmpFEU4CZeoNg==
 
 dom-serializer@^2.0.0:
   version "2.0.0"

@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^2.11.11",
+    "@growthbook/growthbook": "^1.5.1",
+    "@growthbook/growthbook-react": "^1.5.1",
     "@microsoft/applicationinsights-clickanalytics-js": "3.3.2",
     "@microsoft/applicationinsights-react-js": "17.3.2",
     "@microsoft/applicationinsights-web": "3.3.2",
