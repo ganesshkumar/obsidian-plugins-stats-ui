@@ -26,16 +26,16 @@ export const Score = (props) => {
 
   return (
     <div className="flex items-baseline mt-2">
-      <span className="text-xl">Score: </span>
-      <span className={`text-4xl font-sans font-bold ${scoreClass}`}>
+      <span className="text-xl text-gray-600">Score: </span>
+      <span className={`text-2xl font-sans font-bold ${scoreClass}`}>
         {Math.round(plugin.score.toFixed(2) * 100)}
       </span>
-      /100
+      <span className="text-gray-600">/100</span>
       <span className="ml-2">
         <Tooltip content="Explain score" className="inline-block">
           <Info
             data-testid="score-info"
-            className="inline-block text-gray-600 cursor-pointer"
+            className="inline-block text-gray-600 cursor-pointer pb-1"
             size={20}
             onClick={(_) => setOpenScoreModal(!openScoreModal)}
           />

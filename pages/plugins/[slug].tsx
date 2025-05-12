@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import AppNavbar from '../../components/Navbar';
 
 import Link from 'next/link';
@@ -25,6 +25,7 @@ import {
   Activity,
 } from 'react-feather';
 import {
+  Button,
   Card,
   CustomFlowbiteTheme,
   Tooltip,
@@ -37,10 +38,12 @@ import Header, { IHeaderProps } from '../../components/Header';
 import EthicalAd from '../../components/EthicalAd';
 import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 import ResponsiveLayout from '../_responsive-layout';
-import { getCategoryBgClass } from '../../lib/customThemes';
 import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
+import { supabase } from '../../lib/supabase';
+import { GivePluginReview } from '@/components/GivePluginRating';
+import { StarRating } from '@/components/StarRating';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -62,6 +65,8 @@ const Plugin = (props: IPluginProps) => {
 
   const [favorites, setFavorites] = useState([]);
   const [readmeContent, setReadmeContent] = useState('');
+
+  const [enableRating, setEnableRating] = useState(false);
 
   const now = moment();
 
@@ -89,6 +94,13 @@ const Plugin = (props: IPluginProps) => {
       });
   }, []);
 
+  useEffect(() => {
+    const storedEnableRating = localStorage.getItem('enableRating');
+    if (storedEnableRating !== null) {
+      setEnableRating(storedEnableRating === 'true');
+    }
+  }, [])
+
   const isFavorite = favorites.includes(props.plugin.pluginId);
   const isNotADayOld = isNotXDaysOld(props.plugin.createdAt, 1);
 
@@ -112,14 +124,25 @@ const Plugin = (props: IPluginProps) => {
           <Card theme={customCardTheme}>
             <div className="flex flex-wrap md:justify-between">
               <div>
-                <h1 className="text-2xl font-semibold uppercase cursor-context-menu text-violet-900">
+                <h1 className="text-2xl font-bold uppercase cursor-context-menu text-violet-800">
                   {props.plugin.name}
                 </h1>
-                <div className="text-sm mb-4">
+                <div className="text-sm mb-1">
                   by <span>{props.plugin.author}</span>
                 </div>
+                <Favorites
+                  plugin={props.plugin}
+                  isFavorite={isFavorite}
+                  setFavorites={setFavorites}
+                />
+                {enableRating && (
+                  <div className='flex flex-col gap-y-2 my-4 mb-8'>
+                    <StarRating ratingInfo={props.plugin.ratingInfo} />
+                    <GivePluginReview pluginId={props.plugin.pluginId} />
+                  </div>
+                )}
                 {props.plugin.score && props.plugin.scoreReason && <Score plugin={props.plugin} />}
-                <div className="flex gap-x-2 mb-2 mt-4">
+                <div className="flex gap-x-2 mb-2">
                   {isFavorite && (
                     <div
                       title="Favorite plugin"
@@ -145,11 +168,6 @@ const Plugin = (props: IPluginProps) => {
                     </div>
                   )}
                 </div>
-                <Favorites
-                  plugin={props.plugin}
-                  isFavorite={isFavorite}
-                  setFavorites={setFavorites}
-                />
                 {/* <div className='my-2'>{props.plugin.description}</div> */}
                 <div className="flex flex-wrap space-x-4 mt-6">
                   <a
