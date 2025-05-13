@@ -39,6 +39,7 @@ import { Sidebar } from '../../components/Sidebar';
 import { GivePluginReview } from '@/components/GivePluginRating';
 import { StarRating } from '@/components/StarRating';
 import { useFeatureFlag } from '@/lib/feature-flag/feature-flags';
+import { PluginSection } from '@/components/plugins/PluginSection';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -239,6 +240,7 @@ const Plugin = (props: IPluginProps) => {
               }}
             />
           </Card>
+          <PluginSection plugin={props.plugin} />
           <Card theme={customCardTheme} className="relative mt-4">
             <div className="text-2xl">Stats</div>
             <div className="mt-4 flex flex-wrap gap-4">

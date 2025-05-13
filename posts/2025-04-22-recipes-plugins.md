@@ -1,14 +1,15 @@
 ---
-title: From Vault to Kitchen - Obsidian Plugins for Managing Cooking Recipes (Recipes Workflow)
+title: Best Plugins for Managing and Organizing Cooking Recipes in Obsidian
 description: Discover Obsidian plugins that turn your note-taking app into a smart recipe manager - organize, plan, and cook with ease.
 excerpt: Explore plugins that help you collect, tag, plan, and cook recipes right from your Obsidian vault. Perfect for chefs, foodies, and meal preppers.
 publishedDate: '2025-04-22'
-modifiedDate: '2025-04-22'
+modifiedDate: '2025-05-12'
 ogImage: '/images/2025-04-22-recipes-workflow-og.webp'
 tags:
   - obsidian-plugins
   - workflow
   - cooking
+  - recipes
 ---
 
 If you've ever used Obsidian to clip your favorite recipes, track your pantry, or plan your meals, you're not alone. This post, "From Vault to Kitchen," highlights plugins that make your cooking workflow in Obsidian effortless and enjoyable.

@@ -1,9 +1,9 @@
 ---
-title: From Vault to World - Plugins that Help You Publish Your Obsidian Notes (Publish Workflow)
+title: Best Plugins for Publishing Your Obsidian Notes Online
 description: Publish Obsidian notes to blogs, CMSs & websites with these powerful plugins in your publish workflow.
 excerpt: Explore the plugins that help turning your Obsidian notes into live blog posts, full-fledged websites, or social media content without leaving your favorite writing app.
 publishedDate: '2025-04-16'
-modifiedDate: '2025-04-17'
+modifiedDate: '2025-05-12'
 ogImage: '/images/2025-04-16-publish-workflow-og.png'
 tags:
   - obsidian-plugins

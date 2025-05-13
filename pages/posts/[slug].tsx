@@ -2,7 +2,6 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import {
   getAllPostIds,
   getPostData,
-  getSortedPostsData,
 } from '../../lib/posts';
 import Navbar from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
@@ -19,7 +18,6 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
-import { PostIcon } from '../../components/post/PostIcon';
 import EthicalAd from '../../components/EthicalAd';
 import Comments from '../../components/Comments';
 import ResponsiveLayout from '../_responsive-layout';
@@ -126,6 +124,19 @@ const Post = (props: IPostPageProps) => {
               <div>
                 Updated: {moment(postData.modifiedDate).format('DD-MMM-YYYY')}
               </div>
+            )}
+            {postData.tags && (
+              <>
+                <ul className="flex gap-x-2 list-none ml-0 pl-0">
+                  {postData.tags.filter(t => t!=="obsidian-plugins").map((tag) => (
+                    <li key={tag} className='pl-0'>
+                      <span className="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-sm">
+                        #{tag}
+                      </span>
+                    </li>
+                  ))}
+                </ul> 
+              </>
             )}
             <div className="mt-4 flex justify-center">
               {isLessThanLarge && (

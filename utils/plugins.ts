@@ -8,6 +8,7 @@ export const tagDenyList = [
   'plugins',
   'hacktoberfest',
   'obsidianmd',
+  'dataview-compatible'
 ];
 
 export const sanitizeTag = (tag) => {

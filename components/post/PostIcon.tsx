@@ -1,4 +1,4 @@
-import { Calendar, Cpu, FileText, List, Star, Zap } from 'react-feather';
+import { Calendar, Cpu, FileText, Package, Star, Zap } from 'react-feather';
 
 export const PostIcon = (props) => {
   if (props.tags && props.tags.includes('weekly-plugin-updates')) {
@@ -19,10 +19,10 @@ export const PostIcon = (props) => {
     );
   } else if (props.tags && props.tags.includes('workflow')) {
     return (
-      <List
-        data-testid="list-icon"
+      <Package
+        data-testid="package-icon"
         size={props.size || 48}
-        className="text-green-400 p-1 rounded fill-yellow-200"
+        className="text-green-400 p-1 rounded fill-green-200"
       />
     );
   } else if (props.tags && props.tags.includes('feature')) {

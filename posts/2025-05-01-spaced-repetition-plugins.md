@@ -1,9 +1,9 @@
 ---
-title: From Vault to Memory - Obsidian Plugins for Spaced Repetition and Active Recall (Spaced Repetition Workflow)
+title: Best Plugins for Spaced Repetition and Active Recall in Obsidian
 description: Discover Obsidian plugins that turn your notes into flashcards, helping you master active recall with spaced repetition.
 excerpt: Explore powerful plugins that bring spaced repetition to your notes - perfect for students, lifelong learners, and knowledge hoarders.
 publishedDate: '2025-05-01'
-modifiedDate: '2025-05-01'
+modifiedDate: '2025-05-12'
 ogImage: '/images/2025-05-01-spaced-repetition-workflow-og.webp'
 tags:
   - obsidian-plugins
