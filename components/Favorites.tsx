@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useCallback, useEffect } from 'react';
 import { setFavorite, unsetFavorite } from '../utils/favorites';
 
