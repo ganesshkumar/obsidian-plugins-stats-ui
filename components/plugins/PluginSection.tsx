@@ -1,8 +1,10 @@
 import { Plugin } from "@/domain/plugins/models/Plugin";
 import { DataviewSection } from "./dataview";
+import { ObsidianTasksPluginSection } from "./obsidian-tasks-plugin";
 
 const PluginSpecificComponentMap = {
   'dataview': <DataviewSection />,
+  'obsidian-tasks-plugin': <ObsidianTasksPluginSection />
 }
 
 interface IPluginSectionProps {

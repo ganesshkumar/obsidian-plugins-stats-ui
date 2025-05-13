@@ -85,9 +85,9 @@ export const useFeatureFlag = <K extends FeatureFlagKey>(
   useEffect(() => {
     if (typeof window === 'undefined') return; // skip SSR
     if (!tracked.current) {
-      trackEvent(`Feature Flag: ${sbFlagkey}`, {
+      trackEvent('Feature Flag Consumed', {
         props: {
-          value,
+          [sbFlagkey]: value,
         },
       });
       tracked.current = true;

@@ -116,7 +116,7 @@ const Plugin = (props: IPluginProps) => {
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar}>
           <Card theme={customCardTheme}>
-            <div className="flex flex-wrap md:justify-between">
+            <div className="flex-col">
               <div>
                 <h1 className="text-2xl font-bold uppercase cursor-context-menu text-violet-800">
                   {props.plugin.name}
@@ -130,7 +130,7 @@ const Plugin = (props: IPluginProps) => {
                   setFavorites={setFavorites}
                 />
                 {enableRating && (
-                  <div className="flex flex-col gap-y-2 my-4 mb-8">
+                  <div className="flex flex-col gap-y-2 my-4 mb-8 max-w-sm">
                     <StarRating ratingInfo={props.plugin.ratingInfo} />
                     <GivePluginReview pluginId={props.plugin.pluginId} />
                   </div>
