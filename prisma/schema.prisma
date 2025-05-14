@@ -38,6 +38,7 @@ model Plugin {
   osTags                    String?
   score                     Float?
   scoreReason               String?
+  website                   String?
 }
 
 model ReleaseDownloads {

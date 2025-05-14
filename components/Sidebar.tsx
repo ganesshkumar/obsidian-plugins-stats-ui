@@ -42,12 +42,12 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
                 'Suggestion Click Similar Plugin'
               )
             }
-            className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]"
+            className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px] cursor-pointer"
           >
             <div
-              className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] ${getCategoryBgClass(similarPlugin.osCategory)} flex justify-center items-center self-center`}
+              className={`w-[36px] min-w-[36px] max-w-[36px] h-[90px] min-h-[90px] max-h-[90px] flex justify-center items-start self-center pt-2`}
             >
-              <CategoryIcon category={similarPlugin.osCategory} size={44} />
+              <CategoryIcon category={similarPlugin.osCategory} size={32} />
             </div>
             <div>
               <p className="text-gray-700 px-2 pt-2 font-semibold">

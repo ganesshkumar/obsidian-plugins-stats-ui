@@ -23,6 +23,7 @@ import {
   GitPullRequest,
   Disc,
   Activity,
+  Globe,
 } from 'react-feather';
 import { Card, CustomFlowbiteTheme, Tooltip } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
@@ -176,6 +177,16 @@ const Plugin = (props: IPluginProps) => {
                     />{' '}
                     Install
                   </a>
+                  {props.plugin.website && (
+                    <a
+                      href={`${props.plugin.website}`}
+                      target="_blank"
+                      className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110"
+                    >
+                      <Globe className="text-gray-800 inline mr-2" size={18} />{' '}
+                      Website
+                    </a>
+                  )}
                   <a
                     href={`https://github.com/${props.plugin.repo}`}
                     target="_blank"
