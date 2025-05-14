@@ -80,7 +80,7 @@ const Blog = (props: IPostsPageProps) => {
         <ResponsiveLayout sidebar={sidebar}>
           <InfoBar title="Posts" />
           {isLessThanLarge && (
-            <EthicalAd type="fixed-footer" id="posts-fixed-footer" />
+            <EthicalAd type="text" data-ea-style="fixed-footer" placementId="posts-fixed-footer" />
           )}
           <ul>
             {Object.keys(postsByMonth)

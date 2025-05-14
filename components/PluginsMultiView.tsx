@@ -65,7 +65,7 @@ export const PluginsMultiView = (props: IPluginsMultiViewProps) => {
           </Button>
         </Button.Group>
       </div>
-      <EthicalAd type="text" id="plugins-multiview-text" />
+      <EthicalAd type="text" data-ea-style="fixed-footer" placementId="plugins-multiview-text" className='horizontal' />
       {plugins && plugins.length && (
         <div className="mt-4">
           {(view !== undefined ? view : componentView) === 'list' ? (

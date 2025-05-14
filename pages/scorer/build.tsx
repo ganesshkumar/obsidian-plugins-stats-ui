@@ -167,7 +167,7 @@ const ScoreEditor = ({ plugins }) => {
 
   return (
     <>
-      <EthicalAd type="text" id="scorer-build-text" />
+      <EthicalAd type="text" data-ea-style="fixed-footer" placementId="scorer-build-text" />
       <div className="flex justify-start flex-wrap gap-x-2 gap-y-1 mt-4">
         <span key="title" className="font-bold">
           Available plugin metrics:

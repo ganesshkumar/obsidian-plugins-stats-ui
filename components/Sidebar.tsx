@@ -42,7 +42,7 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
                 'Suggestion Click Similar Plugin'
               )
             }
-            className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px] cursor-pointer"
+            className="flex border border-gray-200 p-3 rounded w-full h-[130px] min-h-[130px] max-h-[130px] cursor-pointer"
           >
             <div
               className={`w-[36px] min-w-[36px] max-w-[36px] h-[90px] min-h-[90px] max-h-[90px] flex justify-center items-start self-center pt-2`}
@@ -88,7 +88,7 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
                 'Suggestion Click Tool'
               )
             }
-            className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]"
+            className="flex border border-gray-200 p-3 rounded w-full h-[130px] min-h-[130px] max-h-[130px]"
           >
             <div
               className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}
@@ -114,7 +114,7 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
                 'Suggestion Click Post'
               )
             }
-            className="flex border border-gray-200 mx-4 p-3 rounded w-[320px] min-w-[320px] max-w-[320px] h-[130px] min-h-[130px] max-h-[130px]"
+            className="flex border border-gray-200 p-3 rounded w-full h-[130px] min-h-[130px] max-h-[130px]"
           >
             <div
               className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}
@@ -134,7 +134,7 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
 
   return (
     <div className="w-full mt-10 lg:mt-0 lg:sticky lg:top-10">
-      {!isLessThanLarge && <EthicalAd type="image" id={adId} />}
+      {!isLessThanLarge && <EthicalAd type="image" placementId={adId} className='horizontal' />}
       <h2 className="mt-1 mb-4 text-2xl text-center">
         {pageInfo.type === 'plugin' ? 'Similar Plugins' : 'Suggested Content'}
       </h2>

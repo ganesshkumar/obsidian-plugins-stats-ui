@@ -42,7 +42,7 @@ const ResponsiveLayout: React.FC<IResponsiveLayoutProps> = ({
 
       {/* Sidebar */}
       {!isLessThanLarge && (
-        <aside className="hidden lg:block lg:col-span-4 xl:col-span-3 2xl:col-span-3 2xl:max-w-sm 2xl:min-w-[320px]">
+        <aside className="hidden lg:block lg:col-span-4 xl:col-span-3 2xl:col-span-3 w-fit 2xl:max-w-sm 2xl:min-w-[320px]">
           {sidebar}
         </aside>
       )}

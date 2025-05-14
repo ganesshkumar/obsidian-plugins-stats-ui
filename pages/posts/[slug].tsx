@@ -140,7 +140,7 @@ const Post = (props: IPostPageProps) => {
             )}
             <div className="mt-4 flex justify-center">
               {isLessThanLarge && (
-                <EthicalAd type="fixed-footer" id="post-fixed-footer" />
+                <EthicalAd type="text" data-ea-style="fixed-footer" placementId="post-fixed-footer" />
               )}
             </div>
             {plugins && plugins.length ? (

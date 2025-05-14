@@ -102,6 +102,13 @@ const Plugin = (props: IPluginProps) => {
     />
   );
 
+  const adKeywords = [props.plugin.name]
+  props.plugin.osTags.split(',').forEach((tag) => {
+    tag = sanitizeTag(tag.trim())
+    if (adKeywords.includes(tag)) return
+    adKeywords.push(tag)
+  });
+
   return (
     <div>
       <Header {...props} />
@@ -201,7 +208,7 @@ const Plugin = (props: IPluginProps) => {
           </Card>
           {isLessThanLarge && (
             <div className="sticky top-0 z-20 bg-white">
-              <EthicalAd type="fixed-footer" id="plugin-fixed-footer" />
+              <EthicalAd type="text" data-ea-style="fixed-footer" placementId="plugin-fixed-footer" data-ea-keywords={adKeywords.join('|')} />
             </div>
           )}
           <Card theme={customCardTheme} className="relative mt-4">
