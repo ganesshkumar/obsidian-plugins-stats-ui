@@ -39,6 +39,7 @@ model Plugin {
   score                     Float?
   scoreReason               String?
   website                   String?
+  languages                 String?
 }
 
 model ReleaseDownloads {

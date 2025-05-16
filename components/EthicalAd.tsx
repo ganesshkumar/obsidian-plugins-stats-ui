@@ -1,31 +1,38 @@
-// EthicalAd.tsx
 import React, { useEffect, useRef, useId } from "react";
 
-/** ----------------------------------------------------------------
- * CONFIGURE THESE BEFORE USING
- * ---------------------------------------------------------------- */
 const EA_PUBLISHER_ID   = "obsidianstatscom"; // e.g. "example-com"
 const CARBON_SERVE_CODE = "CW7I6K7Y"; // e.g. "CEAI42J7"
 const CARBON_PLACEMENT  = "wwwobsidianstatscom"; // usually your domain without dots
 
-/** ----------------------------------------------------------------
- *  <EthicalAd /> – single-slot EthicalAds component with Carbon fallback
- * ---------------------------------------------------------------- */
+/**
+ * Props for the EthicalAd component.
+ * @property placementId - Unique identifier for this placement (helps with analytics)
+ * @property type - Ad type: 'image' or 'text' (EthicalAds default is image)
+ * @property style - Optional EthicalAds style helpers (stickybox, fixedfooter, etc.)
+ * @property className - Optional extra CSS classes
+ * @property keywords - Optional pipe-separated keywords for targeting (e.g., kubernetes|devops)
+ * @property verbose - Optional verbosity flag
+ */
 export interface EthicalAdProps {
-  /** Unique identifier for this placement (helps with analytics) */
   placementId?: string;
-  /** image | text  (EthicalAds default is image) */
   type?: "image" | "text";
-  /** Optional EthicalAds style helpers (stickybox, fixedfooter, etc.) */
   style?: string;
-  /** Optional extra CSS classes */
   className?: string;
-  /** Optional pipe-separated keywords for targeting (kubernetes|devops) */
   keywords?: string;
-  /** Optional Verbosity */
   verbose?: boolean;
 }
 
+/**
+ * EthicalAd – single-slot EthicalAds component.
+ * Loads EthicalAds and displays an ad if available. No fallback.
+ *
+ * @param placementId - Unique identifier for this placement
+ * @param type - Ad type: 'image' or 'text'
+ * @param style - Optional EthicalAds style helpers
+ * @param className - Optional extra CSS classes
+ * @param keywords - Optional pipe-separated keywords for targeting
+ * @param verbose - Optional verbosity flag
+ */
 export const EthicalAd: React.FC<EthicalAdProps> = ({
   placementId,
   type = "image",
@@ -37,9 +44,10 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const autoId       = useId();                      // React 18+ unique id
 
-  /* -------------------------------------------------------------
-   * Helper: inject EthicalAds script once and memoise the promise
-   * ----------------------------------------------------------- */
+  /**
+   * Inject EthicalAds script once and memoize the promise.
+   * @returns Promise that resolves when the script is loaded.
+   */
   function loadEthicalAdsClient(): Promise<void> {
     if ((window as any).__ethicalAdsLoaded) {
       return Promise.resolve();
@@ -56,9 +64,9 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
     });
   }
 
-  /* -------------------------------------------------------------
+  /**
    * Helper: render Carbon ad inside this container
-   * ----------------------------------------------------------- */
+   */
   function injectCarbon() {
     if (!containerRef.current) return;
     
@@ -73,9 +81,9 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
     containerRef.current.appendChild(carbon);
   }
 
-  /* -------------------------------------------------------------
+  /**
    * Effect: load ads + fallback logic
-   * ----------------------------------------------------------- */
+   */
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -102,9 +110,9 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
     });
   }, [autoId, placementId, type, style, keywords]);
 
-  /* -------------------------------------------------------------
-   * Render the EthicalAds placeholder <div>
-   * ----------------------------------------------------------- */
+  /**
+   * Render the EthicalAds placeholder <div>.
+   */
   return (
     <div
       ref={containerRef}

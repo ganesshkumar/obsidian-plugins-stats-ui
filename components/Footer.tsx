@@ -1,7 +1,8 @@
-import { CustomFlowbiteTheme, Footer as FlowbiteFooter } from 'flowbite-react';
+import { Button, CustomFlowbiteTheme, Footer as FlowbiteFooter } from 'flowbite-react';
 import React from 'react';
 import Constants from '../constants';
 import { Sponsorship } from './Sponsorship';
+import { Twitter } from 'react-feather';
 
 const customTheme: CustomFlowbiteTheme['footer'] = {
   brand: {
@@ -27,6 +28,11 @@ export const Footer = () => {
                 alt="Obsidian Stats Logo"
                 name="Obsidian Stats"
               />
+              <div className='mt-2'>
+                <a href="https://x.com/ganesshkumar" target="_blank" rel="noreferrer">
+                  <Twitter className='text-gray-700 w-6 h-6 border border-gray-500 p-1 rounded-md' />
+                </a>
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 lg:grid-cols-4 sm:gap-6">
               <div>

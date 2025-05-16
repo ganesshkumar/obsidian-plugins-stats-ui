@@ -10,7 +10,7 @@ import Favorites from '../../components/Favorites';
 import PluginCard from '../../components/PluginCard';
 import { getDescription, sanitizeTag, tagDenyList } from '../../utils/plugins';
 import { isNotXDaysOld } from '../../utils/datetime';
-
+import ISO6391 from 'iso-639-1';
 import {
   Download,
   DownloadCloud,
@@ -211,6 +211,18 @@ const Plugin = (props: IPluginProps) => {
               <EthicalAd type="text" data-ea-style="fixed-footer" placementId="plugin-fixed-footer" data-ea-keywords={adKeywords.join('|')} />
             </div>
           )}
+          {/* <Card theme={customCardTheme} className="relative mt-4">
+            <div>
+              <div className="text-2xl">Languages</div>
+              <div className="flex gap-x-2 mt-1 text-gray-600">
+                {props.plugin.languages.split(',').map((lang) => (
+                  <div key={lang} className="text-md">
+                    {ISO6391.getName(lang)}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Card> */}
           <Card theme={customCardTheme} className="relative mt-4">
             <div className="text-2xl">Description</div>
             <div className="flex mt-4 gap-x-2">
