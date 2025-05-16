@@ -89,6 +89,13 @@ pluginId=midi-logger
 
 ---
 
+```plugin
+index=11
+pluginId=lilypond
+```
+
+---
+
 This `Metronome` plugins is not exactly for music notations but it is very close to music notations.
 
 ```plugin

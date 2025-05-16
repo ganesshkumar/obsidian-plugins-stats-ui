@@ -25,7 +25,7 @@ import {
   Activity,
   Globe,
 } from 'react-feather';
-import { Card, CustomFlowbiteTheme, Tooltip } from 'flowbite-react';
+import { Badge, Card, CustomFlowbiteTheme, List, ListItem, Tooltip } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { CategoryIcon } from '../../components/Category';
 import { Score } from '../../components/Score';
@@ -41,6 +41,11 @@ import { GivePluginReview } from '@/components/GivePluginRating';
 import { StarRating } from '@/components/StarRating';
 import { useFeatureFlag } from '@/lib/feature-flag/feature-flags';
 import { PluginSection } from '@/components/plugins/PluginSection';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeSlug from 'rehype-slug';
+import rehypeStringify from 'rehype-stringify';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -447,6 +452,24 @@ const Plugin = (props: IPluginProps) => {
               </Tooltip>
             </div>
           </Card>
+          {props.plugin.requirements && props.plugin.requirements.length > 0 && (
+            <Card theme={customCardTheme} className="relative mt-4">
+              <div>
+                <div className="text-2xl mb-4 flex items-center gap-x-4">
+                  Requirements
+                  <Badge color="info">Experimental</Badge>
+                </div>
+                <List>
+                  {props.plugin.requirements.map((req) => (
+                    <ListItem key={req} className="text-md">
+                      <span className='inline-block prose-a:underline prose-a:text-violet-700 '
+                        dangerouslySetInnerHTML={{ __html: req }}></span>
+                    </ListItem>
+                  ))}
+                </List>
+              </div>
+            </Card>
+          )}
           <Card
             theme={customCardTheme}
             className="relative mt-4"
@@ -554,8 +577,13 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   const plugins = await PluginsCache.get();
-
   const plugin = plugins.find((plugin) => plugin.pluginId === params.slug);
+
+  plugin.requirements = plugin.requirements || [];
+  for (let idx = 0; idx < plugin.requirements.length; idx++) {
+    plugin.requirements[idx] = await processMarkdown(plugin.requirements[idx]);
+  }
+
   const tags = plugin.osTags
     ? plugin.osTags.split(',').map((tag) => sanitizeTag(tag))
     : [];
@@ -613,6 +641,21 @@ export const getStaticProps = async ({ params }) => {
           .findIndex((p) => p.pluginId === plugin.pluginId) < 10,
     },
   };
+};
+
+const processMarkdown = async (markdown: string) => {
+    const processedContent = await unified()
+    .use(remarkParse)
+    //.use(remarkPostAd)
+    //.use(remarkPluginHandler)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeSlug)
+    //.use(rehypeToc, { headings: ['h1', 'h2', 'h3'], cssClasses:  { listItem: 'list-none [&>li>a]:no-underline'  } })
+    .use(rehypeStringify, { allowDangerousHtml: true })
+    .process(markdown);
+  const contentHtml = processedContent.toString();
+
+  return contentHtml;
 };
 
 export default Plugin;
