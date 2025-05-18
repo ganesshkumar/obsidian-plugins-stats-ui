@@ -11,7 +11,6 @@ const CARBON_PLACEMENT  = "wwwobsidianstatscom"; // usually your domain without 
  * @property style - Optional EthicalAds style helpers (stickybox, fixedfooter, etc.)
  * @property className - Optional extra CSS classes
  * @property keywords - Optional pipe-separated keywords for targeting (e.g., kubernetes|devops)
- * @property verbose - Optional verbosity flag
  */
 export interface EthicalAdProps {
   placementId?: string;
@@ -19,7 +18,6 @@ export interface EthicalAdProps {
   style?: string;
   className?: string;
   keywords?: string;
-  verbose?: boolean;
 }
 
 /**
@@ -31,7 +29,6 @@ export interface EthicalAdProps {
  * @param style - Optional EthicalAds style helpers
  * @param className - Optional extra CSS classes
  * @param keywords - Optional pipe-separated keywords for targeting
- * @param verbose - Optional verbosity flag
  */
 export const EthicalAd: React.FC<EthicalAdProps> = ({
   placementId,
@@ -39,7 +36,6 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
   style,
   className,
   keywords,
-  verbose,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const autoId       = useId();                      // React 18+ unique id
@@ -123,7 +119,7 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
       data-ea-keywords={keywords}
       className={className}
       /* Minimal inline size to avoid CLS jump before ad loads */
-      style={{ minHeight: 140 }}
+      style={{ minHeight: type === "image" ? "140" : "75" }}
     />
   );
 };

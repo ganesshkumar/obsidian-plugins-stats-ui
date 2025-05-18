@@ -73,7 +73,7 @@ const Migrate = () => {
       <div className="bg-white pt-5 grow">
         <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
           <InfoBar title="migrate" />
-          <EthicalAd type="text" data-ea-style="fixed-footer" placementId="migrate-text" />
+          <EthicalAd type="text" style="fixed-footer" placementId="migrate-text" />
           <Image
             src="/images/undraw/moving_2cfm.png"
             alt="Migrate"

@@ -26,6 +26,8 @@ import { remarkPluginHandler } from '../../domain/remark/plugin-hander';
 import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
+import WavesBackground from '@/components/background/wave-background';
+import rehypeToc from 'rehype-toc';
 
 interface IPostPageProps extends IHeaderProps {
   postData: PostData;
@@ -51,7 +53,42 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .use(remarkPluginHandler)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
-    //.use(rehypeToc, { headings: ['h1', 'h2', 'h3'], cssClasses:  { listItem: 'list-none [&>li>a]:no-underline'  } })
+    .use(rehypeToc, {
+      headings: ['h1', 'h2'],
+      cssClasses:  { listItem: 'list-disc marker:text-red-700', link: 'no-underline' },
+      customizeTOC: (toc) => {
+        if (toc.children.length > 0 && (toc.children[0] as HTMLOListElement).children.length > 0) {
+          toc.children.unshift({
+            type: 'element',
+            // @ts-expect-error: tagName is valid for hast Element nodes
+            tagName: 'div',
+            properties: { className: ['toc-title', 'flex', 'items-center', 'gap-2'] },
+            children: [
+              { type: 'text', value: 'On this page' }
+            ]
+          });
+        }
+        return toc;
+      },
+      customizeTOCItem: (node) => {
+        const stripEmoji = (value) =>
+          value.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\p{Symbol}\p{Punctuation}]+\s*/gu, '');
+
+        const cleanTextNodes = (child) => {
+          if (child.type === 'text') {
+            child.value = stripEmoji(child.value);
+          } else if (child.children) {
+            child.children.forEach(cleanTextNodes);
+          }
+        };
+
+        if (node.children) {
+          node.children.forEach(cleanTextNodes);
+        }
+
+        return node;
+      }
+    })
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(postData.content);
   const contentHtml = processedContent.toString();
@@ -107,6 +144,18 @@ const Post = (props: IPostPageProps) => {
     />
   );
 
+
+  let title = null;
+  if (postData.tags.includes('weekly-plugin-updates')) {
+    title = <WavesBackground title={postData.title} />
+  } else {
+    title = (
+      <h1 className="mt-2 mb-0 text-3xl font-heading leading-20">
+        {postData.title}
+      </h1>
+    )
+  }
+
   return (
     <div>
       <Header {...props} />
@@ -114,14 +163,12 @@ const Post = (props: IPostPageProps) => {
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar}>
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px] prose-h2:text-red-700">
-            <h1 className="mt-2 mb-0 text-3xl font-heading leading-20">
-              {postData.title}
-            </h1>
-            <div>
+            {title}
+            <div className='text-md'>
               Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
             </div>
             {postData.publishedDate !== postData.modifiedDate && (
-              <div>
+              <div className='text-md'>
                 Updated: {moment(postData.modifiedDate).format('DD-MMM-YYYY')}
               </div>
             )}
@@ -140,7 +187,7 @@ const Post = (props: IPostPageProps) => {
             )}
             <div className="mt-4 flex justify-center">
               {isLessThanLarge && (
-                <EthicalAd type="text" data-ea-style="fixed-footer" placementId="post-fixed-footer" />
+                <EthicalAd type="text" style="fixed-footer" placementId="post-fixed-footer" />
               )}
             </div>
             {plugins && plugins.length ? (

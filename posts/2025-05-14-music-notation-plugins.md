@@ -3,7 +3,7 @@ title: Best Plugins for Writing and Rendering Sheet Music in Obsidian
 description: Discover plugins that turn your Obsidian vault into a music notation workspace - compose, tab, log and render scores with ease.
 excerpt: This post explores Obsidian plugins designed for writing, formatting, and rendering music notation—from ABC and jTab to MIDI input and Indian percussion.
 publishedDate: '2025-05-14'
-modifiedDate: '2025-05-14'
+modifiedDate: '2025-05-18'
 ogImage: '/images/2025-05-14-sheet-music-workflow-og.webp'
 tags:
   - obsidian-plugins
@@ -99,7 +99,7 @@ pluginId=lilypond
 This `Metronome` plugins is not exactly for music notations but it is very close to music notations.
 
 ```plugin
-index=11
+index=12
 pluginId=obsidian-metronome-plugin
 ```
 

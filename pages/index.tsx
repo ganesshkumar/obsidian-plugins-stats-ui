@@ -244,11 +244,7 @@ const Home = (props: IHomeProps) => {
                 </ul>
               </div>
               <div className="grid content-center">
-                <EthicalAd
-                  type="image" className="horizontal" placementId="home-image"
-                  verbose
-                  force-campaign="house"
-                />
+                <EthicalAd type="image" className="horizontal" placementId="home-image" />
               </div>
             </div>
           </div>

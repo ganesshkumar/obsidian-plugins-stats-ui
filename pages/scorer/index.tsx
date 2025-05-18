@@ -106,7 +106,7 @@ const ScorerListPage = (props) => {
           <div className="border-l-8 pl-2 border-violet-100">
             Build your own custom formula function to score the plugins.
           </div>
-          <EthicalAd type="text" data-ea-style="fixed-footer" placementId="scorers-text" />
+          <EthicalAd type="text" style="fixed-footer" placementId="scorers-text" />
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 mt-2">
             <ToggleSwitch
               label="Enable custom scorers"

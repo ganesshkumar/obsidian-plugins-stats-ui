@@ -42,7 +42,7 @@ const Updates = (props: IUpdatePageProps) => {
           <InfoBar
             title={`New Releases ${props.newReleases && `(${props.newReleases.length})`}`}
           />
-          <EthicalAd type="text" data-ea-style="fixed-footer" placementId="updates-text" />
+          <EthicalAd type="text" style="fixed-footer" placementId="updates-text" />
           <List
             unstyled
             className="w-full divide-y divide-gray-200 dark:divide-gray-700"

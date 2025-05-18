@@ -17,27 +17,20 @@ module.exports = {
         heading: ['Lato', 'system-ui', 'sans-serif'],
         pre: ['monospace'],
       },
-      keyframes: {
-        shake: {
-          '0%': {
-            transform: 'translateX(0)',
-          },
-          '25%': {
-            transform: 'translateX(-10px)',
-          },
-          '50%': {
-            transform: 'translateX(10px)',
-          },
-          '75%': {
-            transform: 'translateX(-10px)',
-          },
-          '100%': {
-            transform: 'translateX(0)',
-          },
+       keyframes: {
+        wave: {
+          '0%': { backgroundPositionX: '0px' },
+          '100%': { backgroundPositionX: '1000px' },
+        },
+        wave2: {
+          '0%': { backgroundPositionX: '0px' },
+          '100%': { backgroundPositionX: '-1000px' },
         },
       },
       animation: {
-        shake: 'shake 0.5s ease-in-out 3',
+        wave: 'wave 30s linear infinite',
+        wave2: 'wave2 15s linear infinite',
+        'wave2-fast': 'wave2 5s linear infinite',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -87,9 +80,6 @@ module.exports = {
         },
       },
     },
-  },
-  daisyui: {
-    themes: ['cupcake'],
   },
   plugins: [
     require('@tailwindcss/typography'),

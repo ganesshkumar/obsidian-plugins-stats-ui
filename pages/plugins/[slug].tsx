@@ -213,7 +213,7 @@ const Plugin = (props: IPluginProps) => {
           </Card>
           {isLessThanLarge && (
             <div className="sticky top-0 z-20 bg-white">
-              <EthicalAd type="text" data-ea-style="fixed-footer" placementId="plugin-fixed-footer" data-ea-keywords={adKeywords.join('|')} />
+              <EthicalAd type="text" style="fixed-footer" placementId="plugin-fixed-footer" data-ea-keywords={adKeywords.join('|')} />
             </div>
           )}
           {/* <Card theme={customCardTheme} className="relative mt-4">
