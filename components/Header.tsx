@@ -25,6 +25,7 @@ const Header = ({
       <meta key="description" name="description" content={description} />
       <link key="canonical" rel="canonical" href={canonical} />
       <link key="sitemap" rel="sitemap" href="/sitemap.xml" />
+      <link key="apple-touch-icon" rel="apple-touch-icon" href="/logo-apple-touch-icon-180x180.png" />
       {/* Open Graph Tags */}
       <meta key="og:title" property="og:title" content={title} />
       <meta

@@ -2,7 +2,7 @@ import { Button, CustomFlowbiteTheme, Footer as FlowbiteFooter } from 'flowbite-
 import React from 'react';
 import Constants from '../constants';
 import { Sponsorship } from './Sponsorship';
-import { Twitter } from 'react-feather';
+import { Twitter, Youtube } from 'react-feather';
 
 const customTheme: CustomFlowbiteTheme['footer'] = {
   brand: {
@@ -28,15 +28,18 @@ export const Footer = () => {
                 alt="Obsidian Stats Logo"
                 name="Obsidian Stats"
               />
-              <div className='mt-2'>
+              <div className='flex gap-x-2 mt-2'>
                 <a href="https://x.com/ganesshkumar" target="_blank" rel="noreferrer">
                   <Twitter className='text-gray-700 w-6 h-6 border border-gray-500 p-1 rounded-md' />
+                </a>
+                <a href="https://www.youtube.com/@codebuss" target="_blank" rel="noreferrer">
+                  <Youtube className='text-gray-700 w-6 h-6 border border-gray-500 p-1 rounded-md' />
                 </a>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 lg:grid-cols-4 sm:gap-6">
               <div>
-                <FlowbiteFooter.Title
+                <FlowbiteFooter.Title as="div"
                   className="text-gray-900"
                   title="Plugins"
                 />
@@ -80,7 +83,7 @@ export const Footer = () => {
                 </FlowbiteFooter.LinkGroup>
               </div>
               <div>
-                <FlowbiteFooter.Title className="text-gray-900" title="Posts" />
+                <FlowbiteFooter.Title as="div" className="text-gray-900" title="Posts" />
                 <FlowbiteFooter.LinkGroup col>
                   <FlowbiteFooter.Link
                     className={footerLinkClass}
@@ -91,7 +94,7 @@ export const Footer = () => {
                 </FlowbiteFooter.LinkGroup>
               </div>
               <div>
-                <FlowbiteFooter.Title className="text-gray-900" title="Tools" />
+                <FlowbiteFooter.Title as="div" className="text-gray-900" title="Tools" />
                 <FlowbiteFooter.LinkGroup col>
                   <FlowbiteFooter.Link
                     className={footerLinkClass}
@@ -120,7 +123,7 @@ export const Footer = () => {
                 </FlowbiteFooter.LinkGroup>
               </div>
               {/* <div>
-                <FlowbiteFooter.Title className="text-gray-900" title="Legal" />
+                <FlowbiteFooter.Title as="div" className="text-gray-900" title="Legal" />
                 <FlowbiteFooter.LinkGroup col>
                   <FlowbiteFooter.Link className={footerLinkClass} href="/privacy-policy">
                     Privacy Policy

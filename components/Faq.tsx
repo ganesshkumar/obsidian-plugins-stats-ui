@@ -13,7 +13,7 @@ const Faqs = ({ faqs }: IFaqProps) => {
         {faqs &&
           faqs.map((faq, idx) => (
             <Accordion.Panel key={idx}>
-              <Accordion.Title>
+              <Accordion.Title as="h3">
                 <div className="text-gray-700 group-open:font-medium">
                   {faq.question}
                 </div>
