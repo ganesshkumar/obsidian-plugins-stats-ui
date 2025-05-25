@@ -162,7 +162,7 @@ const Post = (props: IPostPageProps) => {
       <Navbar current="posts" />
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar}>
-          <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px] prose-h2:text-red-700">
+          <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px] prose-h2:text-red-700 prose-h3:text-red-700">
             {title}
             <div className='text-md'>
               Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}

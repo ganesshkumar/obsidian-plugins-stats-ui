@@ -26,11 +26,26 @@ module.exports = {
           '0%': { backgroundPositionX: '0px' },
           '100%': { backgroundPositionX: '-1000px' },
         },
+        gradient: {
+          '0%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%' },
+        },
+        morph: {
+          '0%': { borderRadius: '40% 60% 60% 40% / 70% 30% 70% 30%' },
+          '100%': { borderRadius: '40% 60%' },
+        },
+        spin: {
+          to: { transform: 'rotate(1turn)' },
+        },
       },
       animation: {
-        wave: 'wave 30s linear infinite',
-        wave2: 'wave2 15s linear infinite',
-        'wave2-fast': 'wave2 5s linear infinite',
+        wave: 'wave 30s linear infinite', // wave animated
+        wave2: 'wave2 15s linear infinite', // wave animated
+        'wave2-fast': 'wave2 5s linear infinite', // wave animated
+        gradient: 'gradient 15s ease infinite', // animated background
+        'morph-spin': 'morph 15s linear infinite alternate, spin 20s linear infinite', // animated background
+        'morph-spin-reverse': 'morph 10s linear infinite alternate, spin 26s linear infinite reverse', // animated background
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -77,6 +92,16 @@ module.exports = {
           3: 'hsl(var(--chart-3))',
           4: 'hsl(var(--chart-4))',
           5: 'hsl(var(--chart-5))',
+        },
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            'h3 a': { // for weekly update post ### h3
+              color: 'rgb(200 30 30 / var(--tw-text-opacity))', // text-red-700
+              textDecoration: 'underline',
+            },
+          },
         },
       },
     },
