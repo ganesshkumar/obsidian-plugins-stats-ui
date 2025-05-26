@@ -84,16 +84,7 @@ const Migrate = () => {
           <p className="text-center text-gray-800">
             Favorites are stored locally in your browser using `localStorage`.
             <br /> To transfer them, you can export the data as a JSON file and
-            then import it on another device or domain. <br /> This allows you
-            to migrate your favorite plugins across devices or from the old
-            domain to the new domain (
-            <a
-              className="underline"
-              href="https://www.obsidianstats.com/migrate"
-            >
-              www.obsidianstats.com
-            </a>
-            ).
+            then import it on another device or domain.
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 py-4 mt-4">
             <Button color="dark" onClick={handleExport}>

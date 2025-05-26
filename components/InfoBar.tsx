@@ -27,7 +27,7 @@ const Content = ({ title }) => (
 );
 
 const className =
-  'group relative z-20 scroll-mt-20 text-3xl font-bold text-gray-800 dark:text-white capitalize my-4';
+  'group relative scroll-mt-20 text-3xl font-bold text-gray-800 dark:text-white capitalize my-4';
 const id = 'default-table';
 
 const InfoBar = ({ title, as = 'h1' }: IInfoBarProps) => {
