@@ -8,6 +8,7 @@ export interface Post {
   publishedDate: string;
   modifiedDate: string;
   ogImage?: string;
+  bannerImage?: string;
   tags?: string[];
   plugins?: string[];
   contentHtml?: string;

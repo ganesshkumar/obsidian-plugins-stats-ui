@@ -1,9 +1,10 @@
 ---
-title: Obsidian Plugin Updates 18 - 24 May, 2025
-description: "new obsidian plugins from 2025-05-18 to 2025-05-24 - Viewer ftags, MP Preview, Pasterly, Zen Space, Typecho, Markwhen File Sync, Hledger Notes, Yuque Publish, Hadith Lookup, TODO Highlighter, Wayback Archiver, Regex Line Filter"
+title: Obsidian Plugin Updates 2025-05-18 to 2025-05-24
+description: "New Obsidian Plugins from 2025-05-18 to 2025-05-24 - Viewer ftags, MP Preview, Pasterly, Zen Space, Typecho, Markwhen File Sync, Hledger Notes, Yuque Publish, Hadith Lookup, TODO Highlighter, Wayback Archiver, Regex Line Filter"
 excerpt: There are 12 new plugins and 83 plugin updates in the last one week's time.
 publishedDate: "2025-05-25"
 modifiedDate: "2025-05-25"
+bannerImage: "/images/obsidian-weekly-updates.webp"
 tags: 
   - weekly-plugin-updates
 ---

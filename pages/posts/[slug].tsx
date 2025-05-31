@@ -144,17 +144,39 @@ const Post = (props: IPostPageProps) => {
     />
   );
 
+  const title = (
+    <h1 className="mt-2 mb-0 text-3xl font-heading leading-20">
+      {postData.title}
+    </h1>
+  );
 
-  let title = null;
-  if (postData.tags.includes('weekly-plugin-updates')) {
-    title = <WavesBackground title={postData.title} />
-  } else {
-    title = (
-      <h1 className="mt-2 mb-0 text-3xl font-heading leading-20">
-        {postData.title}
-      </h1>
-    )
-  }
+  const introduction = <>
+    {title}
+    <div className='text-md'>
+      Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
+    </div>
+    {postData.publishedDate !== postData.modifiedDate && (
+      <div className='text-md'>
+        Updated: {moment(postData.modifiedDate).format('DD-MMM-YYYY')}
+      </div>
+    )}
+    {postData.tags && (
+      <>
+        <ul className="flex gap-x-2 list-none ml-0 pl-0">
+          {postData.tags.filter(t => t!=="obsidian-plugins").map((tag) => (
+            <li key={tag} className='pl-0'>
+              <span className="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-sm">
+                #{tag}
+              </span>
+            </li>
+          ))}
+        </ul> 
+      </>
+    )}
+    {postData.bannerImage && (
+      <img src={postData.bannerImage} alt={postData.title} className="w-full h-auto rounded-lg mb-4" />
+    )}
+  </>
 
   return (
     <div>
@@ -163,28 +185,7 @@ const Post = (props: IPostPageProps) => {
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar}>
           <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px] prose-h2:text-red-700 prose-h3:text-red-700">
-            {title}
-            <div className='text-md'>
-              Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
-            </div>
-            {postData.publishedDate !== postData.modifiedDate && (
-              <div className='text-md'>
-                Updated: {moment(postData.modifiedDate).format('DD-MMM-YYYY')}
-              </div>
-            )}
-            {postData.tags && (
-              <>
-                <ul className="flex gap-x-2 list-none ml-0 pl-0">
-                  {postData.tags.filter(t => t!=="obsidian-plugins").map((tag) => (
-                    <li key={tag} className='pl-0'>
-                      <span className="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-sm">
-                        #{tag}
-                      </span>
-                    </li>
-                  ))}
-                </ul> 
-              </>
-            )}
+            {introduction}
             <div className="mt-4 flex justify-center">
               {isLessThanLarge && (
                 <EthicalAd type="text" style="fixed-footer" placementId="post-fixed-footer" />

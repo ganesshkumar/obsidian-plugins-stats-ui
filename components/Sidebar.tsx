@@ -88,7 +88,7 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
                 'Suggestion Click Tool'
               )
             }
-            className="flex border border-gray-200 p-3 rounded w-full h-[130px] min-h-[130px] max-h-[130px]"
+            className="flex border border-gray-200 p-3 rounded w-full h-[130px] min-h-[130px] max-h-[130px] cursor-pointer"
           >
             <div
               className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}
@@ -114,7 +114,7 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
                 'Suggestion Click Post'
               )
             }
-            className="flex border border-gray-200 p-3 rounded w-full h-[130px] min-h-[130px] max-h-[130px]"
+            className="flex border border-gray-200 p-3 rounded w-full h-[130px] min-h-[130px] max-h-[130px] cursor-pointer"
           >
             <div
               className={`w-[120px] min-w-[120px] max-w-[120px] h-[90px] min-h-[90px] max-h-[90px] bg-gradient-to-br ${getGraidentFrom(index)} ${getGraidentTo(index)} flex justify-center items-center self-center`}

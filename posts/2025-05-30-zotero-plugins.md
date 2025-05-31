@@ -5,6 +5,7 @@ excerpt: Explore the best plugins for Obsidian that enhance integration with Zot
 publishedDate: '2025-05-30'
 modifiedDate: '2025-05-30'
 ogImage: /images/2025-05-30-zotero-plugins.webp
+bannerImage: /images/2025-05-30-zotero-plugins.webp
 tags:
   - obsidian-plugins
   - workflow
@@ -12,8 +13,6 @@ tags:
   - zotero-integration
   - academic-research
 ---
-
-![Obsidian + Zotero](/images/2025-05-30-zotero-plugins.webp)
 
 Are you a researcher or academic looking to optimize your workflow? This blog post includes plugins designed to seamlessly integrate Zotero with Obsidian, enhancing your research and note-taking experience. From managing bibliographies to synchronizing references, these tools offer powerful features to streamline your academic endeavors. Explore and discover how these plugins can transform the way you organize and access your scholarly resources.
 

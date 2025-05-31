@@ -1,9 +1,10 @@
 ---
-title: Obsidian Plugin Updates 11 - 17 May, 2025
+title: Obsidian Plugin Updates 2025-05-11 to 2025-05-17
 description: "There are 29 new plugins, 79 plugin updates and 5 new themes in the last one week's time"
 excerpt: "There are 29 new plugins, 79 plugin updates and 5 new themes in the last one week's time"
 publishedDate: "2025-05-18"
 modifiedDate: "2025-05-18"
+bannerImage: "/images/obsidian-weekly-updates.webp"
 tags: 
   - weekly-plugin-updates
 ---
