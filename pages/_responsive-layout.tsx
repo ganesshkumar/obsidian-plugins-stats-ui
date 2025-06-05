@@ -30,9 +30,7 @@ const ResponsiveLayout: React.FC<IResponsiveLayoutProps> = ({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-12 2xl:flex 2xl:justify-center 2xl:gap-x-8 gap-4 p-4 md:p-6 xl:p-8 min-h-screen">
       {/* Left Spacer */}
-      <div
-        className={`hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hidden'}`}
-      />
+      <div className="hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hidden" />
 
       {/* Main Content */}
       <main
@@ -51,9 +49,7 @@ const ResponsiveLayout: React.FC<IResponsiveLayoutProps> = ({
       )}
 
       {/* Right Spacer */}
-      <div
-        className={`hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hiddens`}
-      />
+      <div className="hidden xl:block xl:col-span-1 2xl:col-span-1 2xl:hidden" />
     </div>
   );
 };
