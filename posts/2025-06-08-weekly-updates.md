@@ -1,5 +1,5 @@
 ---
-title: Obsidian Plugin Updates 2025-06-01 to 2025-06-07
+title: Obsidian Weekly Updates 2025-06-01 to 2025-06-07
 description: "new obsidian plugins from 2025-06-01 to 2025-06-07 - Note Sync, Book Smith, Notemd, YAML Table, Daily Task Auto Generator"
 excerpt: There are 5 new plugins and 88 plugin updates in the last one week's time.
 publishedDate: "2025-06-08"
@@ -9,7 +9,7 @@ tags:
   - weekly-updates
 ---
 
-> There are 6 new plugins and 88 plugin updates in the last one week's time. There are 2 new comminuty themes. Also, 2 plugins and 18 themes were removed.
+> There are 6 new plugins and 88 plugin updates in the last one week's time. There is 1 new comminuty theme. Also, 2 plugins and 18 themes were removed.
 
 
 ## ⭐ New Plugins
@@ -74,7 +74,7 @@ The **Create Note with Date** plugin simplifies the process of generating a new 
 
 ### 🅱️ Beta Plugins
 
-There are few plugins in beta stage (accessible via [BRAT](https://github.com/TfTHacker/obsidian42-brat)) but caught my eyes
+There are few plugins in beta stage (accessible via [BRAT](https://github.com/TfTHacker/obsidian42-brat)) that caught my eyes
 
 - [Bases Toolbox](https://github.com/Quorafind/Bases-Toolbox)
 - [TaskNotes](https://github.com/callumalpass/tasknotes) v2.0.4.
@@ -106,8 +106,7 @@ Two plugins got removed this week
 
 ## 🎨 New Themes
 
-- **Duality** - a dungeon-inspired (Diablo II) theme with inspiration from divine realm (light mode) and gothic underworld (dark mode).
-- **Adrenaline** - a minimal theme that uses the accent color for customization.
+- **Duality** - a dungeon-inspired (Diablo II) theme with inspiration from divine realm (light mode) and gothic underworld (dark mode) - [Github](https://github.com/CascadeThemes/Duality)
 
 ---
 
