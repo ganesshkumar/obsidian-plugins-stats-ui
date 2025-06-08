@@ -5,7 +5,7 @@ excerpt: There are 22 new plugins and 127 plugin updates in the last one week's 
 publishedDate: '2024-11-10'
 modifiedDate: '2024-11-10'
 tags:
-  - weekly-plugin-updates
+  - weekly-updates
 ---
 
 ![Weekly Updates](https://placehold.co/1200x300/5b21b6/white?text=Weekly%20Plugin%20Updates%20\n2024%20Week%2045)

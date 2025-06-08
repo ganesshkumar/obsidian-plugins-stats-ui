@@ -1,7 +1,7 @@
 import { Calendar, Cpu, FileText, Package, Star, Zap } from 'react-feather';
 
 export const PostIcon = (props) => {
-  if (props.tags && props.tags.includes('weekly-plugin-updates')) {
+  if (props.tags && props.tags.includes('weekly-updates')) {
     return (
       <Calendar
         data-testid="calendar-icon"

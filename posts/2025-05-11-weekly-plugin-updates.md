@@ -5,7 +5,7 @@ excerpt: There are 21 new plugins and 79 plugin updates in the last one week's t
 publishedDate: '2025-05-11'
 modifiedDate: '2025-05-11'
 tags:
-  - weekly-plugin-updates
+  - weekly-updates
 ---
 
 It's been a vibrant week in the Obsidian plugin universe, with 21 fresh additions ready to supercharge your workflow! From customizable commands and card-style views to inline callouts and contact management, these new plugins bring both power and personality to your vault. The excitement doesn't stop there, 79 plugins received updates, including big releases like Task Genius and Advanced Canvas. We've also spotted a promising beta tool Python Bridge - which lets developers write Obsidian plugin in python (Have to wait and watch if and how these plugins can be included to the official community plugins). And for the style-savvy among us, 6 new themes have landed, offering everything from retro vibes to elegant calligraphy. Let's dive into the highlights!

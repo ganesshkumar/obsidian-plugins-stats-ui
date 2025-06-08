@@ -5,7 +5,7 @@ excerpt: There are 17 new plugins and 89 plugin updates in the last one week's t
 publishedDate: '2025-05-04'
 modifiedDate: '2025-05-04'
 tags:
-  - weekly-plugin-updates
+  - weekly-updates
 ---
 
 This week, we're welcoming 17 new plugins and 89 updates, covering everything from rhythmic sentence highlighting and 3D model viewing to audio feedback on task completion. Highlights include visual sentence flow tools, smarter daily note automation, and a quick sidebar peek feature for smoother navigation. Let's take a closer look at what's new in the vault this week!

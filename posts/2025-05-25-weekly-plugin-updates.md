@@ -6,7 +6,7 @@ publishedDate: "2025-05-25"
 modifiedDate: "2025-05-25"
 bannerImage: "/images/obsidian-weekly-updates.webp"
 tags: 
-  - weekly-plugin-updates
+  - weekly-updates
 ---
 
 > There are 12 new plugins and 83 plugin updates in the last one week's time.

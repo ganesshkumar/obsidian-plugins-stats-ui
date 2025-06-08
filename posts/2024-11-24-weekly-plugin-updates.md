@@ -5,7 +5,7 @@ excerpt: There are 32 new plugins and 104 plugin updates in the last one week's 
 publishedDate: '2024-11-24'
 modifiedDate: '2024-11-24'
 tags:
-  - weekly-plugin-updates
+  - weekly-updates
 ---
 
 ![Weekly Updates](/images/plugin-updates-banner.png)

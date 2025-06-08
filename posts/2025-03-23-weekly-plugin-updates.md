@@ -5,7 +5,7 @@ excerpt: There are 15 new plugins and 82 plugin updates in the last one week's t
 publishedDate: '2025-03-23'
 modifiedDate: '2025-03-23'
 tags:
-  - weekly-plugin-updates
+  - weekly-updates
 ---
 
 ![Weekly Updates](/images/2025-03-16-weekly-plugin-updates.webp)

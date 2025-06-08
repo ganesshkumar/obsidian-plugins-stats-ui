@@ -94,7 +94,7 @@ const pickPosts = (pageInfo: PageInfo): Post[] => {
       .filter((post) => post.tags.includes(tag))
       .sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1));
 
-    if (tag === 'weekly-plugin-updates') {
+    if (tag === 'weekly-updates') {
       const weeklyPluginPost =
         postsByTag[0].id === pageInfo.slug ? postsByTag[1] : postsByTag[0];
       selectedPosts.push(weeklyPluginPost);
@@ -107,7 +107,7 @@ const pickPosts = (pageInfo: PageInfo): Post[] => {
     }
   };
 
-  ['weekly-plugin-updates', 'workflow', 'workflow', 'feature'].forEach((tag) =>
+  ['weekly-updates', 'workflow', 'workflow', 'feature'].forEach((tag) =>
     pickPostByTag(tag)
   );
 

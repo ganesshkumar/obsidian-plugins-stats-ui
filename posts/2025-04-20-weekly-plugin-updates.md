@@ -5,7 +5,7 @@ excerpt: It's a quiet Easter week with no new plugins released, but 83 existing 
 publishedDate: '2025-04-20'
 modifiedDate: '2025-04-20'
 tags:
-  - weekly-plugin-updates
+  - weekly-updates
 ---
 
 ![Weekly Updates](/images/2025-04-20-weekly-plugin-updates.webp)

@@ -132,7 +132,7 @@ async function saveRSSFeedForWeeklyUpdates() {
 
   const items = [
     ...allPostsData
-      .filter((post) => post.tags.includes('weekly-plugin-updates'))
+      .filter((post) => post.tags.includes('weekly-updates'))
       .filter(
         (post) =>
           new Date(post.publishedDate).getTime() > daysAgo(30) &&
