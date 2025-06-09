@@ -1,4 +1,4 @@
-import { Calendar, Cpu, FileText, Package, Star, Zap } from 'react-feather';
+import { BookOpen, Calendar, Cpu, FileText, Package, Star, Zap } from 'react-feather';
 
 export const PostIcon = (props) => {
   if (props.tags && props.tags.includes('weekly-updates')) {
@@ -41,12 +41,20 @@ export const PostIcon = (props) => {
         className="text-red-700 p-1 rounded fill-red-200"
       />
     );
+  } else if (props.tags && props.tags.includes('tutorial')) {
+    return (
+      <BookOpen
+        data-testid="book-open-icon"
+        size={props.size || 48}
+        className="text-teal-700 p-1 rounded fill-teal-200"
+      />
+    );
   } else {
     return (
       <FileText
         data-testid="file-text-icon"
         size={props.size || 48}
-        className="text-teal-700 p-1 rounded fill-teal-200"
+        className="text-rose-700 p-1 rounded fill-rose-200"
       />
     );
   }

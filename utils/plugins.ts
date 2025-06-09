@@ -34,6 +34,8 @@ export const sanitizeTag = (tag) => {
     tag = 'recipe';
   } else if (tag == 'recording' || tag == 'recordings') {
     tag = 'recording';
+  } else if (tag == 'callout' || tag == 'callouts') {
+    tag = 'callouts';
   }
 
   return tag;

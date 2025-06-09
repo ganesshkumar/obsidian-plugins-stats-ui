@@ -107,7 +107,7 @@ const pickPosts = (pageInfo: PageInfo): Post[] => {
     }
   };
 
-  ['weekly-updates', 'workflow', 'workflow', 'feature'].forEach((tag) =>
+  ['weekly-updates', 'tip', 'workflow', 'workflow', 'feature'].forEach((tag) =>
     pickPostByTag(tag)
   );
 
