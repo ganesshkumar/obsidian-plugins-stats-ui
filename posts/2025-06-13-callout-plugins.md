@@ -4,8 +4,8 @@ description: Explore the best plugins for Obsidian that elevate your note-taking
 excerpt: Discover the best Obsidian plugins for callouts and layouts, designed to enhance your note-taking experience.
 publishedDate: '2025-06-13'
 modifiedDate: '2025-06-13'
-ogImage: /images/2025-06-13-callout-plugins.webp
-bannerImage: /images/2025-06-13-callout-plugins.webp
+ogImage: '/images/custom-callouts-in-obsidian-with-css-snippets.webp'
+bannerImage: '/images/custom-callouts-in-obsidian-with-css-snippets.webp'
 tags:
   - obsidian-plugins
   - callouts
