@@ -112,7 +112,8 @@ Two plugins got removed this week
 
 ## 🫡 Themes Removed
 
-The following plugins are removed as they use remove resources which are against the developer policy 
+The following themes are removed as they use remove resources which are against the developer policy 
+
 - **Christmas**
 - **Nebula**
 - **Shiba Inu**
