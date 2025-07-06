@@ -36,6 +36,8 @@ export const sanitizeTag = (tag) => {
     tag = 'recording';
   } else if (tag == 'callout' || tag == 'callouts') {
     tag = 'callouts';
+  } else if (tag == 'chartjs' || tag == 'chart' || tag == 'charts') {
+    tag = 'chart';
   }
 
   return tag;

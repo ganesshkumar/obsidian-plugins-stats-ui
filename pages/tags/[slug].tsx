@@ -9,6 +9,7 @@ import { PluginsCache } from '../../cache/plugins-cache';
 import { PluginsMultiView } from '../../components/PluginsMultiView';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
+import { isLocalhost } from '@/lib/environment';
 
 interface ITagProps extends IHeaderProps {
   tag: string;
@@ -100,6 +101,11 @@ export const getStaticProps = async ({ params }) => {
     image,
     params.slug
   );
+
+  if (isLocalhost) {
+    console.log('Tag:', params.slug);
+    console.log('pluginsIds:', pluginsWithTag.map((p) => p.pluginId).join(','));
+  }
 
   return {
     props: {
