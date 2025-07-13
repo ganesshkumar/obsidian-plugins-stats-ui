@@ -220,3 +220,5 @@ We got 67 plugin updates in the last one week's time. You can see all the plugin
 ## 💥 Theme Updates
 
 - [Flexcyon](https://github.com/bladeacer/flexcyon/releases/tag/0.5.0) - v0.5.0
+
+---
