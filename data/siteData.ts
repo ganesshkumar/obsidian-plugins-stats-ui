@@ -3,12 +3,12 @@ import { Faq, Highlight } from '../lib/abstractions';
 export const SiteData = {
   highlights: [
     {
-      title: 'Obsidian Dataview Query Wizard',
-      image: '',
+      title: 'Catalog of BETA Plugins',
+      image: 'https://placehold.co/600x350/transparent/white?text=Beta&font=roboto',
       description:
-        'Introducing the Obsidian Dataview Query Wizard, a powerful custom ChatGPT that simplifies the process of creating and modifying Dataview queries.',
-      link: 'https://chatgpt.com/g/g-67f63dc319588191a4bb13d0def278b0-obsidian-dataview-query-wizard',
-      ctaText: 'Try it now',
+        'I am cataloging the BETA plugins that are not yet available in the Obsidian community plugins list. If you know a BETA plugin that you would like to be listed here, please submit it using the GitHub Issue.',
+      link: 'https://github.com/ganesshkumar/awesome-obsidian-beta-plugins',
+      ctaText: 'Submit BETA plugins',
       bgClasses: 'bg-gradient-to-tr from-blue-400 to-sky-400 text-black',
     },
     {

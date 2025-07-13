@@ -13,7 +13,7 @@ module.exports = {
     defaultLocale: 'en-US',
   },
   images: {
-    domains: ['github.com', 'raw.githubusercontent.com'],
+    domains: ['github.com', 'raw.githubusercontent.com', 'placehold.co'],
     minimumCacheTTL: 604800, // 7 days
   },
 };

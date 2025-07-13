@@ -38,20 +38,23 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
       <div className="grid md:grid-cols-6 gap-4">
         {item.image && (
           <div className="md:col-span-1 justify-center hidden md:flex relative">
-            <Image
-              src={item.image}
-              alt={
-                item.image
-                  .split('/')
-                  [item.image.split('/').length - 1].split('.')[0]
-              }
-              fill={true}
-              style={{
-                objectFit: 'contain',
-                maxHeight: '100%',
-                borderRadius: '10px',
-              }}
-            />
+            {item.image.startsWith('https') ?
+              <img src={item.image} alt={item.title} className="object-contain max-h-full rounded-lg" /> :
+              <Image
+                src={item.image}
+                alt={
+                  item.image
+                    .split('/')
+                    [item.image.split('/').length - 1].split('.')[0]
+                }
+                fill={true}
+                style={{
+                  objectFit: 'contain',
+                  maxHeight: '100%',
+                  borderRadius: '10px',
+                }}
+              />
+            }
           </div>
         )}
         <div
