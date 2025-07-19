@@ -99,9 +99,10 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
           );
         });
 
-        if (!here || here.response?.campaign_type !== "paid") {
-          injectCarbon(); // fallback → Carbon
-        }
+        // [TODO] Removing the carbonjs in phases
+        // if (!here || here.response?.campaign_type !== "paid") {
+        //   injectCarbon(); // fallback → Carbon
+        // }
       });
     });
   }, [autoId, placementId, type, style, keywords]);

@@ -38,6 +38,8 @@ export const sanitizeTag = (tag) => {
     tag = 'callouts';
   } else if (tag == 'chartjs' || tag == 'chart' || tag == 'charts') {
     tag = 'chart';
+  } else if (tag == 'pomodoro' || tag == 'pomodoro-mode') {
+    tag = 'pomodoro';
   }
 
   return tag;
