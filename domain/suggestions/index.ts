@@ -91,7 +91,7 @@ const pickPosts = (pageInfo: PageInfo): Post[] => {
 
   const pickPostByTag = (tag: string) => {
     const postsByTag = posts
-      .filter((post) => post.tags.includes(tag))
+      .filter((post) => post.tags?.includes(tag))
       .sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1));
 
     if (tag === 'weekly-updates') {

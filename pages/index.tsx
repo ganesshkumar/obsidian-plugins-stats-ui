@@ -571,7 +571,7 @@ export const getStaticProps = async () => {
   const newReleasesCount = newReleases.length;
 
   const title = 'Best Obsidian Plugins: New, Trending, Most Downloaded, Updated';
-  const description = 'Discover new, trending, and most downloaded Obsidian plugins. Stay updated with the latest releases and top tools to enhance your Obsidian experience.';
+  const description = 'Explore and find the best Obsidian plugins for your workflow to improve your productivity.';
   const canonical = 'https://www.obsidianstats.com';
   const image = '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getHomePageSchema();
