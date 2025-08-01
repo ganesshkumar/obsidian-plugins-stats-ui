@@ -14,7 +14,6 @@ import {
   HelpCircle,
   List,
   Tool,
-  RotateCw,
   RefreshCw,
   Calendar,
 } from 'react-feather';

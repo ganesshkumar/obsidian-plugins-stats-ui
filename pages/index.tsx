@@ -203,7 +203,14 @@ const Home = (props: IHomeProps) => {
                     onClick={() => scrollToSection('posts')}
                   >
                     {' '}
-                    <HiOutlinePencil /> Posts
+                    <HiOutlinePencil /> All Posts
+                  </li>
+                  <li
+                    className="underline cursor-pointer flex items-center gap-x-1"
+                    onClick={() => goToPage('posts/workflows')}
+                  >
+                    {' '}
+                    <HiOutlinePencil /> Workflows
                   </li>
                 </ul>
               </div>

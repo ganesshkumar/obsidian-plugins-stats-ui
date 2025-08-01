@@ -167,7 +167,7 @@ export const generateSuggestions = async (
       hasMoreSimilarPlugins: hasMore,
     };
   } else {
-    const tools = pickTools(pageInfo, 1);
+    const tools = pickTools(pageInfo, 0);
     const posts = pickPosts(pageInfo);
 
     suggestions = {
