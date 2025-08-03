@@ -1,10 +1,10 @@
 'use client';
 
+import React from 'react';
 import { Tool } from 'react-feather';
 import { PageInfo, Suggestions } from '../domain/suggestions/models';
 import { useIsLessThanLarge } from '../hooks/useIsLessThanLarge';
 import {
-  getCategoryBgClass,
   getGraidentFrom,
   getGraidentTo,
 } from '../lib/customThemes';

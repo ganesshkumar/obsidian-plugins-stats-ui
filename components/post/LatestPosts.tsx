@@ -1,3 +1,4 @@
+import React from 'react';
 import InfoBar from '../InfoBar';
 import { PostIcon } from './PostIcon';
 import moment from 'moment';

@@ -1,3 +1,4 @@
+import React from 'react';
 import InfoBar from '../InfoBar';
 import { LinkButton } from '../LinkButton';
 import { Plugin } from '@prisma/client';

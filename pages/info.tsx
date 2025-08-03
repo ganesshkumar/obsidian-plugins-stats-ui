@@ -1,3 +1,4 @@
+import React from 'react';
 import { PluginsCache } from '../cache/plugins-cache';
 import { getStaticProps as getNewProps } from './new';
 import { getStaticProps as getUpdatesProps } from './updates';

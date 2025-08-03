@@ -1,8 +1,7 @@
-'use client';
 
+import React, { ReactNode } from 'react';
 import PlausibleProvider, { usePlausible } from 'next-plausible';
 import { IAnalyticsStrategy } from '../types/analytics';
-import { ReactNode } from 'react';
 
 export const usePlausibleStrategy = (): IAnalyticsStrategy => {
   const plausible = usePlausible();

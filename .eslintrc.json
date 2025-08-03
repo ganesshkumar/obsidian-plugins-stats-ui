@@ -1,3 +1,28 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "prettier/prettier": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-expressions": "warn",
+    "react/no-unescaped-entities": "warn",
+    "react/prop-types": "off",
+    "react/jsx-key": "warn",
+    "react/jsx-no-target-blank": "warn",
+    "@typescript-eslint/no-require-imports": "warn",
+    "react/display-name": "off",
+    "@typescript-eslint/no-empty-object-type": "warn",
+    "prefer-const": "warn",
+    "no-extra-boolean-cast": "warn",
+    "no-unexpected-multiline": "warn",
+    "no-control-regex": "warn",
+    "no-undef": "off",
+    "no-redeclare": "warn"
+  }
 }

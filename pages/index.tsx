@@ -564,11 +564,12 @@ export const getStaticProps = async () => {
 
   const tags = new Set<string>();
   plugins.forEach((plugin) => {
-    plugin?.osTags &&
-      plugin?.osTags
+    if (plugin?.osTags) {
+      plugin.osTags
         .split(',')
         .map((tag) => sanitizeTag(tag))
         .forEach((tag) => tags.add(tag));
+    }
   });
 
   const newPosts = getSortedPostsData().slice(0, 5);

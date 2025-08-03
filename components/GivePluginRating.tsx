@@ -1,3 +1,4 @@
+import React from 'react';
 import useUser from '@/hooks/useUser';
 import { supabase } from '@/lib/supabase';
 import { useCallback, useEffect, useRef, useState } from 'react';

@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { setFavorite, unsetFavorite } from '../utils/favorites';
 
 import { Plus, Minus, Share2 } from 'react-feather';
 import { useAnalytics } from '../lib/analytics/analytics';
 
 const Favorites = ({ isFavorite, plugin, setFavorites }) => {
-  const [shareText, setShareText] = React.useState('share');
+  const [shareText, setShareText] = useState('share');
   const { trackEvent } = useAnalytics();
 
   const hostname =

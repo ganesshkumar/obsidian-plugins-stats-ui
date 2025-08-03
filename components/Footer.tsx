@@ -1,5 +1,4 @@
 import { Button, CustomFlowbiteTheme, Footer as FlowbiteFooter } from 'flowbite-react';
-import React from 'react';
 import Constants from '../constants';
 import { Sponsorship } from './Sponsorship';
 import { Twitter, Youtube } from 'react-feather';

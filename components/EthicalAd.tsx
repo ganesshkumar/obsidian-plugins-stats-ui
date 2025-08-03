@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useId } from "react";
+import { useEffect, useRef, useId } from "react";
 
 const EA_PUBLISHER_ID   = "obsidianstatscom"; // e.g. "example-com"
 const CARBON_SERVE_CODE = "CW7I6K7Y"; // e.g. "CEAI42J7"

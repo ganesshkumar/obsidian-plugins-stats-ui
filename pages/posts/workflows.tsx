@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { getSortedPostsData } from '../../lib/posts';

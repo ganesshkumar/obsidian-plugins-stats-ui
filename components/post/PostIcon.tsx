@@ -1,3 +1,4 @@
+import React from 'react';
 import { BookOpen, Calendar, Cpu, FileText, Package, Star, Zap } from 'react-feather';
 
 export const PostIcon = (props) => {

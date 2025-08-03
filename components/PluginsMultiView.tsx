@@ -1,3 +1,4 @@
+import React from 'react';
 import { List as ListIcon, Table as TableIcon } from 'react-feather';
 import { PluginsListView } from './PluginsListView';
 import { PluginsTableView } from './PluginsTableView';
@@ -35,7 +36,11 @@ export const PluginsMultiView = (props: IPluginsMultiViewProps) => {
 
   const [componentView, componentSetView] = useState<'list' | 'table'>('list');
   const handleViewChange = (view: 'list' | 'table') => {
-    setView ? setView(view) : componentSetView(view);
+    if (setView) {
+      setView(view);
+    } else {
+      componentSetView(view);
+    }
   };
 
   return (

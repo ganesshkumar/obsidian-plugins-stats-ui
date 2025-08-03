@@ -1,3 +1,4 @@
+import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import {
   getAllPostIds,

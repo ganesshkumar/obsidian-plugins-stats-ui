@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card, Carousel } from 'flowbite-react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -44,8 +45,7 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
                 src={item.image}
                 alt={
                   item.image
-                    .split('/')
-                    [item.image.split('/').length - 1].split('.')[0]
+                    .split('/')[item.image.split('/').length - 1].split('.')[0]
                 }
                 fill={true}
                 style={{

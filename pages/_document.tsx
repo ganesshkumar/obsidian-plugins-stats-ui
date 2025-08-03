@@ -1,3 +1,4 @@
+import React from 'react';
 import GrowMeScript from '@/components/GrowmeScript';
 import { Html, Head, Main, NextScript } from 'next/document';
 

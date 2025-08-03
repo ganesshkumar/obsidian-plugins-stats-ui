@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useAnalytics } from "@/lib/analytics/analytics";
 import { Button, Card } from "flowbite-react";
 import { RiOpenaiFill } from "react-icons/ri";

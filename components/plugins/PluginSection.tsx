@@ -1,3 +1,4 @@
+import React from 'react';
 import { Plugin } from "@/domain/plugins/models/Plugin";
 import { DataviewSection } from "./dataview";
 import { ObsidianTasksPluginSection } from "./obsidian-tasks-plugin";

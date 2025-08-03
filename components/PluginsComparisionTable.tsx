@@ -1,3 +1,4 @@
+import React from 'react';
 import { CustomFlowbiteTheme, Table } from 'flowbite-react';
 import Link from 'next/link';
 import moment from 'moment';
@@ -15,7 +16,7 @@ export const PluginsComparisionTable = ({ plugins }) => {
       <Table striped className="overflow-x-auto" theme={customTheme}>
         <Table.Head>
           <Table.HeadCell key="property-head"></Table.HeadCell>
-          {plugins.map((plugin, idx) => (
+          {plugins.map((plugin) => (
             <Table.HeadCell key={`${plugin.id}-head`}>
               {plugin.name}
             </Table.HeadCell>

@@ -1,3 +1,4 @@
+import React from 'react';
 import { CustomFlowbiteTheme, Table } from 'flowbite-react';
 import moment from 'moment';
 import { getScoreBgClass } from '../lib/customThemes';

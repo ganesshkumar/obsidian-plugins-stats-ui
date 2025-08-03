@@ -1,3 +1,4 @@
+import React from 'react';
 import { HR } from 'flowbite-react';
 
 const Divider = () => (
