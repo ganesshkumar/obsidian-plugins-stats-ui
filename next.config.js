@@ -1,10 +1,6 @@
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
-  experimental: {
-    middleware: false,
-    legacyBrowsers: false,
-  },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
