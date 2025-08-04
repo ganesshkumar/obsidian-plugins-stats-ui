@@ -7,7 +7,7 @@ describe('Divider Component', () => {
   it('renders the Divider component', () => {
     render(<Divider />);
 
-    // Check if the HR.Trimmed component is rendered
+    // Check if the HRTrimmed component is rendered
     expect(screen.getByRole('separator')).toBeInTheDocument();
   });
 });
