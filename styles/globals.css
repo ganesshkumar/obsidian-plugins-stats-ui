@@ -1,80 +1,81 @@
-html,
-body,
-#__next {
-  min-height: 100vh;
-  max-width: 100vw;
-}
+@import 'tailwindcss';
 
-#__next > div {
-  min-height: 100vh;
-}
+@config '../tailwind.config.js';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
 
-@layer utilities {
-  .striped div:nth-child(even) {
-    @apply bg-red-100;
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
   }
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family:
-    'Lato',
-    -apple-system,
-    BlinkMacSystemFont,
-    Segoe UI,
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    Fira Sans,
-    Droid Sans,
-    Helvetica Neue,
-    sans-serif;
+@layer base {
+  html,
+  body,
+  #__next {
+    min-height: 100vh;
+    max-width: 100vw;
+  }
+
+  #__next > div {
+    min-height: 100vh;
+  }
 }
 
-*:not(pre):not(pre *) {
-  box-sizing: border-box;
-  font-family:
-    'Noto Sans',
-    -apple-system,
-    BlinkMacSystemFont,
-    Segoe UI,
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    Fira Sans,
-    Droid Sans,
-    Helvetica Neue,
-    sans-serif;
-}
+@layer utilities {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family:
+      'Lato',
+      -apple-system,
+      BlinkMacSystemFont,
+      Segoe UI,
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      Fira Sans,
+      Droid Sans,
+      Helvetica Neue,
+      sans-serif;
+  }
 
-pre,
-pre * {
-  font-family: 'Fira Code', monospace;
-}
+  *:not(pre):not(pre *) {
+    box-sizing: border-box;
+    font-family:
+      'Noto Sans',
+      -apple-system,
+      BlinkMacSystemFont,
+      Segoe UI,
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      Fira Sans,
+      Droid Sans,
+      Helvetica Neue,
+      sans-serif;
+  }
 
-.mask-gradient-left {
-  mask-image: linear-gradient(
-    to left,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 90%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to left,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 90%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
+  pre,
+  pre * {
+    font-family: 'Fira Code', monospace;
+  }
 }
 
 @layer base {
@@ -130,14 +131,5 @@ pre * {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }

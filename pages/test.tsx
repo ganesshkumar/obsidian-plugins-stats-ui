@@ -4,7 +4,7 @@ export default function PluginPromoBanner() {
     <div>
       <div className="relative bg-[#9C27FF] text-white flex flex-col items-center justify-center px-6 w-[1200px] h-[600px] overflow-hidden">
         {/* Background circle shape on right */}
-        <div className="absolute top-0 right-0 w-[350px] h-[350px] bg-gradient-to-r from-white to-violet-900 opacity-30 rounded-full translate-x-1/3 translate-y-1/3" />
+        <div className="absolute top-0 right-0 w-[350px] h-[350px] bg-linear-to-r from-white to-violet-900 opacity-30 rounded-full translate-x-1/3 translate-y-1/3" />
 
         {/* Top site name */}
         <div className="font-mono tracking-widest mb-4 text-center">
@@ -12,7 +12,7 @@ export default function PluginPromoBanner() {
         </div>
 
         {/* Main title */}
-        <h1 className="!leading-[1.3] text-3xl md:text-7xl font-bold text-center font-mono">
+        <h1 className="leading-[1.3]! text-3xl md:text-7xl font-bold text-center font-mono">
           46 Plugins that Help <br /> You Publish Your <br /> Obsidian Notes
         </h1>
 

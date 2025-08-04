@@ -50,7 +50,7 @@ const Updates = (props: IUpdatePageProps) => {
             {props.newReleases.map((plugin, idx) => (
               <List.Item
                 key={idx + 1}
-                className="!mt-0 py-2 px-2 w-full hover:bg-slate-50"
+                className="mt-0! py-2 px-2 w-full hover:bg-slate-50"
               >
                 <div className="flex items-start space-x-4 rtl:space-x-reverse">
                   <div className="text-xl">

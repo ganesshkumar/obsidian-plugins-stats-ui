@@ -165,7 +165,7 @@ const MilestonesSection = (props) => {
       sectionId="milestone"
       nextSectionId="stats"
       titleClasses="text-slate-100"
-      bgClasses="bg-gradient-to-b from-emerald-600 to-emerald-700"
+      bgClasses="bg-linear-to-b from-emerald-600 to-emerald-700"
     >
       <div className="flex flex-col lg:flex-row grow justify-center">
         <div className="w-1/2 lg:ml-8 grid content-center">
@@ -214,7 +214,7 @@ const StatsSection = (props) => {
       {...props}
       sectionId="stats"
       nextSectionId="most-downloaded-new-plugins"
-      bgClasses="bg-gradient-to-b from-red-900 to-red-700"
+      bgClasses="bg-linear-to-b from-red-900 to-red-700"
       titleClasses="text-amber-400"
     >
       <div className="flex flex-col lg:flex-row grow justify-center">
@@ -325,7 +325,7 @@ const MostDownloadedPluginsFromNewPluginsSection = (props) => {
       {...props}
       sectionId="most-downloaded-new-plugins"
       nextSectionId="most-downloaded-plugins"
-      bgClasses="bg-gradient-to-b from-blue-900 to-blue-700"
+      bgClasses="bg-linear-to-b from-blue-900 to-blue-700"
       titleClasses="text-amber-400"
     >
       <div className="flex flex-col lg:flex-row grow justify-center h-full">
@@ -374,7 +374,7 @@ const MostDownloadedPluginsSection = (props) => {
       {...props}
       sectionId="most-downloaded-plugins"
       nextSectionId="most-updated-plugins"
-      bgClasses="bg-gradient-to-b from-orange-700 via-amber-700 to-yellow-700"
+      bgClasses="bg-linear-to-b from-orange-700 via-amber-700 to-yellow-700"
       titleClasses="text-amber-400"
     >
       <div className="flex flex-col lg:flex-row grow justify-center h-full">
@@ -419,7 +419,7 @@ const MostUpdatedPluginsSection = (props) => {
       {...props}
       sectionId="most-updated-plugins"
       nextSectionId="most-plugins-by-author"
-      bgClasses="bg-gradient-to-b from-amber-300 to-amber-400"
+      bgClasses="bg-linear-to-b from-amber-300 to-amber-400"
       titleClasses="text-gray-700"
     >
       <div className="flex flex-col lg:flex-row grow justify-center h-full">
@@ -466,7 +466,7 @@ const MostPluginsByAuthorSection = (props) => {
       {...props}
       sectionId="most-plugins-by-author"
       nextSectionId={undefined}
-      bgClasses="bg-gradient-to-b from-violet-800 to-violet-600"
+      bgClasses="bg-linear-to-b from-violet-800 to-violet-600"
       titleClasses="text-amber-400"
     >
       <div className="h-full flex flex-col justify-center items-center">

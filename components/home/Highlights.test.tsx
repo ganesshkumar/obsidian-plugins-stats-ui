@@ -11,7 +11,7 @@ const mockHighlights: Highlight[] = [
     description: 'Description for highlight one.',
     link: '/posts/highlight-one',
     ctaText: 'Read More',
-    bgClasses: 'bg-gradient-to-tr from-fuchsia-400 to-purple-400 text-black',
+    bgClasses: 'bg-linear-to-tr from-fuchsia-400 to-purple-400 text-black',
   },
   {
     title: 'Highlight Two',
@@ -19,7 +19,7 @@ const mockHighlights: Highlight[] = [
     description: 'Description for highlight two.',
     link: '/posts/highlight-two',
     ctaText: 'Read More',
-    bgClasses: 'bg-gradient-to-tr from-fuchsia-400 to-purple-400 text-black',
+    bgClasses: 'bg-linear-to-tr from-fuchsia-400 to-purple-400 text-black',
   },
 ];
 

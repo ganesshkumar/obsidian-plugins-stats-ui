@@ -64,7 +64,7 @@ export const NoFavPlugins = () => {
           </div>
           <motion.div
             layout
-            className="basis-full lg:basis-1/2 lg:w-1/2 p-8 bg-gradient-to-r from-violet-300 to-fuchsia-300 rounded h-svh shadow-lg"
+            className="basis-full lg:basis-1/2 lg:w-1/2 p-8 bg-linear-to-r from-violet-300 to-fuchsia-300 rounded h-svh shadow-lg"
           >
             <StepImage step={step} />
           </motion.div>
@@ -107,7 +107,7 @@ const StepImage = ({ step }) => {
       height={0}
       sizes="100vw"
       style={{ width: '100%', height: '100%' }}
-      className="rounded border shadow"
+      className="rounded border shadow-sm"
     />
   );
 };

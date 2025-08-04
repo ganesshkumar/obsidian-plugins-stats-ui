@@ -1670,7 +1670,7 @@
       {
         "id": "privacy-glasses",
         "name": "Privacy Glasses",
-        "description": "Provides a ribbon icon and command to blur onscreen text for better privacy",
+        "description": "Provides a ribbon icon and command to blur-sm onscreen text for better privacy",
         "author": "Jill Alberts",
         "repo": "jillalberts/privacy-glasses",
         "branch": "main"
@@ -3124,7 +3124,7 @@
         "id": "obsidian-markmind",
         "name": "Obsidian markmind",
         "author": "Mark",
-        "description": "Mind map, outline and pdf annotate tool for Obsidian. (Closed Source)",
+        "description": "Mind map, outline-solid and pdf annotate tool for Obsidian. (Closed Source)",
         "repo": "MarkMindCkm/obsidian-markmind",
         "branch": "main"
       }
@@ -3633,7 +3633,7 @@
       {
         "id": "obsidian-oura-plugin",
         "name": "Oura Plugin for Obsidian",
-        "description": "A plugin for importing oura ring data into a note",
+        "description": "A plugin for importing oura ring-3 data into a note",
         "author": "Andrew Lombardi",
         "repo": "kinabalu/obsidian-oura-plugin"
       },
@@ -4947,7 +4947,7 @@
         "id": "obsidian-quiet-outline",
         "name": "Quiet Outline",
         "author": "the_tree",
-        "description": "Make outline quiet and more powerful, including no-auto-expand, rendering heading as markdown, and search support.",
+        "description": "Make outline-solid quiet and more powerful, including no-auto-expand, rendering heading as markdown, and search support.",
         "repo": "guopenghui/obsidian-quiet-outline"
       }
     ]
@@ -6788,7 +6788,7 @@
         "id": "obsidian-daily-note-outline",
         "name": "Daily Note Outline",
         "author": "iiz",
-        "description": "Add a custom view which shows outline of multiple daily notes with headings, links, tags and list items",
+        "description": "Add a custom view which shows outline-solid of multiple daily notes with headings, links, tags and list items",
         "repo": "iiz00/obsidian-daily-note-outline",
         "branch": "master"
       },
@@ -9544,7 +9544,7 @@
         "repo": "pieces-app/obsidian-pieces"
       },
       {
-        "id": "blur",
+        "id": "blur-sm",
         "name": "Blur",
         "description": "Create obfuscated blocks of text.",
         "author": "@gapmiss",
@@ -13593,7 +13593,7 @@
         "id": "outline-plus",
         "name": "Outline++",
         "author": "Ryota Ushio",
-        "description": "Render Markdown inside the outline view.",
+        "description": "Render Markdown inside the outline-solid view.",
         "repo": "RyotaUshio/obsidian-outline-plus"
       },
       {
@@ -13620,7 +13620,7 @@
       {
         "id": "better-export-pdf",
         "name": "Better Export PDF",
-        "description": "Export your notes to PDF, supports export preview, add bookmarks outline and header/footer.",
+        "description": "Export your notes to PDF, supports export preview, add bookmarks outline-solid and header/footer.",
         "author": "l1xnan",
         "repo": "l1xnan/obsidian-better-export-pdf"
       }
@@ -15247,7 +15247,7 @@
         "id": "outline-converter",
         "name": "Outline Converter",
         "author": "masaki39",
-        "description": "Convert outline to continuous text.",
+        "description": "Convert outline-solid to continuous text.",
         "repo": "masaki39/outline-converter"
       }
     ],
@@ -15426,7 +15426,7 @@
         "id": "outline-task-list",
         "name": "Outline to task list",
         "author": "alexandrerbb",
-        "description": "Convert a note's outline to a task list.",
+        "description": "Convert a note's outline-solid to a task list.",
         "repo": "alexandrerbb/obsidian-outline-tasklist-plugin"
       }
     ]
