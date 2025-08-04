@@ -92,7 +92,12 @@ export class PluginsCache {
     let prisma: PrismaClient = new PrismaClient();
     let pluginRecords: Plugin[];
 
-    if (process.env.NODE_ENV === 'test') {
+    if (process.env.NODE_ENV == 'development') {
+      pluginRecords = await prisma.plugin.findMany({
+        orderBy: { createdAt: 'desc' },
+        take: 50,
+      });
+    } else if (process.env.NODE_ENV === 'test') {
       pluginRecords = await prisma.plugin.findMany({
         where: {
           OR: [

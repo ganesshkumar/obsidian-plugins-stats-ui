@@ -61,7 +61,7 @@ const Legal = (props: ILegalDocProps) => {
       <Navbar current="posts" />
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
-          <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px] prose-headings:text-gray-700 prose-strong:text-gray-700">
+          <article className="prose max-w-none! prose-img:mx-auto prose-img:max-h-[512px] prose-headings:text-gray-700 prose-strong:text-gray-700">
             <h1 className="mt-2 mb-0 text-3xl text-center text-gray-800">
               {legalDocData.title}
             </h1>

@@ -5,7 +5,7 @@ import { Rss } from 'react-feather';
 export const SubstackNewsletter = () => {
   return (
     <div className="bg-transparent mt-32">
-      <div className="max-w-6xl mx-auto px-2 flex flex-col rounded bg-gradient-to-br from-yellow-200 to-yellow-200">
+      <div className="max-w-6xl mx-auto px-2 flex flex-col rounded bg-linear-to-br from-yellow-200 to-yellow-200">
         <div>
           <div className="text-center px-8 text-2xl font-bold text-gray-800 mt-8">
             Subscribe to our RSS feeds

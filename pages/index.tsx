@@ -508,7 +508,7 @@ const TrendingPlugins = ({ plugins }) => {
               key={plugin.pluginId}
               style={scrollItemStyle}
               onClick={() => handlePluginClick(plugin.pluginId)}
-              className="border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-gradient-to-br from-violet-100 to-purple-200 cursor-pointer"
+              className="border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-linear-to-br from-violet-100 to-purple-200 cursor-pointer"
             >
               <div className="text-base">
                 {idx + 1}. {plugin.name}
@@ -523,7 +523,7 @@ const TrendingPlugins = ({ plugins }) => {
               key={`clone-${plugin.pluginId}`}
               style={scrollItemStyle}
               href={`/plugins/${plugin.pluginId}`}
-              className="border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-gradient-to-br from-violet-100 to-purple-200"
+              className="border rounded-lg flex flex-col justify-center items-center text-wrap overflow-x-auto bg-linear-to-br from-violet-100 to-purple-200"
             >
               <div className="text-base">
                 {idx + 1}. {plugin.name}

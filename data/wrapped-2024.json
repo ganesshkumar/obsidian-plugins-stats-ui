@@ -779,7 +779,7 @@
         "id": "outline-plus",
         "name": "Outline++",
         "author": "Ryota Ushio",
-        "description": "Render Markdown inside the outline view.",
+        "description": "Render Markdown inside the outline-solid view.",
         "repo": "RyotaUshio/obsidian-outline-plus",
         "publisedAt": "2024-12-20"
       },
