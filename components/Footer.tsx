@@ -5,7 +5,7 @@ import { Twitter, Youtube } from 'react-feather';
 
 const customTheme: CustomFlowbiteTheme['footer'] = {
   brand: {
-    span: 'self-center whitespace-nowrap text-2xl font-semibold !text-gray-100 dark:text-white',
+    span: 'self-center whitespace-nowrap text-2xl font-semibold text-gray-100! dark:text-white',
   },
 };
 
@@ -20,7 +20,7 @@ export const Footer = () => {
           theme={customTheme}
         >
           <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-            <div className="!text-red-50">
+            <div className="text-red-50!">
               <FlowbiteFooter.Brand
                 href="https://www.obsidianstats.com"
                 src="/favicon-64.png"

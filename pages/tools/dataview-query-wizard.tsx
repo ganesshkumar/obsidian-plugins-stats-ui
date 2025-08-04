@@ -138,11 +138,11 @@ const DataviewQueryWizard = (props: ITagsPageProps) => {
           {isLessThanLarge && (
             <EthicalAd type="text" style="fixed-footer" placementId="tool-fixed-footer" />
           )}
-          <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
+          <article className="prose max-w-none! prose-img:mx-auto prose-img:max-h-[512px]">
             <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
           </article>
           <div className="flex justify-center mt-12 mb-16">{ctaButton}</div>
-          <article className="prose !max-w-none prose-img:mx-auto prose-img:max-h-[512px]">
+          <article className="prose max-w-none! prose-img:mx-auto prose-img:max-h-[512px]">
             <div dangerouslySetInnerHTML={{ __html: props.afterCTAHtml }} />
           </article>
           <Comments />

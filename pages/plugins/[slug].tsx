@@ -269,7 +269,7 @@ const Plugin = (props: IPluginProps) => {
             </div>
 
             <div
-              className="prose mt-4 !max-w-none"
+              className="prose mt-4 max-w-none!"
               dangerouslySetInnerHTML={{
                 __html: mdConverter.makeHtml(getDescription(props.plugin)),
               }}
@@ -476,7 +476,7 @@ const Plugin = (props: IPluginProps) => {
             id="latest-version"
           >
             <div className="text-2xl">Latest Version</div>
-            <div className="prose mt-4 !max-w-none">
+            <div className="prose mt-4 max-w-none!">
               <div className="flex">
                 <div className="mr-2 text-violet-700">
                   <a
@@ -526,7 +526,7 @@ const Plugin = (props: IPluginProps) => {
                 </div>
               </div>
               <div
-                className="prose mt-4 !max-w-none"
+                className="prose mt-4 max-w-none!"
                 dangerouslySetInnerHTML={{
                   __html: mdConverter.makeHtml(readmeContent),
                 }}

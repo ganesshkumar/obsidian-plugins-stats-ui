@@ -214,7 +214,7 @@ const CookiePolicy = () => {
           <div className="flex gap-x-4">
             <User />
             <div>
-              <h3 className="!mt-0">Owner and Data Controller</h3>
+              <h3 className="mt-0!">Owner and Data Controller</h3>
               <p>
                 {/* <strong>Owner and Data Controller</strong><br />
                 Address1<br />
@@ -374,7 +374,7 @@ const CookiePolicy = () => {
         <div className="bg-white pt-5 grow">
           <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
             <div
-              className={`prose !max-w-none
+              className={`prose max-w-none!
                 prose-h1:text-2xl prose-h1:mb-0
                 prose-h2:text-xl prose-h2:mt-4 prose-h2:mb-1
                 prose-h3:text-lg prose-h3:mt-4 prose-h3:mb-1

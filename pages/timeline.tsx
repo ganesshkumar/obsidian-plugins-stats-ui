@@ -174,7 +174,7 @@ const TimelinePage = (props) => {
         <div className="bg-white pt-5 grow">
           <div className="max-w-6xl mx-auto px-2 flex flex-col h-full relative">
             {/* Sticky Header */}
-            <div className="sticky top-1 bg-white p-4 z-10 border border-gray-200 shadow mb-4 rounded-md">
+            <div className="sticky top-1 bg-white p-4 z-10 border border-gray-200 shadow-sm mb-4 rounded-md">
               <h1 className="text-2xl mb-2 font-bold">Plugin Timeline</h1>
               <div className="flex flex-col lg:flex-row justify-between gap-y-4">
                 <div className="flex flex-col lg:flex-row lg:items-center gap-x-4 gap-y-2">
