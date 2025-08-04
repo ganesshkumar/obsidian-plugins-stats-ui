@@ -19,6 +19,7 @@ const Header = ({
 }: IHeaderProps) => {
   return (
     <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title key="title">{title}</title>
       <link key="icon" rel="icon" href="/favicon-64.png" />
       <meta key="description" name="description" content={description} />
@@ -34,6 +35,8 @@ const Header = ({
       />
       <meta key="og:image" property="og:image" content={image} />
       <meta key="og:url" property="og:url" content={canonical} />
+      <meta key="og:type" property="og:type" content="website"/>
+      <meta key="og:site_name" property="og:site_name" content="Obsidian Stats"/>
       {/* Twitter Tags */}
       <meta
         key="twitter:card"
