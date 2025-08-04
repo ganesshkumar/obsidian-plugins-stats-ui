@@ -1,4 +1,4 @@
-import { Accordion } from 'flowbite-react';
+import { Accordion, AccordionPanel, AccordionTitle, AccordionContent } from 'flowbite-react';
 import React from 'react';
 import { Faq } from '../lib/abstractions';
 
@@ -12,18 +12,18 @@ const Faqs = ({ faqs }: IFaqProps) => {
       <Accordion>
         {faqs &&
           faqs.map((faq, idx) => (
-            <Accordion.Panel key={idx}>
-              <Accordion.Title as="h3">
+            <AccordionPanel key={idx}>
+              <AccordionTitle as="h3">
                 <div className="text-gray-700 group-open:font-medium">
                   {faq.question}
                 </div>
-              </Accordion.Title>
-              <Accordion.Content>
+              </AccordionTitle>
+              <AccordionContent>
                 <div className="text-gray-500 dark:text-gray-400">
                   {faq.answer}
                 </div>
-              </Accordion.Content>
-            </Accordion.Panel>
+              </AccordionContent>
+            </AccordionPanel>
           ))}
       </Accordion>
     </div>
