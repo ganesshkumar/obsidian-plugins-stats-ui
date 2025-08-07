@@ -117,7 +117,7 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
       data-ea-publisher={EA_PUBLISHER_ID}
       data-ea-type={type}
       data-ea-style={style}
-      data-ea-keywords={keywords}
+      // data-ea-keywords={keywords}
       className={className}
       /* Minimal inline size to avoid CLS jump before ad loads */
       style={{ minHeight: type === "image" ? "140" : "75" }}

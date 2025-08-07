@@ -107,7 +107,7 @@ export const getStaticProps = async () => {
     .map((plugin) => plugin.name)
     .join(', ')}`;
   const canonical = 'https://www.obsidianstats.com/new';
-  const image = 'https://www.obsidianstats.com/images/obsidian-stats-ogImage.png';
+  const image = 'https://www.obsidianstats.com/images/new-og.webp';
   const jsonLdSchema = JsonLdSchema.getNewPageSchema(
     newPlugins,
     title,
