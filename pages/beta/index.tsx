@@ -7,6 +7,7 @@ import { PullRequestEntry, PrismaClient } from '@prisma/client';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Link from 'next/link';
 import { BetaEntryCard } from '../../components/BetaEntryCard';
+import EthicalAd from '@/components/EthicalAd';
 
 interface IBetaPageProps extends IHeaderProps {
   entries: PullRequestEntry[];
@@ -51,12 +52,14 @@ const BetaIndex = (props: IBetaPageProps) => {
             <div className="border-l-4 border-yellow-400 bg-yellow-50 p-4 rounded">
               <div className="font-semibold text-yellow-800 mb-2">Note: Beta plugins & themes are used at your own risk</div>
               <ul className="list-disc pl-5 text-yellow-700 text-sm">
+                <li>These are plugins & themes with open PRs waiting to be merged into the community plugin/theme lists.</li>
                 <li>Beta entries are not yet officially released or reviewed by Obsidian.</li>
                 <li>Usually installed via <Link href="https://github.com/TfTHacker/obsidian42-brat" target="_blank" className="underline">BRAT</Link> (Beta Review and Testing) community plugin.</li>
                 <li>Functionality, security, and stability are not guaranteed.</li>
               </ul>
             </div>
           </div>
+          <EthicalAd type="text" style="fixed-footer" placementId="beta" className='horizontal' />
           {/* Search & Type Links */}
           <div className="flex flex-col md:flex-row md:items-center gap-4 mb-2">
             <div className="relative md:w-1/2">

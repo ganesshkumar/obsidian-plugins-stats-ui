@@ -60,6 +60,13 @@ const NavBar = ({ current, children }: INavbarProps) => {
               New Plugins
             </Navbar.Link>
             <Navbar.Link
+              href="/beta"
+              active={current === 'beta'}
+              className="text-lg group-hover:text-violet-800"
+            >
+              Beta
+            </Navbar.Link>
+            <Navbar.Link
               href="/posts"
               active={current === 'posts'}
               className="text-lg"
@@ -90,15 +97,6 @@ const NavBar = ({ current, children }: INavbarProps) => {
                   </div>
                 }
               >
-                <Dropdown.Item className="group">
-                  <Navbar.Link
-                    href="/beta"
-                    active={current === 'beta'}
-                    className="text-lg group-hover:text-violet-800"
-                  >
-                    Beta (PRs)
-                  </Navbar.Link>
-                </Dropdown.Item>
                 <Dropdown.Item className="group">
                   <Navbar.Link
                     href="/updates"
@@ -133,6 +131,33 @@ const NavBar = ({ current, children }: INavbarProps) => {
                     className="text-lg"
                   >
                     Tags
+                  </Navbar.Link>
+                </Dropdown.Item>
+                <Dropdown.Item className="group">
+                  <Navbar.Link
+                    href="/beta"
+                    active={current === 'beta'}
+                    className="text-lg"
+                  >
+                    Beta All
+                  </Navbar.Link>
+                </Dropdown.Item>
+                <Dropdown.Item className="group">
+                  <Navbar.Link
+                    href="/beta/plugins"
+                    active={current === 'beta/plugins'}
+                    className="text-lg"
+                  >
+                    Beta Plugins
+                  </Navbar.Link>
+                </Dropdown.Item>
+                <Dropdown.Item className="group">
+                  <Navbar.Link
+                    href="/beta/themes"
+                    active={current === 'beta/themes'}
+                    className="text-lg"
+                  >
+                    Beta Themes
                   </Navbar.Link>
                 </Dropdown.Item>
               </Dropdown>
