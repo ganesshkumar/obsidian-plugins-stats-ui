@@ -71,3 +71,31 @@ model ScoreBounds {
   min               Float
   max               Float
 }
+
+// Tracks pull request derived prospective (beta) plugins / themes
+model PullRequestEntry {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  prNumber         Int      @unique
+  prStatus         String   // open | closed | merged (GitHub PR state)
+  status           String   @default("in-review") // plugin/theme promotion lifecycle: in-review | promoted | rejected
+  prLabels         String?  // comma separated label names
+  type             String?  // plugin | theme
+  operation        String?  // add | update | delete
+  repo             String?  // <author>/<repo>
+  pluginId         String?
+  name             String?
+  version          String?
+  description      String?
+  author           String?
+  createdAt        Int      // first seen (epoch ms)
+  lastUpdatedAt    Int      // last processed (any step)
+  lastClassifiedAt Int?     // last time classification step ran
+  lastEnrichedAt   Int?     // last time enrichment step ran
+  needManualReview Boolean  @default(false)
+  manualReviewReason String? // why manual review was requested (missing fields, errors, etc.)
+
+  @@index([prStatus])
+  @@index([needManualReview])
+  @@index([lastClassifiedAt])
+  @@index([lastEnrichedAt])
+}

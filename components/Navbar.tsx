@@ -92,6 +92,15 @@ const NavBar = ({ current, children }: INavbarProps) => {
               >
                 <Dropdown.Item className="group">
                   <Navbar.Link
+                    href="/beta"
+                    active={current === 'beta'}
+                    className="text-lg group-hover:text-violet-800"
+                  >
+                    Beta (PRs)
+                  </Navbar.Link>
+                </Dropdown.Item>
+                <Dropdown.Item className="group">
+                  <Navbar.Link
                     href="/updates"
                     active={current === 'updates'}
                     className="text-lg roup-hover:text-violet-800"

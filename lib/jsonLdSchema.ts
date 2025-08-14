@@ -1,4 +1,4 @@
-import { Plugin } from '@prisma/client';
+import { Plugin, PullRequestEntry } from '@prisma/client';
 import { Post } from './abstractions';
 import Constants from '../constants';
 
@@ -403,6 +403,69 @@ const breadcrumbs = {
         },
       ],
     };
+  },
+  beta: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.obsidianstats.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Beta',
+        item: 'https://www.obsidianstats.com/beta',
+      },
+    ],
+  },
+  betaPlugins: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.obsidianstats.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Beta',
+        item: 'https://www.obsidianstats.com/beta',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: 'Plugins',
+        item: 'https://www.obsidianstats.com/beta/plugins',
+      },
+    ],
+  },
+  betaThemes: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.obsidianstats.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Beta',
+        item: 'https://www.obsidianstats.com/beta',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: 'Themes',
+        item: 'https://www.obsidianstats.com/beta/themes',
+      },
+    ],
   },
 };
 
@@ -880,6 +943,54 @@ export const JsonLdSchema = {
       ],
     };
   },
+  getBetaIndexPageSchema: (
+    entries: PullRequestEntry[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
+    return getJsonLdSchemaForBetaEntries(
+      entries,
+      title,
+      description,
+      canonical,
+      image,
+      breadcrumbs.beta
+    );
+  },
+  getBetaPluginsPageSchema: (
+    entries: PullRequestEntry[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
+    return getJsonLdSchemaForBetaEntries(
+      entries,
+      title,
+      description,
+      canonical,
+      image,
+      breadcrumbs.betaPlugins
+    );
+  },
+  getBetaThemesPageSchema: (
+    entries: PullRequestEntry[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
+    return getJsonLdSchemaForBetaEntries(
+      entries,
+      title,
+      description,
+      canonical,
+      image,
+      breadcrumbs.betaThemes
+    );
+  },
 };
 
 const getJsonLdSchemaForPageWithPlugins = (
@@ -947,6 +1058,53 @@ const getJsonLdSchemaForPageWithPlugins = (
           '@id': canonical + '#author',
           name: plugin.author,
         },
+      })),
+      breadcrumbSchema ? breadcrumbSchema : null,
+    ],
+  };
+};
+
+const getJsonLdSchemaForBetaEntries = (
+  entries: PullRequestEntry[],
+  title: string,
+  description: string,
+  canonical: string,
+  image: string,
+  breadcrumbSchema?: any
+) => {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': canonical,
+        url: canonical,
+        name: title,
+        description: description,
+        inLanguage: 'en-US',
+        isPartOf: {
+          '@id': 'https://www.obsidianstats.com/#website',
+        },
+        author: {
+          '@type': 'Person',
+          '@id': 'https://www.obsidianstats.com/#author',
+          name: 'Ganessh Kumar',
+        },
+      },
+      ...entries.map((entry) => ({
+        '@type': 'SoftwareApplication',
+        name: entry.name,
+        description: entry.description,
+        applicationCategory: entry.type === 'theme' ? 'Theme' : 'UtilitiesApplication',
+        operatingSystem: 'All',
+        beta: true,
+        dateCreated: entry.createdAt,
+        author: entry.author
+          ? {
+              '@type': 'Person',
+              name: entry.author,
+            }
+          : undefined,
       })),
       breadcrumbSchema ? breadcrumbSchema : null,
     ],
