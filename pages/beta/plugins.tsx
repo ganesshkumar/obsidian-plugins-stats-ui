@@ -74,7 +74,16 @@ export const getStaticProps = async () => {
   const prisma = new PrismaClient();
   try {
     const entries = await prisma.pullRequestEntry.findMany({
-      where: { prStatus: 'open', type: 'plugin', name: { not: null }, needManualReview: false },
+      where: {
+        prStatus: 'open',
+        type: 'plugin',
+        name: { not: null },
+        needManualReview: false,
+        prLabels: {
+          mode: 'insensitive',
+          not: { contains: 'installation not recommended' },
+        },
+      },
       orderBy: { createdAt: 'desc' },
     });
     const title = 'Beta Obsidian Plugins (Open PRs)';

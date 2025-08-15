@@ -104,6 +104,10 @@ export const getStaticProps = async () => {
         type: { in: ['plugin', 'theme'] },
         name: { not: null },
         needManualReview: false,
+        prLabels: {
+          mode: 'insensitive',
+          not: { contains: 'installation not recommended' },
+        },
       },
       orderBy: { createdAt: 'desc' },
     });
@@ -121,7 +125,7 @@ export const getStaticProps = async () => {
       image
     );
     return {
-      props: { title, description, canonical, image, entries, jsonLdSchema },
+  props: { title, description, canonical, image, entries, jsonLdSchema },
       revalidate: 3600,
     };
   } catch (e) {
