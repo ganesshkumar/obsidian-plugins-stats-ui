@@ -1,0 +1,13 @@
+{
+  "name": "obsidian-plugin-store",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc -p . && cp manifest.json styles.css dist/"
+  },
+  "devDependencies": {
+    "obsidian": "^1.5.0",
+    "typescript": "^5.5.4"
+  }
+}
