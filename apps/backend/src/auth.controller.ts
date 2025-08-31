@@ -1,5 +1,5 @@
 import { Controller, Post, Get, Query, Body } from '@nestjs/common';
-import { Repo } from '@mono/store/src/repositories';
+import { Repo } from '@mono/store';
 import jwt from 'jsonwebtoken';
 
 @Controller('v1/auth')

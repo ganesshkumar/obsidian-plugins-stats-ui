@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Query, Param, UseGuards } from '@nestjs/common';
-import { Repo } from '@mono/store/src/repositories';
+import { Repo } from '@mono/store';
 import { AuthGuard } from './util/auth-guard';
 
 @Controller('v1')

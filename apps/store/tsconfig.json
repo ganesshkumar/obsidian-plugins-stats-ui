@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": ".",
     "target": "ES2020",
     "lib": ["ES2020", "DOM"],
     "module": "ESNext",
@@ -17,10 +18,12 @@
     "alwaysStrict": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    "strictNullChecks": true,
     "exactOptionalPropertyTypes": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "noEmit": false
   },
-  "include": ["**/*.ts"]
+  "include": ["main.ts"]
 }

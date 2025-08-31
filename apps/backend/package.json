@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nest start --watch",
-    "build": "nest build",
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc -w",
     "start": "node dist/main.js",
     "lint": "eslint .",
     "typecheck": "tsc -p tsconfig.build.json --noEmit"
@@ -20,7 +20,9 @@
     "passport-google-oauth20": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "zod": "^3.23.8",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "reflect-metadata": "^0.2.0",
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.5",
