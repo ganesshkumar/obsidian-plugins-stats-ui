@@ -1,0 +1,4 @@
+
+                                                                                                                       yarn run v1.22.22
+                                                                                                                       $ tsc -p . && cp manifest.json styles.css dist/
+                                                                                                                       Done in 1.64s.

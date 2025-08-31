@@ -99,3 +99,45 @@ model PullRequestEntry {
   @@index([lastClassifiedAt])
   @@index([lastEnrichedAt])
 }
+
+/// New models for ratings and reviews system
+model User {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  // Stable internal ID shown publicly only as pseudoname mapping
+  uuid         String   @unique               // random UUID v4 upon first login
+  pseudoname   String?                        // asked after first login, publicly shown
+  // Google OAuth linkage (optional to allow extension to other IdPs)
+  googleSub    String?  @unique
+  email        String?  @unique
+  createdAt    Int
+  updatedAt    Int
+  reviews      Review[]
+}
+
+model Review {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  pluginId     String                        // reference to Plugin.pluginId
+  pluginVersion String
+  userId       String   @db.ObjectId
+  rating       Int                              // 1..5
+  review       String?                          // optional, up to 2048 chars
+  createdAt    Int
+  updatedAt    Int
+
+  @@index([pluginId, pluginVersion])
+  @@index([userId])
+  @@unique([pluginId, pluginVersion, userId])    // 1 rating per user per version
+}
+
+/// Optional aggregate cache for fast listing (maintained in code)
+model RatingAggregate {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  pluginId      String
+  pluginVersion String
+  count         Int
+  sum           Int
+  average       Float
+  updatedAt     Int
+
+  @@unique([pluginId, pluginVersion])
+}
