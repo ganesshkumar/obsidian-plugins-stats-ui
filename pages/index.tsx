@@ -126,21 +126,21 @@ const Home = (props: IHomeProps) => {
             />
             <div className="flex gap-4 mt-8">
               <Button
-                className="bg-violet-900"
+                className="bg-violet-900 enabled:hover:bg-violet-950 cursor-pointer"
                 onClick={() => handleCTAButtonClicked('new')}
                 id="stat-card-new"
               >
                 {props.newPluginsCount} New Plugins
               </Button>
               <Button
-                className="bg-violet-900"
+                className="bg-violet-900 enabled:hover:bg-violet-950 cursor-pointer"
                 onClick={() => handleCTAButtonClicked('plugins')}
                 id="stat-card-all"
               >
                 All {props.totalPluginsCount} Plugins
               </Button>
               <Button
-                className="bg-violet-900 hidden md:block"
+                className="bg-violet-900 enabled:hover:bg-violet-950 cursor-pointer hidden md:block"
                 onClick={() => handleCTAButtonClicked('updates')}
                 id="stat-card-updates"
               >
