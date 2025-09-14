@@ -241,7 +241,13 @@ const BasesSupportPage = (props: IHeaderProps & { suggestions: Suggestions }) =>
 
           {isLessThanLarge && <EthicalAd type="text" style="fixed-footer" placementId="bases-support-fixed-footer" />}
 
-          <div className="mb-4 flex items-center gap-x-4 text-sm font-medium">
+          <div className="mt-4 text-sm text-gray-700 prose prose-sm max-w-none">
+            <p>
+              Obsidian's new <strong>Bases</strong> feature lets you treat your notes like a structured database - filter, sort and organize properties with ease. To kick things off, I've put together an <em><strong>experimental list of plugins and themes that already support Bases</strong></em>, along with the versions where support was added. This is just a starting point and I'd love your help in making it more complete. If you know of any plugins or themes with Bases support that aren't listed yet, please let me know so I can add them.
+            </p>
+          </div>
+
+          <div className="my-4 flex items-center gap-x-4 text-sm font-medium">
             <span className="text-gray-500">Show:</span>
             <button
               onClick={() => setFilter('all')}
