@@ -24,6 +24,7 @@ import Comments from '../../components/Comments';
 import ResponsiveLayout from '../_responsive-layout';
 import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 import { remarkPluginHandler } from '../../domain/remark/plugin-hander';
+import { remarkPluginImageHandler } from '../../domain/remark/plugin-image-handler';
 import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
@@ -52,6 +53,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .use(remarkParse)
     //.use(remarkPostAd)
     .use(remarkPluginHandler)
+    .use(remarkPluginImageHandler)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
     .use(rehypeToc, {
@@ -185,7 +187,7 @@ const Post = (props: IPostPageProps) => {
       <Navbar current="posts" />
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar}>
-          <article className="prose max-w-none! prose-img:mx-auto prose-img:max-h-[512px] prose-h2:text-red-700 prose-h3:text-red-700">
+          <article className="prose max-w-none! prose-img:mx-auto prose-img:max-h-[512px] prose-img:my-0 prose-h2:text-red-700 prose-h3:text-red-700">
             {introduction}
             <div className="mt-4 flex justify-center">
               {isLessThanLarge && (

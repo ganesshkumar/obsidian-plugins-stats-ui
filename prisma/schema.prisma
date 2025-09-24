@@ -7,6 +7,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+type OsImage {
+  url         String
+  source      String?
+  description String?
+}
+
 model Plugin {
   id                        String         @id @default(auto()) @map("_id") @db.ObjectId
   pluginId                  String         @unique
@@ -36,6 +42,7 @@ model Plugin {
   osDescription             String?
   osCategory                String?
   osTags                    String?
+  osImages                  OsImage[]
   score                     Float?
   scoreReason               String?
   website                   String?
