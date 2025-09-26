@@ -1,0 +1,10 @@
+{
+  "id": "obsidian-plugin-store",
+  "name": "Plugin Ratings & Reviews",
+  "version": "0.0.1",
+  "minAppVersion": "1.5.0",
+  "description": "Rate and review your installed plugins. Not a replacement for the Community Store.",
+  "author": "You",
+  "authorUrl": "https://obsidianstats.com",
+  "isDesktopOnly": true
+}
