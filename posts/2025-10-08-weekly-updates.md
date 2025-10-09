@@ -23,6 +23,12 @@ The **Map view for Obsidian Bases** plugin adds a geographical perspective to yo
 
 [View Details](/plugins/maps), [Github](https://github.com/obsidianmd/obsidian-maps)
 
+```plugin-image
+description: 
+url: https://github.com/obsidianmd/obsidian-maps/raw/master/images/map-view.png
+source:github
+```
+
 ---
 
 ### 2. [XMind Linker](/plugins/xmind-linker)
@@ -32,6 +38,12 @@ Released on 2025-09-25 by [Leafney](https://github.com/leafney)
 The **XMind Linker** plugin makes it possible to view and embed XMind mind maps directly inside your notes. It integrates closely with the XMind desktop software, allowing one-click editing and smooth transitions between external editing and in-app viewing. Users can insert `.xmind` files with simple markdown syntax, preview them interactively, and even generate thumbnail images automatically for quick identification. The plugin offers hover-based action menus, caching for faster previews, and multilingual interface support in English and Simplified Chinese. By combining file parsing, system integration, and embedded viewing, it creates a practical workflow for those who rely on structured mind maps while keeping their notes visually rich and interactive.
 
 [View Details](/plugins/xmind-linker), [Github](https://github.com/leafney/obsidian-xmind-linker)
+
+```plugin-image
+description: 
+url: https://github.com/leafney/obsidian-xmind-linker/raw/main/docs/image01.png
+source:github
+```
 
 ---
 
@@ -62,7 +74,7 @@ We got 128 plugin updates in the last one week's time. You can see all the plugi
 - **Arzaba** - a high contrast vibrant theme. - [Github](https://github.com/DarioArzaba/Obsidian-Theme-Arzaba)
 - **Vermilion** - a dark theme for Obsidian. - [Github](https://github.com/vigor-13/vermilion-theme)
 - **Tyrone Neon** - a modern Obsidian theme with vibrant neon aesthetics, featuring a clean interface and customizable accent colors to match your style. - [Github](https://github.com/tyronejosee/tyrone-neon)
-- ** Poimandres Extended** - Storm variant can be installed via toggling it using the Style Settings plugin - [Github](https://github.com/bastiangx/poimandres.obsidian)
+- **Poimandres Extended** - Storm variant can be installed via toggling it using the Style Settings plugin - [Github](https://github.com/bastiangx/poimandres.obsidian)
 - **Future** - a simple theme inspired by Anytype. - [Github](https://github.com/Bluemoondragon07/obsidian-future)
 - **Spy Terminal** - a spy movie-style terminal theme. - [Github](https://github.com/IchiroFukuda/spy-terminal-theme)
 
