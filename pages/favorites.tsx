@@ -14,7 +14,10 @@ import { PluginsMultiView } from '../components/PluginsMultiView';
 import { Plugin } from '@prisma/client';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
 import EthicalAd from '../components/EthicalAd';
-import { Button, Card, Label, Textarea } from 'flowbite-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { setFavorite } from '../utils/favorites';
 import { useAnalytics } from '../lib/analytics/analytics';
 
@@ -82,34 +85,63 @@ const Favorites = (props: IFavoritePageProps) => {
           <div className='relative'> {/* to make the import button stick to the top left */}
             {!importMode &&
               <>
-                <div className='flex justify-end'>
-                  <Button color='dark' className='cursor-pointer z-50' onClick={() => setImportMode(true)}>
+                <div className='flex justify-end gap-2'>
+                  <Button
+                    variant="default"
+                    className='bg-gray-900 hover:bg-gray-800 text-white cursor-pointer z-30'
+                    onClick={() => setImportMode(true)}
+                    id='import-favorites-trigger'
+                    aria-expanded={importMode}
+                  >
                     Import from Obsidian
                   </Button>
                 </div>
-                <Button color='dark' className='hidden lg:block absolute top-0 right-0 cursor-pointer z-50' onClick={() => setImportMode(true)}>Import from Obsidian</Button>
               </>
             }
             {importMode && (
-              <Card>
-                <div className='flex justify-between items-center'>
-                  <div className='scroll-mt-20 text-3xl font-bold text-gray-800 dark:text-white'>Import Plugins from Obsidian</div>
-                  <Button color='outline' className='cursor-pointer z-50 text-xl ' onClick={() => setImportMode(false)}>
-                    <RiCloseLargeFill size={20} />
+              <Card id='import-card' className='mt-4 shadow-lg border border-gray-200'>
+                <CardHeader className='flex flex-row items-start justify-between space-y-0 pb-4'>
+                  <CardTitle className='text-2xl font-bold text-gray-800'>Import Plugins from Obsidian</CardTitle>
+                  <Button
+                    variant='ghost'
+                    size='icon'
+                    aria-label='Close import panel'
+                    onClick={() => setImportMode(false)}
+                  >
+                    <RiCloseLargeFill size={18} />
                   </Button>
-                </div>
-                <Label htmlFor="plugin-list-text" className='text-lg text-gray-700 w-full'>
-                  From your Obsidian vault, paste the contents of `.obsidian/community-plugins.json` file.
-                </Label>
-                <Textarea ref={pluginsListText} id="plugin-list-text" className='h-60 border-gray-500 focus:border-gray-500 focus:ring-gray-500 dark:border-gray-400 dark:bg-gray-100 dark:focus:border-gray-500 dark:focus:ring-gray-500' placeholder="Contents from your .obsidian/community-plugins.json file..." required rows={4} />
-                <div className='flex justify-between'>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                  <div className='space-y-2'>
+                    <Label htmlFor='plugin-list-text' className='text-base font-medium'>
+                      Paste the contents of <code>.obsidian/community-plugins.json</code>
+                    </Label>
+                    <Textarea
+                      ref={pluginsListText}
+                      id='plugin-list-text'
+                      placeholder='["plugin-id-a", "plugin-id-b", ...]'
+                      className='h-60 resize-none'
+                    />
+                  </div>
                   {importTextError && (
-                    <div className='text-red-600 mt-2'>
-                      {importTextError}
-                    </div>
+                    <div className='text-sm text-red-600'>{importTextError}</div>
                   )}
-                  <Button color='dark' className='ml-auto' onClick={handleImportPlugins}>Import</Button>
-                </div>
+                  <div className='flex justify-end gap-2'>
+                    <Button
+                      variant='secondary'
+                      onClick={() => setImportMode(false)}
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant='default'
+                      className='bg-gray-900 hover:bg-gray-800 text-white'
+                      onClick={handleImportPlugins}
+                    >
+                      Import
+                    </Button>
+                  </div>
+                </CardContent>
               </Card>
             )}
             {/* Show plugin updates for the favorite plugins */}

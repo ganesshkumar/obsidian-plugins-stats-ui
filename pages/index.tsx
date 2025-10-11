@@ -45,6 +45,7 @@ import {
   HiOutlineTrendingUp,
 } from 'react-icons/hi';
 import { useRouter } from 'next/router';
+import { Button as ShadcnButton } from "@/components/ui/button";
 import EthicalAd from '../components/EthicalAd';
 import { useAnalytics } from '../lib/analytics/analytics';
 
@@ -121,31 +122,32 @@ const Home = (props: IHomeProps) => {
               className="mt-8 w-full max-w-3xl rounded-xl"
               icon={HiOutlineSearch}
               placeholder="Search Plugins"
-              onFocus={() => router.push('/plugins')}
+              onChange={() => router.push('/plugins')}
               color="violet"
             />
             <div className="flex gap-4 mt-8">
-              <Button
-                className="bg-violet-900 enabled:hover:bg-violet-950 cursor-pointer"
+              <ShadcnButton
+                className='bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'
                 onClick={() => handleCTAButtonClicked('new')}
                 id="stat-card-new"
               >
                 {props.newPluginsCount} New Plugins
-              </Button>
-              <Button
-                className="bg-violet-900 enabled:hover:bg-violet-950 cursor-pointer"
-                onClick={() => handleCTAButtonClicked('plugins')}
+              </ShadcnButton>
+              <ShadcnButton
+                className='hidden sm:inline-flex bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'
+                onClick={() => handleCTAButtonClicked("plugins")}
                 id="stat-card-all"
+                aria-hidden="true"
               >
                 All {props.totalPluginsCount} Plugins
-              </Button>
-              <Button
-                className="bg-violet-900 enabled:hover:bg-violet-950 cursor-pointer hidden md:block"
+              </ShadcnButton>
+              <ShadcnButton
+                className='bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'
                 onClick={() => handleCTAButtonClicked('updates')}
                 id="stat-card-updates"
               >
                 {props.newReleasesCount} Plugin Updates
-              </Button>
+              </ShadcnButton>
             </div>
           </section>
         </div>
