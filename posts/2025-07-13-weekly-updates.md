@@ -1,17 +1,17 @@
 ---
 title: Obsidian Weekly Updates 2025-07-05 to 2025-07-11
-description: "From 2025-07-05 to 2025-07-11 there are 26 newly released plugins, 5 new themes and 94 plugin updates."
+description: 'From 2025-07-05 to 2025-07-11 there are 26 newly released plugins, 5 new themes and 94 plugin updates.'
 excerpt: There are 26 newly released plugins, 5 new themes and 94 plugin updates in the last one week's time.
-publishedDate: "2025-07-13"
-modifiedDate: "2025-07-13"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-07-13'
+modifiedDate: '2025-07-13'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
 > There are 26 new plugins, 5 new themes and 94 plugin updates during the week 2025-07-05 to 2025-07-11.
 
-This week, the Obsidian community brings tools that help you visualise your notes as mind maps, sync flashcards directly with Anki, and even add neat interface touches like animated cursors. Along with these, there are updates to popular plugins and some beautifully crafted themes that give your vault a whole new feel. 
+This week, the Obsidian community brings tools that help you visualise your notes as mind maps, sync flashcards directly with Anki, and even add neat interface touches like animated cursors. Along with these, there are updates to popular plugins and some beautifully crafted themes that give your vault a whole new feel.
 
 ## ⭐ New Plugins
 

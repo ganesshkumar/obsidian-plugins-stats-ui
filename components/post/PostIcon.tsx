@@ -1,5 +1,13 @@
 import React from 'react';
-import { BookOpen, Calendar, Cpu, FileText, Package, Star, Zap } from 'react-feather';
+import {
+  BookOpen,
+  Calendar,
+  Cpu,
+  FileText,
+  Package,
+  Star,
+  Zap,
+} from 'react-feather';
 
 export const PostIcon = (props) => {
   if (props.tags && props.tags.includes('weekly-updates')) {

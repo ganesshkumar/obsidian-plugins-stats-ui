@@ -18,7 +18,7 @@ describe('Navbar', () => {
     render(<Navbar current="new" />);
     const links = [
       { name: 'New Plugins', href: '/new' },
-  { name: 'Beta (PRs)', href: '/beta' },
+      { name: 'Beta (PRs)', href: '/beta' },
       { name: 'Posts', href: '/posts' },
       { name: 'Favorites', href: '/favorites' },
       { name: 'All Plugins', href: '/plugins' },

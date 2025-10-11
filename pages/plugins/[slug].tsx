@@ -25,7 +25,14 @@ import {
   Activity,
   Globe,
 } from 'react-feather';
-import { Badge, Card, CustomFlowbiteTheme, List, ListItem, Tooltip } from 'flowbite-react';
+import {
+  Badge,
+  Card,
+  CustomFlowbiteTheme,
+  List,
+  ListItem,
+  Tooltip,
+} from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { CategoryIcon } from '../../components/Category';
 import { Score } from '../../components/Score';
@@ -107,11 +114,11 @@ const Plugin = (props: IPluginProps) => {
     />
   );
 
-  const adKeywords = [props.plugin.name]
+  const adKeywords = [props.plugin.name];
   props.plugin.osTags.split(',').forEach((tag) => {
-    tag = sanitizeTag(tag.trim())
-    if (adKeywords.includes(tag)) return
-    adKeywords.push(tag)
+    tag = sanitizeTag(tag.trim());
+    if (adKeywords.includes(tag)) return;
+    adKeywords.push(tag);
   });
 
   return (
@@ -213,7 +220,12 @@ const Plugin = (props: IPluginProps) => {
           </Card>
           {isLessThanLarge && (
             <div className="sticky top-0 z-20 bg-white">
-              <EthicalAd type="text" style="fixed-footer" placementId="plugin-fixed-footer" data-ea-keywords={adKeywords.join('|')} />
+              <EthicalAd
+                type="text"
+                style="fixed-footer"
+                placementId="plugin-fixed-footer"
+                data-ea-keywords={adKeywords.join('|')}
+              />
             </div>
           )}
           {/* <Card theme={customCardTheme} className="relative mt-4">
@@ -452,24 +464,27 @@ const Plugin = (props: IPluginProps) => {
               </Tooltip>
             </div>
           </Card>
-          {props.plugin.requirements && props.plugin.requirements.length > 0 && (
-            <Card theme={customCardTheme} className="relative mt-4">
-              <div>
-                <div className="text-2xl mb-4 flex items-center gap-x-4">
-                  Requirements
-                  <Badge color="info">Experimental</Badge>
+          {props.plugin.requirements &&
+            props.plugin.requirements.length > 0 && (
+              <Card theme={customCardTheme} className="relative mt-4">
+                <div>
+                  <div className="text-2xl mb-4 flex items-center gap-x-4">
+                    Requirements
+                    <Badge color="info">Experimental</Badge>
+                  </div>
+                  <List>
+                    {props.plugin.requirements.map((req) => (
+                      <ListItem key={req} className="text-md">
+                        <span
+                          className="inline-block prose-a:underline prose-a:text-violet-700 "
+                          dangerouslySetInnerHTML={{ __html: req }}
+                        ></span>
+                      </ListItem>
+                    ))}
+                  </List>
                 </div>
-                <List>
-                  {props.plugin.requirements.map((req) => (
-                    <ListItem key={req} className="text-md">
-                      <span className='inline-block prose-a:underline prose-a:text-violet-700 '
-                        dangerouslySetInnerHTML={{ __html: req }}></span>
-                    </ListItem>
-                  ))}
-                </List>
-              </div>
-            </Card>
-          )}
+              </Card>
+            )}
           <Card
             theme={customCardTheme}
             className="relative mt-4"
@@ -644,7 +659,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 const processMarkdown = async (markdown: string) => {
-    const processedContent = await unified()
+  const processedContent = await unified()
     .use(remarkParse)
     //.use(remarkPostAd)
     //.use(remarkPluginHandler)

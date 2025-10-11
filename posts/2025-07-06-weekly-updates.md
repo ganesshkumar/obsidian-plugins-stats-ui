@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-06-29 to 2025-07-05
-description: "new obsidian plugins from 2025-06-29 to 2025-07-05 - Smart Excluded, Kindle Highlights Import, Hyperlink Remover, Copy Absolute Path, Random broken link, Scrolling, Slash snippets, Heading Helper, Auto Replacer, Discord Message Sender, Character Sheets, Better Heading Hierarchy, Yearly Diary Comparator, Fountain, Canvas Connect, Korean Book Search, Simple Table Math, Text Block Timer, Tag Index"
+description: 'new obsidian plugins from 2025-06-29 to 2025-07-05 - Smart Excluded, Kindle Highlights Import, Hyperlink Remover, Copy Absolute Path, Random broken link, Scrolling, Slash snippets, Heading Helper, Auto Replacer, Discord Message Sender, Character Sheets, Better Heading Hierarchy, Yearly Diary Comparator, Fountain, Canvas Connect, Korean Book Search, Simple Table Math, Text Block Timer, Tag Index'
 excerpt: There are 19 new plugins and 67 plugin updates in the last one week's time.
-publishedDate: "2025-07-06"
-modifiedDate: "2025-07-06"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-07-06'
+modifiedDate: '2025-07-06'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
@@ -215,7 +215,7 @@ We got 67 plugin updates in the last one week's time. You can see all the plugin
 - **Excalidraw** - v2.13.0 - [Changelog](https://github.com/zsviczian/obsidian-excalidraw-plugin/releases/tag/2.13.0)
 - **Wordflow Tracker** - v1.5.0 - [Changelog](https://github.com/LeCheenaX/WordFlow-Tracker/releases/tag/1.5.0)
 
---- 
+---
 
 ## 💥 Theme Updates
 

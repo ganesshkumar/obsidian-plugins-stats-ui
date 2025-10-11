@@ -1,11 +1,11 @@
 ---
 title: Obsidian Weekly Updates 2025-05-25 to 2025-05-31
-description: "new obsidian plugins from 2025-05-25 to 2025-05-31 - Create Note with Date in This Directory, Auto Note Importer, Markdown Hijacker, Simple Tab Indent, Vault LLM Assistant, Opener: New Tab by Default, Japanese note taking helper, TickTick Quick Add Task, Themed Discord RPC, Images to Notes, Live Background, Monokakido Copilot, PDF Printer, Come Through, Status.lol Publisher, Sync Emails"
+description: 'new obsidian plugins from 2025-05-25 to 2025-05-31 - Create Note with Date in This Directory, Auto Note Importer, Markdown Hijacker, Simple Tab Indent, Vault LLM Assistant, Opener: New Tab by Default, Japanese note taking helper, TickTick Quick Add Task, Themed Discord RPC, Images to Notes, Live Background, Monokakido Copilot, PDF Printer, Come Through, Status.lol Publisher, Sync Emails'
 excerpt: There are 16 new plugins and 116 plugin updates in the last one week's time.
-publishedDate: "2025-06-01"
-modifiedDate: "2025-06-01"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-06-01'
+modifiedDate: '2025-06-01'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
@@ -15,7 +15,7 @@ Before we dive into this week's update, a quick heads up: the [/favorites](/favo
 
 This week Obsidian community introduced 16 new plugins that cater to diverse user needs - from simplifying creating TickTick tasks to integrating advanced AI capabilities for content generation. There are 116 updates to the existing plugins (time to check if the plugins you use got any updates).
 
-## ⭐ New Plugins 
+## ⭐ New Plugins
 
 ### 1. [Auto Note Importer](/plugins/auto-note-importer)
 

@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-06-08 to 2025-06-14
-description: "new obsidian plugins from 2025-06-08 to 2025-06-14 - Course Module Loader, OpenWords, Pure Chat LLM, Vim Marker Sharpener, Template Filename, Yearly Glance, Macros, NoteMover shortcut, Timelive, Countdown To"
+description: 'new obsidian plugins from 2025-06-08 to 2025-06-14 - Course Module Loader, OpenWords, Pure Chat LLM, Vim Marker Sharpener, Template Filename, Yearly Glance, Macros, NoteMover shortcut, Timelive, Countdown To'
 excerpt: There are 10 new plugins and 83 plugin updates in the last one week's time.
-publishedDate: "2025-06-15"
-modifiedDate: "2025-06-15"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-06-15'
+modifiedDate: '2025-06-15'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
@@ -128,7 +128,7 @@ The **CountdownTo** plugin lets you visualize progress toward upcoming events or
 There are few new plugins in beta stage (accessible via [BRAT](https://github.com/TfTHacker/obsidian42-brat))
 
 - [Linear Integration for Obsidian](https://github.com/casals/obsidian-linear-integration-plugin)
-- [OneiroMetrics](https://github.com/banisterious/obsidian-oneirometrics) v0.16.1 
+- [OneiroMetrics](https://github.com/banisterious/obsidian-oneirometrics) v0.16.1
 - [Scratchpad](https://github.com/kvh03/obsidian-scratchpad) v0.1.1
 
 ---

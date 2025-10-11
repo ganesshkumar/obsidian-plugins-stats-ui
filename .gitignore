@@ -41,3 +41,7 @@ public/weekly-plugin-updates-rss.xml
 
 get-assets
 *.dot
+
+# Custom files
+sync.md
+docker/

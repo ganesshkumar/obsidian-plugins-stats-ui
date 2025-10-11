@@ -2,10 +2,10 @@
 title: Obsidian Plugin Updates 2025-05-11 to 2025-05-17
 description: "There are 29 new plugins, 79 plugin updates and 5 new themes in the last one week's time"
 excerpt: "There are 29 new plugins, 79 plugin updates and 5 new themes in the last one week's time"
-publishedDate: "2025-05-18"
-modifiedDate: "2025-05-18"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-05-18'
+modifiedDate: '2025-05-18'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
@@ -326,4 +326,3 @@ We got 79 plugin updates in the last one week’s time. You can see all the plug
 - **Powered-By-Lancer** - based heavily on the aesthetics of the Lancer TTRPG, and Wasp theme - [Github](https://github.com/SourTarte/Powered-By-Lancer)
 - **Terminal2K** - Retro terminal look - [Github](https://github.com/isax785/Terminal2K)
 - **Meridian** - A sleek and minimal theme for Obsidian - [Github](https://github.com/mvahaste/meridian)
-

@@ -52,8 +52,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Blog = (props: IPostsPageProps) => {
   const postsByMonth = props.allPostsData.reduce((acc, post) => {
-    const year = post.publishedDate.split('-')[0]
-    const month = post.publishedDate.split('-')[1]
+    const year = post.publishedDate.split('-')[0];
+    const month = post.publishedDate.split('-')[1];
     const key = `${year}-${month}`;
 
     if (!acc[key]) {
@@ -81,7 +81,11 @@ const Blog = (props: IPostsPageProps) => {
         <ResponsiveLayout sidebar={sidebar}>
           <InfoBar title="Posts" />
           {isLessThanLarge && (
-            <EthicalAd type="text" style="fixed-footer" placementId="posts-fixed-footer" />
+            <EthicalAd
+              type="text"
+              style="fixed-footer"
+              placementId="posts-fixed-footer"
+            />
           )}
           <ul>
             {Object.keys(postsByMonth)
@@ -108,7 +112,9 @@ const Blog = (props: IPostsPageProps) => {
                                 {post.title}
                               </div>
                               <div className="text-sm text-gray-500 flex items-end">
-                                {moment(post.publishedDate).format('MMMM DD, YYYY')}
+                                {moment(post.publishedDate).format(
+                                  'MMMM DD, YYYY'
+                                )}
                               </div>
                               <div className="text-sm text-gray-800 mt-1">
                                 {post.excerpt}

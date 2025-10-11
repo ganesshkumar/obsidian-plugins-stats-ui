@@ -1,16 +1,15 @@
 ---
 title: Obsidian Weekly Updates 2025-06-01 to 2025-06-07
-description: "new obsidian plugins from 2025-06-01 to 2025-06-07 - Note Sync, Book Smith, Notemd, YAML Table, Daily Task Auto Generator"
+description: 'new obsidian plugins from 2025-06-01 to 2025-06-07 - Note Sync, Book Smith, Notemd, YAML Table, Daily Task Auto Generator'
 excerpt: There are 5 new plugins and 88 plugin updates in the last one week's time.
-publishedDate: "2025-06-08"
-modifiedDate: "2025-06-08"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-06-08'
+modifiedDate: '2025-06-08'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
 > There are 6 new plugins and 88 plugin updates in the last one week's time. There is 1 new comminuty theme. Also, 2 plugins and 18 themes were removed.
-
 
 ## ⭐ New Plugins
 
@@ -112,7 +111,7 @@ Two plugins got removed this week
 
 ## 🫡 Themes Removed
 
-The following themes are removed as they use remove resources which are against the developer policy 
+The following themes are removed as they use remove resources which are against the developer policy
 
 - **Christmas**
 - **Nebula**

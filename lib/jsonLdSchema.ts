@@ -1095,7 +1095,8 @@ const getJsonLdSchemaForBetaEntries = (
         '@type': 'SoftwareApplication',
         name: entry.name,
         description: entry.description,
-        applicationCategory: entry.type === 'theme' ? 'Theme' : 'UtilitiesApplication',
+        applicationCategory:
+          entry.type === 'theme' ? 'Theme' : 'UtilitiesApplication',
         operatingSystem: 'All',
         beta: true,
         dateCreated: entry.createdAt,

@@ -52,11 +52,15 @@ export const remarkPluginHandler = () => {
         });
 
         const pluginIds = data['pluginIds'].split(',').map((id) => id.trim());
-        const filteredPlugins = plugins.filter((p) => pluginIds.includes(p.pluginId)); 
+        const filteredPlugins = plugins.filter((p) =>
+          pluginIds.includes(p.pluginId)
+        );
 
         node.type = 'html';
         node.value = `<div class="plugin-list-container">
-          ${filteredPlugins.map((plugin, index) => `
+          ${filteredPlugins
+            .map(
+              (plugin, index) => `
             <div class="plugin-container" data-plugin-id="${plugin.name}">
               <div class="plugin-header">
                 <h3><span class="text-gray-500">${index + 1}.</span> <span class="text-red-700 font-bold text-2xl tracking-tight">${plugin.name}</span></h3>
@@ -74,7 +78,9 @@ export const remarkPluginHandler = () => {
               </div>
             </div>
             <hr />
-          `).join('\n')}
+          `
+            )
+            .join('\n')}
           </div>
         `;
       }

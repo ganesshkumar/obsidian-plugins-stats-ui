@@ -16,9 +16,9 @@ describe('AppFooter', () => {
   test('renders plugin links', () => {
     render(<Footer />);
     const pluginLinks = [
-  { name: 'Beta (All)', href: '/beta' },
-  { name: 'Beta Plugins', href: '/beta/plugins' },
-  { name: 'Beta Themes', href: '/beta/themes' },
+      { name: 'Beta (All)', href: '/beta' },
+      { name: 'Beta Plugins', href: '/beta/plugins' },
+      { name: 'Beta Themes', href: '/beta/themes' },
       { name: 'All Plugins', href: '/plugins' },
       { name: 'New Plugins', href: '/new' },
       { name: 'Latest Updates', href: '/updates' },

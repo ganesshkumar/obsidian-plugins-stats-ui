@@ -30,7 +30,9 @@ const baseEntry: PullRequestEntry = {
 
 describe('BetaEntryCard', () => {
   it('highlights matching tokens in name, author, and description', () => {
-    render(<BetaEntryCard entry={baseEntry} highlight="Amazing GreatDev features" />);
+    render(
+      <BetaEntryCard entry={baseEntry} highlight="Amazing GreatDev features" />
+    );
 
     // Name highlight
     const nameMarks = screen.getAllByText(/Amazing/i);

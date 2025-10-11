@@ -1,4 +1,8 @@
-import { Button, CustomFlowbiteTheme, Footer as FlowbiteFooter } from 'flowbite-react';
+import {
+  Button,
+  CustomFlowbiteTheme,
+  Footer as FlowbiteFooter,
+} from 'flowbite-react';
 import Constants from '../constants';
 import { Sponsorship } from './Sponsorship';
 import { Twitter, Youtube } from 'react-feather';
@@ -27,18 +31,27 @@ export const Footer = () => {
                 alt="Obsidian Stats Logo"
                 name="Obsidian Stats"
               />
-              <div className='flex gap-x-2 mt-2'>
-                <a href="https://x.com/ganesshkumar" target="_blank" rel="noreferrer">
-                  <Twitter className='text-gray-700 w-6 h-6 border border-gray-500 p-1 rounded-md' />
+              <div className="flex gap-x-2 mt-2">
+                <a
+                  href="https://x.com/ganesshkumar"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Twitter className="text-gray-700 w-6 h-6 border border-gray-500 p-1 rounded-md" />
                 </a>
-                <a href="https://www.youtube.com/@codebuss" target="_blank" rel="noreferrer">
-                  <Youtube className='text-gray-700 w-6 h-6 border border-gray-500 p-1 rounded-md' />
+                <a
+                  href="https://www.youtube.com/@codebuss"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Youtube className="text-gray-700 w-6 h-6 border border-gray-500 p-1 rounded-md" />
                 </a>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 lg:grid-cols-4 sm:gap-6">
               <div>
-                <FlowbiteFooter.Title as="div"
+                <FlowbiteFooter.Title
+                  as="div"
                   className="text-gray-900"
                   title="Plugins"
                 />
@@ -82,15 +95,13 @@ export const Footer = () => {
                 </FlowbiteFooter.LinkGroup>
               </div>
               <div>
-                <FlowbiteFooter.Title as="div"
+                <FlowbiteFooter.Title
+                  as="div"
                   className="text-gray-900"
                   title="Beta"
                 />
                 <FlowbiteFooter.LinkGroup col>
-                  <FlowbiteFooter.Link
-                    className={footerLinkClass}
-                    href="/beta"
-                  >
+                  <FlowbiteFooter.Link className={footerLinkClass} href="/beta">
                     Beta (All)
                   </FlowbiteFooter.Link>
                   <FlowbiteFooter.Link
@@ -108,7 +119,11 @@ export const Footer = () => {
                 </FlowbiteFooter.LinkGroup>
               </div>
               <div>
-                <FlowbiteFooter.Title as="div" className="text-gray-900" title="Posts" />
+                <FlowbiteFooter.Title
+                  as="div"
+                  className="text-gray-900"
+                  title="Posts"
+                />
                 <FlowbiteFooter.LinkGroup col>
                   <FlowbiteFooter.Link
                     className={footerLinkClass}
@@ -119,7 +134,11 @@ export const Footer = () => {
                 </FlowbiteFooter.LinkGroup>
               </div>
               <div>
-                <FlowbiteFooter.Title as="div" className="text-gray-900" title="Tools" />
+                <FlowbiteFooter.Title
+                  as="div"
+                  className="text-gray-900"
+                  title="Tools"
+                />
                 <FlowbiteFooter.LinkGroup col>
                   <FlowbiteFooter.Link
                     className={footerLinkClass}

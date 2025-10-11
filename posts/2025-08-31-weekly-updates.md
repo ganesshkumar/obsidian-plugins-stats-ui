@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-08-24 to 2025-08-30
-description: "From 2025-08-24 to 2025-08-30 there are 1 newly released plugins, 2 new themes and 122 plugin updates"
+description: 'From 2025-08-24 to 2025-08-30 there are 1 newly released plugins, 2 new themes and 122 plugin updates'
 excerpt: There are 1 new plugins, 2 new themes and 122 plugin updates during the week 2025-08-24 to 2025-08-30.
-publishedDate: "2025-08-31"
-modifiedDate: "2025-08-31"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-08-31'
+modifiedDate: '2025-08-31'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
@@ -14,7 +14,6 @@ tags:
 It's the final stretch of august and we've got something sharp to highlight. **AI Image OCR** lands as the only new release this week, and it's already turning heads with its powerful ability to pull clean, markdown-ready text from images using openai, gemini or even local models. Meanwhile, two striking new themes got released as well.
 
 What's especially exciting is the growing momentum behind "bases" Obsidian's new core plugin for creating database like views of your notes. Plugin authors and theme builders are racing to enable bases support, with experiments already showing promise, like property colors appearing seamlessly in bases views.
-
 
 ## ⭐ New Plugins
 

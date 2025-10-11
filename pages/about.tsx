@@ -23,11 +23,12 @@ const About = (props: IAboutPageProps) => {
 
             <section className="prose mt-6 max-w-none">
               <p className="mb-4">
-                Hi I am Ganesh Kumar. I spend more time building small tools for my
-                own Obsidian setup than I'd care to admit and this site is the
-                result of that habit. I wanted a place to quickly find a plugin,
-                check if it's actively maintained and see what changed in the
-                last few releases without digging through multiple GitHub pages.
+                Hi I am Ganesh Kumar. I spend more time building small tools for
+                my own Obsidian setup than I'd care to admit and this site is
+                the result of that habit. I wanted a place to quickly find a
+                plugin, check if it's actively maintained and see what changed
+                in the last few releases without digging through multiple GitHub
+                pages.
               </p>
 
               <div className="grid md:grid-cols-3 gap-4 mt-6">
@@ -38,7 +39,15 @@ const About = (props: IAboutPageProps) => {
                     </div>
                     <div className="font-semibold">Discover</div>
                   </div>
-                  <div className="text-sm mt-2 text-gray-700"><Link href="/plugins" className="underline text-violet-600">Find plugins</Link> by name author tag or category. See quick stats like total downloads stars and latest release date. Sort by popularity recency or score and jump straight to the repo or use the obsidian install link for one click testing.</div>
+                  <div className="text-sm mt-2 text-gray-700">
+                    <Link href="/plugins" className="underline text-violet-600">
+                      Find plugins
+                    </Link>{' '}
+                    by name author tag or category. See quick stats like total
+                    downloads stars and latest release date. Sort by popularity
+                    recency or score and jump straight to the repo or use the
+                    obsidian install link for one click testing.
+                  </div>
                 </div>
                 <div className="border rounded-lg p-4 shadow-sm">
                   <div className="flex items-center gap-3">
@@ -47,7 +56,18 @@ const About = (props: IAboutPageProps) => {
                     </div>
                     <div className="font-semibold">Track</div>
                   </div>
-                  <div className="text-sm mt-2 text-gray-700">Save plugins you use and get a compact feed of new versions and changelogs. <Link href="/favorites" className="underline text-amber-600">Import or export your favorites</Link> as a JSON file to move them between devices. Focus on updates for just the plugins you care about.</div>
+                  <div className="text-sm mt-2 text-gray-700">
+                    Save plugins you use and get a compact feed of new versions
+                    and changelogs.{' '}
+                    <Link
+                      href="/favorites"
+                      className="underline text-amber-600"
+                    >
+                      Import or export your favorites
+                    </Link>{' '}
+                    as a JSON file to move them between devices. Focus on
+                    updates for just the plugins you care about.
+                  </div>
                 </div>
                 <div className="border rounded-lg p-4 shadow-sm">
                   <div className="flex items-center gap-3">
@@ -56,7 +76,23 @@ const About = (props: IAboutPageProps) => {
                     </div>
                     <div className="font-semibold">Tools</div>
                   </div>
-                  <div className="text-sm mt-2 text-gray-700">A <Link href="/tools/dataview-query-wizard" className="underline text-emerald-600">Dataview query helper</Link> that turns plain English into Dataview or DataviewJS snippets so you waste less time on syntax. A <Link href="/scorer" className="underline text-emerald-600">scorer editor</Link> lets you write a small function to rank plugins by the metrics you care about. Both tools are lightweight and practical for power users.</div>
+                  <div className="text-sm mt-2 text-gray-700">
+                    A{' '}
+                    <Link
+                      href="/tools/dataview-query-wizard"
+                      className="underline text-emerald-600"
+                    >
+                      Dataview query helper
+                    </Link>{' '}
+                    that turns plain English into Dataview or DataviewJS
+                    snippets so you waste less time on syntax. A{' '}
+                    <Link href="/scorer" className="underline text-emerald-600">
+                      scorer editor
+                    </Link>{' '}
+                    lets you write a small function to rank plugins by the
+                    metrics you care about. Both tools are lightweight and
+                    practical for power users.
+                  </div>
                 </div>
               </div>
 
@@ -79,18 +115,25 @@ const About = (props: IAboutPageProps) => {
               <div className="mt-6 border-t pt-6">
                 <div className="font-semibold">A little about me</div>
                 <div className="text-sm mt-2 text-gray-700">
-                  I'm a software developer who builds tools for my own
-                  workflow and occasionally shares them. If you've got a bug
-                  report, suggestion, or a plugin that should be on this list,
-                  drop a note at <a href="mailto:rpganesshkumar@gmail.com">rpganesshkumar@gmail.com</a>. If you want to help
-                  improve the site the repo is open on GitHub pull requests
-                  welcome.
+                  I'm a software developer who builds tools for my own workflow
+                  and occasionally shares them. If you've got a bug report,
+                  suggestion, or a plugin that should be on this list, drop a
+                  note at{' '}
+                  <a href="mailto:rpganesshkumar@gmail.com">
+                    rpganesshkumar@gmail.com
+                  </a>
+                  . If you want to help improve the site the repo is open on
+                  GitHub pull requests welcome.
                 </div>
               </div>
 
               <div className="mt-6">
                 <div className="font-semibold">Want to help?</div>
-                <div className="text-sm mt-2 text-gray-700">The site is a labour of love. You can help by: reporting data errors suggesting features or sending PRs. Thanks for stopping by.</div>
+                <div className="text-sm mt-2 text-gray-700">
+                  The site is a labour of love. You can help by: reporting data
+                  errors suggesting features or sending PRs. Thanks for stopping
+                  by.
+                </div>
               </div>
             </section>
           </div>
@@ -103,7 +146,8 @@ const About = (props: IAboutPageProps) => {
 
 export const getStaticProps = async () => {
   const title = 'About - Obsidian Plugins Stats';
-  const description = 'Learn about Obsidian Plugins Stats: features, tools, data sources, privacy and how the site helps you discover, compare and track Obsidian plugins.';
+  const description =
+    'Learn about Obsidian Plugins Stats: features, tools, data sources, privacy and how the site helps you discover, compare and track Obsidian plugins.';
   const canonical = 'https://www.obsidianstats.com/about';
   const image = '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getHomePageSchema();

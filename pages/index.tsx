@@ -45,7 +45,7 @@ import {
   HiOutlineTrendingUp,
 } from 'react-icons/hi';
 import { useRouter } from 'next/router';
-import { Button as ShadcnButton } from "@/components/ui/button";
+import { Button as ShadcnButton } from '@/components/ui/button';
 import EthicalAd from '../components/EthicalAd';
 import { useAnalytics } from '../lib/analytics/analytics';
 
@@ -127,22 +127,22 @@ const Home = (props: IHomeProps) => {
             />
             <div className="flex gap-4 mt-8">
               <ShadcnButton
-                className='bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'
+                className="bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 onClick={() => handleCTAButtonClicked('new')}
                 id="stat-card-new"
               >
                 {props.newPluginsCount} New Plugins
               </ShadcnButton>
               <ShadcnButton
-                className='hidden sm:inline-flex bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'
-                onClick={() => handleCTAButtonClicked("plugins")}
+                className="hidden sm:inline-flex bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                onClick={() => handleCTAButtonClicked('plugins')}
                 id="stat-card-all"
                 aria-hidden="true"
               >
                 All {props.totalPluginsCount} Plugins
               </ShadcnButton>
               <ShadcnButton
-                className='bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2'
+                className="bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 onClick={() => handleCTAButtonClicked('updates')}
                 id="stat-card-updates"
               >
@@ -253,7 +253,11 @@ const Home = (props: IHomeProps) => {
                 </ul>
               </div>
               <div className="grid content-center">
-                <EthicalAd type="image" className="horizontal" placementId="home-image" />
+                <EthicalAd
+                  type="image"
+                  className="horizontal"
+                  placementId="home-image"
+                />
               </div>
             </div>
           </div>
@@ -580,8 +584,10 @@ export const getStaticProps = async () => {
   const newPluginsCount = newPlugins.length;
   const newReleasesCount = newReleases.length;
 
-  const title = 'Best Obsidian Plugins: New, Trending, Most Downloaded, Updated';
-  const description = 'Explore and find the best Obsidian plugins for your workflow to improve your productivity.';
+  const title =
+    'Best Obsidian Plugins: New, Trending, Most Downloaded, Updated';
+  const description =
+    'Explore and find the best Obsidian plugins for your workflow to improve your productivity.';
   const canonical = 'https://www.obsidianstats.com';
   const image = '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getHomePageSchema();

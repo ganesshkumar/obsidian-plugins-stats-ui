@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-06-22 to 2025-06-28
-description: "new obsidian plugins from 2025-06-22 to 2025-06-28 - Gyazo Viewer, Quartz Syncer, Smart Link Formatter, Banyan, Simple Banner"
+description: 'new obsidian plugins from 2025-06-22 to 2025-06-28 - Gyazo Viewer, Quartz Syncer, Smart Link Formatter, Banyan, Simple Banner'
 excerpt: There are 5 new plugins and 81 plugin updates in the last one week's time.
-publishedDate: "2025-06-29"
-modifiedDate: "2025-06-29"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-06-29'
+modifiedDate: '2025-06-29'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
@@ -72,6 +72,6 @@ We got 81 plugin updates in the last one week's time. You can see all the plugin
 - **Iconic** - v1.1.2 - [Changelog](https://github.com/gfxholo/iconic/releases/tag/1.1.2)
 - **3D Graph** - v2.2.0 - [Changelog](https://github.com/Apoo711/obsidian-3d-graph/releases/tag/2.2.0)
 - **Folder Notes** - v1.8.0 - [Changelog](https://github.com/LostPaul/obsidian-folder-notes/releases/tag/1.8.0)
-- **Task Board**  - v1.5.0 - [Changelog](https://github.com/tu2-atmanand/Task-Board/releases/tag/1.5.0)
+- **Task Board** - v1.5.0 - [Changelog](https://github.com/tu2-atmanand/Task-Board/releases/tag/1.5.0)
 
 ---

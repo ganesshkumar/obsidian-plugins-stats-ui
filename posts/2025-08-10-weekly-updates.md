@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-08-03 to 2025-08-09
-description: "From 2025-08-03 to 2025-08-09 there are 12 newly released plugins, 4 new themes released and 100 plugin updates"
+description: 'From 2025-08-03 to 2025-08-09 there are 12 newly released plugins, 4 new themes released and 100 plugin updates'
 excerpt: There are 12 new plugins, 4 new themes, and 100 plugin updates during the week 2025-08-02 to 2025-08-09.
-publishedDate: "2025-08-10"
-modifiedDate: "2025-08-10"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-08-10'
+modifiedDate: '2025-08-10'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
@@ -143,13 +143,13 @@ We got 100 plugin updates in the last one week's time. You can see all the plugi
 
 - **TaskNotes** - v3.17.0 - [Changelog](https://github.com/callumalpass/tasknotes/blob/main/docs/releases/3.17.0.md)
 - **Pretty Properties** - v1.4.4 - [Changelog](https://discord.com/channels/686053708261228577/855181471643861002/1402025096784384210)
- - Quick Add** - v2.0.0 - [Changelog](https://github.com/chhoumann/quickadd/releases/tag/2.0.0)
+- Quick Add\*\* - v2.0.0 - [Changelog](https://github.com/chhoumann/quickadd/releases/tag/2.0.0)
 
 ---
 
 ## 🎨 New Themes
 
-- **Baseline** -  sleek, familiar, and effortlessly minimal, offering endless ways to make it yours - [Github](https://github.com/aaaaalexis/obsidian-baseline)
+- **Baseline** - sleek, familiar, and effortlessly minimal, offering endless ways to make it yours - [Github](https://github.com/aaaaalexis/obsidian-baseline)
 - **Azure** - no-frills Obsidian theme designed for long writing sessions - [Github](https://github.com/annagracedev/obsidian-azure)
 - **Noctis** - dark theme for Obsidian inspired by the night sky - [Github](https://github.com/konnta0/obsidian-noctis-theme)
 - **Matric** - a neon-green, cyberpunk Matrix-inspired theme for Obsidian - [Github](https://github.com/dubefab/Matrix)

@@ -1,4 +1,4 @@
-import { CustomFlowbiteTheme } from "flowbite-react";
+import { CustomFlowbiteTheme } from 'flowbite-react';
 
 export const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {

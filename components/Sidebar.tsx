@@ -4,10 +4,7 @@ import React from 'react';
 import { Tool } from 'react-feather';
 import { PageInfo, Suggestions } from '../domain/suggestions/models';
 import { useIsLessThanLarge } from '../hooks/useIsLessThanLarge';
-import {
-  getGraidentFrom,
-  getGraidentTo,
-} from '../lib/customThemes';
+import { getGraidentFrom, getGraidentTo } from '../lib/customThemes';
 import { CategoryIcon } from './Category';
 import EthicalAd from './EthicalAd';
 import { PostIcon } from './post/PostIcon';
@@ -134,7 +131,9 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
 
   return (
     <div className="w-full mt-10 lg:mt-0 lg:sticky lg:top-10">
-      {!isLessThanLarge && <EthicalAd type="image" placementId={adId} className='horizontal' />}
+      {!isLessThanLarge && (
+        <EthicalAd type="image" placementId={adId} className="horizontal" />
+      )}
       <h2 className="mt-1 mb-4 text-2xl text-center">
         {pageInfo.type === 'plugin' ? 'Similar Plugins' : 'Suggested Content'}
       </h2>

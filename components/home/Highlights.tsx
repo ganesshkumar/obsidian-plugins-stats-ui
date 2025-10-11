@@ -89,8 +89,8 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
                   src={item.image}
                   alt={
                     item.image
-                      .split('/')[item.image.split('/').length - 1]
-                      .split('.')[0]
+                      .split('/')
+                      [item.image.split('/').length - 1].split('.')[0]
                   }
                   fill
                   style={{
@@ -148,9 +148,9 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
       >
         <Carousel
           setApi={setApi}
-            className="h-full"
-            data-testid="carousel"
-            opts={{ loop: true }}
+          className="h-full"
+          data-testid="carousel"
+          opts={{ loop: true }}
         >
           <CarouselContent className="h-full">
             {highlights.map((item, index) => (
@@ -162,12 +162,8 @@ export const Highlights = ({ highlights }: IHightlightsProps) => {
             ))}
           </CarouselContent>
           {/* Mobile (sm & below) styled overlay controls */}
-          <CarouselPrevious
-            className="inline-flex lg:hidden items-center justify-center absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur border shadow hover:bg-background w-9 h-9"
-          />
-          <CarouselNext
-            className="inline-flex lg:hidden items-center justify-center absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur border shadow hover:bg-background w-9 h-9"
-          />
+          <CarouselPrevious className="inline-flex lg:hidden items-center justify-center absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur border shadow hover:bg-background w-9 h-9" />
+          <CarouselNext className="inline-flex lg:hidden items-center justify-center absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full bg-background/80 backdrop-blur border shadow hover:bg-background w-9 h-9" />
           {/* Desktop / Tablet: original simple buttons (only show > md) */}
           <CarouselPrevious className="hidden md:flex" />
           <CarouselNext className="hidden md:flex" />

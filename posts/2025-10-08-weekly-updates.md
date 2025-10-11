@@ -24,7 +24,7 @@ The **Map view for Obsidian Bases** plugin adds a geographical perspective to yo
 [View Details](/plugins/maps), [Github](https://github.com/obsidianmd/obsidian-maps)
 
 ```plugin-image
-description: 
+description:
 url: https://github.com/obsidianmd/obsidian-maps/raw/master/images/map-view.png
 source:github
 ```
@@ -40,7 +40,7 @@ The **XMind Linker** plugin makes it possible to view and embed XMind mind maps 
 [View Details](/plugins/xmind-linker), [Github](https://github.com/leafney/obsidian-xmind-linker)
 
 ```plugin-image
-description: 
+description:
 url: https://github.com/leafney/obsidian-xmind-linker/raw/main/docs/image01.png
 source:github
 ```

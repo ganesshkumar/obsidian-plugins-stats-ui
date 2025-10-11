@@ -1,4 +1,3 @@
-
 import React, { ReactNode } from 'react';
 import PlausibleProvider, { usePlausible } from 'next-plausible';
 import { IAnalyticsStrategy } from '../types/analytics';

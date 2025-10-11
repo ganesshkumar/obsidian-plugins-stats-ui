@@ -14,10 +14,9 @@ tags:
 
 If you're a musician, composer, or music teacher using Obsidian to organize your ideas, you'll love this post-From Vault to Sheet Music. In this edition of our plugin workflow series, we spotlight tools that help you compose, annotate, and render sheet music directly inside your notes.
 
-As of __May 14, 2025__, we've found 11 music-focused plugins that support a wide range of notation formats - from ABC, jTab, and VexTab to full MEI and Guitar Pro rendering. Whether you're jotting down a melody, crafting a rhythmic composition or logging MIDI input, these tools turn your vault into a powerful creative space.
+As of **May 14, 2025**, we've found 11 music-focused plugins that support a wide range of notation formats - from ABC, jTab, and VexTab to full MEI and Guitar Pro rendering. Whether you're jotting down a melody, crafting a rhythmic composition or logging MIDI input, these tools turn your vault into a powerful creative space.
 
 ![Cooking Plugins](/images/2025-05-14-sheet-music-workflow.webp)
-
 
 ```plugin
 index=01

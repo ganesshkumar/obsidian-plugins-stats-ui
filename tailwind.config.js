@@ -25,7 +25,8 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
-            'h3 a': { // for weekly update post ### h3
+            'h3 a': {
+              // for weekly update post ### h3
               color: 'rgb(200 30 30 / var(--tw-text-opacity))', // text-red-700
               textDecoration: 'underline',
             },

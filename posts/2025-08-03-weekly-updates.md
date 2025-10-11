@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-07-27 to 2025-08-02
-description: "From 2025-07-26 to 2025-08-01 there are 15 newly released plugins and 78 plugin updates"
+description: 'From 2025-07-26 to 2025-08-01 there are 15 newly released plugins and 78 plugin updates'
 excerpt: There are 15 new plugins and 78 plugin updates during the week 2025-07-27 to 2025-08-02 and 1 plugin got removed.
-publishedDate: "2025-08-03"
-modifiedDate: "2025-08-03"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-08-03'
+modifiedDate: '2025-08-03'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
@@ -89,7 +89,7 @@ The **Publish Note to Mowen Note** plugin connects your vault with the Mowen not
 
 Released on 2025-07-31 by [Chris Howard](https://github.com/chrishoward-projects)
 
-The **Related Notes by Tag** plugin helps you uncover connections across your vault by surfacing notes that share common tags with the one you're viewing. It quietly runs in the background, updating in real time as you switch between notes, and shows the results in a clean sidebar panel. You can sort related notes by name or date, filter them based on how many tags they share, and even see exactly which tags link them together. Notes open instantly with a click, or in new tabs with a modifier key, making navigation fluid. 
+The **Related Notes by Tag** plugin helps you uncover connections across your vault by surfacing notes that share common tags with the one you're viewing. It quietly runs in the background, updating in real time as you switch between notes, and shows the results in a clean sidebar panel. You can sort related notes by name or date, filter them based on how many tags they share, and even see exactly which tags link them together. Notes open instantly with a click, or in new tabs with a modifier key, making navigation fluid.
 
 [View Details](/plugins/related-notes-by-tag), [Github](https://github.com/chrishoward-projects/related-notes-by-tag)
 
@@ -171,7 +171,6 @@ The **Sonkil** plugin introduces Emacs inspired text editing capabilities, makin
 - Blueprint - a powerful Obsidian templating plugin that enforces per‑note templates with Nunjucks-based syntax, frontmatter interpolation, and repeatable template application - [github](https://github.com/madx/blueprint-obsidian-plugin)
 - Task Roles - assign tasks to people or companies. Designate DACI-style roles ("Driver, Approver, Contributor, Informed"), or roll out your own and track them all in a powerful Task Center - [Github](https://github.com/lc0rp/obsidian-task-roles)
 - Adapt to Current View - allows to set different accent colors for Reading view, Live Preview and Source - [Github](https://github.com/greetclammy/adapt-to-current-view)
-
 
 ---
 

@@ -1,18 +1,17 @@
 ---
 title: Obsidian Plugin Updates 2025-07-13 to 2025-07-19
-description: "From 2025-07-13 to 2025-07-19 there are 4 newly released plugins, 1 newly released theme and 84 plugin updates. 1 plugin got removed."
-excerpt: "There are 4 new plugins and 1 new theme. 84 plugins got updated and 1 plugin got removed during the week 2025-07-13 to 2025-07-19."
-publishedDate: "2025-07-20"
-modifiedDate: "2025-07-20"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+description: 'From 2025-07-13 to 2025-07-19 there are 4 newly released plugins, 1 newly released theme and 84 plugin updates. 1 plugin got removed.'
+excerpt: 'There are 4 new plugins and 1 new theme. 84 plugins got updated and 1 plugin got removed during the week 2025-07-13 to 2025-07-19.'
+publishedDate: '2025-07-20'
+modifiedDate: '2025-07-20'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
 > There are 4 new plugins and 1 new theme. 84 plugins got updated and 1 plugin got removed during the week 2025-07-13 to 2025-07-19.
 
 This week's plugin updates are on the quieter side but still bring a few interesting additions. Four new plugins have been released, including tools for object-oriented workflows, nutrition tracking, and AI-powered note enrichment. Unreal Engine users also get a plugin for visualising blueprints right in their vault. Along with 84 plugin updates and a subtle new theme, it's a steady week of improvements for those keeping their setups lean and efficient.
-
 
 ## ⭐ New Plugins
 

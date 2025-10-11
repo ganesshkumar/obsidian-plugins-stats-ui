@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-06-15 to 2025-06-21
-description: "new obsidian plugins from 2025-06-15 to 2025-06-21 - Text Autocomplete, CJK Count, Tree Diagram, Move Files, Todo.txt Mode, Layout Manager, Streams, Log Keeper, LLM docs, LaTeX Math, Google Contacts, Custom Selected Word Count, Folder Filelist, Ace Code Editor"
+description: 'new obsidian plugins from 2025-06-15 to 2025-06-21 - Text Autocomplete, CJK Count, Tree Diagram, Move Files, Todo.txt Mode, Layout Manager, Streams, Log Keeper, LLM docs, LaTeX Math, Google Contacts, Custom Selected Word Count, Folder Filelist, Ace Code Editor'
 excerpt: There are 14 new plugins and 91 plugin updates in the last one week's time.
-publishedDate: "2025-06-23"
-modifiedDate: "2025-06-23"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-06-23'
+modifiedDate: '2025-06-23'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 

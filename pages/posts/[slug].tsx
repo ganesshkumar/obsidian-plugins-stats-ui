@@ -1,9 +1,6 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import {
-  getAllPostIds,
-  getPostData,
-} from '../../lib/posts';
+import { getAllPostIds, getPostData } from '../../lib/posts';
 import Navbar from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import moment from 'moment';
@@ -58,24 +55,33 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .use(rehypeSlug)
     .use(rehypeToc, {
       headings: ['h1', 'h2'],
-      cssClasses:  { listItem: 'list-disc marker:text-red-700', link: 'no-underline' },
+      cssClasses: {
+        listItem: 'list-disc marker:text-red-700',
+        link: 'no-underline',
+      },
       customizeTOC: (toc) => {
-        if (toc.children.length > 0 && (toc.children[0] as HTMLOListElement).children.length > 0) {
+        if (
+          toc.children.length > 0 &&
+          (toc.children[0] as HTMLOListElement).children.length > 0
+        ) {
           toc.children.unshift({
             type: 'element',
             // @ts-expect-error: tagName is valid for hast Element nodes
             tagName: 'div',
-            properties: { className: ['toc-title', 'flex', 'items-center', 'gap-2'] },
-            children: [
-              { type: 'text', value: 'On this page' }
-            ]
+            properties: {
+              className: ['toc-title', 'flex', 'items-center', 'gap-2'],
+            },
+            children: [{ type: 'text', value: 'On this page' }],
           });
         }
         return toc;
       },
       customizeTOCItem: (node) => {
         const stripEmoji = (value) =>
-          value.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\p{Symbol}\p{Punctuation}]+\s*/gu, '');
+          value.replace(
+            /^[\p{Emoji_Presentation}\p{Extended_Pictographic}\p{Symbol}\p{Punctuation}]+\s*/gu,
+            ''
+          );
 
         const cleanTextNodes = (child) => {
           if (child.type === 'text') {
@@ -90,7 +96,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         }
 
         return node;
-      }
+      },
     })
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(postData.content);
@@ -153,33 +159,41 @@ const Post = (props: IPostPageProps) => {
     </h1>
   );
 
-  const introduction = <>
-    {title}
-    <div className='text-md'>
-      Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
-    </div>
-    {postData.publishedDate !== postData.modifiedDate && (
-      <div className='text-md'>
-        Updated: {moment(postData.modifiedDate).format('DD-MMM-YYYY')}
+  const introduction = (
+    <>
+      {title}
+      <div className="text-md">
+        Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
       </div>
-    )}
-    {postData.tags && (
-      <>
-        <ul className="flex gap-x-2 list-none ml-0 pl-0">
-          {postData.tags.filter(t => t!=="obsidian-plugins").map((tag) => (
-            <li key={tag} className='pl-0'>
-              <span className="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-sm">
-                #{tag}
-              </span>
-            </li>
-          ))}
-        </ul> 
-      </>
-    )}
-    {postData.bannerImage && (
-      <img src={postData.bannerImage} alt={postData.title} className="w-full h-auto rounded-lg mb-4" />
-    )}
-  </>
+      {postData.publishedDate !== postData.modifiedDate && (
+        <div className="text-md">
+          Updated: {moment(postData.modifiedDate).format('DD-MMM-YYYY')}
+        </div>
+      )}
+      {postData.tags && (
+        <>
+          <ul className="flex gap-x-2 list-none ml-0 pl-0">
+            {postData.tags
+              .filter((t) => t !== 'obsidian-plugins')
+              .map((tag) => (
+                <li key={tag} className="pl-0">
+                  <span className="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-sm">
+                    #{tag}
+                  </span>
+                </li>
+              ))}
+          </ul>
+        </>
+      )}
+      {postData.bannerImage && (
+        <img
+          src={postData.bannerImage}
+          alt={postData.title}
+          className="w-full h-auto rounded-lg mb-4"
+        />
+      )}
+    </>
+  );
 
   return (
     <div>
@@ -191,7 +205,11 @@ const Post = (props: IPostPageProps) => {
             {introduction}
             <div className="mt-4 flex justify-center">
               {isLessThanLarge && (
-                <EthicalAd type="text" style="fixed-footer" placementId="post-fixed-footer" />
+                <EthicalAd
+                  type="text"
+                  style="fixed-footer"
+                  placementId="post-fixed-footer"
+                />
               )}
             </div>
             {plugins && plugins.length ? (

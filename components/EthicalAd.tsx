@@ -1,8 +1,8 @@
-import { useEffect, useRef, useId } from "react";
+import { useEffect, useRef, useId } from 'react';
 
-const EA_PUBLISHER_ID   = "obsidianstatscom"; // e.g. "example-com"
-const CARBON_SERVE_CODE = "CW7I6K7Y"; // e.g. "CEAI42J7"
-const CARBON_PLACEMENT  = "wwwobsidianstatscom"; // usually your domain without dots
+const EA_PUBLISHER_ID = 'obsidianstatscom'; // e.g. "example-com"
+const CARBON_SERVE_CODE = 'CW7I6K7Y'; // e.g. "CEAI42J7"
+const CARBON_PLACEMENT = 'wwwobsidianstatscom'; // usually your domain without dots
 
 /**
  * Props for the EthicalAd component.
@@ -14,7 +14,7 @@ const CARBON_PLACEMENT  = "wwwobsidianstatscom"; // usually your domain without 
  */
 export interface EthicalAdProps {
   placementId?: string;
-  type?: "image" | "text";
+  type?: 'image' | 'text';
   style?: string;
   className?: string;
   keywords?: string;
@@ -32,13 +32,13 @@ export interface EthicalAdProps {
  */
 export const EthicalAd: React.FC<EthicalAdProps> = ({
   placementId,
-  type = "image",
+  type = 'image',
   style,
   className,
   keywords,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const autoId       = useId();                      // React 18+ unique id
+  const autoId = useId(); // React 18+ unique id
 
   /**
    * Inject EthicalAds script once and memoize the promise.
@@ -49,8 +49,8 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
       return Promise.resolve();
     }
     return new Promise<void>((resolve) => {
-      const s = document.createElement("script");
-      s.src = "https://media.ethicalads.io/media/client/ethicalads.min.js";
+      const s = document.createElement('script');
+      s.src = 'https://media.ethicalads.io/media/client/ethicalads.min.js';
       s.async = true;
       s.onload = () => {
         (window as any).__ethicalAdsLoaded = true;
@@ -65,14 +65,14 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
    */
   function injectCarbon() {
     if (!containerRef.current) return;
-    
+
     if ((window as any).__carbonShown) return;
     (window as any).__carbonShown = true;
     // clear any previous children (e.g. empty EthicalAds div)
-    containerRef.current.innerHTML = "";
-    const carbon = document.createElement("script");
-    carbon.src   = `//cdn.carbonads.com/carbon.js?serve=${CARBON_SERVE_CODE}&placement=${CARBON_PLACEMENT}&format=responsive`;
-    carbon.id    = `_carbonads_js`;
+    containerRef.current.innerHTML = '';
+    const carbon = document.createElement('script');
+    carbon.src = `//cdn.carbonads.com/carbon.js?serve=${CARBON_SERVE_CODE}&placement=${CARBON_PLACEMENT}&format=responsive`;
+    carbon.id = `_carbonads_js`;
     carbon.async = true;
     containerRef.current.appendChild(carbon);
   }
@@ -85,7 +85,7 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
 
     loadEthicalAdsClient().then(() => {
       // Ask EthicalAds to (re)scan for new placements on SPA pages
-      if (typeof (window as any).ethicalads?.load === "function") {
+      if (typeof (window as any).ethicalads?.load === 'function') {
         (window as any).ethicalads.load();
       }
 
@@ -94,8 +94,8 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
         // find the placement for **this** container
         const here = placements.find((p) => {
           return (
-            p.container === containerRef.current ||   // pre-v1.20
-            p.element   === containerRef.current      // v1.21+
+            p.container === containerRef.current || // pre-v1.20
+            p.element === containerRef.current // v1.21+
           );
         });
 
@@ -120,7 +120,7 @@ export const EthicalAd: React.FC<EthicalAdProps> = ({
       // data-ea-keywords={keywords}
       className={className}
       /* Minimal inline size to avoid CLS jump before ad loads */
-      style={{ minHeight: type === "image" ? "140" : "75" }}
+      style={{ minHeight: type === 'image' ? '140' : '75' }}
     />
   );
 };

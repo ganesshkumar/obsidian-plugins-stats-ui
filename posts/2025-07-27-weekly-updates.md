@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-07-20 to 2025-07-26
-description: "From 2025-07-20 to 2025-07-26 there are 17 newly released plugins and 4 new themes, 68 plugins got updated and 1 plugin got removed"
-excerpt: "There are 17 new plugins and 4 new themes, 68 plugins got updated and 1 plugin was moved during the week 2025-07-20 to 2025-07-26."
-publishedDate: "2025-07-27"
-modifiedDate: "2025-07-27"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+description: 'From 2025-07-20 to 2025-07-26 there are 17 newly released plugins and 4 new themes, 68 plugins got updated and 1 plugin got removed'
+excerpt: 'There are 17 new plugins and 4 new themes, 68 plugins got updated and 1 plugin was moved during the week 2025-07-20 to 2025-07-26.'
+publishedDate: '2025-07-27'
+modifiedDate: '2025-07-27'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
@@ -206,7 +206,7 @@ We got 68 plugin updates in the last one week's time. You can see all the plugin
 
 ## 🎨 New Themes
 
-- **Nostromo** - An 80's retro-futuristic theme with comfortable, muted colors. Perfect for space-age note-taking without the eye strain -  [Github](https://github.com/gvorbeck/Nostromo)
+- **Nostromo** - An 80's retro-futuristic theme with comfortable, muted colors. Perfect for space-age note-taking without the eye strain - [Github](https://github.com/gvorbeck/Nostromo)
 - **Ravenloft** - Parchment‑warm gothic dual‑mode theme - [Github](https://github.com/circkumflexx/obsidian-ravenloft-theme)
 - **Tokyo Night Simple** - Tokyo Night Simple is an Obsidian theme based on the Tokyo Night colors used in folke/tokyonight.nvim aiming for simplicity - [Github](https://github.com/danarnold/tokyonight-simple)
 - **Omega** - Omega is a dark mode-only Obsidian theme designed for those who think in stars - [Github](https://github.com/OmegaCentauri68/Omega-Theme-for-Obsidian)

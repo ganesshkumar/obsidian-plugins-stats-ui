@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Header, { IHeaderProps } from '../components/Header';
 import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { RiCloseLargeFill } from "react-icons/ri";
+import { RiCloseLargeFill } from 'react-icons/ri';
 import { setupFavorites } from '../utils/favorites';
 import { NoFavPlugins } from '../components/FavPluginUpdates';
 import { daysAgo, isNotXDaysOld } from '../utils/datetime';
@@ -41,7 +41,7 @@ const Favorites = (props: IFavoritePageProps) => {
   const favoritedPlugins = props.plugins.filter((plugin) =>
     favorites.includes(plugin.pluginId)
   );
-  
+
   const updatesForFavPlugins = props.newReleases.filter((newRelease) =>
     favorites.includes(newRelease.pluginId)
   );
@@ -51,10 +51,15 @@ const Favorites = (props: IFavoritePageProps) => {
     trackEvent('Import plugins from Obsidian as favorites: text input');
     try {
       const parsed = JSON.parse(pluginListText);
-      if (Array.isArray(parsed) && parsed.every(item => typeof item === 'string')) {
+      if (
+        Array.isArray(parsed) &&
+        parsed.every((item) => typeof item === 'string')
+      ) {
         parsed.forEach((pluginId: string) => {
           const isFavorite = favorites.includes(pluginId);
-          const pluginExists = props.plugins.some(plugin => plugin.pluginId === pluginId);
+          const pluginExists = props.plugins.some(
+            (plugin) => plugin.pluginId === pluginId
+          );
           if (!isFavorite && pluginExists) {
             setFavorite(pluginId, setFavorites);
           }
@@ -63,14 +68,20 @@ const Favorites = (props: IFavoritePageProps) => {
         setupFavorites(setFavorites);
         setImportTextError(null);
       } else {
-        setImportTextError('Invalid format: Please paste a JSON array of plugin IDs (strings).');
-        trackEvent('Import plugins from Obsidian as favorites: invalid json entered');
+        setImportTextError(
+          'Invalid format: Please paste a JSON array of plugin IDs (strings).'
+        );
+        trackEvent(
+          'Import plugins from Obsidian as favorites: invalid json entered'
+        );
       }
     } catch (e) {
       setImportTextError('Invalid JSON: Please check your pasted content.');
-      trackEvent('Import plugins from Obsidian as favorites: entered content is not JSON');
+      trackEvent(
+        'Import plugins from Obsidian as favorites: entered content is not JSON'
+      );
     }
-  }
+  };
 
   return (
     <div>
@@ -81,61 +92,78 @@ const Favorites = (props: IFavoritePageProps) => {
       {/* Favorite Plugins */}
       <div className="bg-white pt-5">
         <div className="max-w-6xl mx-auto px-2">
-          <EthicalAd type="text" style="fixed-footer" placementId="favorites-text" />
-          <div className='relative'> {/* to make the import button stick to the top left */}
-            {!importMode &&
+          <EthicalAd
+            type="text"
+            style="fixed-footer"
+            placementId="favorites-text"
+          />
+          <div className="relative">
+            {' '}
+            {/* to make the import button stick to the top left */}
+            {!importMode && (
               <>
-                <div className='flex justify-end gap-2'>
+                <div className="flex justify-end gap-2">
                   <Button
                     variant="default"
-                    className='bg-gray-900 hover:bg-gray-800 text-white cursor-pointer z-30'
+                    className="bg-gray-900 hover:bg-gray-800 text-white cursor-pointer z-30"
                     onClick={() => setImportMode(true)}
-                    id='import-favorites-trigger'
+                    id="import-favorites-trigger"
                     aria-expanded={importMode}
                   >
                     Import from Obsidian
                   </Button>
                 </div>
               </>
-            }
+            )}
             {importMode && (
-              <Card id='import-card' className='mt-4 shadow-lg border border-gray-200'>
-                <CardHeader className='flex flex-row items-start justify-between space-y-0 pb-4'>
-                  <CardTitle className='text-2xl font-bold text-gray-800'>Import Plugins from Obsidian</CardTitle>
+              <Card
+                id="import-card"
+                className="mt-4 shadow-lg border border-gray-200"
+              >
+                <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-4">
+                  <CardTitle className="text-2xl font-bold text-gray-800">
+                    Import Plugins from Obsidian
+                  </CardTitle>
                   <Button
-                    variant='ghost'
-                    size='icon'
-                    aria-label='Close import panel'
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Close import panel"
                     onClick={() => setImportMode(false)}
                   >
                     <RiCloseLargeFill size={18} />
                   </Button>
                 </CardHeader>
-                <CardContent className='space-y-4'>
-                  <div className='space-y-2'>
-                    <Label htmlFor='plugin-list-text' className='text-base font-medium'>
-                      Paste the contents of <code>.obsidian/community-plugins.json</code>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label
+                      htmlFor="plugin-list-text"
+                      className="text-base font-medium"
+                    >
+                      Paste the contents of{' '}
+                      <code>.obsidian/community-plugins.json</code>
                     </Label>
                     <Textarea
                       ref={pluginsListText}
-                      id='plugin-list-text'
+                      id="plugin-list-text"
                       placeholder='["plugin-id-a", "plugin-id-b", ...]'
-                      className='h-60 resize-none'
+                      className="h-60 resize-none"
                     />
                   </div>
                   {importTextError && (
-                    <div className='text-sm text-red-600'>{importTextError}</div>
+                    <div className="text-sm text-red-600">
+                      {importTextError}
+                    </div>
                   )}
-                  <div className='flex justify-end gap-2'>
+                  <div className="flex justify-end gap-2">
                     <Button
-                      variant='secondary'
+                      variant="secondary"
                       onClick={() => setImportMode(false)}
                     >
                       Cancel
                     </Button>
                     <Button
-                      variant='default'
-                      className='bg-gray-900 hover:bg-gray-800 text-white'
+                      variant="default"
+                      className="bg-gray-900 hover:bg-gray-800 text-white"
                       onClick={handleImportPlugins}
                     >
                       Import
@@ -150,12 +178,14 @@ const Favorites = (props: IFavoritePageProps) => {
                 <div className="max-w-6xl mx-auto px-2">
                   <InfoBar title="New Versions of your favorite plugins" />
                   <div>
-                    There are {updatesForFavPlugins?.length || 0} new updates from
-                    the last 10 days
+                    There are {updatesForFavPlugins?.length || 0} new updates
+                    from the last 10 days
                   </div>
                   <div className="flex flex-wrap gap-4 pt-5 mx-4">
                     {updatesForFavPlugins.slice(0, 6).map((newRelease, idx) => {
-                      const isFavorite = favorites.includes(newRelease.pluginId);
+                      const isFavorite = favorites.includes(
+                        newRelease.pluginId
+                      );
                       const isTrending = newRelease.zScoreTrending > 10;
                       return (
                         <a
@@ -203,20 +233,29 @@ const Favorites = (props: IFavoritePageProps) => {
               </div>
             )}
             {/* Show no updates for favorite plugins if there favorites exist but no updates */}
-            {(favoritedPlugins && favoritedPlugins.length > 0) && (!updatesForFavPlugins || updatesForFavPlugins.length === 0) && (
-              <div className="bg-transparent mt-8">
-                <div className="max-w-6xl mx-auto px-2">
-                  <InfoBar title="New Versions of your favorite plugins" />
-                  <div className="flex flex-col items-center justify-center text-gray-700">
-                    <img src="/images/undraw/undraw_with-love.svg" alt="No updates" className="w-48 mx-auto mt-16 mb-8 opacity-50" />
-                    <span className='text-center'>There are no new updates from your favorite plugins in the last 10 days</span>
+            {favoritedPlugins &&
+              favoritedPlugins.length > 0 &&
+              (!updatesForFavPlugins || updatesForFavPlugins.length === 0) && (
+                <div className="bg-transparent mt-8">
+                  <div className="max-w-6xl mx-auto px-2">
+                    <InfoBar title="New Versions of your favorite plugins" />
+                    <div className="flex flex-col items-center justify-center text-gray-700">
+                      <img
+                        src="/images/undraw/undraw_with-love.svg"
+                        alt="No updates"
+                        className="w-48 mx-auto mt-16 mb-8 opacity-50"
+                      />
+                      <span className="text-center">
+                        There are no new updates from your favorite plugins in
+                        the last 10 days
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
             {/* Show how to favorite plugins when there are no favorites */}
             {favoritedPlugins && favoritedPlugins.length === 0 && (
-              <div className='pt-4'>
+              <div className="pt-4">
                 <NoFavPlugins />
               </div>
             )}

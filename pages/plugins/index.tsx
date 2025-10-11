@@ -632,7 +632,11 @@ const Plugins = (props: IPageProps) => {
                 </Button.Group>
               </div>
               {isLessThanLarge && (
-                <EthicalAd type="text" style="fixed-footer" placementId="plugins-fixed-footer" />
+                <EthicalAd
+                  type="text"
+                  style="fixed-footer"
+                  placementId="plugins-fixed-footer"
+                />
               )}
               <AllPluginsMultiView
                 highlight={Array.isArray(filter) ? filter[0] : filter}

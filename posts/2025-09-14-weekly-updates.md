@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-09-07 to 2025-09-13
-description: "From 2025-09-07 to 2025-09-13 there are 17 newly released plugins, 4 new themes, and 67 plugin updates. Also, 10 plugins and 3 themes got removed."
+description: 'From 2025-09-07 to 2025-09-13 there are 17 newly released plugins, 4 new themes, and 67 plugin updates. Also, 10 plugins and 3 themes got removed.'
 excerpt: There are 17 new plugins, 4 new themes and 67 plugin updates during the week 2025-09-07 to 2025-09-13. Also, 10 plugins and 3 themes got removed.
-publishedDate: "2025-09-14"
-modifiedDate: "2025-09-14"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-09-14'
+modifiedDate: '2025-09-14'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
