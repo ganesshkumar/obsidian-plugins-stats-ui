@@ -1,19 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../../components/Navbar';
 
-import { Footer } from '../components/Footer';
-import { setupFavorites } from '../utils/favorites';
-import { daysAgo } from '../utils/datetime';
-import InfoBar from '../components/InfoBar';
-import { PluginsCache } from '../cache/plugins-cache';
+import { Footer } from '../../components/Footer';
+import { setupFavorites } from '../../utils/favorites';
+import { daysAgo } from '../../utils/datetime';
+import InfoBar from '../../components/InfoBar';
+import { PluginsCache } from '../../cache/plugins-cache';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PluginsMultiView } from '../components/PluginsMultiView';
-import { JsonLdSchema } from '../lib/jsonLdSchema';
-import Header, { IHeaderProps } from '../components/Header';
+import { PluginsMultiView } from '../../components/PluginsMultiView';
+import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import Header, { IHeaderProps } from '../../components/Header';
+import { ThemesCache } from '@/cache/themes-cache';
+import {
+  Plugin as PluginRecord,
+  Theme as ThemeRecord,
+} from '@prisma/client';
+import { Entity, EntityType } from '@/domain/Entity';
 
 interface INewPageProps extends IHeaderProps {
-  newPlugins: any[];
+  newPlugins: PluginRecord[];
+  newThemes: ThemeRecord[];
+  newEntities: Entity[];
 }
 
 const New = (props: INewPageProps) => {
@@ -33,7 +41,7 @@ const New = (props: INewPageProps) => {
           <InfoBar
             title={`New Plugins ${props.newPlugins && `(${props.newPlugins.length})`}`}
           />
-          {props.newPlugins.length === 0 ? (
+          {props.newEntities.length === 0 ? (
             <div className="grid md:grid-cols-2 grow mt-8 md:mt-24 gap-y-4">
               <div className="w-full flex justify-center items-center">
                 <Image
@@ -82,6 +90,7 @@ const New = (props: INewPageProps) => {
             <div className="flex-col">
               <PluginsMultiView
                 plugins={props.newPlugins}
+                entities={props.newEntities}
                 favorites={favorites}
                 setFavorites={setFavorites}
                 showDescription={true}
@@ -97,8 +106,13 @@ const New = (props: INewPageProps) => {
 
 export const getStaticProps = async () => {
   const plugins = await PluginsCache.get();
+  const themes = await ThemesCache.get();
+
   const newPlugins = plugins.filter((plugin) => plugin.createdAt > daysAgo(10));
   newPlugins.sort((a, b) => b.createdAt - a.createdAt);
+
+  const newThemes = themes.filter((theme) => theme.createdAt > daysAgo(10));
+  newThemes.sort((a, b) => b.createdAt - a.createdAt);
 
   const title =
     'Latest Obsidian Plugins - Discover the new plugins that got released in Last 7 days, 10 Days, 1 Month, 6 Months, and 1 Year';
@@ -116,6 +130,24 @@ export const getStaticProps = async () => {
     image
   );
 
+  const newEntities: Entity[] = [];
+  newPlugins.forEach((plugin) => {
+    newEntities.push({
+      id: plugin.pluginId,
+      type: EntityType.Plugin,
+      data: plugin,
+    });
+  });
+  newThemes.forEach((theme) => {
+    newEntities.push({
+      id: theme.repo,
+      type: EntityType.Theme,
+      data: theme,
+    });
+  });
+
+  newEntities.sort((a, b) => b.data.createdAt - a.data.createdAt);
+
   return {
     props: {
       title,
@@ -124,6 +156,8 @@ export const getStaticProps = async () => {
       image,
       jsonLdSchema,
       newPlugins,
+      newThemes,
+      newEntities,
     },
   };
 };

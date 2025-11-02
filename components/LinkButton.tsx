@@ -40,7 +40,7 @@ export const LinkButton = (props: LinkButtonProps) => {
     return (
       <button
         onClick={handleClick}
-        className="font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center text-sm"
+        className="font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center text-sm hover:cursor-pointer"
       >
         {content}
       </button>
@@ -49,7 +49,7 @@ export const LinkButton = (props: LinkButtonProps) => {
   return (
     <button
       onClick={handleClick}
-      className="font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center"
+      className="font-medium w-fit border bg-gray-600 hover:bg-gray-700 text-slate-100 px-2 py-1 rounded text-center hover:cursor-pointer"
     >
       {content}
     </button>

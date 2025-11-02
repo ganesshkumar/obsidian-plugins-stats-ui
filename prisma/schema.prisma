@@ -106,3 +106,19 @@ model PullRequestEntry {
   @@index([lastClassifiedAt])
   @@index([lastEnrichedAt])
 }
+
+model Theme {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  repo       String
+  isDark     Boolean?
+  isLight    Boolean?
+  screenshot String?
+  isLegacy   Boolean?
+  createdAt  Int
+  deletedAt  Int?
+
+  @@index([repo])
+  @@index([name])
+  @@index([deletedAt])
+}

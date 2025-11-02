@@ -107,7 +107,7 @@ const StepImage = ({ step }) => {
       height={0}
       sizes="100vw"
       style={{ width: '100%', height: '100%' }}
-      className="rounded border shadow-sm"
+      className="rounded border shadow-sm aspect-auto"
     />
   );
 };
