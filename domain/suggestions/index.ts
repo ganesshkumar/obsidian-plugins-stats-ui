@@ -1,3 +1,4 @@
+import { ThemesCache } from '@/cache/themes-cache';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { Post } from '../../lib/abstractions';
 import { getSortedPostsData } from '../../lib/posts';
@@ -152,6 +153,34 @@ const pickSimilarPlugins = async (pageInfo: PageInfo) => {
   };
 };
 
+const pickSimilarThemes = async (pageInfo: PageInfo) => {
+  const themes = (await ThemesCache.get()) ?? [];
+  const currentTheme = themes.find((theme) => theme.repo.split('/')[1] === pageInfo.slug);
+
+  const similarThemes = themes.filter(
+    (theme) =>
+      theme.repo !== currentTheme.repo &&
+      theme.isDark === currentTheme.isDark &&
+      theme.isLight === currentTheme.isLight
+  );
+
+  let suggestionsCount = Math.min(5, similarThemes.length);
+  const suggestedThemes = [];
+
+  while (suggestedThemes.length < suggestionsCount) {
+    const randomIndex = Math.floor(Math.random() * similarThemes.length);
+    const theme = similarThemes[randomIndex];
+    if (!suggestedThemes.some((t) => t.repo === theme.repo)) {
+      suggestedThemes.push(theme);
+    }
+  }
+
+  return {
+    themes: suggestedThemes,
+    hasMore: false,
+  };
+}
+
 export const generateSuggestions = async (
   pageInfo: PageInfo
 ): Promise<Suggestions> => {
@@ -164,6 +193,16 @@ export const generateSuggestions = async (
       tools: [],
       posts: [],
       similarPlugins: plugins,
+      similarThemes: [],
+      hasMoreSimilarPlugins: hasMore,
+    };
+  } else if (type === 'theme') {
+    const { themes, hasMore } = await pickSimilarThemes(pageInfo);
+    return {
+      tools: [],
+      posts: [],
+      similarPlugins: [],
+      similarThemes: themes,
       hasMoreSimilarPlugins: hasMore,
     };
   } else {
@@ -174,6 +213,7 @@ export const generateSuggestions = async (
       tools: tools,
       posts: posts,
       similarPlugins: [],
+      similarThemes: [],
       hasMoreSimilarPlugins: false,
     };
   }

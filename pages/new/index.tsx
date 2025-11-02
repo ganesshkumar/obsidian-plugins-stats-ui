@@ -115,8 +115,8 @@ export const getStaticProps = async () => {
   newThemes.sort((a, b) => b.createdAt - a.createdAt);
 
   const title =
-    'Latest Obsidian Plugins - Discover the new plugins that got released in Last 7 days, 10 Days, 1 Month, 6 Months, and 1 Year';
-  const description = `Discover the newest Obsidian plugins released in the past 7 days, 10 Days, 1 Month, 6 Months, and 1 Year. ${newPlugins
+    'Latest Obsidian Plugins & Themes - Discover the new plugins and themes that got released in Last 7 days, 10 Days, 1 Month, 6 Months, and 1 Year';
+  const description = `Discover the newest Obsidian plugins and themes released in the past 7 days, 10 Days, 1 Month, 6 Months, and 1 Year. ${newPlugins
     .slice(0, 20)
     .map((plugin) => plugin.name)
     .join(', ')}`;
@@ -124,6 +124,7 @@ export const getStaticProps = async () => {
   const image = 'https://www.obsidianstats.com/images/new-og.webp';
   const jsonLdSchema = JsonLdSchema.getNewPageSchema(
     newPlugins,
+    newThemes,
     title,
     description,
     canonical,

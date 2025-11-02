@@ -1,4 +1,4 @@
-import { Plugin, PullRequestEntry } from '@prisma/client';
+import { Plugin, PullRequestEntry, Theme } from '@prisma/client';
 import { Post } from './abstractions';
 import Constants from '../constants';
 
@@ -467,6 +467,48 @@ const breadcrumbs = {
       },
     ],
   },
+  themes: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.obsidianstats.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Plugins',
+        item: 'https://www.obsidianstats.com/themes',
+      },
+    ],
+  },
+  theme: (name: string, url: string) => {
+    return {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.obsidianstats.com',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Themes',
+          item: 'https://www.obsidianstats.com/themes',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name,
+          item: url,
+        },
+      ],
+    };
+  },
 };
 
 export const JsonLdSchema = {
@@ -536,6 +578,7 @@ export const JsonLdSchema = {
   ) => {
     return getJsonLdSchemaForPageWithPlugins(
       plugins,
+      [],
       title,
       description,
       canonical,
@@ -545,6 +588,7 @@ export const JsonLdSchema = {
   },
   getNewPageSchema: (
     plugins: Plugin[],
+    themes: Theme[],
     title: string,
     description: string,
     canonical: string,
@@ -552,6 +596,7 @@ export const JsonLdSchema = {
   ) => {
     return getJsonLdSchemaForPageWithPlugins(
       plugins,
+      themes,
       title,
       description,
       canonical,
@@ -568,6 +613,7 @@ export const JsonLdSchema = {
   ) => {
     return getJsonLdSchemaForPageWithPlugins(
       plugins,
+      [],
       title,
       description,
       canonical,
@@ -584,6 +630,7 @@ export const JsonLdSchema = {
   ) => {
     return getJsonLdSchemaForPageWithPlugins(
       plugins,
+      [],
       title,
       description,
       canonical,
@@ -655,6 +702,7 @@ export const JsonLdSchema = {
   ) => {
     return getJsonLdSchemaForPageWithPlugins(
       plugins,
+      [],
       title,
       description,
       canonical,
@@ -702,6 +750,7 @@ export const JsonLdSchema = {
   ) => {
     return getJsonLdSchemaForPageWithPlugins(
       plugins,
+      [],
       title,
       description,
       canonical,
@@ -875,6 +924,69 @@ export const JsonLdSchema = {
       ],
     };
   },
+  getThemesPageSchema: (
+    themes: Theme[],
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebPage',
+          '@id': canonical,
+          url: canonical,
+          name: title,
+          description: description,
+          inLanguage: 'en-US',
+          isPartOf: {
+            '@id': 'https://www.obsidianstats.com/#website',
+          },
+          author,
+        },
+        breadcrumbs.themes,
+      ],
+    };
+  },
+  getThemePageSchema: (
+    theme: Theme,
+    title: string,
+    description: string,
+    canonical: string,
+    image: string
+  ) => {
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'SoftwareApplication',
+          '@id': canonical,
+          url: canonical,
+          name: title,
+          description: description,
+          inLanguage: 'en-US',
+          operatingSystem: 'All',
+          applicationCategory: 'Theme',
+          offers: {
+            '@type': 'Offer',
+            '@id': canonical + '#offers',
+            price: '0',
+            priceCurrency: 'USD',
+          },
+          downloadUrl: `https://www.obsidianstats.com/themes/${theme.repo.split('/')[1]}`,
+          datePublished: theme.createdAt,
+          author: {
+            '@type': 'Person',
+            '@id': canonical + '#author',
+            name: theme.repo.split('/')[0],
+          },
+        },
+        breadcrumbs.theme(theme.name, canonical),
+      ],
+    };
+  },
   getTimelinePageSchema: () => {
     return {
       '@context': 'https://schema.org',
@@ -995,6 +1107,7 @@ export const JsonLdSchema = {
 
 const getJsonLdSchemaForPageWithPlugins = (
   plugins: Plugin[],
+  themes: Theme[],
   title: string,
   description: string,
   canonical: string,
@@ -1057,6 +1170,25 @@ const getJsonLdSchemaForPageWithPlugins = (
           '@type': 'Person',
           '@id': canonical + '#author',
           name: plugin.author,
+        },
+      })),
+      ...themes.map((theme) => ({
+        '@type': 'SoftwareApplication',
+        name: theme.name,
+        applicationCategory: 'Theme',
+        operatingSystem: 'All',
+        offers: {
+          '@type': 'Offer',
+          '@id': canonical + '#offers',
+          price: '0',
+          priceCurrency: 'USD',
+        },
+        downloadUrl: `https://www.obsidianstats.com/themes/${theme.repo.split('/')[1]}`,
+        datePublished: theme.createdAt,
+        author: {
+          '@type': 'Person',
+          '@id': canonical + '#author',
+          name: theme.repo.split('/')[0],
         },
       })),
       breadcrumbSchema ? breadcrumbSchema : null,

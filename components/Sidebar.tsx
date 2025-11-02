@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Tool } from 'react-feather';
+import { Moon, Sun, Tool } from 'react-feather';
 import { PageInfo, Suggestions } from '../domain/suggestions/models';
 import { useIsLessThanLarge } from '../hooks/useIsLessThanLarge';
 import { getGraidentFrom, getGraidentTo } from '../lib/customThemes';
@@ -71,6 +71,36 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
             View all
           </div>
         )}
+      </>
+    );
+  } else if (pageInfo.type === 'theme') {
+    content = (
+      <>
+        {suggestions.similarThemes.slice(0, 5).map((similarTheme, index) => (
+          <div
+            key={index}
+            onClick={() =>
+              handleSuggestedContentClick(
+                `/themes/${similarTheme.repo}`,
+                'Suggestion Click Similar Theme'
+              )
+            }
+            className="flex border border-gray-200 px-3 py-1 rounded w-full h-[130px] min-h-[130px] max-h-[130px] cursor-pointer"
+          >
+            <div className='w-full'>
+              <p className="text-gray-700 px-2 pt-1 font-semibold">
+                {similarTheme.name}
+              </p>
+              <div className="flex items-stretch justify-between gap-x-4 w-full">
+                <img src={`https://raw.githubusercontent.com/${similarTheme.repo}/HEAD/${similarTheme.screenshot}`} alt={similarTheme.name} className="w-32 h-20 mt-2 mb-2 object-contain" />
+                <div className='flex flex-col grow-1 justify-end mb-4'>
+                  {similarTheme.isLight && <div><Sun size={16} className="inline mx-1" /> Light Mode</div>}
+                  {similarTheme.isDark && <div><Moon size={16} className="inline mx-1" /> Dark Mode</div>}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </>
     );
   } else {
