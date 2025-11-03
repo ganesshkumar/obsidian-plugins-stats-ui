@@ -158,6 +158,14 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
   }
 
   const adId = `${pageInfo.type}-image`;
+  let title = '';
+  if (pageInfo.type === 'plugin') {
+    title = 'Similar Plugins';
+  } else if (pageInfo.type === 'theme') {
+    title = 'Similar Themes';
+  } else {
+    title = 'Suggested Content';
+  }
 
   return (
     <div className="w-full mt-10 lg:mt-0 lg:sticky lg:top-10">
@@ -165,7 +173,7 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
         <EthicalAd type="image" placementId={adId} className="horizontal" />
       )}
       <h2 className="mt-1 mb-4 text-2xl text-center">
-        {pageInfo.type === 'plugin' ? 'Similar Plugins' : 'Suggested Content'}
+        {title}
       </h2>
       <div className="flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center">
         {content}

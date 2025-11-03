@@ -67,13 +67,14 @@ const ThemeView = (props: IThemeProps) => {
       ).then((response) => response.text())
         .then((data) => {
           const baseUrl = `https://raw.githubusercontent.com/${props.theme.repo}/${defaultBranch}/`;
-          // Replace markdown image links
-          const mdRegex = /!\[([^\]]*)\]\(\s*(?:\.\.\/|\.\/)?([^)\s]+)\s*\)/g;
+          // Markdown image links: only match relative paths
+          const mdRegex = /!\[([^\]]*)\]\(\s*(?!https?:\/\/|\/\/|\/)(?:\.\.\/|\.\/)?([^)\s]+)\s*\)/g;
           let newData = data.replace(mdRegex, (match, alt, relPath) => {
             return `![${alt}](${baseUrl}${relPath})`;
           });
-          // Replace HTML <img> tags with relative src
-          const htmlImgRegex = /<img\s+([^>]*?)src=(["'])(?:\.\.\/|\.\/)?([^"'>\s]+)\2([^>]*?)>/gi;
+
+          // HTML <img> tags: only match relative src attributes
+          const htmlImgRegex = /<img\s+([^>]*?)src=(["'])(?!https?:\/\/|\/\/|\/)(?:\.\.\/|\.\/)?([^"'>\s]+)\2([^>]*?)>/gi;
           newData = newData.replace(htmlImgRegex, (match, before, quote, relPath, after) => {
             return `<img ${before}src=${quote}${baseUrl}${relPath}${quote}${after}>`;
           });
@@ -464,7 +465,7 @@ const ThemeView = (props: IThemeProps) => {
                 </div>
               )}
               {props.theme.isLight && (
-                <div className="text-lg">
+                <div className="flex gap-x-2 items-center text-lg">
                   <Sun data-testid="moon-icon" />
                   This theme supports <b>Light Mode</b>
                 </div>
