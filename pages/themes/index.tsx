@@ -475,25 +475,15 @@ const Themes = (props: IPageProps) => {
                       {sortByOptions['alphabet_desc']}
                     </Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => handleSorytbyChange('score_desc')}
-                    >
-                      {sortByOptions['score_desc']}
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      onClick={() => handleSorytbyChange('score_asc')}
-                    >
-                      {sortByOptions['score_asc']}
-                    </Dropdown.Item>
-                    <Dropdown.Item
                       onClick={() => handleSorytbyChange('createdAt_desc')}
                     >
                       {sortByOptions['createdAt_desc']}
                     </Dropdown.Item>
-                    <Dropdown.Item
+                    {/* <Dropdown.Item
                       onClick={() => handleSorytbyChange('downloaded_desc')}
                     >
                       {sortByOptions['downloaded_desc']}
-                    </Dropdown.Item>
+                    </Dropdown.Item> */}
                   </Dropdown>
                 </div>
               </div>

@@ -1,7 +1,16 @@
+import { Description } from '@radix-ui/react-dialog';
 import { Faq, Highlight } from '../lib/abstractions';
 
 export const SiteData = {
   highlights: [
+    {
+      title: 'Now supporting Themes',
+      image: '/images/swatch.jpg',
+      description: 'Now you can explore and discover Obsidian themes on the website! For now there is a new `/themes` page, individual page for each theme (in testing mode), and themes are also integrated into the existing `/new` page - to make new themes easier to find. More features will be added over time based on your feedback. 🎨',
+      link: '/themes',
+      ctaText: 'Explore Themes',
+      bgClasses: 'bg-linear-to-tr from-pink-400 to-rose-400 text-black',
+    },
     {
       title: 'Catalog of BETA Plugins',
       image:
