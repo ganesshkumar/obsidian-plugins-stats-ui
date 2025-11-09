@@ -1,4 +1,3 @@
-import { Description } from '@radix-ui/react-dialog';
 import { Faq, Highlight } from '../lib/abstractions';
 
 export const SiteData = {
