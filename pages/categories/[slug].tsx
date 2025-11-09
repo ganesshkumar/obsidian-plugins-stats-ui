@@ -61,8 +61,8 @@ export const getStaticPaths = async () => {
     .filter((category) => !!category);
 
   return {
-    paths: categories.map((category) => ({ params: { slug: category } })),
-    fallback: false,
+    paths: [], // categories.map((category) => ({ params: { slug: category } })),
+    fallback: 'blocking',
   };
 };
 
@@ -98,6 +98,7 @@ export const getStaticProps = async ({ params }) => {
       category: params.slug,
       plugins: pluginsWithCategory,
     },
+    revalidate: 3600, // Revalidate every hour
   };
 };
 
