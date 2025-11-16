@@ -205,6 +205,11 @@ const UnindexedPlugin = (props) => {
         href={`/plugins/${plugin.pluginId}`}
         content="View Plugin Details"
       />
+      <LinkButton
+        className='hover:cursor-pointer'
+        href={`/plugins/${plugin.repo}`}
+        content="View Repo"
+      />
     </div>
   );
 };

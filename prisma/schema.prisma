@@ -39,12 +39,16 @@ model Plugin {
   mergedPR                  Int?
   commitCountInLastYear     Int?
   zScoreTrending            Float?
+  maScoreTrending           Float?
   osDescription             String?
   osCategory                String?
   osTags                    String?
   osImages                  OsImage[]
   score                     Float?
   scoreReason               String?
+  healthScore               Float?
+  popularityScore           Float?
+  controlIsArchived         Boolean?
   website                   String?
   languages                 String?
   requirements              String[]
@@ -77,6 +81,15 @@ model ScoreBounds {
   metric            String         @unique
   min               Float
   max               Float
+  updatedAt         Int
+}
+
+model DataConsumptionHorizon {
+  id                  String         @id @default(auto()) @map("_id") @db.ObjectId
+  name                String         @unique
+  consumptionHorizon  String
+  type                String
+  updatedAt           Int
 }
 
 // Tracks pull request derived prospective (beta) plugins / themes
@@ -121,4 +134,59 @@ model Theme {
   @@index([repo])
   @@index([name])
   @@index([deletedAt])
+}
+
+model User {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  email         String   @unique
+  googleId      String   @unique
+  name          String?
+  avatar        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@map("users")
+}
+
+enum EntityType {
+  PLUGIN
+  THEME
+}
+
+model Review {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  entityId    String   // The plugin or theme identifier
+  entityType  EntityType
+  entityVer   String?
+  userId      String
+  rating      Int      // 1-5 rating
+  reviewText  String?  @db.String // Max 2000 chars (enforced in DTO)
+  
+  flagged     Boolean  @default(false)
+  needsModeration Boolean @default(false)
+  approvedAt    DateTime @default(now())
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@unique([userId, entityId, entityType])
+  @@index([entityId]) // Fast lookup by entity
+  @@index([userId])   // Fast lookup by user
+  @@map("reviews")
+}
+
+model PluginStats {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  entityId        String   @unique
+  entityType      EntityType
+  totalReviews    Int      @default(0)
+  averageRating   Float    @default(0)
+  ratingCount1    Int      @default(0)
+  ratingCount2    Int      @default(0)
+  ratingCount3    Int      @default(0)
+  ratingCount4    Int      @default(0)
+  ratingCount5    Int      @default(0)
+  updatedAt       DateTime @updatedAt
+  
+  @@map("plugin_stats")
 }
