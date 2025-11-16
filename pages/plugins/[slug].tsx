@@ -10,7 +10,6 @@ import Favorites from '../../components/Favorites';
 import PluginCard from '../../components/PluginCard';
 import { getDescription, sanitizeTag, tagDenyList } from '../../utils/plugins';
 import { isNotXDaysOld } from '../../utils/datetime';
-import ISO6391 from 'iso-639-1';
 import {
   Download,
   DownloadCloud,
@@ -75,7 +74,7 @@ const Plugin = (props: IPluginProps) => {
   const [favorites, setFavorites] = useState([]);
   const [readmeContent, setReadmeContent] = useState('');
 
-  const enableRating = useFeatureFlag('enablePluginRating', false);
+  const enableRating = false; //useFeatureFlag('enablePluginRating', false);
 
   const now = moment();
 

@@ -14,6 +14,8 @@ import {
 import { StarRatingInput } from '@/components/StarRatingInput';
 import { Input } from '@/components/ui/input';
 import { Spinner } from './ui/spinner';
+import { useAuth } from '@/hooks/useAuth';
+import { backendGet, backendPost } from '@/lib/api';
 
 interface GivePluginReviewProps {
   pluginId: string;
@@ -54,10 +56,12 @@ const GivePluginRatingDialog = ({
   open,
   setOpen,
 }: GivePluginRatingDialogProps) => {
-  const { user, loading, login } = useUser();
+  // const { user, loading, login } = useUser();
 
-  const [isAuthenticatedLoading, setIsAuthenticatedLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, token, loading: isAuthenticatedLoading, login, logout } = useAuth();
+
+  // const [isAuthenticatedLoading, setIsAuthenticatedLoading] = useState(true);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [hasUsernameLoading, setHasUsernameLoading] = useState(false);
   const [hasUsername, setHasUsername] = useState(false);
@@ -72,53 +76,58 @@ const GivePluginRatingDialog = ({
 
   const [updatedAt, setUpdatedAt] = useState('');
 
-  // check if user is authenticated
-  useEffect(() => {
-    if (loading) return;
-    setIsAuthenticated(!!user);
-    setIsAuthenticatedLoading(false);
-  }, [user, loading]);
+  // // check if user is authenticated
+  // useEffect(() => {
+  //   if (loading) return;
+  //   setIsAuthenticated(!!user);
+  //   setIsAuthenticatedLoading(false);
+  // }, [user, loading]);
 
-  // get user username
-  useEffect(() => {
-    const checkUsername = async () => {
-      const { data: existing } = await supabase
-        .from('users')
-        .select('*')
-        .eq('id', user.id)
-        .maybeSingle();
+  // // get user username
+  // useEffect(() => {
+  //   const checkUsername = async () => {
+  //     const { data: existing } = await supabase
+  //       .from('users')
+  //       .select('*')
+  //       .eq('id', user.id)
+  //       .maybeSingle();
 
-      setHasUsername(!!existing?.username);
-      setNewUsername(existing?.username ?? '');
-      setHasUsernameLoading(false);
-    };
+  //     setHasUsername(!!existing?.username);
+  //     setNewUsername(existing?.username ?? '');
+  //     setHasUsernameLoading(false);
+  //   };
 
-    if (isAuthenticated) {
-      setHasUsernameLoading(true);
-      checkUsername();
-    }
-  }, [isAuthenticated]);
+  //   if (isAuthenticated) {
+  //     setHasUsernameLoading(true);
+  //     checkUsername();
+  //   }
+  // }, [isAuthenticated]);
 
   // get user rating
   useEffect(() => {
     const fetchUserRating = async () => {
-      const { data: ratingRow } = await supabase
-        .from('ratings')
-        .select('rating, updated_at')
-        .eq('user_id', user.id)
-        .eq('plugin_id', pluginId)
-        .maybeSingle();
-
-      if (ratingRow) {
-        setUserRating(ratingRow.rating ?? 0);
-        setUpdatedAt(ratingRow.updated_at ?? '');
+      try {
+        const response = await backendGet<{ rating: number; updatedAt: string }>(`/me/reviews/plugins/${pluginId}`);
+        setUserRating(response.rating);
+        setUpdatedAt(response.updatedAt);
+      } catch (error) {
+        console.error('Error fetching user rating:', error);
+        if (error.message.includes('404')) {
+          setUserRating(0);
+        } else {
+          setUserRatingError(
+            'An error occurred while fetching your rating. Please try again later.'
+          );
+        }
+      } finally {
+        setUserRatingSaving('');
       }
     };
 
-    if (isAuthenticated && hasUsername) {
+    if (isAuthenticated) {
       fetchUserRating();
     }
-  }, [isAuthenticated, hasUsername]);
+  }, [isAuthenticated]);
 
   const handleSetUsername = useCallback(async () => {
     if (
@@ -147,7 +156,7 @@ const GivePluginRatingDialog = ({
 
   const handleRatingChange = useCallback(
     async (newRating: number) => {
-      if (!user) return;
+      if (!isAuthenticated) return;
       const oldRating = userRating;
 
       // optimistic UI BEGIN
@@ -156,42 +165,34 @@ const GivePluginRatingDialog = ({
       setUserRatingSaving('Saving your rating...');
       setUserRating(newRating);
       // optimistic UI END
-
-      const { error, data: updatedRating } = await supabase
-        .from('ratings')
-        .upsert(
-          {
-            plugin_id: pluginId,
-            user_id: user.id,
-            rating: newRating,
-            updated_at: new Date().toISOString(),
-          },
-          {
-            onConflict: 'plugin_id,user_id',
-          }
-        )
-        .select('rating, updated_at')
-        .single();
-
-      setUserRatingSaving('');
-      if (error) {
-        setUserRating(oldRating);
+      
+      try {
+        const response = await backendPost<{
+          id: string;
+          updatedAt: string;
+        }>(`/reviews/plugins/${pluginId}`, {
+          rating: newRating,
+        });
+        setUpdatedAt(response.updatedAt);
+        setUserRatingSuccess('Rating saved successfully!');
+      } catch (error) {
+        console.error('Error saving rating:', error);
         setUserRatingError(
           'An error occurred while saving your rating. Please try again later.'
         );
-      } else {
-        setUpdatedAt(updatedRating.updated_at ?? '');
-        setUserRatingSuccess('Rating saved successfully!');
-        setUserRatingError('');
+        setUserRating(oldRating);
+        return;
+      } finally {
+        setUserRatingSaving('');
       }
     },
-    [user, pluginId, userRating]
+    [isAuthenticated, pluginId, userRating]
   );
 
   let description;
   let content;
   let footer;
-  if (isAuthenticatedLoading || hasUsernameLoading) {
+  if (isAuthenticatedLoading /* || hasUsernameLoading */) {
     description = ' ';
     content = <Spinner size="large" />;
   } else if (!isAuthenticated) {
@@ -206,7 +207,7 @@ const GivePluginRatingDialog = ({
         </Button>
       </div>
     );
-  } else if (!hasUsername) {
+  } /* else if (!hasUsername) {
     description = 'Set a username to rate this plugin.';
     content = (
       <div className="flex flex-col items-center justify-center p-4">
@@ -219,12 +220,12 @@ const GivePluginRatingDialog = ({
         {newUsernameError && (
           <p className="text-red-600 text-sm">{newUsernameError}</p>
         )}
-        <Button onClick={handleSetUsername} className="mt-2">
+        <Button onClick={() => {}} className="mt-2">
           Save Username
         </Button>
       </div>
     );
-  } else {
+  } */ else {
     description = `My rating for ${pluginId}`;
     content = (
       <div className="flex flex-col items-center justify-center p-4">
@@ -274,7 +275,7 @@ const GivePluginRatingDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent>
+      <DialogContent className='bg-white'>
         <DialogHeader className="relative">
           <DialogTitle>Rate Plugin</DialogTitle>
           <DialogDescription>{description}</DialogDescription>

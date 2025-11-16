@@ -1,4 +1,4 @@
-import { Plugin as PluginRecord, PrismaClient } from '@prisma/client';
+import { EntityType, Plugin as PluginRecord, PluginStats, PrismaClient, Review } from '@prisma/client';
 import { supabaseServer } from '@/lib/supabase-server';
 import { PluginRatingInfo } from '@/domain/plugins/models/PluginRatingInfo';
 import { Plugin } from '@/domain/plugins/models/Plugin';
@@ -94,8 +94,8 @@ export class PluginsCache {
 
     if (process.env.NODE_ENV == 'development') {
       pluginRecords = await prisma.plugin.findMany({
-        orderBy: { createdAt: 'desc' },
-        take: 50,
+        // orderBy: { createdAt: 'desc' },
+        // take: 50,
       });
     } else if (process.env.NODE_ENV === 'test') {
       pluginRecords = await prisma.plugin.findMany({
@@ -130,29 +130,27 @@ export class PluginsCache {
         : '';
     });
 
-    const { data, error } = await supabaseServer
-      .from('plugin_rating_summary')
-      .select(
-        'plugin_id, avg_rating, rating_count, star_5_count, star_4_count, star_3_count, star_2_count, star_1_count'
-      );
+    const pluginStatsRecords: PluginStats[] = await prisma.pluginStats.findMany({});
 
-    if (error) {
-      console.error('Error fetching plugin ratings:', error);
+    if (!pluginRecords || !pluginRecords.length) {
+      console.error('No plugins found in the database.');
       return pluginRecords;
     }
 
     const ratingInfoMap: Record<string, PluginRatingInfo> = {};
 
-    data?.forEach((rating) => {
-      ratingInfoMap[rating.plugin_id] = {
-        avgRating: rating.avg_rating,
-        ratingCount: rating.rating_count,
-        star5Count: rating.star_5_count,
-        star4Count: rating.star_4_count,
-        star3Count: rating.star_3_count,
-        star2Count: rating.star_2_count,
-        star1Count: rating.star_1_count,
-      };
+    pluginStatsRecords?.forEach((pluginStats) => {
+      if (pluginStats.entityType === EntityType.PLUGIN) {
+        ratingInfoMap[pluginStats.entityId] = {
+          avgRating: pluginStats.averageRating,
+          ratingCount: pluginStats.ratingCount5 + pluginStats.ratingCount4 + pluginStats.ratingCount3 + pluginStats.ratingCount2 + pluginStats.ratingCount1,
+          star5Count: pluginStats.ratingCount5,
+          star4Count: pluginStats.ratingCount4,
+          star3Count: pluginStats.ratingCount3,
+          star2Count: pluginStats.ratingCount2,
+          star1Count: pluginStats.ratingCount1,
+        };
+      }
     });
 
     const plugins = pluginRecords.map((plugin) => {

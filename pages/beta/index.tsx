@@ -191,7 +191,7 @@ export const getStaticProps = async () => {
     );
     return {
       props: { title, description, canonical, image, entries, jsonLdSchema },
-      revalidate: 3600,
+      revalidate: 3600, 
     };
   } catch (e) {
     console.error('Error fetching beta entries', e);
