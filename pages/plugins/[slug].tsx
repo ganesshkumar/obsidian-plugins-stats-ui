@@ -74,7 +74,7 @@ const Plugin = (props: IPluginProps) => {
   const [favorites, setFavorites] = useState([]);
   const [readmeContent, setReadmeContent] = useState('');
 
-  const enableRating = false; //useFeatureFlag('enablePluginRating', false);
+  const enableRating = useFeatureFlag('enablePluginRating', false);
 
   const now = moment();
 
