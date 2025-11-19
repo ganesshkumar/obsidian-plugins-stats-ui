@@ -1,17 +1,17 @@
 import React from 'react';
-import { CustomFlowbiteTheme, List, Tabs, Tooltip } from 'flowbite-react';
+import { List, Tooltip } from 'flowbite-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import moment from 'moment';
 import Favorites from './Favorites';
 import { memo } from 'react';
 import { CategoryIcon } from './Category';
-import { Download, List as ListIcon, Table as TableIcon } from 'react-feather';
+import { Download } from 'react-feather';
 import { getDescription, sanitizeTag, tagDenyList } from '../utils/plugins';
 import { LinkButton } from './LinkButton';
 import { Score } from './Score';
 import { Plugin, Theme } from '@prisma/client';
 import { Entity, EntityType } from '@/domain/Entity';
+import { RepoButton } from './RepoButton';
 
 interface IPluginsListViewProps {
   plugins: Plugin[];
@@ -200,16 +200,17 @@ const UnindexedPlugin = (props) => {
         </div>
       )}
       <div className="my-4 text-gray-700">{getDescription(plugin)}</div>
-      <LinkButton
-        className='hover:cursor-pointer'
-        href={`/plugins/${plugin.pluginId}`}
-        content="View Plugin Details"
-      />
-      <LinkButton
-        className='hover:cursor-pointer'
-        href={`/plugins/${plugin.repo}`}
-        content="View Repo"
-      />
+      <div className='flex gap-x-2'>
+        <LinkButton
+          className='hover:cursor-pointer'
+          href={`/plugins/${plugin.pluginId}`}
+          content="View Plugin Details"
+        />
+        <RepoButton
+          className='hover:cursor-pointer'
+          href={`https://github.com/${plugin.repo}`}
+        />
+      </div>
     </div>
   );
 };
