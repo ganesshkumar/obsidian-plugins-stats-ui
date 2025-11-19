@@ -1235,9 +1235,9 @@ const getJsonLdSchemaForBetaEntries = (
         author: entry.author
           ? {
               '@type': 'Person',
-              name: entry.author,
+              name: entry.author || null,
             }
-          : undefined,
+          : null,
       })),
       breadcrumbSchema ? breadcrumbSchema : null,
     ],
