@@ -1,6 +1,4 @@
 import React from 'react';
-import useUser from '@/hooks/useUser';
-import { supabase } from '@/lib/supabase';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,7 +10,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { StarRatingInput } from '@/components/StarRatingInput';
-import { Input } from '@/components/ui/input';
 import { Spinner } from './ui/spinner';
 import { useAuth } from '@/hooks/useAuth';
 import { backendGet, backendPost } from '@/lib/api';
@@ -68,6 +65,8 @@ const GivePluginRatingDialog = ({
 
   const [newUsername, setNewUsername] = useState('');
   const [newUsernameError, setNewUsernameError] = useState('');
+
+  const [authInitiated, setAuthInitiated] = useState(false);
 
   const [userRating, setUserRating] = useState<number>(0);
   const [userRatingSaving, setUserRatingSaving] = useState('');
@@ -189,6 +188,11 @@ const GivePluginRatingDialog = ({
     [isAuthenticated, pluginId, userRating]
   );
 
+  const triggerGoogleAuth = useCallback(() => {
+    setAuthInitiated(true);
+    login();
+  }, []);
+
   let description;
   let content;
   let footer;
@@ -202,9 +206,13 @@ const GivePluginRatingDialog = ({
         <p className="text-sm text-gray-700">
           You need to be logged in to rate a plugin.
         </p>
-        <Button onClick={() => login()} className="mt-2">
-          Sign in with Google
-        </Button>
+        {authInitiated ? 
+          <Spinner className="mt-2 text-violet-700" /> :
+          <Button onClick={() => triggerGoogleAuth()} className="mt-2 border border-gray-700 py-1 cursor-pointer hover:bg-gray-100 flex items-center gap-2">
+            <img src='/images/logos/google.png' className='w-8' />
+            <span>Sign in with Google</span>
+          </Button>
+        }
       </div>
     );
   } /* else if (!hasUsername) {
