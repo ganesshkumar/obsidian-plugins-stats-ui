@@ -46,6 +46,8 @@ import { Sidebar } from '../../components/Sidebar';
 import { GivePluginReview } from '@/components/GivePluginRating';
 import { StarRating } from '@/components/StarRating';
 import { useFeatureFlag } from '@/lib/feature-flag/feature-flags';
+import { useAuth } from '@/hooks/useAuth';
+import { usePluginRatingSummary } from '@/hooks/usePluginRatingSummary';
 import { PluginSection } from '@/components/plugins/PluginSection';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
@@ -75,6 +77,8 @@ const Plugin = (props: IPluginProps) => {
   const [readmeContent, setReadmeContent] = useState('');
 
   const enableRating = useFeatureFlag('enablePluginRating', false);
+  const { isAuthenticated } = useAuth();
+  const { data: ratingSummary, loading: ratingSummaryLoading, error: ratingSummaryError, refetch: refetchRatingSummary } = usePluginRatingSummary(props.plugin.pluginId, isAuthenticated);
 
   const now = moment();
 
@@ -150,8 +154,30 @@ const Plugin = (props: IPluginProps) => {
                 />
                 {enableRating && (
                   <div className="flex flex-col gap-y-2 my-4 mb-8 max-w-sm">
-                    <StarRating ratingInfo={props.plugin.ratingInfo} />
-                    <GivePluginReview pluginId={props.plugin.pluginId} />
+                    {ratingSummaryLoading && (
+                      <div className="text-sm text-gray-500">Loading rating data...</div>
+                    )}
+                    {ratingSummaryError && (
+                      <div className="text-sm text-red-500">Error loading ratings</div>
+                    )}
+                    {ratingSummary && (
+                      <StarRating ratingInfo={{
+                        avgRating: ratingSummary.stats.averageRating,
+                        ratingCount: ratingSummary.stats.totalReviews,
+                        star1Count: ratingSummary.stats.ratingCounts[1],
+                        star2Count: ratingSummary.stats.ratingCounts[2],
+                        star3Count: ratingSummary.stats.ratingCounts[3],
+                        star4Count: ratingSummary.stats.ratingCounts[4],
+                        star5Count: ratingSummary.stats.ratingCounts[5],
+                      }} />
+                    )}
+                    {!ratingSummaryLoading && !ratingSummary && (
+                      <StarRating ratingInfo={props.plugin.ratingInfo} />
+                    )}
+                    <GivePluginReview 
+                      pluginId={props.plugin.pluginId} 
+                      onRatingSubmitted={refetchRatingSummary}
+                    />
                   </div>
                 )}
                 {props.plugin.score && props.plugin.scoreReason && (

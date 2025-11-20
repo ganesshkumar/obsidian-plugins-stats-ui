@@ -16,9 +16,10 @@ import { backendGet, backendPost } from '@/lib/api';
 
 interface GivePluginReviewProps {
   pluginId: string;
+  onRatingSubmitted?: () => void;
 }
 
-export const GivePluginReview = ({ pluginId }: GivePluginReviewProps) => {
+export const GivePluginReview = ({ pluginId, onRatingSubmitted }: GivePluginReviewProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
@@ -36,6 +37,7 @@ export const GivePluginReview = ({ pluginId }: GivePluginReviewProps) => {
           pluginId={pluginId}
           open={isDialogOpen}
           setOpen={setIsDialogOpen}
+          onRatingSubmitted={onRatingSubmitted}
         />
       )}
     </>
@@ -46,14 +48,15 @@ interface GivePluginRatingDialogProps {
   pluginId: string;
   open: boolean;
   setOpen: (open: boolean) => void;
+  onRatingSubmitted?: () => void;
 }
 
 const GivePluginRatingDialog = ({
   pluginId,
   open,
   setOpen,
+  onRatingSubmitted,
 }: GivePluginRatingDialogProps) => {
-  // const { user, loading, login } = useUser();
 
   const { isAuthenticated, token, loading: isAuthenticatedLoading, login, logout } = useAuth();
 
@@ -174,6 +177,11 @@ const GivePluginRatingDialog = ({
         });
         setUpdatedAt(response.updatedAt);
         setUserRatingSuccess('Rating saved successfully!');
+        
+        // Trigger refetch of rating summary
+        if (onRatingSubmitted) {
+          onRatingSubmitted();
+        }
       } catch (error) {
         console.error('Error saving rating:', error);
         setUserRatingError(
@@ -185,7 +193,7 @@ const GivePluginRatingDialog = ({
         setUserRatingSaving('');
       }
     },
-    [isAuthenticated, pluginId, userRating]
+    [isAuthenticated, pluginId, userRating, onRatingSubmitted]
   );
 
   const triggerGoogleAuth = useCallback(() => {
@@ -239,7 +247,7 @@ const GivePluginRatingDialog = ({
       <div className="flex flex-col items-center justify-center p-4">
         <StarRatingInput rating={userRating} setRating={handleRatingChange} />
         {updatedAt && (
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 mt-2">
             Updated at:{' '}
             {updatedAt ? new Date(updatedAt).toLocaleString() : 'N/A'}
           </span>
