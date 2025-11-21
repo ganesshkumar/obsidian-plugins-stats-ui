@@ -1,362 +1,225 @@
-import { Button, Card } from 'flowbite-react';
+﻿import { Button, Card } from 'flowbite-react';
 import React, { useState } from 'react';
-import { ArrowDown, ArrowUp, BarChart, Bookmark, User } from 'react-feather';
+import { ArrowDown, ArrowUp, BarChart, Bookmark, User, Shield, Database } from 'react-feather';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import { Footer } from '../components/Footer';
 
 const CookiePolicy = () => {
-  // Complete policy conten
   const completePolicy = (
     <>
       <h1>Cookie Policy for Obsidian Stats</h1>
-      <p className="mb-2">
-        This document informs Users about the technologies that help this
-        Application to achieve the purposes described below. Such technologies
-        allow the Owner to access and store information (for example by using a
-        Cookie) or use resources (for example by running a script) on a User’s
-        device as they interact with this Application.
-      </p>
-      <p className="mb-2">
-        For simplicity, all such technologies are defined as "Trackers" within
-        this document – unless there is a reason to differentiate.
-      </p>
-      <p className="mb-2">
-        For example, while Cookies can be used on both web and mobile browsers,
-        it would be inaccurate to talk about Cookies in the context of mobile
-        apps as they are a browser-based Tracker. For this reason, within this
-        document, the term Cookies is only used where it is specifically meant
-        to indicate that particular type of Tracker.
-      </p>
-      <p className="mb-2">
-        Some of the purposes for which Trackers are used may also require the
-        User's consent. Whenever consent is given, it can be freely withdrawn at
-        any time following the instructions provided in this document.
-      </p>
-      <p className="mb-2">
-        This Application uses Trackers managed directly by the Owner (so-called
-        “first-party” Trackers) and Trackers that enable services provided by a
-        third-party (so-called “third-party” Trackers). Unless otherwise
-        specified within this document, third-party providers may access the
-        Trackers managed by them.
-      </p>
-      <p className="mb-2">
-        The validity and expiration periods of Cookies and other similar
-        Trackers may vary depending on the lifetime set by the Owner or the
-        relevant provider. Some of them expire upon termination of the User’s
-        browsing session.
-      </p>
-      <p className="mb-2">
-        In addition to what’s specified in the descriptions within each of the
-        categories below, Users may find more precise and updated information
-        regarding lifetime specification as well as any other relevant
-        information — such as the presence of other Trackers — in the linked
-        privacy policies of the respective third-party providers or by
-        contacting the Owner.
+      <span className="text-sm">Last updated: November 22, 2025</span>
+      <p className="mb-2 mt-4">
+        <strong>Summary:</strong> Obsidian Stats uses minimal cookies. We use ONE httpOnly secure cookie for 
+        authentication (refresh token, 7 days expiry). Our analytics platform (Plausible), advertising network 
+        (EthicalAds), and feature flag platform (GrowthBook) are all self-hosted and use NO cookies at all.
       </p>
 
       <hr />
-      <h2>How this Application uses Trackers</h2>
-      <h3>Measurement </h3>
-      <p>
-        This Application uses Trackers to measure traffic and analyse User
-        behaviour to improve the Service.
-      </p>
-      <h4>Trackers managed by third parties</h4>
-      <div className="grid md:grid-cols-2 gap-4 my-4">
-        <DetailedItem
-          title={
-            <div className="flex gap-x-2">
-              <BarChart />
-              Google Analytics 4 (Google LLC)
-            </div>
-          }
-        >
+      <h2>Cookies Used by Obsidian Stats</h2>
+      
+      <h3>1. Essential Authentication Cookie (First-Party)</h3>
+      <div className="my-4">
+        <Card>
           <p>
-            Google Analytics 4 is a web analysis service provided by Google LLC
-            (“Google”). Google utilizes the Data collected to track and examine
-            the use of this Application, to prepare reports on its activities
-            and share them with other Google services. Google may use the Data
-            collected to contextualize and personalize the ads of its own
-            advertising network. In Google Analytics 4, IP addresses are used at
-            collection time and then discarded before Data is logged in any data
-            center or server. Users can learn more by consulting{' '}
-            <a href="https://support.google.com/analytics/answer/12017362?hl=en&ref_topic=2919631">
-              Google’s
-            </a>{' '}
-            official documentation.
+            <strong>Cookie Name:</strong> Refresh Token (httpOnly, secure)
+            <br />
+            <strong>Purpose:</strong> Used to maintain your login session and automatically refresh your access token
+            <br />
+            <strong>Duration:</strong> 7 days
+            <br />
+            <strong>Type:</strong> First-party, httpOnly, secure, SameSite=Strict
+            <br />
+            <strong>Category:</strong> Strictly Necessary - Required for authentication functionality
+            <br />
+            <strong>Personal Data:</strong> Session identifier (no readable personal data in cookie itself)
+            <br />
+            <strong>Optional:</strong> Yes - Only set if you choose to sign in with Google OAuth
           </p>
-          <p>
-            In order to understand Google's use of Data, consult their partner
-            policy and their{' '}
-            <a href="https://business.safety.google/privacy/">
-              Business Data page.
-            </a>
-          </p>
-          <strong>Personal Data processed:</strong> number of Users; session
-          statistics; Trackers; Usage Data.
-          <br />
-          <strong>Place of processing:</strong> United States –{' '}
-          <a
-            href="https://policies.google.com/privacy"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Privacy Policy
-          </a>{' '}
-          –{' '}
-          <a
-            href="https://tools.google.com/dlpage/gaoptout"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Opt Out
-          </a>
-          .
-        </DetailedItem>
+        </Card>
       </div>
 
-      <h2>
-        How to manage preferences and provide or withdraw consent on this
-        Application
-      </h2>
-      <p>
-        Whenever the use of Trackers is based on consent, users can provide or
-        withdraw such consent by setting or updating their preferences via the
-        relevant privacy choices panel available on this Application.
-      </p>
-      <p>
-        With regard to any third-party Trackers, Users can manage their
-        preferences via the related opt-out link (where provided), by using the
-        means indicated in the third party's privacy policy, or by contacting
-        the third party.
-      </p>
+      <h3>2. Analytics (Cookieless)</h3>
+      <div className="my-4">
+        <Card>
+          <p>
+            <strong>Service:</strong> Plausible Analytics (Self-Hosted)
+            <br />
+            <strong>Cookies Used:</strong> NONE
+            <br />
+            <strong>Tracking:</strong> Cookieless, privacy-focused analytics
+            <br />
+            <strong>Personal Data:</strong> None - fully anonymized
+            <br />
+            <strong>Opt-out:</strong> Not available (no personal data collected, GDPR compliant)
+          </p>
+          <p className="mt-2">
+            Plausible Analytics is a privacy-focused analytics service that we self-host at plausible.obsidianstats.com.
+            It does not use cookies, does not collect personal data, and does not track users across websites. All data 
+            collected is fully anonymized and aggregated. Learn more at{' '}
+            <a href="https://plausible.io/privacy" target="_blank" rel="noopener noreferrer">
+              Plausible Privacy Policy
+            </a>.
+          </p>
+        </Card>
+      </div>
 
-      <h4>
-        How to control or delete Cookies and similar technologies via your
-        device settings
-      </h4>
-      <p>Users may use their own browser settings to:</p>
-      <ul>
-        <li>
-          See what Cookies or other similar technologies have been set on the
-          device;
-        </li>
-        <li>Block Cookies or similar technologies;</li>
-        <li>Clear Cookies or similar technologies from the browser.</li>
+      <h3>3. Local Storage (Browser-Only, Not Transmitted)</h3>
+      <div className="my-4">
+        <Card>
+          <p>
+            <strong>Data Stored:</strong> Favorite plugins list, access token (15-minute expiry), feature flag user ID, user email (when logged in)
+            <br />
+            <strong>Purpose:</strong> Store your favorite plugins locally, cache authentication tokens, and identify you for feature flags and A/B testing
+            <br />
+            <strong>Transmission:</strong> Never sent to our servers
+            <br />
+            <strong>Duration:</strong> Until you clear browser storage
+            <br />
+            <strong>Category:</strong> Functional - Enhances user experience
+            <br />
+            <strong>Optional:</strong> Yes - You can clear localStorage at any time
+          </p>
+        </Card>
+      </div>
+
+      <h3>4. Feature Flags & A/B Testing (Cookieless, Uses localStorage)</h3>
+      <div className="my-4">
+        <Card>
+          <p>
+            <strong>Service:</strong> GrowthBook (Self-Hosted on Our Infrastructure)
+            <br />
+            <strong>Cookies Used:</strong> NONE
+            <br />
+            <strong>Storage:</strong> Uses browser localStorage only (no cookies)
+            <br />
+            <strong>Data Stored:</strong> User identifier (email if logged in, random UUID otherwise), feature flag evaluations
+            <br />
+            <strong>Self-Hosted:</strong> Fully hosted on our own infrastructure - no data shared with GrowthBook, Inc. or external parties
+            <br />
+            <strong>Tracking:</strong> No cross-site tracking, client-side only
+            <br />
+            <strong>Personal Data:</strong> User identifier for feature targeting (remains on our servers, not sold or shared)
+            <br />
+            <strong>Opt-out:</strong> Not available - feature flags are essential for site functionality
+          </p>
+          <p className="mt-2">
+            GrowthBook is an open-source feature flagging and A/B testing platform that we fully self-host on our own infrastructure at growthbookapi.obsidianstats.com.
+            Because it is self-hosted, we maintain complete control over all data and no information is transmitted to GrowthBook, Inc. or any third-party services.
+            It does not use cookies and stores all data in browser localStorage. Feature evaluations happen client-side in your browser.
+            Learn more about the open-source project at{' '}
+            <a href="https://www.growthbook.io/privacy" target="_blank" rel="noopener noreferrer">
+              GrowthBook Open Source
+            </a>.
+          </p>
+        </Card>
+      </div>
+
+      <h3>5. Advertising (Cookieless)</h3>
+      <div className="my-4">
+        <Card>
+          <p>
+            <strong>Service:</strong> EthicalAds
+            <br />
+            <strong>Cookies Used:</strong> NONE
+            <br />
+            <strong>Tracking:</strong> No tracking, contextual ads only
+            <br />
+            <strong>Personal Data:</strong> None - no personal data collected
+            <br />
+            <strong>Privacy-focused:</strong> GDPR compliant, no cross-site tracking
+          </p>
+          <p className="mt-2">
+            EthicalAds is a privacy-focused advertising network that serves contextual ads based on page content only.
+            It does not use cookies, does not collect personal data, and does not track users across websites. 
+            Learn more at{' '}
+            <a href="https://www.ethicalads.io/privacy-policy/" target="_blank" rel="noopener noreferrer">
+              EthicalAds Privacy Policy
+            </a>.
+          </p>
+        </Card>
+      </div>
+
+      <hr />
+      <h2>Analytics Disclosure</h2>
+      <p className="mb-2">
+        <strong>Important:</strong> Obsidian Stats uses Plausible Analytics to collect anonymized usage statistics 
+        automatically for all visitors. This analytics service:
+      </p>
+      <ul className="mb-2">
+        <li>Does not use cookies or any tracking technologies</li>
+        <li>Does not collect any personal information</li>
+        <li>Does not track users across websites</li>
+        <li>Collects only aggregated, anonymized data (page views, referrers, browser types, device types, country)</li>
+        <li>Is fully GDPR, CCPA, and PECR compliant</li>
+        <li>Cannot identify individual users</li>
       </ul>
-      <p>
-        The browser settings, however, do not allow granular control of consent
-        by category.
+      <p className="mb-2">
+        There is no opt-out mechanism for analytics because no personal data is collected.
+        By using this website, you acknowledge that anonymized, non-personal analytics data will be collected.
       </p>
 
-      <p>
-        Users can, for example, find information about how to manage Cookies in
-        the most commonly used browsers at the following addresses:
+      <hr />
+      <h2>How to Manage Cookies</h2>
+      <h3>Browser Settings</h3>
+      <p className="mb-2">
+        You can control cookies through your browser settings. Most browsers allow you to:
       </p>
-      <ul>
-        <li>
-          <a href="https://support.google.com/chrome/answer/95647?hl=en&p=cpn_cookies">
-            Google Chrome
-          </a>{' '}
-        </li>
-        <li>
-          <a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences">
-            Mozilla Firefox
-          </a>
-        </li>
-        <li>
-          <a href="https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/">
-            Apple Safari
-          </a>
-        </li>
-        <li>
-          <a href="http://windows.microsoft.com/en-us/windows-vista/block-or-allow-cookies">
-            Microsoft Internet Explorer
-          </a>
-        </li>
-        <li>
-          <a href="https://support.microsoft.com/en-us/help/4027947">
-            Microsoft Edge
-          </a>
-        </li>
-        <li>
-          <a href="https://support.brave.com/hc/en-us/articles/360022806212-How-do-I-use-Shields-while-browsing">
-            Brave
-          </a>
-        </li>
-        <li>
-          <a href="https://help.opera.com/en/latest/web-preferences/#cookies">
-            Opera
-          </a>
-        </li>
+      <ul className="mb-2">
+        <li>View what cookies are stored</li>
+        <li>Delete cookies individually or all at once</li>
+        <li>Block cookies from specific sites</li>
+        <li>Block all third-party cookies</li>
+        <li>Block all cookies (this may prevent you from using some features)</li>
+      </ul>
+      <p className="mb-2">
+        Learn how to manage cookies in popular browsers:
+      </p>
+      <ul className="mb-2">
+        <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Google Chrome</a></li>
+        <li><a href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop" target="_blank" rel="noopener noreferrer">Mozilla Firefox</a></li>
+        <li><a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener noreferrer">Safari</a></li>
+        <li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer">Microsoft Edge</a></li>
       </ul>
 
-      <p>
-        Users may also manage certain categories of Trackers used on mobile apps
-        by opting out through relevant device settings such as the device
-        advertising settings for mobile devices, or tracking settings in general
-        (Users may open the device settings and look for the relevant setting).
+      <h3>Authentication Cookie</h3>
+      <p className="mb-2">
+        If you block or delete the authentication cookie:
+      </p>
+      <ul className="mb-2">
+        <li>You will be logged out</li>
+        <li>You will need to sign in again to rate or review plugins</li>
+        <li>You can still browse and use all other site features without signing in</li>
+      </ul>
+
+      <h3>Local Storage</h3>
+      <p className="mb-2">
+        You can clear local storage through your browser's developer tools or privacy settings. 
+        This will clear your favorites list, feature flag identifier, and require you to sign in again if you were authenticated.
       </p>
 
-      <h4>Consequences of denying the use of Trackers</h4>
-      <p>
-        Users are free to decide whether or not to allow the use of Trackers.
-        However, please note that Trackers help this Application to provide a
-        better experience and advanced functionalities to Users (in line with
-        the purposes outlined in this document). Therefore, if the User chooses
-        to block the use of Trackers, the Owner may be unable to provide related
-        features.
-      </p>
-
-      <h2>Contact information</h2>
-      <div>
-        <div className="my-4 mx-2">
-          <div className="flex gap-x-4">
-            <User />
-            <div>
-              <h3 className="mt-0!">Owner and Data Controller</h3>
-              <p>
-                {/* <strong>Owner and Data Controller</strong><br />
-                Address1<br />
-                Address2<br />
-                City,State,Zip,Country<br/>
-                <br /> */}
-                <strong>Contact email</strong>:{' '}
-                <a href="mailto:rpganesshkumar@gmail.com">
-                  rpganesshkumar@gmail.com
-                </a>
-              </p>
-            </div>
+      <hr />
+      <h2>Contact Information</h2>
+      <div className="my-4 mx-2">
+        <div className="flex gap-x-4">
+          <User />
+          <div>
+            <h3 className="mt-0!">Owner and Data Controller</h3>
+            <p>
+              <strong>Contact email:</strong>{' '}
+              <a href="mailto:rpganesshkumar@gmail.com">
+                rpganesshkumar@gmail.com
+              </a>
+            </p>
           </div>
         </div>
       </div>
 
-      <p>
-        Since the use of third-party Trackers through this Application cannot be
-        fully controlled by the Owner, any specific references to third-party
-        Trackers are to be considered indicative. In order to obtain complete
-        information, Users are kindly requested to consult the privacy policies
-        of the respective third-party services listed in this document.
+      <p className="pt-4">
+        For more information about how we handle your data, please see our{' '}
+        <a href="/privacy-policy">Privacy Policy</a>.
       </p>
-      <p>
-        Given the objective complexity surrounding tracking technologies, Users
-        are encouraged to contact the Owner should they wish to receive any
-        further information on the use of such technologies by this Application.
-      </p>
-
-      <div className="mt-4">
-        <DetailedItem
-          title={
-            <div className="flex gap-x-2">
-              <Bookmark />
-              Definitions and legal references
-            </div>
-          }
-          className="pt-4"
-        >
-          <h4>Personal Data (or Data)</h4>
-          <p>
-            Any information that directly, indirectly, or in connection with
-            other information — including a personal identification number —
-            allows for the identification or identifiability of a natural
-            person.
-          </p>
-
-          <h4>Usage Data</h4>
-          <p>
-            Information collected automatically through this Application (or
-            third-party services employed in this Application), which can
-            include: the IP addresses or domain names of the computers utilized
-            by the Users who use this Application, the URI addresses (Uniform
-            Resource Identifier), the time of the request, the method utilized
-            to submit the request to the server, the size of the file received
-            in response, the numerical code indicating the status of the
-            server's answer (successful outcome, error, etc.), the country of
-            origin, the features of the browser and the operating system
-            utilized by the User, the various time details per visit (e.g., the
-            time spent on each page within the Application) and the details
-            about the path followed within the Application with special
-            reference to the sequence of pages visited, and other parameters
-            about the device operating system and/or the User's IT environment.
-          </p>
-
-          <h4>User</h4>
-          <p>
-            The individual using this Application who, unless otherwise
-            specified, coincides with the Data Subject.
-          </p>
-
-          <h4>Data Subject</h4>
-          <p>The natural person to whom the Personal Data refers.</p>
-
-          <h4>Data Processor (or Processor)</h4>
-          <p>
-            The natural or legal person, public authority, agency or other body
-            which processes Personal Data on behalf of the Controller, as
-            described in this privacy policy.
-          </p>
-
-          <h4>Data Controller (or Owner)</h4>
-          <p>
-            The natural or legal person, public authority, agency or other body
-            which, alone or jointly with others, determines the purposes and
-            means of the processing of Personal Data, including the security
-            measures concerning the operation and use of this Application. The
-            Data Controller, unless otherwise specified, is the Owner of this
-            Application.
-          </p>
-
-          <h4>This Application</h4>
-          <p>
-            The means by which the Personal Data of the User is collected and
-            processed.
-          </p>
-
-          <h4>Service</h4>
-          <p>
-            The service provided by this Application as described in the
-            relative terms (if available) and on this site/application.
-          </p>
-
-          <h4>European Union (or EU)</h4>
-          <p>
-            Unless otherwise specified, all references made within this document
-            to the European Union include all current member states to the
-            European Union and the European Economic Area.
-          </p>
-
-          <h4>Cookie</h4>
-          <p>
-            Cookies are Trackers consisting of small sets of data stored in the
-            User's browser.
-          </p>
-
-          <h4>Tracker</h4>
-          <p>
-            Tracker indicates any technology - e.g Cookies, unique identifiers,
-            web beacons, embedded scripts, e-tags and fingerprinting - that
-            enables the tracking of Users, for example by accessing or storing
-            information on the User’s device.
-          </p>
-
-          <h4>Legal information</h4>
-          <p>
-            This privacy policy relates solely to this Application, if not
-            stated otherwise within this document.
-          </p>
-        </DetailedItem>
-      </div>
-
-      <p className="pt-4">Latest update: January 14, 2025</p>
-      <Button
-        onClick={() => {
-          window.location.href = '/privacy-policy';
-        }}
-        color="dark"
-        className="mt-2"
-      >
-        Show the Complete Privacy Policy
-      </Button>
     </>
   );
 
@@ -364,14 +227,14 @@ const CookiePolicy = () => {
     <div className="flex flex-col">
       <div className="flex flex-col h-screen">
         <Header
-          title="Privacy Policy | Obsidian Stats"
-          description="Privacy policy for Obsidian Stats"
-          canonical="https://www.obsidianstats.com/privacy-policy"
+          title="Cookie Policy | Obsidian Stats"
+          description="Cookie policy for Obsidian Stats"
+          canonical="https://www.obsidianstats.com/cookie-policy"
           image="/images/obsidian-stats-ogImage.png"
         />
-        <Navbar current="privacy-policy" />
+        <Navbar current="cookie-policy" />
 
-        <div className="bg-white pt-5 grow">
+        <div className="bg-white pt-5 grow mt-8">
           <div className="max-w-6xl mx-auto px-2 flex flex-col h-full">
             <div
               className={`prose max-w-none!
@@ -383,40 +246,12 @@ const CookiePolicy = () => {
                 prose-p:my-1 prose-p:text-sm
                 prose-li:text-sm`}
             >
-              {/* Show the simplified policy by default, and render the complete policy if toggled */}
               {completePolicy}
             </div>
           </div>
         </div>
+        <Footer />
       </div>
-    </div>
-  );
-};
-
-const DetailedItem = (props) => {
-  const [expand, setExpand] = useState(false);
-  if (!expand) {
-    return (
-      <Card color="light" className="block" onClick={() => setExpand(!expand)}>
-        <div className="w-full flex justify-between">
-          {props.title}
-          <ArrowDown />
-        </div>
-      </Card>
-    );
-  }
-  return (
-    <div>
-      <Card className="py-0">
-        <div
-          className="w-full flex justify-between"
-          onClick={() => setExpand(!expand)}
-        >
-          {props.title}
-          <ArrowUp />
-        </div>
-        {props.children}
-      </Card>
     </div>
   );
 };

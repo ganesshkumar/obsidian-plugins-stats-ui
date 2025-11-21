@@ -256,6 +256,9 @@ export const logout = async (redirectTo?: string): Promise<void> => {
   removeAuthToken();
   
   if (typeof window !== 'undefined') {
+    // Also clear user email from localStorage
+    localStorage.removeItem('userEmail');
+    
     if (redirectTo) {
       window.location.href = redirectTo;
     } else {
@@ -292,6 +295,9 @@ export const logoutAll = async (redirectTo?: string): Promise<void> => {
   removeAuthToken();
   
   if (typeof window !== 'undefined') {
+    // Also clear user email from localStorage
+    localStorage.removeItem('userEmail');
+    
     if (redirectTo) {
       window.location.href = redirectTo;
     } else {

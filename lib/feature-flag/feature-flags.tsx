@@ -9,6 +9,7 @@ import {
 } from '@growthbook/growthbook-react';
 import { FeatureFlagKey, FeatureFlagKeyMap, FeatureFlags } from './types/flags';
 import { useAnalytics } from '../analytics/analytics';
+import { getUserIdentifier } from '../contexts/UserContext';
 
 const growthbook = new GrowthBook({
   apiHost: 'https://growthbookapi.obsidianstats.com',
@@ -27,23 +28,10 @@ type Props = {
   children: ReactNode;
 };
 
-const getGbAnonUserId = () => {
-  if (typeof window === 'undefined') {
-    return 'nouser';
-  }
-
-  let anonId = localStorage.getItem('gbAnonUserId');
-  if (!anonId) {
-    anonId = crypto.randomUUID();
-    localStorage.setItem('gbAnonId', anonId);
-  }
-  return anonId;
-};
-
 export const FeatureFlagProvider = ({ children }: Props) => {
   useEffect(() => {
     growthbook.setAttributes({
-      id: getGbAnonUserId(),
+      id: getUserIdentifier(), // Uses email if logged in, otherwise anonymous ID
     });
 
     if (typeof window !== 'undefined' && !!localStorage) {
