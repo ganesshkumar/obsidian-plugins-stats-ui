@@ -47,7 +47,7 @@ import { GivePluginReview } from '@/components/GivePluginRating';
 import { StarRating } from '@/components/StarRating';
 import { useFeatureFlag } from '@/lib/feature-flag/feature-flags';
 import { useAuth } from '@/hooks/useAuth';
-import { usePluginRatingSummary } from '@/hooks/usePluginRatingSummary';
+import { usePluginRatingSummary } from '@/hooks/queries/usePluginRating';
 import { PluginSection } from '@/components/plugins/PluginSection';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
@@ -78,7 +78,11 @@ const Plugin = (props: IPluginProps) => {
 
   const enableRating = useFeatureFlag('enablePluginRating', false);
   const { isAuthenticated } = useAuth();
-  const { data: ratingSummary, loading: ratingSummaryLoading, error: ratingSummaryError, refetch: refetchRatingSummary } = usePluginRatingSummary(props.plugin.pluginId, isAuthenticated);
+  const { 
+    data: ratingSummary, 
+    isLoading: ratingSummaryLoading, 
+    error: ratingSummaryError 
+  } = usePluginRatingSummary(props.plugin.pluginId, isAuthenticated);
 
   const now = moment();
 
@@ -175,8 +179,7 @@ const Plugin = (props: IPluginProps) => {
                       <StarRating ratingInfo={props.plugin.ratingInfo} />
                     )}
                     <GivePluginReview 
-                      pluginId={props.plugin.pluginId} 
-                      onRatingSubmitted={refetchRatingSummary}
+                      pluginId={props.plugin.pluginId}
                     />
                   </div>
                 )}

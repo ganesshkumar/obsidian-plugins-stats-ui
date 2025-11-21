@@ -12,14 +12,13 @@ import {
 import { StarRatingInput } from '@/components/StarRatingInput';
 import { Spinner } from './ui/spinner';
 import { useAuth } from '@/hooks/useAuth';
-import { backendGet, backendPost } from '@/lib/api';
+import { useUserPluginRating, useSubmitPluginRating } from '@/hooks/queries/usePluginRating';
 
 interface GivePluginReviewProps {
   pluginId: string;
-  onRatingSubmitted?: () => void;
 }
 
-export const GivePluginReview = ({ pluginId, onRatingSubmitted }: GivePluginReviewProps) => {
+export const GivePluginReview = ({ pluginId }: GivePluginReviewProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
@@ -37,7 +36,6 @@ export const GivePluginReview = ({ pluginId, onRatingSubmitted }: GivePluginRevi
           pluginId={pluginId}
           open={isDialogOpen}
           setOpen={setIsDialogOpen}
-          onRatingSubmitted={onRatingSubmitted}
         />
       )}
     </>
@@ -48,163 +46,58 @@ interface GivePluginRatingDialogProps {
   pluginId: string;
   open: boolean;
   setOpen: (open: boolean) => void;
-  onRatingSubmitted?: () => void;
 }
 
 const GivePluginRatingDialog = ({
   pluginId,
   open,
   setOpen,
-  onRatingSubmitted,
 }: GivePluginRatingDialogProps) => {
 
   const { isAuthenticated, token, loading: isAuthenticatedLoading, login, logout } = useAuth();
 
-  // const [isAuthenticatedLoading, setIsAuthenticatedLoading] = useState(true);
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const [hasUsernameLoading, setHasUsernameLoading] = useState(false);
-  const [hasUsername, setHasUsername] = useState(false);
-
-  const [newUsername, setNewUsername] = useState('');
-  const [newUsernameError, setNewUsernameError] = useState('');
-
   const [authInitiated, setAuthInitiated] = useState(false);
 
-  const [userRating, setUserRating] = useState<number>(0);
-  const [userRatingSaving, setUserRatingSaving] = useState('');
-  const [userRatingError, setUserRatingError] = useState('');
-  const [userRatingSuccess, setUserRatingSuccess] = useState('');
+  // Use React Query hooks
+  const {
+    data: ratingData,
+    isLoading: isRatingLoading,
+    error: ratingError,
+  } = useUserPluginRating(pluginId, isAuthenticated);
 
-  const [updatedAt, setUpdatedAt] = useState('');
-
-  // // check if user is authenticated
-  // useEffect(() => {
-  //   if (loading) return;
-  //   setIsAuthenticated(!!user);
-  //   setIsAuthenticatedLoading(false);
-  // }, [user, loading]);
-
-  // // get user username
-  // useEffect(() => {
-  //   const checkUsername = async () => {
-  //     const { data: existing } = await supabase
-  //       .from('users')
-  //       .select('*')
-  //       .eq('id', user.id)
-  //       .maybeSingle();
-
-  //     setHasUsername(!!existing?.username);
-  //     setNewUsername(existing?.username ?? '');
-  //     setHasUsernameLoading(false);
-  //   };
-
-  //   if (isAuthenticated) {
-  //     setHasUsernameLoading(true);
-  //     checkUsername();
-  //   }
-  // }, [isAuthenticated]);
-
-  // get user rating
-  useEffect(() => {
-    const fetchUserRating = async () => {
-      try {
-        const response = await backendGet<{ rating: number; updatedAt: string }>(`/me/reviews/plugins/${pluginId}`);
-        setUserRating(response.rating);
-        setUpdatedAt(response.updatedAt);
-      } catch (error) {
-        console.error('Error fetching user rating:', error);
-        if (error.message.includes('404')) {
-          setUserRating(0);
-        } else {
-          setUserRatingError(
-            'An error occurred while fetching your rating. Please try again later.'
-          );
-        }
-      } finally {
-        setUserRatingSaving('');
-      }
-    };
-
-    if (isAuthenticated) {
-      fetchUserRating();
-    }
-  }, [isAuthenticated]);
-
-  // const handleSetUsername = useCallback(async () => {
-  //   if (
-  //     !newUsername.trim() ||
-  //     newUsername.length < 4 ||
-  //     newUsername.length > 24
-  //   ) {
-  //     setNewUsernameError('Username must be between 4 and 24 characters long.');
-  //     return;
-  //   } else {
-  //     setNewUsernameError('');
-  //   }
-
-  //   const { error } = await supabase
-  //     .from('users')
-  //     .insert({ id: user.id, username: newUsername });
-  //   if (error) {
-  //     setNewUsernameError(
-  //       'An error occurred while saving your username. Please try again later.'
-  //     );
-  //     return;
-  //   } else {
-  //     setHasUsername(true);
-  //   }
-  // }, [newUsername]);
+  const {
+    mutate: submitRating,
+    isPending: isSaving,
+    isSuccess: isSuccess,
+    isError: isError,
+    error: mutationError,
+  } = useSubmitPluginRating(pluginId);
 
   const handleRatingChange = useCallback(
-    async (newRating: number) => {
-      if (!isAuthenticated) return;
-      const oldRating = userRating;
-
-      // optimistic UI BEGIN
-      setUserRatingError('');
-      setUserRatingSuccess('');
-      setUserRatingSaving('Saving your rating...');
-      setUserRating(newRating);
-      // optimistic UI END
-      
-      try {
-        const response = await backendPost<{
-          id: string;
-          updatedAt: string;
-        }>(`/reviews/plugins/${pluginId}`, {
-          rating: newRating,
-        });
-        setUpdatedAt(response.updatedAt);
-        setUserRatingSuccess('Rating saved successfully!');
-        
-        // Trigger refetch of rating summary
-        if (onRatingSubmitted) {
-          onRatingSubmitted();
-        }
-      } catch (error) {
-        console.error('Error saving rating:', error);
-        setUserRatingError(
-          'An error occurred while saving your rating. Please try again later.'
-        );
-        setUserRating(oldRating);
-        return;
-      } finally {
-        setUserRatingSaving('');
-      }
+    (newRating: number) => {
+      submitRating({ rating: newRating });
     },
-    [isAuthenticated, pluginId, userRating, onRatingSubmitted]
+    [submitRating]
   );
 
   const triggerGoogleAuth = useCallback(() => {
     setAuthInitiated(true);
     login();
-  }, []);
+  }, [login]);
+
+  // Derive display values
+  const userRating = ratingData?.rating || 0;
+  const updatedAt = ratingData?.updatedAt || '';
+  const errorMessage = isError 
+    ? 'An error occurred while saving your rating. Please try again later.'
+    : ratingError
+    ? 'An error occurred while fetching your rating. Please try again later.'
+    : '';
 
   let description;
   let content;
   let footer;
-  if (isAuthenticatedLoading /* || hasUsernameLoading */) {
+  if (isAuthenticatedLoading || isRatingLoading) {
     description = ' ';
     content = <Spinner size="large" />;
   } else if (!isAuthenticated) {
@@ -223,25 +116,7 @@ const GivePluginRatingDialog = ({
         }
       </div>
     );
-  } /* else if (!hasUsername) {
-    description = 'Set a username to rate this plugin.';
-    content = (
-      <div className="flex flex-col items-center justify-center p-4">
-        <Input
-          placeholder="Enter your username"
-          value={newUsername}
-          onChange={(e) => setNewUsername(e.target.value)}
-          className="mt-2 w-full max-w-xs"
-        />
-        {newUsernameError && (
-          <p className="text-red-600 text-sm">{newUsernameError}</p>
-        )}
-        <Button onClick={() => {}} className="mt-2">
-          Save Username
-        </Button>
-      </div>
-    );
-  } */ else {
+  } else {
     description = `My rating for ${pluginId}`;
     content = (
       <div className="flex flex-col items-center justify-center p-4">
@@ -252,12 +127,12 @@ const GivePluginRatingDialog = ({
             {updatedAt ? new Date(updatedAt).toLocaleString() : 'N/A'}
           </span>
         )}
-        {userRatingError && (
-          <p className="text-red-600 text-sm">{userRatingError}</p>
+        {errorMessage && (
+          <p className="text-red-600 text-sm">{errorMessage}</p>
         )}
-        {userRatingSuccess && (
+        {isSuccess && (
           <div className="text-center">
-            <p className="text-green-600 text-sm">{userRatingSuccess}</p>
+            <p className="text-green-600 text-sm">Rating saved successfully!</p>
             <div
               style={{
                 position: 'absolute',
@@ -272,14 +147,14 @@ const GivePluginRatingDialog = ({
             </div>
           </div>
         )}
-        {userRatingSaving && (
-          <p className="text-gray-600 text-sm">{userRatingSaving}</p>
+        {isSaving && (
+          <p className="text-gray-600 text-sm">Saving your rating...</p>
         )}
       </div>
     );
     footer = (
       <>
-        {userRatingSuccess && (
+        {isSuccess && (
           <p className="text-gray-600 text-sm">
             It will take some time to update the aggregated rating on plugin
             page with your rating.

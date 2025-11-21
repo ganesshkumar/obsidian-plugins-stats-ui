@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { backendGet } from '@/lib/api';
 
 interface RatingStats {
@@ -81,9 +81,9 @@ export const usePluginRatingSummary = (
     fetchRatingSummary();
   }, [pluginId, isAuthenticated, refetchTrigger]);
 
-  const refetch = () => {
+  const refetch = useCallback(() => {
     setRefetchTrigger(prev => prev + 1);
-  };
+  }, []);
 
   return { data, loading, error, refetch };
 };
