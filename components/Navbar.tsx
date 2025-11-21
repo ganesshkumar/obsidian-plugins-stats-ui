@@ -57,7 +57,7 @@ const NavBar = ({ current, children }: INavbarProps) => {
               active={current === 'new'}
               className="text-lg group-hover:text-violet-800"
             >
-              New Plugins
+              New
             </Navbar.Link>
             <Navbar.Link
               href="/beta"

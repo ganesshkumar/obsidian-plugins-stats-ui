@@ -26,6 +26,8 @@ interface INewPageProps extends IHeaderProps {
 
 const New = (props: INewPageProps) => {
   const [favorites, setFavorites] = useState([]);
+  const newPluginsCount = props.newEntities.filter(e => e.type === EntityType.Plugin).length;
+  const newThemesCount = props.newEntities.filter(e => e.type === EntityType.Theme).length;
 
   useEffect(() => {
     setupFavorites(setFavorites);
@@ -39,7 +41,7 @@ const New = (props: INewPageProps) => {
       <main className="bg-white pt-5 grow">
         <div className="max-w-6xl mx-auto px-2">
           <InfoBar
-            title={`New Plugins ${props.newPlugins && `(${props.newPlugins.length})`}`}
+            title={`New Plugins ${newPluginsCount && `(${newPluginsCount})`} ${newThemesCount ? `& Themes (${newThemesCount})` : ''}`}
           />
           {props.newEntities.length === 0 ? (
             <div className="grid md:grid-cols-2 grow mt-8 md:mt-24 gap-y-4">

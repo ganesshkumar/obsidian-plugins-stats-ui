@@ -11,7 +11,7 @@ import showdown from 'showdown';
 import InfoBar from '../components/InfoBar';
 import { daysAgo } from '../utils/datetime';
 import Faqs from '../components/Faq';
-import { Button, Card, TextInput } from 'flowbite-react';
+import { Card, TextInput } from 'flowbite-react';
 import FavPluginUpdates from '../components/FavPluginUpdates';
 import { CategoryIcon } from '../components/Category';
 
@@ -115,7 +115,7 @@ const Home = (props: IHomeProps) => {
               <span className="text-violet-800">Right Plugins</span>
             </h1>
             <p className="text-xl max-w-lg lg:max-w-3xl text-gray-600">
-              Discover the latest Obsidian plugins. Stay ahead with updates,
+              Discover the latest Obsidian plugins and themes. Stay ahead with updates,
               downloads, and ratings that help you build your perfect setup.
             </p>
             <TextInput
