@@ -50,8 +50,8 @@ export default function LoginButton({
     initiateLogin();
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
   };
 
   if (showLogout && authenticated) {

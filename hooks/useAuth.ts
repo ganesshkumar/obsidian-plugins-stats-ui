@@ -3,7 +3,8 @@ import {
   isAuthenticated, 
   getAuthToken, 
   initiateLogin, 
-  logout as logoutUtil 
+  logout as logoutUtil,
+  scheduleTokenRefresh
 } from '@/lib/auth';
 
 interface UseAuthReturn {
@@ -26,7 +27,7 @@ interface UseAuthReturn {
   /**
    * Logout user and optionally redirect. If no redirectTo is provided, stays on current page.
    */
-  logout: (redirectTo?: string) => void;
+  logout: (redirectTo?: string) => Promise<void>;
 }
 
 /**
@@ -68,13 +69,18 @@ export function useAuth(): UseAuthReturn {
       setAuthenticated(authStatus);
       setToken(authToken);
       setLoading(false);
+
+      // Schedule token refresh if authenticated
+      if (authStatus && authToken) {
+        scheduleTokenRefresh();
+      }
     };
 
     checkAuth();
 
     // Optional: Listen for storage events to sync across tabs
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'auth_token') {
+      if (e.key === 'accessToken') {
         checkAuth();
       }
     };
@@ -87,8 +93,8 @@ export function useAuth(): UseAuthReturn {
     initiateLogin();
   };
 
-  const logout = (redirectTo?: string) => {
-    logoutUtil(redirectTo);
+  const logout = async (redirectTo?: string) => {
+    await logoutUtil(redirectTo);
   };
 
   return {

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { setAuthToken, getAndClearReturnUrl } from '@/lib/auth';
+import { setAuthToken, getAndClearReturnUrl, scheduleTokenRefresh } from '@/lib/auth';
 
 /**
  * Google OAuth callback handler page
  * Handles the redirect from backend after Google OAuth authentication
- * Expects a 'token' query parameter at /auth/google/callback?token=...
+ * Expects an 'accessToken' query parameter at /auth/google/callback?accessToken=...
  */
 export default function GoogleCallbackPage() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function GoogleCallbackPage() {
     // Wait for router to be ready
     if (!router.isReady) return;
 
-    const { token, error } = router.query;
+    const { accessToken, error } = router.query;
 
     // Handle error from backend
     if (error) {
@@ -26,11 +26,14 @@ export default function GoogleCallbackPage() {
     }
 
     // Handle successful authentication
-    if (token && typeof token === 'string') {
+    if (accessToken && typeof accessToken === 'string') {
       try {
-        // Store the token in localStorage
-        setAuthToken(token);
+        // Store the access token in localStorage
+        setAuthToken(accessToken);
         setStatus('success');
+
+        // Schedule automatic token refresh
+        scheduleTokenRefresh();
 
         // Get the URL to return to (defaults to '/')
         const returnUrl = getAndClearReturnUrl();

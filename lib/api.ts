@@ -1,9 +1,10 @@
 'use client';
 
-import { getAuthToken } from './auth';
+import { getAuthToken, refreshAccessToken, logout } from './auth';
 
 /**
  * Fetch wrapper that automatically includes authentication token
+ * Handles 401 errors by refreshing token and retrying the request
  */
 export async function authenticatedFetch(
   url: string,
@@ -19,17 +20,41 @@ export async function authenticatedFetch(
   headers.set('Authorization', `Bearer ${token}`);
   headers.set('Content-Type', 'application/json');
 
-  return fetch(url, {
+  let response = await fetch(url, {
     ...options,
     headers,
+    credentials: 'include', // Required to send refresh token cookie
   });
+
+  // Handle 401 (token expired) - try to refresh and retry
+  if (response.status === 401) {
+    const refreshed = await refreshAccessToken();
+    
+    if (refreshed) {
+      // Retry request with new token
+      const newToken = getAuthToken();
+      headers.set('Authorization', `Bearer ${newToken}`);
+      
+      response = await fetch(url, {
+        ...options,
+        headers,
+        credentials: 'include',
+      });
+    } else {
+      // Refresh failed, user needs to re-authenticate
+      logout('/');
+      throw new Error('Session expired. Please login again.');
+    }
+  }
+
+  return response;
 }
 
 /**
  * Helper to get the backend API base URL
  */
 export function getBackendUrl(): string {
-  return process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000s';
+  return process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
 }
 
 /**

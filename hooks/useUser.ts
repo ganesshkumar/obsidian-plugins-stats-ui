@@ -1,43 +1,63 @@
-import { supabase } from '@/lib/supabase';
 import { useEffect, useState } from 'react';
+import { getAuthToken, initiateLogin, logout as authLogout, scheduleTokenRefresh } from '@/lib/auth';
+import { authenticatedFetch, getBackendUrl } from '@/lib/api';
+
+interface User {
+  id: string;
+  email: string;
+  username?: string;
+  avatarUrl?: string;
+}
+
+/**
+ * Fetch user profile from backend
+ */
+const fetchUserProfile = async (): Promise<User | null> => {
+  try {
+    const response = await authenticatedFetch(`${getBackendUrl()}/auth/profile`);
+    if (response.ok) {
+      return await response.json();
+    }
+    return null;
+  } catch (error) {
+    console.error('Failed to fetch user profile:', error);
+    return null;
+  }
+};
 
 const useUser = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [authChanged, setAuthChanged] = useState(false);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const initAuth = async () => {
       setLoading(true);
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
-      if (!error) {
-        setUser(user);
+      const token = getAuthToken();
+      
+      if (token) {
+        // Schedule token refresh
+        scheduleTokenRefresh();
+        
+        // Fetch user profile
+        const userProfile = await fetchUserProfile();
+        setUser(userProfile);
+      } else {
+        setUser(null);
       }
+      
       setLoading(false);
     };
 
-    fetchUser();
-  }, [authChanged]);
+    initAuth();
+  }, []);
 
   const login = () => {
-    const returnTo = window.location.pathname;
-    supabase.auth
-      .signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback?returnTo=${encodeURIComponent(returnTo)}`,
-        },
-      })
-      .then(() => setAuthChanged((prev) => !prev));
+    initiateLogin();
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
+    await authLogout('/');
     setUser(null);
-    setAuthChanged((prev) => !prev);
   };
 
   return { user, loading, login, logout };

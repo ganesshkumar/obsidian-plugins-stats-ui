@@ -97,7 +97,7 @@ const GivePluginRatingDialog = ({
   let description;
   let content;
   let footer;
-  if (isAuthenticatedLoading || isRatingLoading) {
+  if (isAuthenticatedLoading || isRatingLoading || isSaving) {
     description = ' ';
     content = <Spinner size="large" />;
   } else if (!isAuthenticated) {
@@ -146,9 +146,6 @@ const GivePluginRatingDialog = ({
               <ConfettiBoomOnMount />
             </div>
           </div>
-        )}
-        {isSaving && (
-          <p className="text-gray-600 text-sm">Saving your rating...</p>
         )}
       </div>
     );
