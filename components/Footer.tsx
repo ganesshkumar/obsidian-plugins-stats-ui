@@ -73,6 +73,12 @@ export const Footer = () => {
                   </FlowbiteFooter.Link>
                   <FlowbiteFooter.Link
                     className={footerLinkClass}
+                    href="/beta/plugins"
+                  >
+                    Beta Plugins
+                  </FlowbiteFooter.Link>
+                  <FlowbiteFooter.Link
+                    className={footerLinkClass}
                     href="/favorites"
                   >
                     Favorite Plugins
@@ -98,17 +104,14 @@ export const Footer = () => {
                 <FlowbiteFooter.Title
                   as="div"
                   className="text-gray-900"
-                  title="Beta"
+                  title="Themes"
                 />
                 <FlowbiteFooter.LinkGroup col>
-                  <FlowbiteFooter.Link className={footerLinkClass} href="/beta">
-                    Beta (All)
-                  </FlowbiteFooter.Link>
                   <FlowbiteFooter.Link
                     className={footerLinkClass}
-                    href="/beta/plugins"
+                    href="/themes"
                   >
-                    Beta Plugins
+                    All Themes
                   </FlowbiteFooter.Link>
                   <FlowbiteFooter.Link
                     className={footerLinkClass}
@@ -140,6 +143,9 @@ export const Footer = () => {
                   title="Tools"
                 />
                 <FlowbiteFooter.LinkGroup col>
+                  <FlowbiteFooter.Link className={footerLinkClass} href="/beta">
+                    Beta (All)
+                  </FlowbiteFooter.Link>
                   <FlowbiteFooter.Link
                     className={footerLinkClass}
                     href="/scorer"

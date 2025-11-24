@@ -18,6 +18,7 @@ import { CategoryIcon } from '../components/Category';
 import { motion, useAnimationFrame, useInView } from 'framer-motion';
 import { LinkButton } from '../components/LinkButton';
 import { PluginsCache } from '../cache/plugins-cache';
+import { ThemesCache } from '../cache/themes-cache';
 import { sanitizeTag } from '../utils/plugins';
 import { setupFavorites } from '../utils/favorites';
 import CardAnnotations from '../components/CardAnnotations';
@@ -52,7 +53,9 @@ import { useAnalytics } from '../lib/analytics/analytics';
 interface IHomeProps extends IHeaderProps {
   newPlugins: Plugin[];
   newPluginsCount: number;
+  newThemesCount: number;
   totalPluginsCount: number;
+  totalThemesCount: number;
   newReleases: Plugin[];
   newReleasesCount: number;
   mostDownloaded: Plugin[];
@@ -134,6 +137,13 @@ const Home = (props: IHomeProps) => {
                 {props.newPluginsCount} New Plugins
               </ShadcnButton>
               <ShadcnButton
+                className="bg-emerald-600 enabled:hover:bg-emerald-800 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                onClick={() => handleCTAButtonClicked('new')}
+                id="stat-card-new-themes"
+              >
+                {props.newThemesCount} New Themes
+              </ShadcnButton>
+              <ShadcnButton
                 className="hidden sm:inline-flex bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 onClick={() => handleCTAButtonClicked('plugins')}
                 id="stat-card-all"
@@ -142,11 +152,12 @@ const Home = (props: IHomeProps) => {
                 All {props.totalPluginsCount} Plugins
               </ShadcnButton>
               <ShadcnButton
-                className="bg-violet-800 enabled:hover:bg-violet-900 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                onClick={() => handleCTAButtonClicked('updates')}
-                id="stat-card-updates"
+                className="hidden sm:inline-flex bg-emerald-600 enabled:hover:bg-emerald-800 cursor-pointer text-white focus:ring-2 focus:ring-black focus:ring-offset-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                onClick={() => handleCTAButtonClicked('themes')}
+                id="stat-card-all-themes"
+                aria-hidden="true"
               >
-                {props.newReleasesCount} Plugin Updates
+                All {props.totalThemesCount} Themes
               </ShadcnButton>
             </div>
           </section>
@@ -548,9 +559,13 @@ const TrendingPlugins = ({ plugins }) => {
 
 export const getStaticProps = async () => {
   const plugins = await PluginsCache.get();
+  const themes = await ThemesCache.get();
 
   const newPlugins = plugins.filter((plugin) => plugin.createdAt > daysAgo(10));
   newPlugins.sort((a, b) => b.createdAt - a.createdAt);
+
+  const newThemes = themes.filter((theme) => theme.createdAt > daysAgo(10));
+  newThemes.sort((a, b) => b.createdAt - a.createdAt);
 
   const newReleases = plugins.filter(
     (plugin) => plugin.latestReleaseAt > daysAgo(10)
@@ -581,7 +596,10 @@ export const getStaticProps = async () => {
   const newPosts = getSortedPostsData().slice(0, 5);
 
   const totalPluginsCount = plugins.length;
+  const totalThemesCount = themes.length;
+
   const newPluginsCount = newPlugins.length;
+  const newThemesCount = newThemes.length;
   const newReleasesCount = newReleases.length;
 
   const title =
@@ -602,6 +620,8 @@ export const getStaticProps = async () => {
       newPlugins,
       newPluginsCount,
       totalPluginsCount,
+      newThemesCount,
+      totalThemesCount,
       newReleases,
       newReleasesCount,
       mostDownloaded,
