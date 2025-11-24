@@ -12,13 +12,13 @@ import {
 import { StarRatingInput } from '@/components/StarRatingInput';
 import { Spinner } from './ui/spinner';
 import { useAuth } from '@/hooks/useAuth';
-import { useUserPluginRating, useSubmitPluginRating } from '@/hooks/queries/usePluginRating';
+import { useUserThemeRating, useSubmitThemeRating } from '@/hooks/queries/useThemeRating';
 
-interface GivePluginReviewProps {
-  pluginId: string;
+interface GiveThemeReviewProps {
+  themeId: string;
 }
 
-export const GivePluginReview = ({ pluginId }: GivePluginReviewProps) => {
+export const GiveThemeReview = ({ themeId }: GiveThemeReviewProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
@@ -29,11 +29,11 @@ export const GivePluginReview = ({ pluginId }: GivePluginReviewProps) => {
         className="border border-violet-600 text-violet-600 bg-violet-100 hover:text-gray-200 hover:bg-violet-600 hover:border-violet-800"
         onClick={() => setIsDialogOpen(true)}
       >
-        Rate Plugin
+        Rate Theme
       </Button>
       {isDialogOpen && (
-        <GivePluginRatingDialog
-          pluginId={pluginId}
+        <GiveThemeRatingDialog
+          themeId={themeId}
           open={isDialogOpen}
           setOpen={setIsDialogOpen}
         />
@@ -42,17 +42,17 @@ export const GivePluginReview = ({ pluginId }: GivePluginReviewProps) => {
   );
 };
 
-interface GivePluginRatingDialogProps {
-  pluginId: string;
+interface GiveThemeRatingDialogProps {
+  themeId: string;
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
-const GivePluginRatingDialog = ({
-  pluginId,
+const GiveThemeRatingDialog = ({
+  themeId,
   open,
   setOpen,
-}: GivePluginRatingDialogProps) => {
+}: GiveThemeRatingDialogProps) => {
 
   const { isAuthenticated, token, loading: isAuthenticatedLoading, login, logout } = useAuth();
 
@@ -63,7 +63,7 @@ const GivePluginRatingDialog = ({
     data: ratingData,
     isLoading: isRatingLoading,
     error: ratingError,
-  } = useUserPluginRating(pluginId, isAuthenticated);
+  } = useUserThemeRating(themeId, isAuthenticated);
 
   const {
     mutate: submitRating,
@@ -71,7 +71,7 @@ const GivePluginRatingDialog = ({
     isSuccess: isSuccess,
     isError: isError,
     error: mutationError,
-  } = useSubmitPluginRating(pluginId);
+  } = useSubmitThemeRating(themeId);
 
   const handleRatingChange = useCallback(
     (newRating: number) => {
@@ -101,11 +101,11 @@ const GivePluginRatingDialog = ({
     description = ' ';
     content = <Spinner size="large" />;
   } else if (!isAuthenticated) {
-    description = 'Log in to rate this plugin.';
+    description = 'Log in to rate this theme.';
     content = (
       <div className="flex flex-col items-center justify-center p-4">
         <p className="text-sm text-gray-700">
-          You need to be logged in to rate a plugin.
+          You need to be logged in to rate a theme.
         </p>
         {authInitiated ? 
           <Spinner className="mt-2 text-violet-700" /> :
@@ -117,7 +117,7 @@ const GivePluginRatingDialog = ({
       </div>
     );
   } else {
-    description = `My rating for ${pluginId}`;
+    description = `My rating for ${themeId}`;
     content = (
       <div className="flex flex-col items-center justify-center p-4">
         <StarRatingInput rating={userRating} setRating={handleRatingChange} />
@@ -153,7 +153,7 @@ const GivePluginRatingDialog = ({
       <>
         {isSuccess && (
           <p className="text-gray-600 text-sm">
-            It will take some time to update the aggregated rating on plugin
+            It will take some time to update the aggregated rating on theme
             page with your rating.
           </p>
         )}
@@ -165,7 +165,7 @@ const GivePluginRatingDialog = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className='bg-white'>
         <DialogHeader className="relative">
-          <DialogTitle>Rate Plugin</DialogTitle>
+          <DialogTitle>Rate Theme</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {content}

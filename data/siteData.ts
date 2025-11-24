@@ -4,6 +4,14 @@ import { Faq, Highlight } from '../lib/abstractions';
 export const SiteData = {
   highlights: [
     {
+      title: 'Rate Plugins with Stars ⭐',
+      image: '/images/star.gif',
+      description: 'You can now rate Obsidian plugins using a 5-star rating system! This feature allows you to provide feedback on your favorite plugins and helps others discover high quality tools. Simply navigate to a plugin\'s detail page and select the number of stars you wish to give. Your ratings will contribute to the overall score of the plugin, making it easier for the community to find the best plugins available. Start rating today and help shape the Obsidian plugin ecosystem! 🌟',
+      link: '/plugins',
+      ctaText: 'Rate your favorite plugins',
+      bgClasses: 'bg-linear-to-tr from-green-400 to-emerald-400 text-black',
+    },
+    {
       title: 'Now supporting Themes',
       image: '/images/swatch.jpg',
       description: 'Now you can explore and discover Obsidian themes on the website! For now there is a new `/themes` page, individual page for each theme (in testing mode), and themes are also integrated into the existing `/new` page - to make new themes easier to find. More features will be added over time based on your feedback. 🎨',
@@ -21,24 +29,24 @@ export const SiteData = {
       ctaText: 'Submit BETA plugins',
       bgClasses: 'bg-linear-to-tr from-blue-400 to-sky-400 text-black',
     },
-    {
-      title: 'Introducing Custom Scoring Functions',
-      image: '/images/custom-scorer-example-1.png',
-      description:
-        'Build your own custom score function to score the plugins. Follow the latest post for step-by-step walkthrough on creating, validating, and using custom scoring functions in Obsidian. This is still a work in progress and will be improved over time to make writing custom scorers easier 🛠️. Feel free to give your feedback and suggestions on the GitHub discussion.',
-      link: '/posts/2025-01-18-building-a-custom-score-function',
-      ctaText: 'Build a custom score functions',
-      bgClasses: 'bg-linear-to-tr from-green-400 to-emerald-400 text-black',
-    },
-    {
-      title: 'New Plugin Scoring System',
-      image: '/images/score-example-1.png',
-      description:
-        'Discover a new scoring system designed to evaluate and rank Obsidian plugins. The scoring is based on project metrics, user engagement, and activity. You can see these scores across the website on different plugin lists (such as new plugins, plugin updates, most downloaded, trending plugins) all plugins page, and plugin details pages. This is an early version of the scoring system and will be improved over time. 🚀',
-      link: '/posts/2024-12-28-obsidian-plugin-scoring-system',
-      ctaText: 'Learn about the scoring system',
-      bgClasses: 'bg-linear-to-tr from-fuchsia-400 to-purple-400 text-black',
-    } as Highlight,
+    // {
+    //   title: 'Introducing Custom Scoring Functions',
+    //   image: '/images/custom-scorer-example-1.png',
+    //   description:
+    //     'Build your own custom score function to score the plugins. Follow the latest post for step-by-step walkthrough on creating, validating, and using custom scoring functions in Obsidian. This is still a work in progress and will be improved over time to make writing custom scorers easier 🛠️. Feel free to give your feedback and suggestions on the GitHub discussion.',
+    //   link: '/posts/2025-01-18-building-a-custom-score-function',
+    //   ctaText: 'Build a custom score functions',
+    //   bgClasses: 'bg-linear-to-tr from-green-400 to-emerald-400 text-black',
+    // },
+    // {
+    //   title: 'New Plugin Scoring System',
+    //   image: '/images/score-example-1.png',
+    //   description:
+    //     'Discover a new scoring system designed to evaluate and rank Obsidian plugins. The scoring is based on project metrics, user engagement, and activity. You can see these scores across the website on different plugin lists (such as new plugins, plugin updates, most downloaded, trending plugins) all plugins page, and plugin details pages. This is an early version of the scoring system and will be improved over time. 🚀',
+    //   link: '/posts/2024-12-28-obsidian-plugin-scoring-system',
+    //   ctaText: 'Learn about the scoring system',
+    //   bgClasses: 'bg-linear-to-tr from-fuchsia-400 to-purple-400 text-black',
+    // } as Highlight,
     // {
     //   title: 'Obsidian Plugin - Wrapped 2024',
     //   image: '/logo-512-removebg-preview.png',
