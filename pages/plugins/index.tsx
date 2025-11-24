@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import { AllPluginsMultiView } from '../../components/AllPluginsMultiView';
-import { Button, Checkbox, Dropdown, Label, TextInput } from 'flowbite-react';
+import { Button, Dropdown, Label, TextInput } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { List as ListIcon, Table as TableIcon, Tool } from 'react-feather';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
@@ -21,6 +21,7 @@ import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Suggestions } from '../../domain/suggestions/models';
 import { Sidebar } from '../../components/Sidebar';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -270,9 +271,8 @@ const Plugins = (props: IPageProps) => {
   };
 
   const handleFavoritesFilterChange = (e) => {
-    const value = e.target.checked;
-    setFavoritesFilter(value);
-    updateQuery({ fav: value });
+    setFavoritesFilter(!favoritesFilter);
+    updateQuery({ fav: !favoritesFilter });
   };
 
   const handleFilterCategoryChange = (value) => {
@@ -400,15 +400,14 @@ const Plugins = (props: IPageProps) => {
                     <label className="cursor-pointer label">
                       <div className="label-text font-semibold">Filters: </div>
                     </label>
-                    <div className="flex">
+                    <div className="flex items-center">
                       {' '}
                       {/* Favorites Filter */}
                       <Checkbox
                         checked={favoritesFilter}
                         id="filter-favorites"
-                        className="mr-2 cursor-pointer"
-                        onChange={handleFavoritesFilterChange}
-                        color="purple"
+                        className="mr-2 cursor-pointer data-[state=checked]:bg-violet-700 data-[state=checked]:text-white data-[state=checked]:border-violet-700 font-bold"
+                        onCheckedChange={handleFavoritesFilterChange}
                       />
                       <Label
                         htmlFor="filter-favorites"

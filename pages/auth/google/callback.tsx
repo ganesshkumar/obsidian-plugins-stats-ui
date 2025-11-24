@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { setAuthToken, getAndClearReturnUrl, scheduleTokenRefresh } from '@/lib/auth';
+import { useAnalytics } from '@/lib/analytics/analytics';
 
 /**
  * Google OAuth callback handler page
@@ -11,6 +12,7 @@ export default function GoogleCallbackPage() {
   const router = useRouter();
   const [status, setStatus] = useState<'processing' | 'success' | 'error'>('processing');
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const { trackEvent } = useAnalytics();
 
   useEffect(() => {
     // Wait for router to be ready
@@ -42,14 +44,17 @@ export default function GoogleCallbackPage() {
         setTimeout(() => {
           router.push(returnUrl);
         }, 1000);
+        trackEvent('Login Successful');
       } catch (err) {
         setStatus('error');
         setErrorMessage('Failed to store authentication token');
         console.error('Auth error:', err);
+        trackEvent('Login Failed');
       }
     } else {
       setStatus('error');
       setErrorMessage('No authentication token received');
+      trackEvent('Login Failed');
     }
   }, [router.isReady, router.query, router]);
 
