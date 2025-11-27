@@ -12,14 +12,16 @@ import {
 import { StarRatingInput } from '@/components/StarRatingInput';
 import { Spinner } from './ui/spinner';
 import { useAuth } from '@/hooks/useAuth';
-import { useUserPluginRating, useSubmitPluginRating } from '@/hooks/queries/usePluginRating';
+import { useUserEntityRating, useSubmitEntityRating, EntityType } from '@/hooks/queries/useEntityRating';
 
-interface GivePluginReviewProps {
-  pluginId: string;
+interface GiveReviewProps {
+  entityType: EntityType;
+  entityId: string;
 }
 
-export const GivePluginReview = ({ pluginId }: GivePluginReviewProps) => {
+export const GiveReview = ({ entityType, entityId }: GiveReviewProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const entityLabel = entityType === 'plugin' ? 'Plugin' : 'Theme';
 
   return (
     <>
@@ -29,11 +31,12 @@ export const GivePluginReview = ({ pluginId }: GivePluginReviewProps) => {
         className="border border-violet-600 text-violet-600 bg-violet-100 hover:text-gray-200 hover:bg-violet-600 hover:border-violet-800"
         onClick={() => setIsDialogOpen(true)}
       >
-        Rate Plugin
+        Rate {entityLabel}
       </Button>
       {isDialogOpen && (
-        <GivePluginRatingDialog
-          pluginId={pluginId}
+        <GiveRatingDialog
+          entityType={entityType}
+          entityId={entityId}
           open={isDialogOpen}
           setOpen={setIsDialogOpen}
         />
@@ -42,17 +45,21 @@ export const GivePluginReview = ({ pluginId }: GivePluginReviewProps) => {
   );
 };
 
-interface GivePluginRatingDialogProps {
-  pluginId: string;
+interface GiveRatingDialogProps {
+  entityType: EntityType;
+  entityId: string;
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
-const GivePluginRatingDialog = ({
-  pluginId,
+const GiveRatingDialog = ({
+  entityType,
+  entityId,
   open,
   setOpen,
-}: GivePluginRatingDialogProps) => {
+}: GiveRatingDialogProps) => {
+  const entityLabel = entityType === 'plugin' ? 'plugin' : 'theme';
+  const EntityLabel = entityType === 'plugin' ? 'Plugin' : 'Theme';
 
   const { isAuthenticated, token, loading: isAuthenticatedLoading, login, logout } = useAuth();
 
@@ -63,7 +70,7 @@ const GivePluginRatingDialog = ({
     data: ratingData,
     isLoading: isRatingLoading,
     error: ratingError,
-  } = useUserPluginRating(pluginId, isAuthenticated);
+  } = useUserEntityRating(entityType, entityId, isAuthenticated);
 
   const {
     mutate: submitRating,
@@ -71,7 +78,7 @@ const GivePluginRatingDialog = ({
     isSuccess: isSuccess,
     isError: isError,
     error: mutationError,
-  } = useSubmitPluginRating(pluginId);
+  } = useSubmitEntityRating(entityType, entityId);
 
   const handleRatingChange = useCallback(
     (newRating: number) => {
@@ -101,11 +108,11 @@ const GivePluginRatingDialog = ({
     description = ' ';
     content = <Spinner size="large" />;
   } else if (!isAuthenticated) {
-    description = 'Log in to rate this plugin.';
+    description = `Log in to rate this ${entityLabel}.`;
     content = (
       <div className="flex flex-col items-center justify-center p-4">
         <p className="text-sm text-gray-700">
-          You need to be logged in to rate a plugin.
+          You need to be logged in to rate a {entityLabel}.
         </p>
         {authInitiated ? 
           <Spinner className="mt-2 text-violet-700" /> :
@@ -117,7 +124,7 @@ const GivePluginRatingDialog = ({
       </div>
     );
   } else {
-    description = `My rating for ${pluginId}`;
+    description = `My rating for ${entityId}`;
     content = (
       <div className="flex flex-col items-center justify-center p-4">
         <StarRatingInput rating={userRating} setRating={handleRatingChange} />
@@ -153,8 +160,8 @@ const GivePluginRatingDialog = ({
       <>
         {isSuccess && (
           <p className="text-gray-600 text-sm">
-            It will take some time to update the aggregated rating on plugin
-            page with your rating.
+            It will take some time to update the aggregated rating on {entityLabel}
+            {' '}page with your rating.
           </p>
         )}
       </>
@@ -165,7 +172,7 @@ const GivePluginRatingDialog = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className='bg-white'>
         <DialogHeader className="relative">
-          <DialogTitle>Rate Plugin</DialogTitle>
+          <DialogTitle>Rate {EntityLabel}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {content}

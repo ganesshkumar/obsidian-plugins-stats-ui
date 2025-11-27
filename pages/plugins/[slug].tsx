@@ -43,11 +43,11 @@ import ResponsiveLayout from '../_responsive-layout';
 import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
-import { GivePluginReview } from '@/components/GivePluginRating';
+import { GiveReview } from '@/components/GiveRating';
 import { StarRating } from '@/components/StarRating';
 import { useFeatureFlag } from '@/lib/feature-flag/feature-flags';
 import { useAuth } from '@/hooks/useAuth';
-import { usePluginRatingSummary } from '@/hooks/queries/usePluginRating';
+import { useEntityRatingSummary } from '@/hooks/queries/useEntityRating';
 import { PluginSection } from '@/components/plugins/PluginSection';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
@@ -82,7 +82,7 @@ const Plugin = (props: IPluginProps) => {
     data: ratingSummary, 
     isLoading: ratingSummaryLoading, 
     error: ratingSummaryError 
-  } = usePluginRatingSummary(props.plugin.pluginId, isAuthenticated);
+  } = useEntityRatingSummary('plugin', props.plugin.pluginId, isAuthenticated);
 
   const now = moment();
 
@@ -178,8 +178,9 @@ const Plugin = (props: IPluginProps) => {
                   {!ratingSummaryLoading && !ratingSummary && (
                     <StarRating ratingInfo={props.plugin.ratingInfo} />
                   )}
-                  <GivePluginReview 
-                    pluginId={props.plugin.pluginId}
+                  <GiveReview 
+                    entityType="plugin"
+                    entityId={props.plugin.pluginId}
                   />
                 </div>
                 {props.plugin.score && props.plugin.scoreReason && (

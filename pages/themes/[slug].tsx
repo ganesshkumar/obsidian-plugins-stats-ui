@@ -31,11 +31,10 @@ import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import { ThemesCache } from '@/cache/themes-cache';
 import { Theme } from '@/domain/themes/models/Theme';
-import { GiveThemeReview } from '@/components/GiveThemeRating';
+import { GiveReview } from '@/components/GiveRating';
 import { StarRating } from '@/components/StarRating';
-import { useFeatureFlag } from '@/lib/feature-flag/feature-flags';
 import { useAuth } from '@/hooks/useAuth';
-import { useThemeRatingSummary } from '@/hooks/queries/useThemeRating';
+import { useEntityRatingSummary } from '@/hooks/queries/useEntityRating';
 import { EntityType } from '@/domain/Entity';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
@@ -65,7 +64,7 @@ const ThemeView = (props: IThemeProps) => {
     data: ratingSummary, 
     isLoading: ratingSummaryLoading, 
     error: ratingSummaryError 
-  } = useThemeRatingSummary(themeId, isAuthenticated);
+  } = useEntityRatingSummary('theme', themeId, isAuthenticated);
 
   const now = moment();
 
@@ -165,8 +164,9 @@ const ThemeView = (props: IThemeProps) => {
                   {!ratingSummaryLoading && !ratingSummary && (
                     <StarRating ratingInfo={props.theme.ratingInfo} />
                   )}
-                  <GiveThemeReview 
-                    themeId={themeId}
+                  <GiveReview 
+                    entityType="theme"
+                    entityId={themeId}
                   />
                 </div>
                 <div className="flex gap-x-2 mb-2">
