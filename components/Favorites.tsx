@@ -5,12 +5,12 @@ import { setFavorite, unsetFavorite } from '../utils/favorites';
 
 import { Plus, Minus, Share2 } from 'react-feather';
 import { useAnalytics } from '../lib/analytics/analytics';
-import { Theme, Plugin } from '@prisma/client';
+import { EntityType } from '@prisma/client';
 
-const Favorites = ({ isFavorite, plugin, theme, setFavorites }: {
+const Favorites = ({ isFavorite, entityType, entityId, setFavorites }: {
   isFavorite: boolean;
-  plugin?: Plugin;
-  theme?: Theme;
+  entityType: EntityType;
+  entityId: string;
   setFavorites: (favorites: string[]) => void;
 }) => {
   const [shareText, setShareText] = useState('share');
@@ -25,10 +25,10 @@ const Favorites = ({ isFavorite, plugin, theme, setFavorites }: {
 
   const shareClicked = () => {
     if (navigator) {
-      if (plugin) {
-        navigator.clipboard.writeText(`${hostname}/plugins/${plugin.pluginId}`);
-      } else if (theme) {
-        navigator.clipboard.writeText(`${hostname}/themes/${theme.repo}`);
+      if (entityType === EntityType.PLUGIN) {
+        navigator.clipboard.writeText(`${hostname}/plugins/${entityId}`);
+      } else if (entityType === EntityType.THEME) {
+        navigator.clipboard.writeText(`${hostname}/themes/${entityId}`);
       }
       setShareText('copied link to clipboard');
     }
@@ -42,13 +42,13 @@ const Favorites = ({ isFavorite, plugin, theme, setFavorites }: {
 
   const handleSetFavoriteClicked = useCallback(() => {
     trackEvent('Favorite Button Click');
-    setFavorite(plugin ? plugin.pluginId : theme.repo, setFavorites);
-  }, [plugin?.pluginId, theme?.repo, setFavorites]);
+    setFavorite(entityId, setFavorites);
+  }, [entityId, setFavorites]);
 
   const handleUnsetFavoriteClicked = useCallback(() => {
     trackEvent('Unfavorite Button Click');
-    unsetFavorite(plugin ? plugin.pluginId : theme.repo, setFavorites);
-  }, [plugin?.pluginId, theme?.repo, setFavorites]);
+    unsetFavorite(entityId, setFavorites);
+  }, [entityId, setFavorites]);
 
   return (
     <div className="flex flex-wrap space-x-2">
@@ -58,7 +58,7 @@ const Favorites = ({ isFavorite, plugin, theme, setFavorites }: {
           <div
             className="text-xs cursor-pointer hover:underline plausible-event-name=Unfavorite+Button+Click"
             onClick={handleUnsetFavoriteClicked}
-            id={`unfavorite-${plugin ? plugin.pluginId : theme.repo}`}
+            id={`unfavorite-${entityId}`}
           >
             unfavorite
           </div>
@@ -69,7 +69,7 @@ const Favorites = ({ isFavorite, plugin, theme, setFavorites }: {
           <div
             className="text-xs cursor-pointer hover:underline plausible-event-name=Favorite+Button+Click"
             onClick={handleSetFavoriteClicked}
-            id={`favorite-${plugin ? plugin.pluginId : theme.repo}`}
+            id={`favorite-${entityId}`}
           >
             favorite
           </div>
@@ -80,7 +80,7 @@ const Favorites = ({ isFavorite, plugin, theme, setFavorites }: {
         <div
           className="text-xs cursor-pointer hover:underline"
           onClick={shareClicked}
-          id={`share-${plugin ? plugin.pluginId : theme.repo}`}
+          id={`share-${entityId}`}
         >
           {shareText}
         </div>

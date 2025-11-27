@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Favorites from './Favorites';
 import { setFavorite, unsetFavorite } from '../utils/favorites';
+import { EntityType } from '@prisma/client';
 
 jest.mock('../utils/favorites', () => ({
   setFavorite: jest.fn(),
@@ -26,7 +27,8 @@ describe('Favorites', () => {
     render(
       <Favorites
         isFavorite={false}
-        plugin={plugin}
+        entityType={EntityType.PLUGIN}
+        entityId={plugin.pluginId}
         setFavorites={setFavorites}
       />
     );
@@ -37,7 +39,8 @@ describe('Favorites', () => {
     render(
       <Favorites
         isFavorite={true}
-        plugin={plugin}
+        entityType={EntityType.PLUGIN}
+        entityId={plugin.pluginId}
         setFavorites={setFavorites}
       />
     );
@@ -48,7 +51,8 @@ describe('Favorites', () => {
     render(
       <Favorites
         isFavorite={false}
-        plugin={plugin}
+        entityType={EntityType.PLUGIN}
+        entityId={plugin.pluginId}
         setFavorites={setFavorites}
       />
     );
@@ -60,7 +64,8 @@ describe('Favorites', () => {
     render(
       <Favorites
         isFavorite={true}
-        plugin={plugin}
+        entityType={EntityType.PLUGIN}
+        entityId={plugin.pluginId}
         setFavorites={setFavorites}
       />
     );
@@ -72,7 +77,8 @@ describe('Favorites', () => {
     render(
       <Favorites
         isFavorite={false}
-        plugin={plugin}
+        entityType={EntityType.PLUGIN}
+        entityId={plugin.pluginId}
         setFavorites={setFavorites}
       />
     );
@@ -86,7 +92,8 @@ describe('Favorites', () => {
     render(
       <Favorites
         isFavorite={false}
-        plugin={plugin}
+        entityType={EntityType.PLUGIN}
+        entityId={plugin.pluginId}
         setFavorites={setFavorites}
       />
     );

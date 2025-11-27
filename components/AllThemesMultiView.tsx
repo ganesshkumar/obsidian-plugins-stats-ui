@@ -12,6 +12,7 @@ import { Plugin, Theme } from '@prisma/client';
 import { Virtuoso } from 'react-virtuoso';
 import plugins from '@/pages/beta/plugins';
 import { Moon, Sun } from 'react-feather';
+import { EntityType } from '@/domain/Entity';
 
 const highlightMatch = (text: string, query: string) => {
   if (!text || !query) return text;
@@ -200,7 +201,8 @@ const UnindexedThemeListItemInternal = (props) => {
           </span>
         </span>
         <Favorites
-          theme={theme}
+          entityType={EntityType.Theme}
+          entityId={theme.repo}
           isFavorite={favorites.includes(theme.repo)}
           setFavorites={setFavorites}
         />

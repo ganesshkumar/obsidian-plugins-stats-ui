@@ -4,8 +4,8 @@ import {
 } from '@prisma/client';
 
 export enum EntityType {
-  Plugin = 'plugin',
-  Theme = 'theme',
+  Plugin = 'PLUGIN',
+  Theme = 'THEME',
 }
 
 export type Entity = 

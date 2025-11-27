@@ -15,6 +15,7 @@ import InfoBar from '../components/InfoBar';
 import Header, { IHeaderProps } from '../components/Header';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
 import EthicalAd from '../components/EthicalAd';
+import { EntityType } from '@/domain/Entity';
 
 const mdConverter = new showdown.Converter();
 mdConverter.setFlavor('github');
@@ -80,7 +81,8 @@ const Updates = (props: IUpdatePageProps) => {
                         <span className="text-gray-700">{plugin.author}</span>
                       </div>
                       <Favorites
-                        plugin={plugin}
+                        entityType={EntityType.Plugin}
+                        entityId={plugin.pluginId}
                         isFavorite={favorites.includes(plugin.pluginId)}
                         setFavorites={setFavorites}
                       />

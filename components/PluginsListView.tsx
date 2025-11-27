@@ -144,7 +144,8 @@ const UnindexedPlugin = (props) => {
           <span className="text-gray-700">{plugin.author}</span>
         </span>
         <Favorites
-          plugin={plugin}
+          entityType={EntityType.Plugin}
+          entityId={plugin.pluginId}
           isFavorite={favorites.includes(plugin.pluginId)}
           setFavorites={setFavorites}
         />
@@ -237,7 +238,8 @@ const UnindexedTheme = (props) => {
             <span className="text-gray-700">{author}</span>
           </span>
           <Favorites
-            theme={theme}
+            entityType={EntityType.Theme}
+            entityId={theme.repo}
             isFavorite={favorites.includes(theme.repo)}
             setFavorites={setFavorites}
           />

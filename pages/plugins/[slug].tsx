@@ -54,6 +54,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
+import { EntityType } from '@/domain/Entity';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -151,7 +152,8 @@ const Plugin = (props: IPluginProps) => {
                   by <span>{props.plugin.author}</span>
                 </div>
                 <Favorites
-                  plugin={props.plugin}
+                  entityType={EntityType.Plugin}
+                  entityId={props.plugin.pluginId}
                   isFavorite={isFavorite}
                   setFavorites={setFavorites}
                 />

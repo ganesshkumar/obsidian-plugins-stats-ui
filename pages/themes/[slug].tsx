@@ -36,6 +36,7 @@ import { StarRating } from '@/components/StarRating';
 import { useFeatureFlag } from '@/lib/feature-flag/feature-flags';
 import { useAuth } from '@/hooks/useAuth';
 import { useThemeRatingSummary } from '@/hooks/queries/useThemeRating';
+import { EntityType } from '@/domain/Entity';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -138,7 +139,8 @@ const ThemeView = (props: IThemeProps) => {
                   by <span>{props.theme.repo.split('/')[0]}</span>
                 </div>
                 <Favorites
-                  theme={props.theme}
+                  entityType={EntityType.Theme}
+                  entityId={props.theme.repo}
                   isFavorite={isFavorite}
                   setFavorites={setFavorites}
                 />

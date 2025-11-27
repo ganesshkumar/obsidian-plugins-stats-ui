@@ -10,6 +10,7 @@ import { Score } from './Score';
 import { getScoreBgClass } from '../lib/customThemes';
 import { Plugin } from '@prisma/client';
 import { Virtuoso } from 'react-virtuoso';
+import { EntityType } from '@/domain/Entity';
 
 const highlightMatch = (text: string, query: string) => {
   if (!text || !query) return text;
@@ -198,7 +199,8 @@ const UnindexedPluginListItemInternal = (props) => {
           </span>
         </span>
         <Favorites
-          plugin={plugin}
+          entityType={EntityType.Plugin}
+          entityId={plugin.pluginId}
           isFavorite={favorites.includes(plugin.pluginId)}
           setFavorites={setFavorites}
         />
