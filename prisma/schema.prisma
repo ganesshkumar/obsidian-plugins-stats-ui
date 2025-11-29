@@ -146,8 +146,21 @@ model User {
   updatedAt     DateTime @updatedAt
   
   reviews       Review[] // Relation to reviews
+  refreshTokens RefreshToken[] // Relation to refresh tokens
   
   @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  token     String   @unique
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  revokedAt DateTime?
+  
+  @@map("refresh_tokens")
 }
 
 enum EntityType {
