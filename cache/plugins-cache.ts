@@ -1,5 +1,4 @@
 import { EntityType, Plugin as PluginRecord, PluginStats, PrismaClient, Review } from '@prisma/client';
-import { supabaseServer } from '@/lib/supabase-server';
 import { PluginRatingInfo } from '@/domain/plugins/models/PluginRatingInfo';
 import { Plugin } from '@/domain/plugins/models/Plugin';
 
@@ -153,11 +152,38 @@ export class PluginsCache {
       }
     });
 
+    // Reviews
+    const reviews: Review[] = await prisma.review.findMany({
+      where: {
+        entityType: EntityType.PLUGIN,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+
+    const reviewsByPlugin: Record<string, Review[]> = {};
+    reviews.forEach((review) => {
+      if (!reviewsByPlugin[review.entityId]) {
+        reviewsByPlugin[review.entityId] = [];
+      }
+      reviewsByPlugin[review.entityId].push(review);
+    });
+
+    // Final assembly of plugins with ratings and reviews
     const plugins = pluginRecords.map((plugin) => {
-      return {
+      return serializeDates({
         ...plugin,
         ratingInfo: ratingInfoMap[plugin.pluginId] || null,
-      } as Plugin;
+        reviews: reviewsByPlugin[plugin.pluginId] || [],
+      } as Plugin);
     });
 
     return plugins;
@@ -202,3 +228,12 @@ const dashRegex = /[—–‒―⁓]/g;
 export const sanitizeDashVariations = (input: string): string => {
   return input.replace(dashRegex, '-');
 };
+
+function serializeDates<T>(obj: T): T {
+  return JSON.parse(
+    JSON.stringify(obj, (_key, value) =>
+      value instanceof Date ? value.toISOString() : value
+    )
+  );
+}
+

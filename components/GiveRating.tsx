@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { Textarea } from '@/components/ui/textarea';
 import { StarRatingInput } from '@/components/StarRatingInput';
 import { Spinner } from './ui/spinner';
 import { useAuth } from '@/hooks/useAuth';
@@ -31,7 +32,7 @@ export const GiveReview = ({ entityType, entityId }: GiveReviewProps) => {
         className="border border-violet-600 text-violet-600 bg-violet-100 hover:text-gray-200 hover:bg-violet-600 hover:border-violet-800"
         onClick={() => setIsDialogOpen(true)}
       >
-        Rate {entityLabel}
+        Rate & Review {entityLabel}
       </Button>
       {isDialogOpen && (
         <GiveRatingDialog
@@ -64,6 +65,13 @@ const GiveRatingDialog = ({
   const { isAuthenticated, token, loading: isAuthenticatedLoading, login, logout } = useAuth();
 
   const [authInitiated, setAuthInitiated] = useState(false);
+  
+  // Local form state
+  const [selectedRating, setSelectedRating] = useState(0);
+  const [reviewText, setReviewText] = useState('');
+  
+  // Ref for textarea to control cursor position
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Use React Query hooks
   const {
@@ -78,27 +86,67 @@ const GiveRatingDialog = ({
     isSuccess: isSuccess,
     isError: isError,
     error: mutationError,
+    reset: resetMutation,
   } = useSubmitEntityRating(entityType, entityId);
 
-  const handleRatingChange = useCallback(
-    (newRating: number) => {
-      submitRating({ rating: newRating });
-    },
-    [submitRating]
-  );
+  // Initialize form when data loads
+  useEffect(() => {
+    if (ratingData) {
+      setSelectedRating(ratingData.rating || 0);
+      setReviewText(ratingData.reviewText || '');
+      
+      // Set cursor to end of text after a short delay to ensure textarea is rendered
+      if (ratingData.reviewText) {
+        setTimeout(() => {
+          if (textareaRef.current) {
+            const length = ratingData.reviewText?.length || 0;
+            textareaRef.current.setSelectionRange(length, length);
+          }
+        }, 0);
+      }
+    }
+  }, [ratingData]);
+
+  // Reset mutation state when dialog opens/closes
+  useEffect(() => {
+    if (!open) {
+      resetMutation();
+    }
+  }, [open, resetMutation]);
+
+  const handleSubmit = useCallback(() => {
+    if (selectedRating === 0) {
+      return;
+    }
+    const trimmedReview = reviewText.trim();
+    submitRating({ 
+      rating: selectedRating, 
+      reviewText: trimmedReview || undefined 
+    });
+  }, [selectedRating, reviewText, submitRating]);
+
+  const handleEdit = useCallback(() => {
+    resetMutation();
+  }, [resetMutation]);
 
   const triggerGoogleAuth = useCallback(() => {
     setAuthInitiated(true);
     login();
   }, [login]);
 
+  // Character count validation
+  const remainingChars = 2000 - reviewText.length;
+  const isTextTooLong = reviewText.length > 2000;
+  const hasChanges = ratingData && (
+    selectedRating !== (ratingData.rating || 0) || 
+    reviewText.trim() !== (ratingData.reviewText || '')
+  );
+
   // Derive display values
-  const userRating = ratingData?.rating || 0;
-  const updatedAt = ratingData?.updatedAt || '';
   const errorMessage = isError 
-    ? 'An error occurred while saving your rating. Please try again later.'
+    ? 'An error occurred while saving your review. Please try again later.'
     : ratingError
-    ? 'An error occurred while fetching your rating. Please try again later.'
+    ? 'An error occurred while fetching your review. Please try again later.'
     : '';
 
   let description;
@@ -108,11 +156,11 @@ const GiveRatingDialog = ({
     description = ' ';
     content = <Spinner size="large" />;
   } else if (!isAuthenticated) {
-    description = `Log in to rate this ${entityLabel}.`;
+    description = `Log in to rate and review this ${entityLabel}.`;
     content = (
       <div className="flex flex-col items-center justify-center p-4">
         <p className="text-sm text-gray-700">
-          You need to be logged in to rate a {entityLabel}.
+          You need to be logged in to rate and review a {entityLabel}.
         </p>
         {authInitiated ? 
           <Spinner className="mt-2 text-violet-700" /> :
@@ -124,22 +172,70 @@ const GiveRatingDialog = ({
       </div>
     );
   } else {
-    description = `My rating for ${entityId}`;
+    description = `Share your rating and review for ${entityId}`;
     content = (
-      <div className="flex flex-col items-center justify-center p-4">
-        <StarRatingInput rating={userRating} setRating={handleRatingChange} />
-        {updatedAt && (
-          <span className="text-sm text-gray-500 mt-2">
-            Updated at:{' '}
-            {updatedAt ? new Date(updatedAt).toLocaleString() : 'N/A'}
+      <div className="flex flex-col items-start justify-center p-4 gap-4 w-full">
+        {/* Star Rating */}
+        <div className="w-full flex flex-col items-center gap-2">
+          <label className="text-sm font-medium text-gray-700">
+            Rating <span className="text-red-500">*</span>
+          </label>
+          <StarRatingInput 
+            rating={selectedRating} 
+            setRating={setSelectedRating}
+            disabled={isSuccess}
+          />
+          {selectedRating === 0 && !isSuccess && (
+            <p className="text-xs text-gray-500">Please select a rating (required)</p>
+          )}
+        </div>
+
+        {/* Review Text */}
+        <div className="w-full flex flex-col gap-2">
+          <label htmlFor="review-text" className="text-sm font-medium text-gray-700">
+            Review <span className="text-gray-400">(optional)</span>
+          </label>
+          <Textarea
+            ref={textareaRef}
+            id="review-text"
+            placeholder="Share your experience with this plugin/theme..."
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+            maxLength={2000}
+            rows={5}
+            className={isTextTooLong ? 'border-red-500' : ''}
+            disabled={isSaving || isSuccess}
+          />
+          <div className="flex justify-between items-center text-xs">
+            <span className={`${
+              remainingChars < 100 ? 'text-orange-600' : 
+              remainingChars < 0 ? 'text-red-600' : 
+              'text-gray-500'
+            }`}>
+              {remainingChars} characters remaining
+            </span>
+          </div>
+        </div>
+
+        {/* Last updated info */}
+        {ratingData?.updatedAt && !isSuccess && (
+          <span className="text-xs text-gray-500 w-full text-center">
+            Last updated: {new Date(ratingData.updatedAt).toLocaleString()}
           </span>
         )}
+
+        {/* Error Message */}
         {errorMessage && (
-          <p className="text-red-600 text-sm">{errorMessage}</p>
+          <p className="text-red-600 text-sm w-full text-center">{errorMessage}</p>
         )}
+
+        {/* Success Message */}
         {isSuccess && (
-          <div className="text-center">
-            <p className="text-green-600 text-sm">Rating saved successfully!</p>
+          <div className="text-center w-full">
+            <p className="text-green-600 text-sm font-medium">Review saved successfully!</p>
+            <p className="text-gray-600 text-xs mt-1">
+              It will take some time to update the aggregated rating on the {entityLabel} page.
+            </p>
             <div
               style={{
                 position: 'absolute',
@@ -157,22 +253,58 @@ const GiveRatingDialog = ({
       </div>
     );
     footer = (
-      <>
-        {isSuccess && (
-          <p className="text-gray-600 text-sm">
-            It will take some time to update the aggregated rating on {entityLabel}
-            {' '}page with your rating.
-          </p>
+      <div className="flex flex-col sm:flex-row gap-2 w-full">
+        {!isSuccess ? (
+          <>
+            <Button
+              variant="outline"
+              onClick={() => setOpen(false)}
+              disabled={isSaving}
+              className="flex-1"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSubmit}
+              disabled={selectedRating === 0 || isSaving || isTextTooLong}
+              className="flex-1 bg-violet-600 hover:bg-violet-700"
+            >
+              {isSaving ? (
+                <>
+                  <Spinner className="mr-2" size="small" />
+                  Submitting...
+                </>
+              ) : (
+                hasChanges ? 'Update Review' : 'Submit Review'
+              )}
+            </Button>
+          </>
+        ) : (
+          <div className="flex flex-col sm:flex-row gap-2 w-full">
+            <Button
+              onClick={() => setOpen(false)}
+              variant="outline"
+              className="flex-1"
+            >
+              Close
+            </Button>
+            <Button
+              onClick={handleEdit}
+              className="flex-1 bg-violet-600 hover:bg-violet-700"
+            >
+              Edit Review
+            </Button>
+          </div>
         )}
-      </>
+      </div>
     );
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className='bg-white'>
+      <DialogContent className='bg-white max-w-2xl'>
         <DialogHeader className="relative">
-          <DialogTitle>Rate {EntityLabel}</DialogTitle>
+          <DialogTitle>Rate & Review {EntityLabel}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {content}

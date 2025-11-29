@@ -145,6 +145,8 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   
+  reviews       Review[] // Relation to reviews
+  
   @@map("users")
 }
 
@@ -158,13 +160,14 @@ model Review {
   entityId    String   // The plugin or theme identifier
   entityType  EntityType
   entityVer   String?
-  userId      String
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id])
   rating      Int      // 1-5 rating
   reviewText  String?  @db.String // Max 2000 chars (enforced in DTO)
   
   flagged     Boolean  @default(false)
   needsModeration Boolean @default(false)
-  approvedAt    DateTime @default(now())
+  approvedAt    DateTime?
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

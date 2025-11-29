@@ -5,11 +5,13 @@ export type EntityType = 'plugin' | 'theme';
 
 interface EntityRating {
   rating: number;
+  reviewText?: string;
   updatedAt: string;
 }
 
 interface SubmitRatingPayload {
   rating: number;
+  reviewText?: string;
 }
 
 interface SubmitRatingResponse {
@@ -80,7 +82,7 @@ export function useUserEntityRating(
       } catch (error: any) {
         // Return default values for 404 (no rating yet)
         if (error.message.includes('404')) {
-          return { rating: 0, updatedAt: '' };
+          return { rating: 0, reviewText: '', updatedAt: '' };
         }
         throw error;
       }
@@ -130,6 +132,7 @@ export function useSubmitEntityRating(
         entityRatingKeys.user(entityType, entityId),
         (old) => ({
           rating: newRating.rating,
+          reviewText: newRating.reviewText,
           updatedAt: old?.updatedAt || new Date().toISOString(),
         })
       );
@@ -152,6 +155,7 @@ export function useSubmitEntityRating(
         entityRatingKeys.user(entityType, entityId),
         (old) => ({
           rating: old?.rating || 0,
+          reviewText: old?.reviewText,
           updatedAt: data.updatedAt,
         })
       );

@@ -45,7 +45,6 @@ import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
 import { GiveReview } from '@/components/GiveRating';
 import { StarRating } from '@/components/StarRating';
-import { useFeatureFlag } from '@/lib/feature-flag/feature-flags';
 import { useAuth } from '@/hooks/useAuth';
 import { useEntityRatingSummary } from '@/hooks/queries/useEntityRating';
 import { PluginSection } from '@/components/plugins/PluginSection';
@@ -55,6 +54,8 @@ import remarkRehype from 'remark-rehype';
 import rehypeSlug from 'rehype-slug';
 import rehypeStringify from 'rehype-stringify';
 import { EntityType } from '@/domain/Entity';
+import { StarRatingDisplay } from '@/components/StarRatingDisplay';
+import { User } from 'lucide-react';
 
 const customCardTheme: CustomFlowbiteTheme['card'] = {
   root: {
@@ -316,6 +317,29 @@ const Plugin = (props: IPluginProps) => {
             />
           </Card>
           <PluginSection plugin={props.plugin} />
+          
+          {/* Review */}
+          <Card theme={customCardTheme} className="relative mt-4">
+            <div className="text-2xl">Reviews</div>
+            {props.plugin.reviews.length === 0 &&
+              <div className="mt-4 text-gray-500">No reviews yet.</div>}
+            {props.plugin.reviews.length > 0 &&
+              <List className="mt-4">
+                {props.plugin.reviews.map((review: any) => (
+                  <ListItem key={review.id} className="border-b border-gray-200 pb-4 mb-4 list-none">
+                    <div className='flex gap-2 items-center'>
+                      <User size={24} className="inline text-white bg-gray-400 rounded-full p-1" />
+                      <div className="text-xs">{review?.user?.name || 'Anonymous'}</div>
+                    </div>
+                    <div className="text-xs">Reviewed on {moment(review.createdAt).format('MMM Do, YYYY')}</div>
+                    <StarRatingDisplay rating={review.rating} size="medium" />
+                    <div className="mt-2 text-gray-700">{review.reviewText || <i>No review text provided.</i>}</div>
+                  </ListItem>
+                ))}
+              </List>
+            }
+          </Card>
+
           <Card theme={customCardTheme} className="relative mt-4">
             <div className="text-2xl">Stats</div>
             <div className="mt-4 flex flex-wrap gap-4">
@@ -673,7 +697,7 @@ export const getStaticProps = async ({ params }) => {
       canonical,
       image,
       jsonLdSchema,
-      plugin,
+      plugin: serializeDates(plugin),
       tags,
       similarPlugins: reducedSimilarPlugins,
       hasMoreSimilarPlugins: suggestions.hasMoreSimilarPlugins,
@@ -700,5 +724,13 @@ const processMarkdown = async (markdown: string) => {
 
   return contentHtml;
 };
+
+function serializeDates<T>(obj: T): T {
+  return JSON.parse(
+    JSON.stringify(obj, (_key, value) =>
+      value instanceof Date ? value.toISOString() : value
+    )
+  );
+}
 
 export default Plugin;
