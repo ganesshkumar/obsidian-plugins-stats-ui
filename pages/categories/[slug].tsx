@@ -56,10 +56,14 @@ const Category = (props: ICategoryPageProps) => {
 
 export const getStaticPaths = async () => {
   const plugins = await PluginsCache.get();
-  let categories = plugins
+  
+  const categoriesSet = new Set<string>();
+  plugins
     .map((plugin) => plugin.osCategory)
-    .filter((category) => !!category);
-
+    .filter((category) => !!category)
+    .forEach((category) => categoriesSet.add(category));
+  const categories = Array.from(categoriesSet);
+  
   return {
     paths: categories.map((category) => ({ params: { slug: category } })),
     fallback: false,
@@ -73,10 +77,7 @@ export const getStaticProps = async ({ params }) => {
   );
 
   const title = `All ${params.slug} Obsidian Plugins.`;
-  const description = `Find all ${params.slug} Obsidian plugins. ${pluginsWithCategory
-    .sort((a, b) => b.score - a.score)
-    .map((plugin) => plugin.name)
-    .join(', ')}`;
+  const description = `Explore all ${pluginsWithCategory.length} ${params.slug} Obsidian plugins.`;
   const canonical = 'https://www.obsidianstats.com/categories/' + params.slug;
   const image = '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getCategoryPageSchema(
