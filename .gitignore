@@ -45,3 +45,4 @@ get-assets
 # Custom files
 sync.md
 docker/
+deploy.log
