@@ -109,6 +109,7 @@ export const getStaticProps = async ({ params }) => {
       author: plugin.author,
       createdAt: plugin.createdAt,
       totalDownloads: plugin.totalDownloads,
+      score: plugin.score,
       repo: plugin.repo,
       osCategory: plugin.osCategory,
       osTags: plugin.osTags,
