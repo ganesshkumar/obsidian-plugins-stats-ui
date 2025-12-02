@@ -1,3 +1,5 @@
+import { Plugin } from "@prisma/client";
+
 export const tagDenyList = [
   '',
   'obsidian',
@@ -332,6 +334,21 @@ export const getDescription = (plugin) => {
 
   return plugin.description || '';
 };
+
+export const toPluginItem = (plugin: Plugin) => {
+  return {
+    pluginId: plugin.pluginId,
+    name: plugin.name,
+    author: plugin.author,
+    createdAt: plugin.createdAt,
+    totalDownloads: plugin.totalDownloads,
+    repo: plugin.repo,
+    osCategory: plugin.osCategory,
+    osTags: plugin.osTags,
+    osDescription: plugin.osDescription,
+    description: plugin.description,
+  };
+}
 
 const getWordCount = (text) => {
   if (!text) {

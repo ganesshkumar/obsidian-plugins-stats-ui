@@ -4,7 +4,7 @@ import AppNavbar from '../../components/Navbar';
 import { setupFavorites } from '../../utils/favorites';
 import { Footer } from '../../components/Footer';
 import { Navbar } from 'flowbite-react';
-import { sanitizeTag, tagDenyList } from '../../utils/plugins';
+import { sanitizeTag, tagDenyList, toPluginItem } from '../../utils/plugins';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { PluginsMultiView } from '../../components/PluginsMultiView';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
@@ -126,7 +126,7 @@ export const getStaticProps = async ({ params }) => {
       image,
       jsonLdSchema,
       tag: params.slug,
-      plugins: pluginItems,
+      plugins: pluginItems.map(toPluginItem),
     },
   };
 };

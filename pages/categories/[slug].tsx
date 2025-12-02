@@ -9,6 +9,7 @@ import InfoBar from '../../components/InfoBar';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { PluginsMultiView } from '../../components/PluginsMultiView';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import { toPluginItem } from '@/utils/plugins';
 
 interface ICategoryPageProps extends IHeaderProps {
   category: string;
@@ -97,7 +98,7 @@ export const getStaticProps = async ({ params }) => {
       image,
       jsonLdSchema,
       category: params.slug,
-      plugins: pluginsWithCategory,
+      plugins: pluginsWithCategory.map(toPluginItem),
     },
   };
 };
