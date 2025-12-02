@@ -118,7 +118,6 @@ const Plugins = (props: IPageProps) => {
   const router = useRouter();
   const { query } = router;
 
-  const getActiveScorer = useScorerStore((state) => state.getActiveScorer);
   const pluginsScoreMap = useScoreListStore((state) => state.scores);
 
   const [filter, setFilter] = useState<string>('');
@@ -514,11 +513,10 @@ const Plugins = (props: IPageProps) => {
                   </Dropdown>
                 </div>
               </div>
-              <div className="pl-2 mt-2 mb-4 flex gap-x-2 items-center">
+              {/* <div className="pl-2 mt-2 mb-4 flex gap-x-2 items-center">
                 <div className="mr-2 font-semibold">View: </div>
                 <Button.Group outline>
                   {' '}
-                  {/* View Options */}
                   <Button
                     color="gray"
                     onClick={() => handleViewChange('list')}
@@ -537,7 +535,7 @@ const Plugins = (props: IPageProps) => {
                     Table
                   </Button>
                 </Button.Group>
-              </div>
+              </div> */}
               {isLessThanLarge && (
                 <EthicalAd
                   type="text"
@@ -545,6 +543,7 @@ const Plugins = (props: IPageProps) => {
                   placementId="plugins-fixed-footer"
                 />
               )}
+              <div className='mt-2'></div>
               <AllPluginsMultiView
                 highlight={Array.isArray(filter) ? filter[0] : filter}
                 plugins={filteredPlugins}

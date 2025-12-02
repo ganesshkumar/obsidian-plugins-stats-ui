@@ -3,36 +3,14 @@ import Link from 'next/link';
 import moment from 'moment';
 import Favorites from './Favorites';
 import { memo } from 'react';
-import { VList } from 'virtua';
-import { getDescription, sanitizeTag, tagDenyList } from '../utils/plugins';
-import { CategoryIcon } from './Category';
+import { getDescription } from '../utils/plugins';
 import { Score } from './Score';
 import { getScoreBgClass } from '../lib/customThemes';
 import { Plugin } from '@prisma/client';
 import { Virtuoso } from 'react-virtuoso';
 import { EntityType } from '@/domain/Entity';
 
-const highlightMatch = (text: string, query: string) => {
-  if (!text || !query) return text;
-
-  query = query.toLowerCase();
-  text = text.toLowerCase();
-
-  const tokens = query.toLowerCase().trim().split(/\s+/);
-
-  const parts = text.split(new RegExp(`(${query})`, 'gi'));
-  return parts.map((part, index) => {
-    if (part === query) {
-      return (
-        <span key={index} style={{ backgroundColor: 'yellow' }}>
-          {part}
-        </span>
-      );
-    }
-  });
-};
-
-function highlightMatchesV2(text: string, query: string): string {
+function highlightMatches(text: string, query: string): string {
   if (!query || !query.length || !text || !text.length) {
     return text;
   }
@@ -180,7 +158,7 @@ const UnindexedPluginListItemInternal = (props) => {
         <span
           dangerouslySetInnerHTML={{
             __html: highlight
-              ? highlightMatchesV2(plugin.name, highlight)
+              ? highlightMatches(plugin.name, highlight)
               : plugin.name,
           }}
         />
@@ -192,7 +170,7 @@ const UnindexedPluginListItemInternal = (props) => {
             <span
               dangerouslySetInnerHTML={{
                 __html: highlight
-                  ? highlightMatchesV2(plugin.author, highlight)
+                  ? highlightMatches(plugin.author, highlight)
                   : plugin.name,
               }}
             />
@@ -249,7 +227,7 @@ const UnindexedPluginListItemInternal = (props) => {
           <span
             dangerouslySetInnerHTML={{
               __html: highlight
-                ? highlightMatchesV2(getDescription(plugin), highlight)
+                ? highlightMatches(getDescription(plugin), highlight)
                 : plugin.name,
             }}
           />
@@ -281,7 +259,7 @@ const UnindexedPluginTableItemInternal = (props) => {
         <span
           dangerouslySetInnerHTML={{
             __html: highlight
-              ? highlightMatchesV2(plugin.name, highlight)
+              ? highlightMatches(plugin.name, highlight)
               : plugin.name,
           }}
         />
@@ -304,7 +282,7 @@ const UnindexedPluginTableItemInternal = (props) => {
           <span
             dangerouslySetInnerHTML={{
               __html: highlight
-                ? highlightMatchesV2(plugin.description, highlight)
+                ? highlightMatches(plugin.description, highlight)
                 : plugin.name,
             }}
           />
