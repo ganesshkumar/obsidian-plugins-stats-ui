@@ -11,8 +11,7 @@
     "postinstall": "prisma generate",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "prettier": "prettier --write .",
-    "test": "jest",
-    "docs": "jsdoc -c jsdoc.config.json"
+    "test": "jest"
   },
   "dependencies": {
     "@growthbook/growthbook": "^1.5.1",
@@ -92,7 +91,6 @@
     "globals": "^15.13.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "jsdoc": "^4.0.4",
     "prettier": "^3.4.1",
     "prisma": "5.19.1",
     "ts-node": "^10.9.2",

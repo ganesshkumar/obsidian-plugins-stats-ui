@@ -13,13 +13,14 @@ import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
 import { ThemesCache } from '@/cache/themes-cache';
 import {
-  Plugin as PluginRecord,
   Theme as ThemeRecord,
 } from '@prisma/client';
 import { Entity, EntityType } from '@/domain/Entity';
+import { toPluginItem } from '@/utils/plugins';
+import { PluginItem } from '@/domain/plugins/models/PluginItem';
 
 interface INewPageProps extends IHeaderProps {
-  newPlugins: PluginRecord[];
+  newPlugins: PluginItem[];
   newThemes: ThemeRecord[];
   newEntities: Entity[];
 }
@@ -158,7 +159,7 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      newPlugins,
+      newPlugins: newPlugins.map(toPluginItem),
       newThemes,
       newEntities,
     },

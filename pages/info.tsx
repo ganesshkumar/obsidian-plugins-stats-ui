@@ -7,8 +7,6 @@ import { getStaticProps as getFavoritesProps } from './favorites';
 import { getStaticProps as getTimelineProps } from './timeline';
 import { getStaticProps as getShareProps } from './share';
 //import { getStaticProps as getMigrateProps } from "./migrate";
-import { getStaticProps as getScorersProps } from './scorer/index';
-import { getStaticProps as getBuildScorerProps } from './scorer/build';
 import {
   getStaticPaths as getPostPaths,
   getStaticProps as getPostProps,
@@ -61,17 +59,6 @@ export const getStaticProps = async () => {
     canonical: shareCanonical,
   } = (await getShareProps()).props;
   //const {title: migrateTitle, description: migrateDescription, canonical: migrateCanonical } = (await getMigrateProps()).props;
-  const {
-    title: scorersTitle,
-    description: scorersDescription,
-    canonical: scorersCanonical,
-  } = (await getScorersProps()).props;
-  const {
-    title: buildScorerTitle,
-    description: buildScorerDescription,
-    canonical: buildScorerCanonical,
-  } = (await getBuildScorerProps()).props;
-
   const postsPaths = (await getPostPaths(undefined)).paths;
   const posts = await Promise.all(
     postsPaths.map((path) => getPostProps(path as any))
@@ -133,16 +120,6 @@ export const getStaticProps = async () => {
       description:
         'Learn how to export and import your favorite plugins list across different devices. Follow our step-by-step guide to easily migrate your favorites from localStorage.',
       canonical: 'https://www.obsidianstats.com/migrate',
-    },
-    scorers: {
-      title: scorersTitle,
-      description: scorersDescription,
-      canonical: scorersCanonical,
-    },
-    buildScorer: {
-      title: buildScorerTitle,
-      description: buildScorerDescription,
-      canonical: buildScorerCanonical,
     },
     posts: postsData,
     plugins: pluginsData,
