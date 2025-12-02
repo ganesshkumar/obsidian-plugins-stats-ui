@@ -141,6 +141,7 @@ export const getStaticProps = async () => {
       tags: Object.keys(tagsData),
       pluginCountByTags: tagsData,
     },
+    revalidate: 7200,
   };
 };
 

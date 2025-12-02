@@ -120,6 +120,7 @@ export const getStaticProps = async () => {
       mostDownloadedIn7Days,
       mostDownloadedIn30Days,
     },
+    revalidate: 7200,
   };
 };
 

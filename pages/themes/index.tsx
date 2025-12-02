@@ -559,6 +559,7 @@ export const getStaticProps = async () => {
       themes,
       suggestions,
     },
+    revalidate: 7200,
   };
 };
 

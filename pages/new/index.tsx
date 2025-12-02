@@ -163,6 +163,7 @@ export const getStaticProps = async () => {
       newThemes,
       newEntities,
     },
+    revalidate: 7200,
   };
 };
 

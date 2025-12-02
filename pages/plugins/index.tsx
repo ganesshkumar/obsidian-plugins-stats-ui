@@ -590,6 +590,7 @@ export const getStaticProps = async () => {
       plugins,
       suggestions,
     },
+    revalidate: 7200,
   };
 };
 
