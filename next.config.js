@@ -1,10 +1,8 @@
-const autoprefixer = require('autoprefixer');
-
 /** @type {import('next').NextConfig} */
 module.exports = {
+  output: 'standalone',
+  staticPageGenerationTimeout: 300,
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
   devIndicators: {
