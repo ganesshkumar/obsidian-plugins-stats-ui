@@ -1,5 +1,4 @@
-import { Description } from '@radix-ui/react-dialog';
-import { Faq, Highlight } from '../lib/abstractions';
+import { Faq } from '../lib/abstractions';
 
 export const SiteData = {
   highlights: [
@@ -39,7 +38,7 @@ export const SiteData = {
     {
       question: '2. What is the source of plugin description?',
       answer:
-        'The description of the plugin is populated from the content corresponding to the plugin as found in `community-plugins.json` file.',
+        'Plugin descriptions are written based on the README content of each plugin\'s GitHub repository to provide more detailed and informative summaries. If a custom description cannot be generated from the README, we fall back to using the description from the `community-plugins.json` file.',
     } as Faq,
     {
       question: '3. What is the source of release changelog?',
@@ -49,7 +48,7 @@ export const SiteData = {
     {
       question: '4. How are tags populated for a plugin?',
       answer:
-        'The tags are the topics of the GitHub repo, as found in `GET /repos/{repo}` API. To populate this, you can go to the GitHub repo, click open the gear icon in the About section and update the topics.',
+        'Tags are manually created for each plugin at the time of plugin creation to ensure accurate categorization and discoverability.',
     } as Faq,
     {
       question: '5. How are the trending plugins calculated?',

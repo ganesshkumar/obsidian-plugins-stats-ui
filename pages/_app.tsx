@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { FeatureFlagProvider } from '@/lib/feature-flag/feature-flags';
 import { AnalyticsProvider } from '../lib/analytics/analytics';
 import { ReactQueryProvider } from '@/lib/providers/ReactQueryProvider';
 import { UserProvider } from '@/lib/contexts/UserContext';
@@ -17,9 +16,7 @@ const ObsidianPluginStatsApp = ({ Component, pageProps }) => {
     <ReactQueryProvider>
       <UserProvider>
         <AnalyticsProvider>
-          <FeatureFlagProvider>
-            <Component {...pageProps} />
-          </FeatureFlagProvider>
+          <Component {...pageProps} />
         </AnalyticsProvider>
       </UserProvider>
     </ReactQueryProvider>
