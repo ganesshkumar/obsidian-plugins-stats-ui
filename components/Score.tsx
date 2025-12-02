@@ -11,7 +11,7 @@ export const Score = (props) => {
 
   const scoreClass = getScoreTextClass(plugin.score);
 
-  if (plugin.score === undefined || (!redirectForReason && !plugin.scoreReason)) {
+  if (!plugin.score || (!redirectForReason && !plugin.scoreReason)) {
     return undefined;
   }
 
