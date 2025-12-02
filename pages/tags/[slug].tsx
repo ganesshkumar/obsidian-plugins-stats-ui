@@ -9,11 +9,11 @@ import { PluginsCache } from '../../cache/plugins-cache';
 import { PluginsMultiView } from '../../components/PluginsMultiView';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
-import { isLocalhost } from '@/lib/environment';
+import { PluginItem } from '@/domain/plugins/models/PluginItem';
 
 interface ITagProps extends IHeaderProps {
   tag: string;
-  plugins: any[];
+  plugins: PluginItem[];
 }
 
 const Tag = (props: ITagProps) => {
@@ -102,10 +102,20 @@ export const getStaticProps = async ({ params }) => {
     params.slug
   );
 
-  if (isLocalhost) {
-    console.log('Tag:', params.slug);
-    console.log('pluginsIds:', pluginsWithTag.map((p) => p.pluginId).join(','));
-  }
+  const pluginItems = pluginsWithTag.map((plugin) => {
+    return {
+      pluginId: plugin.pluginId,
+      name: plugin.name,
+      author: plugin.author,
+      createdAt: plugin.createdAt,
+      totalDownloads: plugin.totalDownloads,
+      repo: plugin.repo,
+      osCategory: plugin.osCategory,
+      osTags: plugin.osTags,
+      osDescription: plugin.osDescription,
+      description: plugin.description,
+    }
+  });
 
   return {
     props: {
@@ -115,7 +125,7 @@ export const getStaticProps = async ({ params }) => {
       image,
       jsonLdSchema,
       tag: params.slug,
-      plugins: pluginsWithTag,
+      plugins: pluginItems,
     },
   };
 };

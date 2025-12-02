@@ -5,14 +5,11 @@ import Navbar from '../../components/Navbar';
 import { useRouter } from 'next/router';
 import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
-import { AllPluginsMultiView } from '../../components/AllPluginsMultiView';
-import { Button, Checkbox, Dropdown, Label, TextInput, theme } from 'flowbite-react';
+import { Button, Checkbox, Dropdown, Label, TextInput } from 'flowbite-react';
 import { List as ListIcon, Table as TableIcon } from 'react-feather';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
-import { useScoreListStore, useScorerStore } from '../../store/scorer-store';
-import { useCustomScoreWithScoreUpdater } from '../../hooks/useCustomScoreWithScoreUpdater';
-import { Plugin, Theme } from '@prisma/client';
+import { Theme } from '@prisma/client';
 import EthicalAd from '../../components/EthicalAd';
 import ResponsiveLayout from '../_responsive-layout';
 import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
@@ -20,7 +17,6 @@ import { generateSuggestions } from '../../domain/suggestions';
 import { Suggestions } from '../../domain/suggestions/models';
 import { Sidebar } from '../../components/Sidebar';
 import { ThemesCache } from '@/cache/themes-cache';
-import plugins from '../plugins';
 import { AllThemesMultiView } from '@/components/AllThemesMultiView';
 
 const sortByOptions = {

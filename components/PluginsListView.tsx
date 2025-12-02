@@ -9,12 +9,13 @@ import { Download } from 'react-feather';
 import { getDescription, sanitizeTag, tagDenyList } from '../utils/plugins';
 import { LinkButton } from './LinkButton';
 import { Score } from './Score';
-import { Plugin, Theme } from '@prisma/client';
+import { Theme } from '@prisma/client';
 import { Entity, EntityType } from '@/domain/Entity';
 import { RepoButton } from './RepoButton';
+import { PluginItem } from '@/domain/plugins/models/PluginItem';
 
 interface IPluginsListViewProps {
-  plugins: Plugin[];
+  plugins: PluginItem[];
   entities?: Entity[];
   favorites: string[];
   setFavorites: (favorites: string[]) => void;
@@ -151,7 +152,7 @@ const UnindexedPlugin = (props) => {
         />
       </div>
       </div>
-      <Score plugin={plugin} />
+      <Score redirectForReason={true} plugin={plugin} />
       {showDownloadStat && (
         <div className="pt-4 text-gray-700 flex items-center gap-x-2">
           <Tooltip content="Downloads">

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Header, { IHeaderProps } from '../../components/Header';
 import Navbar from '../../components/Navbar';
 
-import { PrismaClient } from '@prisma/client';
 import Link from 'next/link';
 import { Footer } from '../../components/Footer';
 import { sanitizeTag, tagDenyList } from '../../utils/plugins';
@@ -10,7 +9,6 @@ import { PluginsCache } from '../../cache/plugins-cache';
 import InfoBar from '../../components/InfoBar';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import EthicalAd from '../../components/EthicalAd';
-import { Search } from 'lucide-react';
 import { TextInput } from 'flowbite-react';
 
 interface ITagsPageProps extends IHeaderProps {

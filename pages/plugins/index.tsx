@@ -12,11 +12,9 @@ import { List as ListIcon, Table as TableIcon, Tool } from 'react-feather';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
 import { useScoreListStore, useScorerStore } from '../../store/scorer-store';
-import { useCustomScoreWithScoreUpdater } from '../../hooks/useCustomScoreWithScoreUpdater';
 import { Plugin } from '@prisma/client';
 import EthicalAd from '../../components/EthicalAd';
 import ResponsiveLayout from '../_responsive-layout';
-import { getGraidentFrom, getGraidentTo } from '../../lib/customThemes';
 import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Suggestions } from '../../domain/suggestions/models';
@@ -131,7 +129,7 @@ const Plugins = (props: IPageProps) => {
   const [view, setView] = useState('list');
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const plugins = useCustomScoreWithScoreUpdater(props.plugins);
+  const plugins = props.plugins;
 
   useEffect(() => {
     setupFavorites(setFavorites);

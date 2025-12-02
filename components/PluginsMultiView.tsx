@@ -1,12 +1,11 @@
 import React from 'react';
 import { PluginsListView } from './PluginsListView';
-import { Plugin } from '@prisma/client';
-import { useCustomScoreWithScoreUpdater } from '../hooks/useCustomScoreWithScoreUpdater';
 import EthicalAd from './EthicalAd';
 import { Entity } from '@/domain/Entity';
+import { PluginItem } from '@/domain/plugins/models/PluginItem';
 
 interface IPluginsMultiViewProps {
-  plugins: Plugin[];
+  plugins: PluginItem[];
   entities?: Entity[];
   favorites: string[];
   setFavorites: (favorites: string[]) => void;
@@ -23,13 +22,8 @@ export const PluginsMultiView = (props: IPluginsMultiViewProps) => {
     favorites,
     setFavorites,
     showDownloads,
-    showDescription,
-    showAuthor,
-    showCreatedAt,
-    view,
-    setView,
   } = props;
-  const plugins = useCustomScoreWithScoreUpdater(props.plugins);
+  const plugins = props.plugins;
 
   return (
     <div className="flex-col stripped">

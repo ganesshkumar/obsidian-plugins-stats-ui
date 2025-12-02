@@ -132,14 +132,7 @@ const Plugin = (props: IPluginProps) => {
   return (
     <div>
       <Header {...props} />
-      <AppNavbar current={`tag:${props.plugin.pluginId}`}>
-        {/* <Navbar.Link
-          href={`/tags/${props.plugin.pluginId}`}
-          active={true}
-          className="text-lg"
-        >
-          {`plugin: ${props.plugin.pluginId}`}
-        </Navbar.Link> */}
+      <AppNavbar current={`plugin:${props.plugin.pluginId}`}>
       </AppNavbar>
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar}>
@@ -697,7 +690,7 @@ export const getStaticProps = async ({ params }) => {
       canonical,
       image,
       jsonLdSchema,
-      plugin: serializeDates(plugin),
+      plugin,
       tags,
       similarPlugins: reducedSimilarPlugins,
       hasMoreSimilarPlugins: suggestions.hasMoreSimilarPlugins,
@@ -724,13 +717,5 @@ const processMarkdown = async (markdown: string) => {
 
   return contentHtml;
 };
-
-function serializeDates<T>(obj: T): T {
-  return JSON.parse(
-    JSON.stringify(obj, (_key, value) =>
-      value instanceof Date ? value.toISOString() : value
-    )
-  );
-}
 
 export default Plugin;
