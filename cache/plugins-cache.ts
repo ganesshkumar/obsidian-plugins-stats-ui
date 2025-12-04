@@ -27,6 +27,7 @@ export type PluginMetrics = {
 
 /**
  * Class representing a cache for plugins.
+ * Implements a stale-while-revalidate caching strategy with a 1-hour TTL.
  */
 export class PluginsCache {
   /**
@@ -36,24 +37,86 @@ export class PluginsCache {
   static plugins: PluginRecord[];
 
   /**
+   * Timestamp of when the cache was last fetched.
+   * @type {number | null}
+   */
+  static lastFetchedAt: number | null = null;
+
+  /**
+   * Flag to prevent concurrent refresh operations.
+   * @type {boolean}
+   */
+  static isRefreshing: boolean = false;
+
+  /**
+   * Cache Time-To-Live in milliseconds (1 hour).
+   * @type {number}
+   */
+  static CACHE_TTL_MS: number = 60 * 60 * 1000;
+
+  /**
+   * Checks if the cache has expired.
+   * @returns {boolean} True if the cache is expired, false otherwise.
+   */
+  private static isCacheExpired(): boolean {
+    if (!PluginsCache.lastFetchedAt) return true;
+    return (Date.now() - PluginsCache.lastFetchedAt) > PluginsCache.CACHE_TTL_MS;
+  }
+
+  /**
+   * Triggers a background refresh of the cache if it's expired and not already refreshing.
+   * Returns immediately without waiting for the refresh to complete.
+   */
+  private static triggerBackgroundRefresh(): void {
+    if (PluginsCache.isCacheExpired() && !PluginsCache.isRefreshing) {
+      PluginsCache.isRefreshing = true;
+      PluginsCache.fetch()
+        .then((freshData) => {
+          PluginsCache.plugins = freshData;
+          PluginsCache.lastFetchedAt = Date.now();
+          console.log('PluginsCache: Background refresh completed successfully.');
+        })
+        .catch((err) => {
+          console.error('PluginsCache: Background refresh failed:', err);
+        })
+        .finally(() => {
+          PluginsCache.isRefreshing = false;
+        });
+    }
+  }
+
+  /**
    * Retrieves the cached plugins data. If the data is not cached, it fetches the data from the database.
+   * If the cache is expired, it returns stale data immediately and triggers a background refresh.
    * @returns {Promise<PluginRecord[]>} The cached plugins data.
    */
   static async get(): Promise<PluginRecord[]> {
+    // No cache - must fetch and wait
     if (!PluginsCache.plugins) {
       PluginsCache.plugins = await PluginsCache.fetch();
+      PluginsCache.lastFetchedAt = Date.now();
+      return PluginsCache.plugins;
     }
+
+    // Cache exists but may be expired - trigger background refresh if needed
+    PluginsCache.triggerBackgroundRefresh();
 
     return PluginsCache.plugins;
   }
 
   /**
-   * Retrieves the cached plugins data. If the data is not cached, it fetches the data from the database.
-   * @returns {Promise<PluginRecord[]>} The cached plugins data.
+   * Retrieves the cached plugins metrics. If the data is not cached, it fetches the data from the database.
+   * If the cache is expired, it returns stale data immediately and triggers a background refresh.
+   * @returns {Promise<PluginMetrics[]>} The cached plugins metrics.
    */
   static async getMetrics(): Promise<PluginMetrics[]> {
+    // No cache - must fetch and wait
     if (!PluginsCache.plugins) {
       PluginsCache.plugins = await PluginsCache.fetch();
+      PluginsCache.lastFetchedAt = Date.now();
+    } else {
+      // Cache exists but may be expired - trigger background refresh if needed
+      PluginsCache.triggerBackgroundRefresh();
     }
     const plugins = PluginsCache.plugins.map((plugin) => {
       return {
