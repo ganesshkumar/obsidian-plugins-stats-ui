@@ -376,7 +376,7 @@ const Themes = (props: IPageProps) => {
                   onChange={handleFilterChange}
                 />
               </div>
-              <div className="pl-2 bg-white flex flex-col md:flex-row gap-y-2 justify-between">
+              <div className="pl-2 mb-2  bg-white flex flex-col md:flex-row gap-y-2 justify-between">
                 <div className="flex flex-col md:flex-row gap-x-4">
                   <div className="flex flex-col md:flex-row gap-x-2 justify-center">
                     <label className="cursor-pointer label">
@@ -483,11 +483,10 @@ const Themes = (props: IPageProps) => {
                   </Dropdown>
                 </div>
               </div>
-              <div className="pl-2 mt-2 mb-4 flex gap-x-2 items-center">
+              {/* <div className="pl-2 mt-2 mb-4 flex gap-x-2 items-center">
                 <div className="mr-2 font-semibold">View: </div>
                 <Button.Group outline>
                   {' '}
-                  {/* View Options */}
                   <Button
                     color="gray"
                     onClick={() => handleViewChange('list')}
@@ -506,7 +505,7 @@ const Themes = (props: IPageProps) => {
                     Table
                   </Button>
                 </Button.Group>
-              </div>
+              </div> */}
               {isLessThanLarge && (
                 <EthicalAd
                   type="text"

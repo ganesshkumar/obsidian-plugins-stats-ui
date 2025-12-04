@@ -241,13 +241,6 @@ const Home = (props: IHomeProps) => {
                   </li>
                   <li
                     className="underline cursor-pointer flex items-center gap-x-1"
-                    onClick={() => goToPage('scorer')}
-                  >
-                    {' '}
-                    <HiOutlineCode /> Scorer
-                  </li>
-                  <li
-                    className="underline cursor-pointer flex items-center gap-x-1"
                     onClick={() => goToPage('migrate')}
                   >
                     {' '}

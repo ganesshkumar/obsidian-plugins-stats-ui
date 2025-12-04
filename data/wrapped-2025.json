@@ -1,0 +1,831 @@
+{
+  "year": "2025",
+  "milestone": {
+    "totalPlugins": 2692,
+    "totalPluginDownloads": 97695154,
+    "totalThemes": 414
+  },
+  "stats": {
+    "newPluginsCount": 792,
+    "newPluginsDevCount": 666,
+    "updatedPluginsCount": 11591,
+    "pluginDownloadCount": 31352705,
+    "newThemesCount": 139,
+    "newThemesDevCount": 116
+  },
+  "mostDownloadedPlugins": {
+    "obsidian-excalidraw-plugin": {
+      "name": "Excalidraw",
+      "delta": 1780406
+    },
+    "templater-obsidian": {
+      "name": "Templater",
+      "delta": 1405280
+    },
+    "dataview": {
+      "name": "Dataview",
+      "delta": 1112084
+    },
+    "obsidian-tasks-plugin": {
+      "name": "Tasks",
+      "delta": 1023697
+    },
+    "obsidian-git": {
+      "name": "Git",
+      "delta": 699981
+    },
+    "calendar": {
+      "name": "Calendar",
+      "delta": 690796
+    },
+    "obsidian-style-settings": {
+      "name": "Style Settings",
+      "delta": 616437
+    },
+    "copilot": {
+      "name": "Copilot",
+      "delta": 587219
+    },
+    "remotely-save": {
+      "name": "Remotely Save",
+      "delta": 578974
+    },
+    "obsidian-icon-folder": {
+      "name": "Icon Folder",
+      "delta": 561668
+    }
+  },
+  "mostUpdatedPlugins": {
+    "note-toolbar": {
+      "name": "Note Toolbar",
+      "totalUpdated": 184
+    },
+    "obsidian-task-progress-bar": {
+      "name": "Task Progress Bar",
+      "totalUpdated": 160
+    },
+    "obsidian-custom-attachment-location": {
+      "name": "Custom Attachment Location",
+      "totalUpdated": 142
+    },
+    "notes-to-strapi-export-article-ai": {
+      "name": "Strapi Exporter AI",
+      "totalUpdated": 125
+    },
+    "system3-relay": {
+      "name": "Relay",
+      "totalUpdated": 125
+    },
+    "notebook-navigator": {
+      "name": "Notebook Navigator",
+      "totalUpdated": 124
+    },
+    "gridexplorer": {
+      "name": "GridExplorer",
+      "totalUpdated": 119
+    },
+    "tasknotes": {
+      "name": "TaskNotes",
+      "totalUpdated": 106
+    },
+    "fix-require-modules": {
+      "name": "Fix Require Modules",
+      "totalUpdated": 101
+    },
+    "smart-connections": {
+      "name": "Smart Connections",
+      "totalUpdated": 97
+    }
+  },
+  "mostDownloadedFromNewPlugins": {
+    "datacore": {
+      "name": "Datacore",
+      "totalDownloads": 184978
+    },
+    "notebook-navigator": {
+      "name": "Notebook Navigator",
+      "totalDownloads": 167530
+    },
+    "tasknotes": {
+      "name": "TaskNotes",
+      "totalDownloads": 101354
+    },
+    "pretty-properties": {
+      "name": "Pretty Properties",
+      "totalDownloads": 81880
+    },
+    "obsidian-imgur-plugin": {
+      "name": "Imgur",
+      "totalDownloads": 57883
+    },
+    "obsidian-image-toolkit": {
+      "name": "Image Toolkit",
+      "totalDownloads": 56082
+    },
+    "any-block": {
+      "name": "AnyBlock",
+      "totalDownloads": 46655
+    },
+    "obsidian-timestamper": {
+      "name": "TimeStamper",
+      "totalDownloads": 38834
+    },
+    "manual-sorting": {
+      "name": "Manual Sorting",
+      "totalDownloads": 35633
+    },
+    "fantasy-name": {
+      "name": "Fantasy name generator",
+      "totalDownloads": 28313
+    }
+  },
+  "mostPluginsByAuthor": {
+    "Boninall": [
+      {
+        "id": "obsidian-task-progress-bar",
+        "name": "Task Genius",
+        "author": "Boninall",
+        "description": "Comprehensive task management that includes progress bars, task status cycling, and advanced task tracking features.",
+        "repo": "Quorafind/Obsidian-Task-Genius",
+        "publisedAt": "2025-11-02"
+      },
+      {
+        "id": "fold-anywhere",
+        "name": "Fold Anywhere",
+        "author": "Boninall",
+        "description": "Set start and end marker, and then fold any text anywhere in live preview mode.",
+        "repo": "Quorafind/Obsidian-Fold-Anywhere",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "file-property-enhancer",
+        "name": "File Property Enhancer",
+        "author": "Boninall",
+        "description": "Add icons to the file property, and customize the display of the file property.",
+        "repo": "Quorafind/Obsidian-File-Property-Enhancer",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "collapse-node",
+        "name": "Collapse Node",
+        "author": "Boninall",
+        "description": "Collapse node in canvas.",
+        "repo": "Quorafind/Obsidian-Collapse-Node",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "better-order-list",
+        "name": "Better Order List",
+        "author": "Boninall",
+        "description": "Support new line order list like 1、 or (1)., etc.",
+        "repo": "Quorafind/Obsidian-Better-Order-List",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "templify",
+        "name": "Templify",
+        "description": "Enables flexible conversion of note views into various layout (Closed source).",
+        "author": "Boninall",
+        "repo": "Quorafind/Obsidian-Templify",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "search-in-canvas",
+        "name": "Search In Canvas",
+        "author": "Boninall",
+        "description": "Search text in canvas.",
+        "repo": "Quorafind/Obsidian-Search-In-Canvas",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "node-auto-resize",
+        "name": "Node Auto Resize",
+        "author": "Boninall",
+        "description": "Automatically resize the node when the content changes.",
+        "repo": "Quorafind/Obsidian-Node-Auto-Resize",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "pdf-annotator",
+        "name": "Pdf Annotator",
+        "author": "Boninall",
+        "description": "Simple but powerful pdf annotator.",
+        "repo": "Quorafind/Obsidian-PDF-Annotator",
+        "publisedAt": "2025-12-04"
+      }
+    ],
+    "mnaoumov": [
+      {
+        "id": "fix-require-modules",
+        "name": "CodeScript Toolkit",
+        "author": "mnaoumov",
+        "description": "Allows to do a lot of things with JavaScript/TypeScript scripts from inside the Obsidian itself",
+        "repo": "mnaoumov/obsidian-codescript-toolkit",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "external-rename-handler",
+        "name": "External Rename Handler",
+        "author": "mnaoumov",
+        "description": "Handles renames made outside of the app.",
+        "repo": "mnaoumov/obsidian-external-rename-handler",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "frontmatter-markdown-links",
+        "name": "Frontmatter Markdown Links",
+        "author": "mnaoumov",
+        "description": "Adds support for markdown links in frontmatter.",
+        "repo": "mnaoumov/obsidian-frontmatter-markdown-links",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "new-note-fixer",
+        "name": "New Note Fixer",
+        "author": "mnaoumov",
+        "description": "Unifies the way non-existing notes are created when clicking on their links.",
+        "repo": "mnaoumov/obsidian-new-note-fixer",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "backlink-full-path",
+        "name": "Backlink Full Path",
+        "author": "mnaoumov",
+        "description": "Shows the backlink's full path in the backlinks panel.",
+        "repo": "mnaoumov/obsidian-backlink-full-path",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "advanced-debug-mode",
+        "name": "Advanced Debug Mode",
+        "author": "mnaoumov",
+        "description": "Enhances debugging experience.",
+        "repo": "mnaoumov/obsidian-advanced-debug-mode",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "advanced-note-composer",
+        "name": "Advanced Note Composer",
+        "author": "mnaoumov",
+        "description": "Enhances Note composer core plugin.",
+        "repo": "mnaoumov/obsidian-advanced-note-composer",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "refresh-preview",
+        "name": "Refresh Any View",
+        "author": "mnaoumov",
+        "description": "Allows to refresh any view without reopening it.",
+        "repo": "mnaoumov/obsidian-refresh-any-view",
+        "publisedAt": "2025-12-04"
+      }
+    ],
+    "Mara-Li": [
+      {
+        "id": "context-command-hider",
+        "name": "Context Command Hider",
+        "author": "Mara-Li",
+        "description": "Hide any command from the right-click menu.",
+        "repo": "mara-li/obsidian-context-menu-hider",
+        "publisedAt": "2025-09-12"
+      },
+      {
+        "id": "my-thesaurus",
+        "name": "My Thesaurus",
+        "author": "Mara-Li",
+        "description": "Automagically adds tags based on a simple csv file or a Markdown table.",
+        "repo": "Mara-Li/obsidian-my-thesaurus",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "simple-colored-folder",
+        "name": "Simple Colored Folder",
+        "author": "Mara-Li",
+        "description": "Automagically add color to roots folders, and customize it with Style Settings.",
+        "repo": "Mara-Li/obsidian-simple-colored-folder",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "alpha-bullet",
+        "name": "Alpha Bullet",
+        "author": "Mara-Li",
+        "description": "Sorts bulleted lists alphabetically.",
+        "repo": "Mara-Li/obsidian-alpha-bullet",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "dataview-properties",
+        "name": "Dataview (to) Properties",
+        "author": "Mara-Li",
+        "description": "Automagically copy dataview inline field (and their values, even calculated!) into frontmatter properties and keep them sync.",
+        "repo": "Mara-Li/obsidian-dataview-properties",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "explorer-hider",
+        "name": "Explorer Hider",
+        "author": "Mara-Li",
+        "description": "Hide a file or a folder from the explorer (and bookmarks) using a little bit of auto-managed CSS.",
+        "repo": "Mara-Li/obsidian-explorer-hider",
+        "publisedAt": "2025-12-04"
+      }
+    ],
+    "wenlzhang": [
+      {
+        "id": "uri-converter",
+        "name": "URI Converter",
+        "author": "wenlzhang",
+        "description": "Convert URIs to internal links.",
+        "repo": "wenlzhang/obsidian-uri-converter",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "file-title-updater",
+        "name": "File Title Updater",
+        "author": "wenlzhang",
+        "description": "Synchronize titles between filename, frontmatter, and first heading in notes.",
+        "repo": "wenlzhang/obsidian-file-title-updater",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "canvas-format-brush",
+        "name": "Canvas Format Brush",
+        "author": "wenlzhang",
+        "description": "Copy and paste formatting attributes (size and color) between canvas elements, similar to the format painter in Word.",
+        "repo": "wenlzhang/obsidian-canvas-format-brush",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "folder-navigator",
+        "name": "Folder Navigator",
+        "author": "wenlzhang",
+        "description": "Quickly navigate to folders in your vault using fuzzy search.",
+        "repo": "wenlzhang/obsidian-folder-navigator",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "tag-index",
+        "name": "Tag Index",
+        "description": "Create a curated list of important tags to serve as meaningful entry points to your knowledge base.",
+        "author": "wenlzhang",
+        "repo": "wenlzhang/obsidian-tag-index",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "send-to-canvas",
+        "name": "Send to Canvas",
+        "author": "wenlzhang",
+        "description": "Send tasks, blocks, and notes to Canvas files as plain text, links, and embeds.",
+        "repo": "wenlzhang/obsidian-send-to-canvas",
+        "publisedAt": "2025-12-04"
+      }
+    ],
+    "Nick Felker": [
+      {
+        "id": "feedly-annotations",
+        "name": "Feedly Annotations Sync",
+        "author": "Nick Felker",
+        "description": "Syncs Feedly highlights and annotations to a folder in your vault.",
+        "repo": "fleker/feedly-for-obsidian",
+        "publisedAt": "2025-09-12"
+      },
+      {
+        "id": "letterboxd-rss-sync",
+        "name": "Letterboxd Diary RSS Sync",
+        "author": "Nick Felker",
+        "description": "Syncs your public Letterboxd diary.",
+        "repo": "Fleker/letterboxd-for-obsidian",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "trakt-tv",
+        "name": "Trakt.tv Sync",
+        "author": "Nick Felker",
+        "description": "Syncs your watched Trakt.tv shows to a file.",
+        "repo": "Fleker/trakt-for-obsidian",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "setlist-fm-sync",
+        "name": "Setlist.fm Sync",
+        "author": "Nick Felker",
+        "description": "Syncs your setlist.fm attended concerts.",
+        "repo": "Fleker/setlist-for-obsidian",
+        "publisedAt": "2025-12-04"
+      }
+    ],
+    "d7sd6u": [
+      {
+        "id": "auto-folder-note-paste",
+        "name": "Auto Folder Note Paste",
+        "author": "d7sd6u",
+        "description": "Automagically convert the note to a folder note when pasting or drag'n'dropping an attachment.",
+        "repo": "d7sd6u/obsidian-auto-folder-note-paste",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "hide-index-files",
+        "name": "Hide Index Files",
+        "description": "Hide index files (folder notes) more reliably.",
+        "author": "d7sd6u",
+        "repo": "d7sd6u/obsidian-hide-index-files",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "crosslink-advanced",
+        "name": "Crosslink Advanced",
+        "description": "Tag files using folders and symlinks system (ftags).",
+        "author": "d7sd6u",
+        "repo": "d7sd6u/obsidian-crosslink-advanced",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "reveal-folded",
+        "name": "Reveal Folded",
+        "description": "Reveal the current file in the file explorer while collapsing all other tree items.",
+        "author": "d7sd6u",
+        "repo": "d7sd6u/obsidian-reveal-folded",
+        "publisedAt": "2025-12-04"
+      },
+      {
+        "id": "viewer-ftags",
+        "name": "Viewer ftags",
+        "author": "d7sd6u",
+        "description": "Add file's ftags as chips at the top of the markdown view.",
+        "repo": "d7sd6u/obsidian-viewer-ftags",
+        "publisedAt": "2025-12-04"
+      }
+    ]
+  },
+  "mostThemesByAuthor": {
+    "incantatem2": [
+      {
+        "name": "aged whisky",
+        "author": "incantatem2",
+        "repo": "incantatem2/Obsidian-aged-whisky",
+        "screenshot": "images/aged-whisky-thumbnail.jpg",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "cocoa",
+        "author": "incantatem2",
+        "repo": "incantatem2/Obsidian-cocoa",
+        "screenshot": "images/cocoa-thumbnail.jpg",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-10-17"
+      },
+      {
+        "name": "parfait",
+        "author": "incantatem2",
+        "repo": "incantatem2/Obsidian-parfait",
+        "screenshot": "images/parfait-thumbnail.jpg",
+        "modes": [
+          "light"
+        ],
+        "publishedAt": "2025-10-20"
+      },
+      {
+        "name": "deep submerge",
+        "author": "incantatem2",
+        "repo": "incantatem2/Obsidian-deep-submerge",
+        "screenshot": "images/deep-submerge-thumbnail.jpg",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "dashboard",
+        "author": "incantatem2",
+        "repo": "incantatem2/Obsidian-dashboard",
+        "screenshot": "images/thumbnail.jpg",
+        "modes": [
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Blood Rush",
+        "author": "incantatem2",
+        "repo": "incantatem2/Obsidian-blood-rush",
+        "screenshot": "images/bloodrush-thumbnail.jpg",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Antique Flowers",
+        "author": "incantatem2",
+        "repo": "incantatem2/Obsidian-antique-flowers",
+        "screenshot": "images/antique-flowers-dark-thumbnail.jpg",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Desserts",
+        "author": "incantatem2",
+        "repo": "incantatem2/Obsidian-desserts",
+        "screenshot": "images/desserts-light-thumbnail.jpg",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      }
+    ],
+    "Isabelle Basso": [
+      {
+        "name": "Minimalists Paradise",
+        "author": "Isabelle Basso",
+        "repo": "BelleBasso/MinimalistsParadise",
+        "screenshot": "screenshot.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-06-20"
+      }
+    ],
+    "monoooki": [
+      {
+        "name": "Hydra Pressure",
+        "author": "monoooki",
+        "repo": "monoooki/obsidian-hydra-pressure-theme",
+        "screenshot": "assets/screenshot.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Neo Sploosh",
+        "author": "monoooki",
+        "repo": "monoooki/obsidian-neo-sploosh-theme",
+        "screenshot": "assets/screenshot.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Planetz Roller",
+        "author": "monoooki",
+        "repo": "monoooki/obsidian-planetz-roller-theme",
+        "screenshot": "assets/screenshot.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      }
+    ],
+    "AfonsoMiranda02": [
+      {
+        "name": "Minimal Red",
+        "author": "AfonsoMiranda02",
+        "repo": "AfonsoMiranda02/Obsidian-MinimalRed",
+        "screenshot": "cover.png",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-09-12"
+      }
+    ],
+    "agodlyman": [
+      {
+        "name": "Serif",
+        "author": "agodlyman",
+        "repo": "GodlyMan-bit/Serif",
+        "screenshot": "screenshot.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Soli Deo Gloria",
+        "author": "agodlyman",
+        "repo": "GodlyMan-bit/SoliDeoGloria",
+        "screenshot": "screenshot.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      }
+    ],
+    "Paralloid": [
+      {
+        "name": "Things 3",
+        "author": "Paralloid",
+        "repo": "MrParalloid/obsidian-things",
+        "screenshot": "things-screenshot.jpg",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Pomme Notes",
+        "author": "Paralloid",
+        "repo": "MrParalloid/pomme-notes",
+        "screenshot": "images/screenshot.jpg",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      }
+    ],
+    "LennZone": [
+      {
+        "name": "Enhanced file explorer tree",
+        "author": "LennZone",
+        "repo": "LennZone/enhanced-file-explorer-tree",
+        "screenshot": "thumbnail.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Neumorphism",
+        "author": "LennZone",
+        "repo": "LennZone/Neumorphism",
+        "screenshot": "thumbnail.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      }
+    ],
+    "ThePharaohArt": [
+      {
+        "name": "Cyber Glow",
+        "author": "ThePharaohArt",
+        "repo": "ThePharaohArt/Obsidian-CyberGlow",
+        "screenshot": "Screenshot.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "RetroOS 98",
+        "author": "ThePharaohArt",
+        "repo": "ThePharaohArt/Obsidian-RetroOS98",
+        "screenshot": "screen.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      }
+    ],
+    "fabdub": [
+      {
+        "name": "TerraFlow",
+        "author": "fabdub",
+        "repo": "dubefab/obsidian-TerraFlow",
+        "screenshot": "Terraflow-cover.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Matrix",
+        "author": "fabdub",
+        "repo": "dubefab/Matrix",
+        "screenshot": "cover.png",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-11-28"
+      }
+    ],
+    "konnta0": [
+      {
+        "name": "Noctis",
+        "author": "konnta0",
+        "repo": "konnta0/obsidian-noctis-theme",
+        "screenshot": "screenshot_512x228.png",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Noctis Viola",
+        "author": "konnta0",
+        "repo": "konnta0/obsidian-noctis-viola-theme",
+        "screenshot": "screenshot_512x288.png",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-11-28"
+      }
+    ],
+    "RastGame": [
+      {
+        "name": "Noctilux",
+        "author": "RastGame",
+        "repo": "RastGame/Noctilux",
+        "screenshot": "Assets/preview.png",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-09-12"
+      }
+    ],
+    "HotAndCold": [
+      {
+        "name": "Hidden Grotto",
+        "author": "HotAndCold",
+        "screenshot": "grotto-screenshot.png",
+        "repo": "HotAndCold245/Hidden-Grotto-Theme",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-10-17"
+      }
+    ],
+    "Vinit Kumar": [
+      {
+        "name": "Oscura",
+        "author": "Vinit Kumar",
+        "repo": "vinitkumar/oscura-obsidian",
+        "screenshot": "screenshot.png",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Monokai Ristretto",
+        "author": "Vinit Kumar",
+        "repo": "vinitkumar/monokai-ristretto-obsidian",
+        "screenshot": "screenshot.png",
+        "modes": [
+          "dark"
+        ],
+        "publishedAt": "2025-11-28"
+      }
+    ],
+    "wulflo": [
+      {
+        "name": "Universitario",
+        "author": "wulflo",
+        "repo": "wulflo/obsidian-universitario",
+        "screenshot": "cover.jpg",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-10-17"
+      }
+    ],
+    "Phemelo Modiga": [
+      {
+        "name": "Dedication",
+        "author": "Phemelo Modiga",
+        "repo": "modigaphemelo/Dedication-obsidian-theme",
+        "screenshot": "Dark.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      },
+      {
+        "name": "Dedication 2",
+        "author": "Phemelo Modiga",
+        "repo": "modigaphemelo/Dedication-2-Obsidian-Theme",
+        "screenshot": "Dark.png",
+        "modes": [
+          "dark",
+          "light"
+        ],
+        "publishedAt": "2025-11-28"
+      }
+    ]
+  }
+}

@@ -88,7 +88,7 @@ export class ThemesCache {
    */
   private static async fetch(): Promise<Theme[]> {
     const prisma: PrismaClient = new PrismaClient();
-    const themeRecords = await prisma.theme.findMany({});
+    const themeRecords = await prisma.theme.findMany({ where: { deletedAt: null } });
 
     if (!themeRecords || !themeRecords.length) {
       console.error('No themes found in the database.');
