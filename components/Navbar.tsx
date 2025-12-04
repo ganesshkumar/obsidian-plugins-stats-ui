@@ -185,24 +185,6 @@ const NavBar = ({ current, children }: INavbarProps) => {
                     </li>
                     <li>
                       <a
-                        href="/scorer"
-                        className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}
-                      >
-                        <List size={18} />
-                        Custom Scorers
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/scorer/build"
-                        className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'build-scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}
-                      >
-                        <Tool size={18} />
-                        Build Scorer
-                      </a>
-                    </li>
-                    <li>
-                      <a
                         href="/migrate"
                         className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'migrate' ? 'text-purple-700 dark:text-primary-500' : ''}`}
                       >
