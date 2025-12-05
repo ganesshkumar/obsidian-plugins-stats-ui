@@ -60,7 +60,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200', // 2 hours
+            value: 'public, max-age=7200, must-revalidate', // 2 hours
           },
         ],
       },
@@ -69,7 +69,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -78,7 +78,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -87,7 +87,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -96,7 +96,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -105,7 +105,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -114,7 +114,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -123,7 +123,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -132,7 +132,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -141,7 +141,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -150,7 +150,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -159,7 +159,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -168,7 +168,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -177,7 +177,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -186,7 +186,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -195,7 +195,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -204,7 +204,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -213,7 +213,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -222,7 +222,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -231,7 +231,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
@@ -240,7 +240,7 @@ module.exports = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=7200',
+            value: 'public, max-age=7200, must-revalidate',
           },
         ],
       },
