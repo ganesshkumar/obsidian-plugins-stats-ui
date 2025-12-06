@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import { AllPluginsMultiView } from '../../components/AllPluginsMultiView';
-import { Dropdown, Label, TextInput } from 'flowbite-react';
+import { Button, Dropdown, Label, TextInput } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
@@ -19,6 +19,7 @@ import { generateSuggestions } from '../../domain/suggestions';
 import { Suggestions } from '../../domain/suggestions/models';
 import { Sidebar } from '../../components/Sidebar';
 import { Checkbox } from '@/components/ui/checkbox';
+import { ListIcon, TableIcon } from 'lucide-react';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -117,7 +118,6 @@ const Plugins = (props: IPageProps) => {
   const router = useRouter();
   const { query } = router;
 
-  const getActiveScorer = useScorerStore((state) => state.getActiveScorer);
   const pluginsScoreMap = useScoreListStore((state) => state.scores);
 
   const [filter, setFilter] = useState<string>('');
