@@ -6,12 +6,11 @@ import { useRouter } from 'next/router';
 import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import { AllPluginsMultiView } from '../../components/AllPluginsMultiView';
-import { Button, Dropdown, Label, TextInput } from 'flowbite-react';
+import { Dropdown, Label, TextInput } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
-import { List as ListIcon, Table as TableIcon, Tool } from 'react-feather';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
-import { useScoreListStore, useScorerStore } from '../../store/scorer-store';
+import { useScoreListStore } from '../../store/scorer-store';
 import { Plugin } from '@prisma/client';
 import EthicalAd from '../../components/EthicalAd';
 import ResponsiveLayout from '../_responsive-layout';
@@ -177,7 +176,7 @@ const Plugins = (props: IPageProps) => {
     updateQuery({ q: value });
   };
 
-  const handleFavoritesFilterChange = (e) => {
+  const handleFavoritesFilterChange = () => {
     setFavoritesFilter(!favoritesFilter);
     updateQuery({ fav: !favoritesFilter });
   };

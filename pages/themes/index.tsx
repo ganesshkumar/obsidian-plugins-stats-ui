@@ -5,8 +5,7 @@ import Navbar from '../../components/Navbar';
 import { useRouter } from 'next/router';
 import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
-import { Button, Checkbox, Dropdown, Label, TextInput } from 'flowbite-react';
-import { List as ListIcon, Table as TableIcon } from 'react-feather';
+import { Dropdown, Label, TextInput } from 'flowbite-react';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
 import { Theme } from '@prisma/client';
@@ -18,6 +17,7 @@ import { Suggestions } from '../../domain/suggestions/models';
 import { Sidebar } from '../../components/Sidebar';
 import { ThemesCache } from '@/cache/themes-cache';
 import { AllThemesMultiView } from '@/components/AllThemesMultiView';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -248,10 +248,9 @@ const Themes = (props: IPageProps) => {
     updateQuery({ q: value });
   };
 
-  const handleFavoritesFilterChange = (e) => {
-    const value = e.target.checked;
-    setFavoritesFilter(value);
-    updateQuery({ fav: value });
+  const handleFavoritesFilterChange = () => {
+    setFavoritesFilter(!favoritesFilter);
+    updateQuery({ fav: !favoritesFilter });
   };
 
   const handleFilterCategoryChange = (value) => {
@@ -388,9 +387,8 @@ const Themes = (props: IPageProps) => {
                       <Checkbox
                         checked={favoritesFilter}
                         id="filter-favorites"
-                        className="mr-2 cursor-pointer"
-                        onChange={handleFavoritesFilterChange}
-                        color="purple"
+                        className="mr-2 cursor-pointer data-[state=checked]:bg-violet-700 data-[state=checked]:text-white data-[state=checked]:border-violet-700 font-bold"
+                        onCheckedChange={handleFavoritesFilterChange}
                       />
                       <Label
                         htmlFor="filter-favorites"
