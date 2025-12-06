@@ -11,6 +11,7 @@ import { getScoreBgClass } from '../lib/customThemes';
 import { Plugin } from '@prisma/client';
 import { Virtuoso } from 'react-virtuoso';
 import { EntityType } from '@/domain/Entity';
+import { RepoButton } from './RepoButton';
 
 const highlightMatch = (text: string, query: string) => {
   if (!text || !query) return text;
@@ -257,13 +258,19 @@ const UnindexedPluginListItemInternal = (props) => {
           getDescription(plugin)
         )}
       </div>
-      <Link
-        href={`/plugins/${plugin.pluginId}`}
-        className="underline text-gray-600 font-seminbold"
-        prefetch={false}
-      >
-        View Details
-      </Link>
+      <div className='flex gap-x-2'>
+        <Link
+          href={`/plugins/${plugin.pluginId}`}
+          className="underline text-gray-600 font-seminbold"
+          prefetch={false}
+        >
+          View Details
+        </Link>
+        <RepoButton
+          className='hover:cursor-pointer'
+          href={`https://github.com/${plugin.repo}`}
+        />
+      </div>
     </div>
   );
 };

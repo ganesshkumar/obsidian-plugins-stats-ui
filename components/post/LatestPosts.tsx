@@ -52,10 +52,10 @@ export const LatestPosts = ({ posts }) => {
         </div>
         <div className="relative max-w-xl hidden md:flex justify-center items-center w-full h-full">
           <Image
-            src="/images/gk-coding.webp"
+            src="/images/undraw/undraw_blogging_38kl.svg"
             alt="Latest Posts"
-            width={576}
-            height={384}
+            width={400}
+            height={400}
           />
         </div>
       </div>

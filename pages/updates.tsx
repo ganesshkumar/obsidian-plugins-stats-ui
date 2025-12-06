@@ -16,6 +16,7 @@ import Header, { IHeaderProps } from '../components/Header';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
 import EthicalAd from '../components/EthicalAd';
 import { EntityType } from '@/domain/Entity';
+import { RepoButton } from '@/components/RepoButton';
 
 const mdConverter = new showdown.Converter();
 mdConverter.setFlavor('github');
@@ -113,13 +114,19 @@ const Updates = (props: IUpdatePageProps) => {
                         )}
                       </details>
                     </div>
-                    <Link
-                      href={`/plugins/${plugin.pluginId}`}
-                      className="underline text-gray-600 font-seminbold"
-                      prefetch={false}
-                    >
-                      View Details
-                    </Link>
+                    <div className='flex gap-x-2'>
+                      <Link
+                        href={`/plugins/${plugin.pluginId}`}
+                        className="underline text-gray-600 font-seminbold"
+                        prefetch={false}
+                      >
+                        View Details
+                      </Link>
+                      <RepoButton
+                        className='hover:cursor-pointer'
+                        href={`https://github.com/${plugin.repo}`}
+                      />
+                    </div>
                   </div>
                 </div>
               </List.Item>
