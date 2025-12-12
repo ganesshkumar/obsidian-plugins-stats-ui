@@ -628,10 +628,10 @@ export const getStaticPaths = async () => {
   const plugins = await PluginsCache.get();
 
   return {
-    paths: Array.from(plugins).map((plugin: any) => ({
+    paths: [], /* Array.from(plugins).map((plugin: any) => ({
       params: { slug: plugin.pluginId },
-    })),
-    fallback: false,
+    })), */
+    fallback: 'blocking',
   };
 };
 
@@ -700,6 +700,7 @@ export const getStaticProps = async ({ params }) => {
           .sort((a, b) => b.zScoreTrending - a.zScoreTrending)
           .findIndex((p) => p.pluginId === plugin.pluginId) < 10,
     },
+    revalidate: 7200,
   };
 };
 

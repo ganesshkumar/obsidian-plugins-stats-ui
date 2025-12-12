@@ -150,6 +150,7 @@ export const getStaticProps = async () => {
       pluginCountByCategories: categoriesData,
       topPluginsByCategories: topPluginsByCategories,
     },
+    revalidate: 7200,
   };
 };
 

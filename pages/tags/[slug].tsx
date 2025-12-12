@@ -68,8 +68,8 @@ export const getStaticPaths = async () => {
   tags = Array.from(new Set(tags));
 
   return {
-    paths: tags.map((tag) => ({ params: { slug: tag } })),
-    fallback: false,
+    paths: [], // tags.map((tag) => ({ params: { slug: tag } })),
+    fallback: 'blocking',
   };
 };
 
@@ -128,6 +128,7 @@ export const getStaticProps = async ({ params }) => {
       tag: params.slug,
       plugins: pluginItems.map(toPluginItem),
     },
+    revalidate: 7200, // Revalidate every 2 hours
   };
 };
 

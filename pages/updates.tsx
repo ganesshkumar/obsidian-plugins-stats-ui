@@ -168,6 +168,7 @@ export const getStaticProps = async () => {
       jsonLdSchema,
       newReleases,
     },
+    revalidate: 7200,
   };
 };
 

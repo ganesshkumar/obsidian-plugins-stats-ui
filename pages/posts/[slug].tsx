@@ -37,8 +37,8 @@ interface IPostPageProps extends IHeaderProps {
 export const getStaticPaths: GetStaticPaths = () => {
   const paths = getAllPostIds();
   return {
-    paths,
-    fallback: false,
+    paths: [], // paths,
+    fallback: 'blocking',
   };
 };
 
@@ -137,6 +137,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       plugins: filteredPlugins,
       suggestions,
     },
+    revalidate: 604800, // 7 days
   };
 };
 

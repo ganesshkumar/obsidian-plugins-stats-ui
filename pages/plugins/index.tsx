@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import { AllPluginsMultiView } from '../../components/AllPluginsMultiView';
-import { Button, Dropdown, Label, TextInput } from 'flowbite-react';
+import { Dropdown, Label, TextInput } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
@@ -513,11 +513,10 @@ const Plugins = (props: IPageProps) => {
                   </Dropdown>
                 </div>
               </div>
-              <div className="pl-2 mt-2 mb-4 flex gap-x-2 items-center">
+              {/* <div className="pl-2 mt-2 mb-4 flex gap-x-2 items-center">
                 <div className="mr-2 font-semibold">View: </div>
                 <Button.Group outline>
                   {' '}
-                  {/* View Options */}
                   <Button
                     color="gray"
                     onClick={() => handleViewChange('list')}
@@ -536,7 +535,7 @@ const Plugins = (props: IPageProps) => {
                     Table
                   </Button>
                 </Button.Group>
-              </div>
+              </div> */}
               {isLessThanLarge && (
                 <EthicalAd
                   type="text"
@@ -544,6 +543,7 @@ const Plugins = (props: IPageProps) => {
                   placementId="plugins-fixed-footer"
                 />
               )}
+              <div className='mt-2'></div>
               <AllPluginsMultiView
                 highlight={Array.isArray(filter) ? filter[0] : filter}
                 plugins={filteredPlugins}
@@ -589,6 +589,7 @@ export const getStaticProps = async () => {
       plugins,
       suggestions,
     },
+    revalidate: 7200,
   };
 };
 
