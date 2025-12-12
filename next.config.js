@@ -1,5 +1,9 @@
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+module.exports = withBundleAnalyzer({
   output: 'standalone',
   staticPageGenerationTimeout: 300,
   eslint: {
@@ -45,4 +49,31 @@ module.exports = {
       },
     ];
   },
-};
+  webpack: (config, { isServer }) => {
+    // Only apply to client-side bundles
+    if (!isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          default: false,
+          vendors: false,
+          // Vendor chunk for node_modules
+          vendor: {
+            name: 'vendors',
+            test: /[\\/]node_modules[\\/]/,
+            priority: 20,
+            reuseExistingChunk: true,
+          },
+          // Common chunk for shared code
+          common: {
+            name: 'common',
+            minChunks: 2,
+            priority: 10,
+            reuseExistingChunk: true,
+          },
+        },
+      }
+    }
+    return config
+  },
+});
