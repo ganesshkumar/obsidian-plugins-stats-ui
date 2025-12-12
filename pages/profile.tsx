@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { Card } from 'flowbite-react';
@@ -53,9 +54,11 @@ const Profile = () => {
                   
                   <div className="mb-8">
                     {user.avatarUrl && (
-                      <img 
+                      <Image 
                         src={user.avatarUrl} 
                         alt="Profile" 
+                        width={128}
+                        height={128}
                         className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-violet-200 shadow-lg"
                       />
                     )}
@@ -89,7 +92,7 @@ const Profile = () => {
                   Sign in to view and manage your profile
                 </p>
                 <Button onClick={() => handleLogin()} className="mt-2 border border-gray-700 py-1 cursor-pointer hover:bg-gray-100 flex items-center gap-2">
-                  <img src='/images/logos/google.png' className='w-8' />
+                  <Image src='/images/logos/google.png' alt="Google logo" width={32} height={32} className='w-8' />
                   <span>Sign in with Google</span>
                 </Button>
               </Card>

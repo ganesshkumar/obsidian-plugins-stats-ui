@@ -9,6 +9,7 @@ import {
 } from 'flowbite-react';
 import Constants from '../constants';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   Rss,
   HelpCircle,
@@ -175,31 +176,31 @@ const NavBar = ({ current, children }: INavbarProps) => {
                 <ul className="grid grid-cols-1">
                   <div className="space-y-4 p-4">
                     <li>
-                      <a
+                      <Link
                         href="/tools/dataview-query-wizard"
                         className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'scorer' ? 'text-purple-700 dark:text-primary-500' : ''}`}
                       >
                         <RiOpenaiFill size={24} />
                         Dataview Query Builder
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         href="/migrate"
                         className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'migrate' ? 'text-purple-700 dark:text-primary-500' : ''}`}
                       >
                         <RefreshCw size={18} />
                         Migrate/Sync
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         href="/timeline"
                         className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'timeline' ? 'text-purple-700 dark:text-primary-500' : ''}`}
                       >
                         <Calendar size={18} />
                         Timeline
-                      </a>
+                      </Link>
                     </li>
                   </div>
                 </ul>

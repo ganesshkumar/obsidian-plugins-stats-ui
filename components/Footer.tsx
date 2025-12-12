@@ -3,6 +3,7 @@ import {
   CustomFlowbiteTheme,
   Footer as FlowbiteFooter,
 } from 'flowbite-react';
+import Link from 'next/link';
 import Constants from '../constants';
 import { Sponsorship } from './Sponsorship';
 import { Twitter, Youtube } from 'react-feather';
@@ -189,9 +190,9 @@ export const Footer = () => {
           <div className="w-full items-center justify-between">
             <div className="text-sm text-gray-900 text-center">
               © 2022-{new Date().getFullYear()}{' '}
-              <a href="/" className="hover:underline" role="link">
+              <Link href="/" className="hover:underline" role="link">
                 {Constants.AppName}
-              </a>
+              </Link>
               . All rights reserved.
             </div>
             <div className="my-2 text-sm  dark:text-gray-400 text-center">

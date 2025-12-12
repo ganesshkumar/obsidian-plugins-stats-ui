@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Moon, Sun, Tool } from 'react-feather';
 import { PageInfo, Suggestions } from '../domain/suggestions/models';
 import { useIsLessThanLarge } from '../hooks/useIsLessThanLarge';
@@ -92,7 +93,7 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
                 {similarTheme.name}
               </p>
               <div className="flex items-stretch justify-between gap-x-4 w-full">
-                <img src={`https://raw.githubusercontent.com/${similarTheme.repo}/HEAD/${similarTheme.screenshot}`} alt={similarTheme.name} className="w-32 h-20 mt-2 mb-2 object-contain" />
+                <Image src={`https://raw.githubusercontent.com/${similarTheme.repo}/HEAD/${similarTheme.screenshot}`} alt={similarTheme.name} width={128} height={80} className="w-32 h-20 mt-2 mb-2 object-contain" />
                 <div className='flex flex-col grow-1 justify-end mb-4'>
                   {similarTheme.isLight && <div><Sun size={16} className="inline mx-1" /> Light Mode</div>}
                   {similarTheme.isDark && <div><Moon size={16} className="inline mx-1" /> Dark Mode</div>}

@@ -342,7 +342,7 @@ const StatsSection = (props) => {
           </ul>
         </div>
         <div className="hidden md:grid w-1/2 ml-20 overflow-visible content-center">
-          <img src="/images/undraw/undraw_community_re_cyrm.svg" className="" />
+          <Image src="/images/undraw/undraw_community_re_cyrm.svg" alt="Community illustration" width={400} height={400} className="" />
         </div>
       </div>
     </Section>

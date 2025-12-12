@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -165,7 +166,7 @@ const GiveRatingDialog = ({
         {authInitiated ? 
           <Spinner className="mt-2 text-violet-700" /> :
           <Button onClick={() => triggerGoogleAuth()} className="mt-2 border border-gray-700 py-1 cursor-pointer hover:bg-gray-100 flex items-center gap-2">
-            <img src='/images/logos/google.png' className='w-8' />
+            <Image src='/images/logos/google.png' alt="Google logo" width={32} height={32} className='w-8' />
             <span>Sign in with Google</span>
           </Button>
         }

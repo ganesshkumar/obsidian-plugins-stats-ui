@@ -1,4 +1,5 @@
 import { Button, Card } from 'flowbite-react';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { ArrowDown, ArrowUp, BarChart, Bookmark, User, Shield, Database } from 'react-feather';
 import Header from '../components/Header';
@@ -122,7 +123,7 @@ const PrivacyPolicy = () => {
         <li><strong>Plausible Analytics</strong> - No cookies used (cookieless analytics)</li>
       </ul>
       <p>
-        See our <a href="/cookie-policy">Cookie Policy</a> for more details.
+        See our <Link href="/cookie-policy">Cookie Policy</Link> for more details.
       </p>
 
       <h2>Third-Party Services</h2>
@@ -371,7 +372,7 @@ const PrivacyPolicy = () => {
       <h2>Cookie Policy</h2>
       <p>
         Obsidian Stats uses minimal cookies. For complete details, see our{' '}
-        <a href="/cookie-policy">Cookie Policy</a>.
+        <Link href="/cookie-policy">Cookie Policy</Link>.
       </p>
       <p>
         <strong>Summary:</strong> We use one httpOnly secure cookie for authentication (refresh token, 7 days). 

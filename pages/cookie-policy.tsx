@@ -1,4 +1,5 @@
 ﻿import { Button, Card } from 'flowbite-react';
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { ArrowDown, ArrowUp, BarChart, Bookmark, User, Shield, Database } from 'react-feather';
 import Header from '../components/Header';
@@ -218,7 +219,7 @@ const CookiePolicy = () => {
 
       <p className="pt-4">
         For more information about how we handle your data, please see our{' '}
-        <a href="/privacy-policy">Privacy Policy</a>.
+        <Link href="/privacy-policy">Privacy Policy</Link>.
       </p>
     </>
   );

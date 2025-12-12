@@ -1,4 +1,5 @@
 import { Button } from 'flowbite-react';
+import Link from 'next/link';
 import React from 'react';
 import { Rss } from 'react-feather';
 
@@ -15,7 +16,7 @@ export const SubstackNewsletter = () => {
             posts.
           </div>
           <div className="flex justify-center space-x-4 mt-4">
-            <a
+            <Link
               href="/weekly-plugin-updates-rss.xml"
               target="_blank"
               rel="noreferrer"
@@ -27,8 +28,8 @@ export const SubstackNewsletter = () => {
                 <Rss className="mr-2" size={18} />
                 <div>Weekly Plugin Updates</div>
               </Button>
-            </a>
-            <a href="/rss.xml" target="_blank" rel="noreferrer">
+            </Link>
+            <Link href="/rss.xml" target="_blank" rel="noreferrer">
               <Button
                 color="dark"
                 className="text-white font-bold py-2 px-4 rounded"
@@ -36,7 +37,7 @@ export const SubstackNewsletter = () => {
                 <Rss className="mr-2" size={18} />
                 New Plugins + Posts
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="flex flex-col justify-center items-center mt-8 mb-4">
