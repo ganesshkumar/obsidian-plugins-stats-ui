@@ -1,0 +1,99 @@
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+package-lock.json
+pnpm-lock.yaml
+
+# Build artifacts (built fresh inside Docker)
+.next
+out
+dist
+build
+
+# Prisma generated client (regenerated in Docker)
+node_modules/.prisma
+
+# Testing
+coverage
+.nyc_output
+*.test.ts
+*.test.tsx
+*.test.js
+*.test.jsx
+__tests__
+jest.config.ts
+jest.config.js
+
+# Documentation
+README.md
+docs-readme.md
+CONTRIBUTING
+docs/
+*.md
+*.MD
+jsdoc.config.json
+
+# IDE and Editor
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Environment files (will be provided at runtime)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env*.local
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker/
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+.circleci
+
+# Archives
+archive/
+*.zip
+*.tar
+*.tar.gz
+
+# Logs
+logs
+*.log
+
+# Cache (but keep cache/ directory for TypeScript files)
+.cache
+.temp
+tmp/
+
+# Config files
+ecosystem.config.js
+next-sitemap.config.js
+load-dot-env.ps1
+
+# Misc
+.prettierrc
+.prettierignore
+.eslintrc
+eslint.config.mjs
+.editorconfig
+LICENSE
+CODE_OF_CONDUCT.md
+changelog.md
+sync.md

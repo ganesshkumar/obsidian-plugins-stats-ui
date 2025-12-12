@@ -29,6 +29,73 @@ Explore [Obsidian](https://obsidian.md) plugins with these powerful features:
 
 ## Screenshots
 
+## Docker Deployment
+
+Run Obsidian Stats in a Docker container with minimal image size (~50-100MB).
+
+### Prerequisites
+
+- Docker installed on your system
+- A `.env` file with required environment variables
+
+### Build the Docker Image
+
+The Dockerfile accepts `DATABASE_URL` as a build argument, which is required for Prisma to generate the client during the build phase.
+
+**PowerShell (Windows):**
+
+```powershell
+docker build --build-arg DATABASE_URL="your_mongodb_connection_string" -t obsidian-plugins-stats .
+```
+
+**Bash (Linux/Mac):**
+
+```bash
+docker build --build-arg DATABASE_URL="your_mongodb_connection_string" -t obsidian-plugins-stats .
+```
+
+**Load from .env file (PowerShell):**
+
+```powershell
+$DATABASE_URL = (Get-Content .env | Select-String -Pattern '^DATABASE_URL=').ToString().Split('=', 2)[1]
+docker build --build-arg DATABASE_URL="$DATABASE_URL" -t obsidian-plugins-stats .
+```
+
+### Run with Environment File
+
+```bash
+docker run -p 3000:3000 --env-file .env obsidian-plugins-stats
+```
+
+### Using Docker Compose
+
+For easier management, use Docker Compose:
+
+```bash
+docker-compose up -d
+```
+
+To stop the container:
+
+```bash
+docker-compose down
+```
+
+### Environment Variables
+
+Create a `.env` file in the project root with your configuration:
+
+```env
+DATABASE_URL="your_database_url"
+NEXT_PUBLIC_SUPABASE_URL="your_supabase_url"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your_supabase_key"
+# Add other required environment variables
+```
+
+### Access the Application
+
+Once running, access the application at `http://localhost:3000`
+
 ## License
 
 [MIT](LICENSE)
