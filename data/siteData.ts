@@ -21,7 +21,7 @@ export const SiteData = {
     {
       title: 'Catalog of BETA Plugins',
       image:
-        'https://placehold.co/600x350/transparent/white?text=Beta&font=roboto',
+        '/images/beta.svg',
       description:
         'I am cataloging the BETA plugins that are not yet available in the Obsidian community plugins list. If you know a BETA plugin that you would like to be listed here, please submit it using the GitHub Issue.',
       link: 'https://github.com/ganesshkumar/awesome-obsidian-beta-plugins',
