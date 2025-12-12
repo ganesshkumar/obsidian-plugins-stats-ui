@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { setAuthToken, getAndClearReturnUrl, scheduleTokenRefresh } from '@/lib/auth';
+import {
+  setAuthToken,
+  getAndClearReturnUrl,
+  scheduleTokenRefresh,
+} from '@/lib/auth';
 import { useAnalytics } from '@/lib/analytics/analytics';
 
 /**
@@ -10,7 +14,9 @@ import { useAnalytics } from '@/lib/analytics/analytics';
  */
 export default function GoogleCallbackPage() {
   const router = useRouter();
-  const [status, setStatus] = useState<'processing' | 'success' | 'error'>('processing');
+  const [status, setStatus] = useState<'processing' | 'success' | 'error'>(
+    'processing'
+  );
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { trackEvent } = useAnalytics();
 
@@ -23,7 +29,9 @@ export default function GoogleCallbackPage() {
     // Handle error from backend
     if (error) {
       setStatus('error');
-      setErrorMessage(typeof error === 'string' ? error : 'Authentication failed');
+      setErrorMessage(
+        typeof error === 'string' ? error : 'Authentication failed'
+      );
       return;
     }
 

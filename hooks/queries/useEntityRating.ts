@@ -48,9 +48,9 @@ interface EntityRatingSummary {
  */
 export const entityRatingKeys = {
   all: (entityType: EntityType) => [`${entityType}Ratings`] as const,
-  user: (entityType: EntityType, entityId: string) => 
+  user: (entityType: EntityType, entityId: string) =>
     [`${entityType}Ratings`, 'user', entityId] as const,
-  summary: (entityType: EntityType, entityId: string) => 
+  summary: (entityType: EntityType, entityId: string) =>
     [`${entityType}Ratings`, 'summary', entityId] as const,
 };
 
@@ -70,7 +70,7 @@ export function useUserEntityRating(
   enabled: boolean = true
 ) {
   const entityPath = getEntityPath(entityType);
-  
+
   return useQuery({
     queryKey: entityRatingKeys.user(entityType, entityId),
     queryFn: async () => {
@@ -96,7 +96,7 @@ export function useUserEntityRating(
       }
       return failureCount < 2;
     },
-  }); 
+  });
 }
 
 /**
@@ -177,7 +177,7 @@ export function useEntityRatingSummary(
   enabled: boolean = true
 ) {
   const entityPath = getEntityPath(entityType);
-  
+
   return useQuery({
     queryKey: entityRatingKeys.summary(entityType, entityId),
     queryFn: async () => {
@@ -195,16 +195,20 @@ export function useEntityRatingSummary(
 // Legacy exports for backward compatibility
 // These are deprecated and will be removed in a future version
 /** @deprecated Use useUserEntityRating with entityType: 'plugin' instead */
-export const useUserPluginRating = (pluginId: string, enabled: boolean = true) =>
-  useUserEntityRating('plugin', pluginId, enabled);
+export const useUserPluginRating = (
+  pluginId: string,
+  enabled: boolean = true
+) => useUserEntityRating('plugin', pluginId, enabled);
 
 /** @deprecated Use useSubmitEntityRating with entityType: 'plugin' instead */
 export const useSubmitPluginRating = (pluginId: string) =>
   useSubmitEntityRating('plugin', pluginId);
 
 /** @deprecated Use useEntityRatingSummary with entityType: 'plugin' instead */
-export const usePluginRatingSummary = (pluginId: string, enabled: boolean = true) =>
-  useEntityRatingSummary('plugin', pluginId, enabled);
+export const usePluginRatingSummary = (
+  pluginId: string,
+  enabled: boolean = true
+) => useEntityRatingSummary('plugin', pluginId, enabled);
 
 /** @deprecated Use useUserEntityRating with entityType: 'theme' instead */
 export const useUserThemeRating = (themeId: string, enabled: boolean = true) =>
@@ -215,5 +219,7 @@ export const useSubmitThemeRating = (themeId: string) =>
   useSubmitEntityRating('theme', themeId);
 
 /** @deprecated Use useEntityRatingSummary with entityType: 'theme' instead */
-export const useThemeRatingSummary = (themeId: string, enabled: boolean = true) =>
-  useEntityRatingSummary('theme', themeId, enabled);
+export const useThemeRatingSummary = (
+  themeId: string,
+  enabled: boolean = true
+) => useEntityRatingSummary('theme', themeId, enabled);

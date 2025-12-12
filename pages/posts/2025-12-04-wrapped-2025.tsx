@@ -105,7 +105,9 @@ const Intro = () => {
             className="rounded-2xl"
           />
         </motion.div>
-        <div className='font-bold text-slate-100 mt-1'>Obsidian Wrapped 2025</div>
+        <div className="font-bold text-slate-100 mt-1">
+          Obsidian Wrapped 2025
+        </div>
         {showParticles && (
           <>
             {particles.map((_, index) => {
@@ -244,7 +246,10 @@ const StatsSection = (props) => {
                 }}
               >
                 <div className="font-bold text-5xl mb-2 text-gray-800">
-                  {(props.stats.newPluginsDevCount + props.stats.newThemesDevCount).toLocaleString()}
+                  {(
+                    props.stats.newPluginsDevCount +
+                    props.stats.newThemesDevCount
+                  ).toLocaleString()}
                 </div>
                 <div className="text-2xl flex gap-x-1  text-gray-800">
                   <User size={28} /> Developers contributed
@@ -342,7 +347,13 @@ const StatsSection = (props) => {
           </ul>
         </div>
         <div className="hidden md:grid w-1/2 ml-20 overflow-visible content-center">
-          <Image src="/images/undraw/undraw_community_re_cyrm.svg" alt="Community illustration" width={400} height={400} className="" />
+          <Image
+            src="/images/undraw/undraw_community_re_cyrm.svg"
+            alt="Community illustration"
+            width={400}
+            height={400}
+            className=""
+          />
         </div>
       </div>
     </Section>
@@ -429,7 +440,9 @@ const MostDownloadedPluginsSection = (props) => {
                   </span>
                   <span className="w-32 flex flex-col ml-auto items-center">
                     <span className="text-amber-400">
-                      {props.mostDownloadedPlugins[pludingId].delta.toLocaleString()}
+                      {props.mostDownloadedPlugins[
+                        pludingId
+                      ].delta.toLocaleString()}
                     </span>
                     <span className="text-sm">Downloads</span>
                   </span>

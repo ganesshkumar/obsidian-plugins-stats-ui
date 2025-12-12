@@ -30,15 +30,17 @@ const fetchUserProfile = async (): Promise<User | null> => {
   }
 
   try {
-    const response = await authenticatedFetch(`${getBackendUrl()}/auth/profile`);
+    const response = await authenticatedFetch(
+      `${getBackendUrl()}/auth/profile`
+    );
     if (response.ok) {
       const userData = await response.json();
-      
+
       // Store user email in localStorage for feature flags and analytics
       if (userData?.email && typeof window !== 'undefined') {
         localStorage.setItem('userEmail', userData.email);
       }
-      
+
       return userData;
     }
     return null;
@@ -54,9 +56,13 @@ interface UserProviderProps {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const token = getAuthToken();
-  
+
   // Use TanStack Query to fetch and cache profile data
-  const { data: user, isLoading, refetch } = useQuery<User | null>({
+  const {
+    data: user,
+    isLoading,
+    refetch,
+  } = useQuery<User | null>({
     queryKey: ['userProfile'],
     queryFn: fetchUserProfile,
     enabled: !!token, // Only fetch if token exists

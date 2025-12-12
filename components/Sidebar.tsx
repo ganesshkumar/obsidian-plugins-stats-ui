@@ -88,15 +88,29 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
             }
             className="flex border border-gray-200 px-3 py-1 rounded w-full h-[130px] min-h-[130px] max-h-[130px] cursor-pointer"
           >
-            <div className='w-full'>
+            <div className="w-full">
               <p className="text-gray-700 px-2 pt-1 font-semibold">
                 {similarTheme.name}
               </p>
               <div className="flex items-stretch justify-between gap-x-4 w-full">
-                <Image src={`https://raw.githubusercontent.com/${similarTheme.repo}/HEAD/${similarTheme.screenshot}`} alt={similarTheme.name} width={128} height={80} className="w-32 h-20 mt-2 mb-2 object-contain" />
-                <div className='flex flex-col grow-1 justify-end mb-4'>
-                  {similarTheme.isLight && <div><Sun size={16} className="inline mx-1" /> Light Mode</div>}
-                  {similarTheme.isDark && <div><Moon size={16} className="inline mx-1" /> Dark Mode</div>}
+                <Image
+                  src={`https://raw.githubusercontent.com/${similarTheme.repo}/HEAD/${similarTheme.screenshot}`}
+                  alt={similarTheme.name}
+                  width={128}
+                  height={80}
+                  className="w-32 h-20 mt-2 mb-2 object-contain"
+                />
+                <div className="flex flex-col grow-1 justify-end mb-4">
+                  {similarTheme.isLight && (
+                    <div>
+                      <Sun size={16} className="inline mx-1" /> Light Mode
+                    </div>
+                  )}
+                  {similarTheme.isDark && (
+                    <div>
+                      <Moon size={16} className="inline mx-1" /> Dark Mode
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -173,9 +187,7 @@ export const Sidebar = ({ pageInfo, suggestions }: ISidebarProps) => {
       {!isLessThanLarge && (
         <EthicalAd type="image" placementId={adId} className="horizontal" />
       )}
-      <h2 className="mt-1 mb-4 text-2xl text-center">
-        {title}
-      </h2>
+      <h2 className="mt-1 mb-4 text-2xl text-center">{title}</h2>
       <div className="flex flex-wrap justify-center gap-x-26 lg:justify-start lg:flex-col gap-2 items-center">
         {content}
       </div>

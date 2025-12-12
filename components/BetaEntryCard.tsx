@@ -1,8 +1,7 @@
-import React from 'react';
-import moment from 'moment';
 import { PullRequestEntry } from '@prisma/client';
-import { ExternalLink, GitBranch, GitHub } from 'react-feather';
 import { Card, CustomFlowbiteTheme } from 'flowbite-react';
+import moment from 'moment';
+import { GitBranch, GitHub } from 'react-feather';
 
 interface IBetaEntryCardProps {
   entry: PullRequestEntry;

@@ -29,12 +29,12 @@ export async function authenticatedFetch(
   // Handle 401 (token expired) - try to refresh and retry
   if (response.status === 401) {
     const refreshed = await refreshAccessToken();
-    
+
     if (refreshed) {
       // Retry request with new token
       const newToken = getAuthToken();
       headers.set('Authorization', `Bearer ${newToken}`);
-      
+
       response = await fetch(url, {
         ...options,
         headers,
@@ -65,7 +65,9 @@ export async function backendGet<T = any>(endpoint: string): Promise<T> {
   const response = await authenticatedFetch(url);
 
   if (!response.ok) {
-    throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `API request failed: ${response.status} ${response.statusText}`
+    );
   }
 
   return response.json();
@@ -85,7 +87,9 @@ export async function backendPost<T = any>(
   });
 
   if (!response.ok) {
-    throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `API request failed: ${response.status} ${response.statusText}`
+    );
   }
 
   return response.json();
@@ -105,7 +109,9 @@ export async function backendPut<T = any>(
   });
 
   if (!response.ok) {
-    throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `API request failed: ${response.status} ${response.statusText}`
+    );
   }
 
   return response.json();
@@ -121,7 +127,9 @@ export async function backendDelete<T = any>(endpoint: string): Promise<T> {
   });
 
   if (!response.ok) {
-    throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `API request failed: ${response.status} ${response.statusText}`
+    );
   }
 
   return response.json();

@@ -1,7 +1,15 @@
 import { Button, Card } from 'flowbite-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { ArrowDown, ArrowUp, BarChart, Bookmark, User, Shield, Database } from 'react-feather';
+import {
+  ArrowDown,
+  ArrowUp,
+  BarChart,
+  Bookmark,
+  User,
+  Shield,
+  Database,
+} from 'react-feather';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
@@ -19,14 +27,15 @@ const PrivacyPolicy = () => {
     <>
       <h1>Privacy Policy (Simplified)</h1>
       <span className="text-sm">
-        Obsidian Stats collects anonymized analytics data automatically and optional personal data if you choose to create an account.
+        Obsidian Stats collects anonymized analytics data automatically and
+        optional personal data if you choose to create an account.
       </span>
       <hr className="my-4" />
       <h2>
         Personal Data processed for the following purposes and using the
         following services:
       </h2>
-      
+
       <div className="my-4 mx-2">
         <div className="flex gap-x-4">
           <BarChart />
@@ -35,9 +44,13 @@ const PrivacyPolicy = () => {
             <p>
               <strong>Plausible Analytics (Self-Hosted)</strong>
               <br />
-              Personal Data: Anonymized page views, session statistics, referrer information
+              Personal Data: Anonymized page views, session statistics, referrer
+              information
               <br />
-              <em>Privacy-focused, no cookies, no cross-site tracking, GDPR compliant</em>
+              <em>
+                Privacy-focused, no cookies, no cross-site tracking, GDPR
+                compliant
+              </em>
             </p>
           </div>
         </div>
@@ -53,7 +66,10 @@ const PrivacyPolicy = () => {
               <br />
               Personal Data: Email address, Google ID, name, profile picture
               <br />
-              <em>Used for secure login and to associate ratings/reviews with user accounts</em>
+              <em>
+                Used for secure login and to associate ratings/reviews with user
+                accounts
+              </em>
             </p>
           </div>
         </div>
@@ -67,9 +83,12 @@ const PrivacyPolicy = () => {
             <p>
               <strong>Plugin Ratings & Reviews</strong>
               <br />
-              Personal Data: User ID, rating (1-5 stars), optional review text (max 2000 characters)
+              Personal Data: User ID, rating (1-5 stars), optional review text
+              (max 2000 characters)
               <br />
-              <em>Stored in our database to display community feedback on plugins</em>
+              <em>
+                Stored in our database to display community feedback on plugins
+              </em>
             </p>
           </div>
         </div>
@@ -83,7 +102,8 @@ const PrivacyPolicy = () => {
             <p>
               <strong>Browser Local Storage</strong>
               <br />
-              Data Stored: Favorite plugins list, authentication tokens (access token only), feature flag user ID, user email (when logged in)
+              Data Stored: Favorite plugins list, authentication tokens (access
+              token only), feature flag user ID, user email (when logged in)
               <br />
               <em>Stored locally in your browser, never sent to our servers</em>
             </p>
@@ -99,9 +119,14 @@ const PrivacyPolicy = () => {
             <p>
               <strong>GrowthBook (Self-Hosted)</strong>
               <br />
-              Personal Data: User identifier (email if logged in, otherwise random UUID), feature flag evaluations
+              Personal Data: User identifier (email if logged in, otherwise
+              random UUID), feature flag evaluations
               <br />
-              <em>Uses localStorage (no cookies), fully self-hosted on our infrastructure at growthbookapi.obsidianstats.com - no data sent to third parties</em>
+              <em>
+                Uses localStorage (no cookies), fully self-hosted on our
+                infrastructure at growthbookapi.obsidianstats.com - no data sent
+                to third parties
+              </em>
             </p>
           </div>
         </div>
@@ -109,35 +134,56 @@ const PrivacyPolicy = () => {
 
       <h2>Analytics (Automatic)</h2>
       <p>
-        <strong>Important:</strong> We use privacy-focused Plausible Analytics that automatically collects 
-        anonymized usage data for all visitors. No personal data is collected, no cookies are used, 
-        and users cannot be identified. This is essential for improving the service.
+        <strong>Important:</strong> We use privacy-focused Plausible Analytics
+        that automatically collects anonymized usage data for all visitors. No
+        personal data is collected, no cookies are used, and users cannot be
+        identified. This is essential for improving the service.
       </p>
 
       <h2>Cookies</h2>
-      <p>
-        We use minimal cookies:
-      </p>
+      <p>We use minimal cookies:</p>
       <ul>
-        <li><strong>Refresh Token</strong> - HttpOnly secure cookie for authentication (only if you sign in, 7 days expiry)</li>
-        <li><strong>Plausible Analytics</strong> - No cookies used (cookieless analytics)</li>
+        <li>
+          <strong>Refresh Token</strong> - HttpOnly secure cookie for
+          authentication (only if you sign in, 7 days expiry)
+        </li>
+        <li>
+          <strong>Plausible Analytics</strong> - No cookies used (cookieless
+          analytics)
+        </li>
       </ul>
       <p>
-        See our <Link href="/cookie-policy">Cookie Policy</Link> for more details.
+        See our <Link href="/cookie-policy">Cookie Policy</Link> for more
+        details.
       </p>
 
       <h2>Third-Party Services</h2>
       <ul>
-        <li><strong>Google OAuth</strong> - For user authentication</li>
-        <li><strong>Plausible Analytics</strong> - Self-hosted, privacy-focused analytics</li>
-        <li><strong>EthicalAds</strong> - Privacy-focused advertising network (no cookies, no personal data collection)</li>
-        <li><strong>GrowthBook</strong> - Self-hosted feature flag and A/B testing platform on our own infrastructure (no cookies, uses localStorage only, no external data sharing)</li>
-        <li><strong>Utterances</strong> - GitHub-based comments (loads on demand)</li>
+        <li>
+          <strong>Google OAuth</strong> - For user authentication
+        </li>
+        <li>
+          <strong>Plausible Analytics</strong> - Self-hosted, privacy-focused
+          analytics
+        </li>
+        <li>
+          <strong>EthicalAds</strong> - Privacy-focused advertising network (no
+          cookies, no personal data collection)
+        </li>
+        <li>
+          <strong>GrowthBook</strong> - Self-hosted feature flag and A/B testing
+          platform on our own infrastructure (no cookies, uses localStorage
+          only, no external data sharing)
+        </li>
+        <li>
+          <strong>Utterances</strong> - GitHub-based comments (loads on demand)
+        </li>
       </ul>
 
       <h2>Advertising</h2>
       <p>
-        We display ads through EthicalAds, a privacy-focused advertising network. EthicalAds:
+        We display ads through EthicalAds, a privacy-focused advertising
+        network. EthicalAds:
       </p>
       <ul>
         <li>Does not use cookies or tracking technologies</li>
@@ -148,9 +194,14 @@ const PrivacyPolicy = () => {
       </ul>
       <p>
         Learn more at{' '}
-        <a href="https://www.ethicalads.io/privacy-policy/" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://www.ethicalads.io/privacy-policy/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           EthicalAds Privacy Policy
-        </a>.
+        </a>
+        .
       </p>
 
       <h2>Contact information</h2>
@@ -199,19 +250,54 @@ const PrivacyPolicy = () => {
         Obsidian Stats collects the following types of Data:
       </p>
       <ul>
-        <li><strong>Authentication Data (Optional)</strong>: Email address, Google ID, name, profile picture (via Google OAuth) - only collected if you choose to sign in</li>
-        <li><strong>User-Generated Content (Optional)</strong>: Plugin/theme ratings (1-5 stars), optional review text - only if you choose to submit ratings/reviews</li>
-        <li><strong>Analytics Data (Automatic)</strong>: Anonymized page views, referrer information, browser type, device type, country (via Plausible Analytics - privacy-focused, cookieless, no personal data collected)</li>
-        <li><strong>Feature Flag Data (Automatic)</strong>: User identifier (email if logged in, random UUID otherwise), feature flag evaluations, A/B test assignments (via GrowthBook - self-hosted, cookieless, uses localStorage only)</li>
-        <li><strong>Local Storage Data (Client-side only)</strong>: Favorite plugins list, authentication access token, feature flag user ID, user email (stored in browser only, never transmitted to servers)</li>
+        <li>
+          <strong>Authentication Data (Optional)</strong>: Email address, Google
+          ID, name, profile picture (via Google OAuth) - only collected if you
+          choose to sign in
+        </li>
+        <li>
+          <strong>User-Generated Content (Optional)</strong>: Plugin/theme
+          ratings (1-5 stars), optional review text - only if you choose to
+          submit ratings/reviews
+        </li>
+        <li>
+          <strong>Analytics Data (Automatic)</strong>: Anonymized page views,
+          referrer information, browser type, device type, country (via
+          Plausible Analytics - privacy-focused, cookieless, no personal data
+          collected)
+        </li>
+        <li>
+          <strong>Feature Flag Data (Automatic)</strong>: User identifier (email
+          if logged in, random UUID otherwise), feature flag evaluations, A/B
+          test assignments (via GrowthBook - self-hosted, cookieless, uses
+          localStorage only)
+        </li>
+        <li>
+          <strong>Local Storage Data (Client-side only)</strong>: Favorite
+          plugins list, authentication access token, feature flag user ID, user
+          email (stored in browser only, never transmitted to servers)
+        </li>
       </ul>
       <p className="pb-2">
         <strong>What is optional vs automatic:</strong>
       </p>
       <ul>
-        <li><strong>Optional:</strong> Creating an account and submitting ratings/reviews. You can browse and use the site without signing in.</li>
-        <li><strong>Automatic:</strong> Privacy-focused analytics data is collected automatically for all visitors to help us understand site usage and improve the service. This analytics data is fully anonymized, does not use cookies, and does not collect any personal information. There is no opt-out mechanism, but the data collected is non-personal and GDPR compliant.</li>
-        <li><strong>Client-side only:</strong> Favorites and authentication tokens are stored locally in your browser and are never sent to our servers.</li>
+        <li>
+          <strong>Optional:</strong> Creating an account and submitting
+          ratings/reviews. You can browse and use the site without signing in.
+        </li>
+        <li>
+          <strong>Automatic:</strong> Privacy-focused analytics data is
+          collected automatically for all visitors to help us understand site
+          usage and improve the service. This analytics data is fully
+          anonymized, does not use cookies, and does not collect any personal
+          information. There is no opt-out mechanism, but the data collected is
+          non-personal and GDPR compliant.
+        </li>
+        <li>
+          <strong>Client-side only:</strong> Favorites and authentication tokens
+          are stored locally in your browser and are never sent to our servers.
+        </li>
       </ul>
 
       <hr />
@@ -233,13 +319,19 @@ const PrivacyPolicy = () => {
       </p>
 
       <h4>Place</h4>
-      <p>
-        Data is processed at the Owner's hosting providers' data centers:
-      </p>
+      <p>Data is processed at the Owner's hosting providers' data centers:</p>
       <ul>
-        <li><strong>Vercel</strong> - Web application hosting (United States)</li>
-        <li><strong>MongoDB Atlas</strong> - Database hosting (configurable region)</li>
-        <li><strong>Self-hosted infrastructure</strong> - Plausible Analytics server</li>
+        <li>
+          <strong>Vercel</strong> - Web application hosting (United States)
+        </li>
+        <li>
+          <strong>MongoDB Atlas</strong> - Database hosting (configurable
+          region)
+        </li>
+        <li>
+          <strong>Self-hosted infrastructure</strong> - Plausible Analytics
+          server
+        </li>
       </ul>
       <p>
         Depending on the User's location, data transfers may involve
@@ -247,29 +339,60 @@ const PrivacyPolicy = () => {
       </p>
 
       <h4>Retention time</h4>
-      <p>
-        Data is processed and stored for as long as required:
-      </p>
+      <p>Data is processed and stored for as long as required:</p>
       <ul>
-        <li><strong>User account data</strong>: Retained until account deletion is requested</li>
-        <li><strong>Ratings and reviews</strong>: Retained indefinitely to maintain community feedback integrity, unless deletion is requested</li>
-        <li><strong>Authentication tokens</strong>: Access tokens expire after 15 minutes; refresh tokens expire after 7 days</li>
-        <li><strong>Analytics data</strong>: Retained for up to 24 months in aggregated, anonymized form (no personal data)</li>
-        <li><strong>Local storage data</strong>: Retained in browser until cleared by user</li>
+        <li>
+          <strong>User account data</strong>: Retained until account deletion is
+          requested
+        </li>
+        <li>
+          <strong>Ratings and reviews</strong>: Retained indefinitely to
+          maintain community feedback integrity, unless deletion is requested
+        </li>
+        <li>
+          <strong>Authentication tokens</strong>: Access tokens expire after 15
+          minutes; refresh tokens expire after 7 days
+        </li>
+        <li>
+          <strong>Analytics data</strong>: Retained for up to 24 months in
+          aggregated, anonymized form (no personal data)
+        </li>
+        <li>
+          <strong>Local storage data</strong>: Retained in browser until cleared
+          by user
+        </li>
       </ul>
 
       <hr />
       <h3>The purposes of processing</h3>
-      <p className="pb-2">
-        Data is collected for the following purposes:
-      </p>
+      <p className="pb-2">Data is collected for the following purposes:</p>
       <ul>
-        <li><strong>Service Provision</strong>: To provide and operate the Obsidian Stats website and its features</li>
-        <li><strong>Authentication (Optional)</strong>: To provide secure user accounts via Google OAuth for those who choose to rate/review plugins</li>
-        <li><strong>Community Features (Optional)</strong>: To enable users who sign in to rate and review plugins/themes</li>
-        <li><strong>Analytics (Automatic, Non-Personal)</strong>: To understand aggregate usage patterns and improve user experience through privacy-focused, cookieless analytics that does not collect personal data</li>
-        <li><strong>Service Operation</strong>: To maintain, improve, and secure the service</li>
-        <li><strong>Legal Compliance</strong>: To comply with legal obligations and respond to lawful requests</li>
+        <li>
+          <strong>Service Provision</strong>: To provide and operate the
+          Obsidian Stats website and its features
+        </li>
+        <li>
+          <strong>Authentication (Optional)</strong>: To provide secure user
+          accounts via Google OAuth for those who choose to rate/review plugins
+        </li>
+        <li>
+          <strong>Community Features (Optional)</strong>: To enable users who
+          sign in to rate and review plugins/themes
+        </li>
+        <li>
+          <strong>Analytics (Automatic, Non-Personal)</strong>: To understand
+          aggregate usage patterns and improve user experience through
+          privacy-focused, cookieless analytics that does not collect personal
+          data
+        </li>
+        <li>
+          <strong>Service Operation</strong>: To maintain, improve, and secure
+          the service
+        </li>
+        <li>
+          <strong>Legal Compliance</strong>: To comply with legal obligations
+          and respond to lawful requests
+        </li>
       </ul>
 
       <hr />
@@ -295,14 +418,19 @@ const PrivacyPolicy = () => {
           <p>
             <strong>Plausible Analytics (Self-Hosted)</strong>
             <br />
-            Plausible Analytics is a privacy-focused web analytics service that we self-host at plausible.obsidianstats.com.
-            Plausible is designed to be privacy-friendly and GDPR compliant. It does not use cookies, does not collect 
-            personal data, and does not track users across websites. All data collected is fully anonymized and aggregated.
+            Plausible Analytics is a privacy-focused web analytics service that
+            we self-host at plausible.obsidianstats.com. Plausible is designed
+            to be privacy-friendly and GDPR compliant. It does not use cookies,
+            does not collect personal data, and does not track users across
+            websites. All data collected is fully anonymized and aggregated.
             <br />
-            <strong>Data processed:</strong> Page views, referrer sources, country/region (derived from IP address without storing the IP),
-            device type, operating system, and browser type. No personal data or unique identifiers are collected.
+            <strong>Data processed:</strong> Page views, referrer sources,
+            country/region (derived from IP address without storing the IP),
+            device type, operating system, and browser type. No personal data or
+            unique identifiers are collected.
             <br />
-            <strong>Place of processing:</strong> Self-hosted at plausible.obsidianstats.com {' '}
+            <strong>Place of processing:</strong> Self-hosted at
+            plausible.obsidianstats.com{' '}
             <a
               href="https://plausible.io/privacy"
               target="_blank"
@@ -310,7 +438,6 @@ const PrivacyPolicy = () => {
             >
               Plausible Privacy Policy
             </a>{' '}
-            {' '}
             <a
               href="https://plausible.io/data-policy"
               target="_blank"
@@ -320,10 +447,10 @@ const PrivacyPolicy = () => {
             </a>
             .
             <br />
-            <strong>Important:</strong> Analytics collection is automatic and does not provide an opt-out mechanism
-            because no personal data or cookies are used. This is our legitimate interest to improve the service
-            while maintaining your privacy.
-            .
+            <strong>Important:</strong> Analytics collection is automatic and
+            does not provide an opt-out mechanism because no personal data or
+            cookies are used. This is our legitimate interest to improve the
+            service while maintaining your privacy. .
           </p>
         </DetailedItem>
 
@@ -338,21 +465,31 @@ const PrivacyPolicy = () => {
           <p>
             <strong>GrowthBook (Self-Hosted)</strong>
             <br />
-            GrowthBook is an open-source feature flagging and A/B testing platform that we fully self-host on our own infrastructure at growthbookapi.obsidianstats.com.
-            Because it is self-hosted, we maintain complete control over the data and no information is shared with GrowthBook, Inc. or any external parties.
-            GrowthBook is used to safely roll out new features and run experiments to improve user experience.
+            GrowthBook is an open-source feature flagging and A/B testing
+            platform that we fully self-host on our own infrastructure at
+            growthbookapi.obsidianstats.com. Because it is self-hosted, we
+            maintain complete control over the data and no information is shared
+            with GrowthBook, Inc. or any external parties. GrowthBook is used to
+            safely roll out new features and run experiments to improve user
+            experience.
             <br />
-            <strong>Data processed:</strong> User identifier (email address if logged in, otherwise a random UUID stored in localStorage),
-            feature flag evaluations, A/B test variation assignments. This data is processed entirely client-side in your browser
-            and only metadata about which features you've seen is sent to our self-hosted GrowthBook server (under our control) for analytics purposes.
+            <strong>Data processed:</strong> User identifier (email address if
+            logged in, otherwise a random UUID stored in localStorage), feature
+            flag evaluations, A/B test variation assignments. This data is
+            processed entirely client-side in your browser and only metadata
+            about which features you've seen is sent to our self-hosted
+            GrowthBook server (under our control) for analytics purposes.
             <br />
-            <strong>No cookies used:</strong> GrowthBook stores data only in browser localStorage, not cookies. Data is not shared
-            across websites or sold to third parties.
+            <strong>No cookies used:</strong> GrowthBook stores data only in
+            browser localStorage, not cookies. Data is not shared across
+            websites or sold to third parties.
             <br />
-            <strong>Self-hosted infrastructure:</strong> All GrowthBook data remains on our own servers at growthbookapi.obsidianstats.com. 
-            No data is transmitted to GrowthBook, Inc. or any third-party services.
+            <strong>Self-hosted infrastructure:</strong> All GrowthBook data
+            remains on our own servers at growthbookapi.obsidianstats.com. No
+            data is transmitted to GrowthBook, Inc. or any third-party services.
             <br />
-            <strong>Place of processing:</strong> Self-hosted at growthbookapi.obsidianstats.com {' '}
+            <strong>Place of processing:</strong> Self-hosted at
+            growthbookapi.obsidianstats.com{' '}
             <a
               href="https://www.growthbook.io/privacy"
               target="_blank"
@@ -362,8 +499,9 @@ const PrivacyPolicy = () => {
             </a>
             .
             <br />
-            <strong>Purpose:</strong> To test and gradually release new features, measure their impact, and provide a better
-            user experience through controlled feature rollouts.
+            <strong>Purpose:</strong> To test and gradually release new
+            features, measure their impact, and provide a better user experience
+            through controlled feature rollouts.
           </p>
         </DetailedItem>
       </div>
@@ -375,48 +513,59 @@ const PrivacyPolicy = () => {
         <Link href="/cookie-policy">Cookie Policy</Link>.
       </p>
       <p>
-        <strong>Summary:</strong> We use one httpOnly secure cookie for authentication (refresh token, 7 days). 
-        Plausible Analytics and GrowthBook use no cookies.
+        <strong>Summary:</strong> We use one httpOnly secure cookie for
+        authentication (refresh token, 7 days). Plausible Analytics and
+        GrowthBook use no cookies.
       </p>
 
       <h2>Analytics Disclosure</h2>
       <p>
-        <strong>Important:</strong> Obsidian Stats uses Plausible Analytics to collect anonymized usage statistics 
-        automatically for all visitors. This analytics service:
+        <strong>Important:</strong> Obsidian Stats uses Plausible Analytics to
+        collect anonymized usage statistics automatically for all visitors. This
+        analytics service:
       </p>
       <ul>
         <li>Does not use cookies or any tracking technologies</li>
         <li>Does not collect any personal information</li>
         <li>Does not track users across websites</li>
-        <li>Collects only aggregated, anonymized data (page views, referrers, browser types, device types, country)</li>
+        <li>
+          Collects only aggregated, anonymized data (page views, referrers,
+          browser types, device types, country)
+        </li>
         <li>Is fully GDPR, CCPA, and PECR compliant</li>
         <li>Cannot identify individual users</li>
       </ul>
       <p>
-        There is no opt-out mechanism for analytics because no personal data is collected. 
-        By using this website, you acknowledge that anonymized, non-personal analytics data will be collected.
+        There is no opt-out mechanism for analytics because no personal data is
+        collected. By using this website, you acknowledge that anonymized,
+        non-personal analytics data will be collected.
       </p>
 
       <h2>Further Information for Users</h2>
       <h3>Legal basis of processing</h3>
       <p>
-        The Owner processes Data relating to Users based on the following legal grounds:
+        The Owner processes Data relating to Users based on the following legal
+        grounds:
       </p>
       <ul>
         <li>
-          <strong>Consent</strong>: Users have given explicit consent when creating an account or submitting reviews.
+          <strong>Consent</strong>: Users have given explicit consent when
+          creating an account or submitting reviews.
         </li>
         <li>
-          <strong>Legitimate Interests</strong>: Analytics data is processed based on legitimate interest to 
-          improve the service. The analytics are privacy-focused, cookieless, and collect no personal data, 
-          minimizing any impact on user privacy.
+          <strong>Legitimate Interests</strong>: Analytics data is processed
+          based on legitimate interest to improve the service. The analytics are
+          privacy-focused, cookieless, and collect no personal data, minimizing
+          any impact on user privacy.
         </li>
         <li>
-          <strong>Contract Performance</strong>: Processing is necessary to provide the services you request 
-          (e.g., displaying your ratings and reviews).
+          <strong>Contract Performance</strong>: Processing is necessary to
+          provide the services you request (e.g., displaying your ratings and
+          reviews).
         </li>
         <li>
-          <strong>Legal Compliance</strong>: Processing may be necessary to comply with legal obligations.
+          <strong>Legal Compliance</strong>: Processing may be necessary to
+          comply with legal obligations.
         </li>
       </ul>
       <p>

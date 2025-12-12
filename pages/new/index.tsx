@@ -12,9 +12,7 @@ import { PluginsMultiView } from '../../components/PluginsMultiView';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
 import { ThemesCache } from '@/cache/themes-cache';
-import {
-  Theme as ThemeRecord,
-} from '@prisma/client';
+import { Theme as ThemeRecord } from '@prisma/client';
 import { Entity, EntityType } from '@/domain/Entity';
 import { toPluginItem } from '@/utils/plugins';
 import { PluginItem } from '@/domain/plugins/models/PluginItem';
@@ -27,8 +25,12 @@ interface INewPageProps extends IHeaderProps {
 
 const New = (props: INewPageProps) => {
   const [favorites, setFavorites] = useState([]);
-  const newPluginsCount = props.newEntities.filter(e => e.type === EntityType.Plugin).length;
-  const newThemesCount = props.newEntities.filter(e => e.type === EntityType.Theme).length;
+  const newPluginsCount = props.newEntities.filter(
+    (e) => e.type === EntityType.Plugin
+  ).length;
+  const newThemesCount = props.newEntities.filter(
+    (e) => e.type === EntityType.Theme
+  ).length;
 
   useEffect(() => {
     setupFavorites(setFavorites);

@@ -1,4 +1,9 @@
-import { EntityType, Theme as ThemeRecord, PluginStats, PrismaClient } from '@prisma/client';
+import {
+  EntityType,
+  Theme as ThemeRecord,
+  PluginStats,
+  PrismaClient,
+} from '@prisma/client';
 import { ThemeRatingInfo } from '@/domain/themes/models/ThemeRatingInfo';
 import { Theme } from '@/domain/themes/models/Theme';
 
@@ -37,7 +42,7 @@ export class ThemesCache {
    */
   private static isCacheExpired(): boolean {
     if (!ThemesCache.lastFetchedAt) return true;
-    return (Date.now() - ThemesCache.lastFetchedAt) > ThemesCache.CACHE_TTL_MS;
+    return Date.now() - ThemesCache.lastFetchedAt > ThemesCache.CACHE_TTL_MS;
   }
 
   /**
@@ -51,7 +56,9 @@ export class ThemesCache {
         .then((freshData) => {
           ThemesCache.themes = freshData;
           ThemesCache.lastFetchedAt = Date.now();
-          console.log('ThemesCache: Background refresh completed successfully.');
+          console.log(
+            'ThemesCache: Background refresh completed successfully.'
+          );
         })
         .catch((err) => {
           console.error('ThemesCache: Background refresh failed:', err);
@@ -88,14 +95,18 @@ export class ThemesCache {
    */
   private static async fetch(): Promise<Theme[]> {
     const prisma: PrismaClient = new PrismaClient();
-    const themeRecords = await prisma.theme.findMany({ where: { deletedAt: null } });
+    const themeRecords = await prisma.theme.findMany({
+      where: { deletedAt: null },
+    });
 
     if (!themeRecords || !themeRecords.length) {
       console.error('No themes found in the database.');
       return themeRecords;
     }
 
-    const themeStatsRecords: PluginStats[] = await prisma.pluginStats.findMany({});
+    const themeStatsRecords: PluginStats[] = await prisma.pluginStats.findMany(
+      {}
+    );
 
     const ratingInfoMap: Record<string, ThemeRatingInfo> = {};
 
@@ -103,7 +114,12 @@ export class ThemesCache {
       if (themeStats.entityType === EntityType.THEME) {
         ratingInfoMap[themeStats.entityId] = {
           avgRating: themeStats.averageRating,
-          ratingCount: themeStats.ratingCount5 + themeStats.ratingCount4 + themeStats.ratingCount3 + themeStats.ratingCount2 + themeStats.ratingCount1,
+          ratingCount:
+            themeStats.ratingCount5 +
+            themeStats.ratingCount4 +
+            themeStats.ratingCount3 +
+            themeStats.ratingCount2 +
+            themeStats.ratingCount1,
           star5Count: themeStats.ratingCount5,
           star4Count: themeStats.ratingCount4,
           star3Count: themeStats.ratingCount3,

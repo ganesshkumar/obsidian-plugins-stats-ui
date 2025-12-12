@@ -114,7 +114,7 @@ const Updates = (props: IUpdatePageProps) => {
                         )}
                       </details>
                     </div>
-                    <div className='flex gap-x-2'>
+                    <div className="flex gap-x-2">
                       <Link
                         href={`/plugins/${plugin.pluginId}`}
                         className="underline text-gray-600 font-seminbold"
@@ -123,7 +123,7 @@ const Updates = (props: IUpdatePageProps) => {
                         View Details
                       </Link>
                       <RepoButton
-                        className='hover:cursor-pointer'
+                        className="hover:cursor-pointer"
                         href={`https://github.com/${plugin.repo}`}
                       />
                     </div>

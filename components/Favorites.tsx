@@ -7,7 +7,12 @@ import { Plus, Minus, Share2 } from 'react-feather';
 import { useAnalytics } from '../lib/analytics/analytics';
 import { EntityType } from '@prisma/client';
 
-const Favorites = ({ isFavorite, entityType, entityId, setFavorites }: {
+const Favorites = ({
+  isFavorite,
+  entityType,
+  entityId,
+  setFavorites,
+}: {
   isFavorite: boolean;
   entityType: EntityType;
   entityId: string;

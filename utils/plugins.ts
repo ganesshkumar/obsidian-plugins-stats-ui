@@ -1,4 +1,4 @@
-import { Plugin } from "@prisma/client";
+import { Plugin } from '@prisma/client';
 
 export const tagDenyList = [
   '',
@@ -348,7 +348,7 @@ export const toPluginItem = (plugin: Plugin) => {
     osDescription: plugin.osDescription,
     description: plugin.description,
   };
-}
+};
 
 const getWordCount = (text) => {
   if (!text) {

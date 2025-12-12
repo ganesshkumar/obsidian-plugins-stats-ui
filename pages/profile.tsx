@@ -34,29 +34,33 @@ const Profile = () => {
         <title>Profile | Obsidian Stats</title>
         <meta name="description" content="Manage your Obsidian Stats profile" />
       </Head>
-      
+
       <div className="flex flex-col min-h-screen">
         <AppNavbar />
-        
+
         <main className="flex-1 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
             {isLoading ? (
               <Card className="text-center py-16">
                 <div className="flex flex-col items-center gap-4">
                   <Spinner size="large" />
-                  <p className="text-lg font-semibold text-gray-700">Loading your profile...</p>
+                  <p className="text-lg font-semibold text-gray-700">
+                    Loading your profile...
+                  </p>
                 </div>
               </Card>
             ) : user ? (
               <Card className="max-w-2xl mx-auto">
                 <div className="text-center">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Profile</h1>
-                  
+                  <h1 className="text-3xl font-bold text-gray-900 mb-8">
+                    Your Profile
+                  </h1>
+
                   <div className="mb-8">
                     {user.avatarUrl && (
-                      <Image 
-                        src={user.avatarUrl} 
-                        alt="Profile" 
+                      <Image
+                        src={user.avatarUrl}
+                        alt="Profile"
                         width={128}
                         height={128}
                         className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-violet-200 shadow-lg"
@@ -65,13 +69,15 @@ const Profile = () => {
                     <h2 className="text-2xl font-bold text-gray-800 mb-2">
                       {user.username || 'User'}
                     </h2>
-                    <p className="text-lg text-gray-600">
-                      {user.email}
-                    </p>
+                    <p className="text-lg text-gray-600">{user.email}</p>
                   </div>
-                  
+
                   <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-                    <Button onClick={handleLogout} className="px-8 py-2 cursor-pointer" variant="outline">
+                    <Button
+                      onClick={handleLogout}
+                      className="px-8 py-2 cursor-pointer"
+                      variant="outline"
+                    >
                       Log Out
                     </Button>
                     <Button
@@ -91,8 +97,17 @@ const Profile = () => {
                 <p className="text-lg text-gray-600 mb-8">
                   Sign in to view and manage your profile
                 </p>
-                <Button onClick={() => handleLogin()} className="mt-2 border border-gray-700 py-1 cursor-pointer hover:bg-gray-100 flex items-center gap-2">
-                  <Image src='/images/logos/google.png' alt="Google logo" width={32} height={32} className='w-8' />
+                <Button
+                  onClick={() => handleLogin()}
+                  className="mt-2 border border-gray-700 py-1 cursor-pointer hover:bg-gray-100 flex items-center gap-2"
+                >
+                  <Image
+                    src="/images/logos/google.png"
+                    alt="Google logo"
+                    width={32}
+                    height={32}
+                    className="w-8"
+                  />
                   <span>Sign in with Google</span>
                 </Button>
               </Card>

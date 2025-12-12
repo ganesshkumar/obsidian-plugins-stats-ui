@@ -11,7 +11,6 @@ import {
   TimelinePoint,
   TimelineContent,
   TimelineTime,
-  TimelineTitle,
   TimelineBody,
   Button,
 } from 'flowbite-react';
@@ -19,7 +18,6 @@ import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import moment from 'moment';
-import { JsonLdSchema } from '../lib/jsonLdSchema';
 import EthicalAd from '../components/EthicalAd';
 
 export function animateScrollTo(targetY, duration = 3000) {

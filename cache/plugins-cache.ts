@@ -1,4 +1,10 @@
-import { EntityType, Plugin as PluginRecord, PluginStats, PrismaClient, Review } from '@prisma/client';
+import {
+  EntityType,
+  Plugin as PluginRecord,
+  PluginStats,
+  PrismaClient,
+  Review,
+} from '@prisma/client';
 import { PluginRatingInfo } from '@/domain/plugins/models/PluginRatingInfo';
 import { Plugin } from '@/domain/plugins/models/Plugin';
 
@@ -60,7 +66,7 @@ export class PluginsCache {
    */
   private static isCacheExpired(): boolean {
     if (!PluginsCache.lastFetchedAt) return true;
-    return (Date.now() - PluginsCache.lastFetchedAt) > PluginsCache.CACHE_TTL_MS;
+    return Date.now() - PluginsCache.lastFetchedAt > PluginsCache.CACHE_TTL_MS;
   }
 
   /**
@@ -74,7 +80,9 @@ export class PluginsCache {
         .then((freshData) => {
           PluginsCache.plugins = freshData;
           PluginsCache.lastFetchedAt = Date.now();
-          console.log('PluginsCache: Background refresh completed successfully.');
+          console.log(
+            'PluginsCache: Background refresh completed successfully.'
+          );
         })
         .catch((err) => {
           console.error('PluginsCache: Background refresh failed:', err);
@@ -192,7 +200,9 @@ export class PluginsCache {
         : '';
     });
 
-    const pluginStatsRecords: PluginStats[] = await prisma.pluginStats.findMany({});
+    const pluginStatsRecords: PluginStats[] = await prisma.pluginStats.findMany(
+      {}
+    );
 
     if (!pluginRecords || !pluginRecords.length) {
       console.error('No plugins found in the database.');
@@ -205,7 +215,12 @@ export class PluginsCache {
       if (pluginStats.entityType === EntityType.PLUGIN) {
         ratingInfoMap[pluginStats.entityId] = {
           avgRating: pluginStats.averageRating,
-          ratingCount: pluginStats.ratingCount5 + pluginStats.ratingCount4 + pluginStats.ratingCount3 + pluginStats.ratingCount2 + pluginStats.ratingCount1,
+          ratingCount:
+            pluginStats.ratingCount5 +
+            pluginStats.ratingCount4 +
+            pluginStats.ratingCount3 +
+            pluginStats.ratingCount2 +
+            pluginStats.ratingCount1,
           star5Count: pluginStats.ratingCount5,
           star4Count: pluginStats.ratingCount4,
           star3Count: pluginStats.ratingCount3,
@@ -299,4 +314,3 @@ function serializeDates<T>(obj: T): T {
     )
   );
 }
-

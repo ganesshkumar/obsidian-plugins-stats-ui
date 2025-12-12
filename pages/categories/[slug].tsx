@@ -57,14 +57,14 @@ const Category = (props: ICategoryPageProps) => {
 
 export const getStaticPaths = async () => {
   const plugins = await PluginsCache.get();
-  
+
   const categoriesSet = new Set<string>();
   plugins
     .map((plugin) => plugin.osCategory)
     .filter((category) => !!category)
     .forEach((category) => categoriesSet.add(category));
   const categories = Array.from(categoriesSet);
-  
+
   return {
     paths: [], // categories.map((category) => ({ params: { slug: category } })),
     fallback: 'blocking',

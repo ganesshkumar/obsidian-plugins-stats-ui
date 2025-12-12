@@ -18,11 +18,7 @@ interface IPluginsMultiViewProps {
 }
 
 export const PluginsMultiView = (props: IPluginsMultiViewProps) => {
-  const {
-    favorites,
-    setFavorites,
-    showDownloads,
-  } = props;
+  const { favorites, setFavorites, showDownloads } = props;
   const plugins = props.plugins;
 
   return (

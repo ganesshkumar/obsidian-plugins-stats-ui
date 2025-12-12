@@ -30,10 +30,7 @@ export const Score = (props) => {
 
   const onClickHandler = () => {
     if (redirectForReason) {
-      window.open(
-        `/plugins/${plugin.pluginId}?showScoreReason=true`,
-        '_blank'
-      );
+      window.open(`/plugins/${plugin.pluginId}?showScoreReason=true`, '_blank');
     } else {
       setOpenScoreModal(!openScoreModal);
     }
@@ -63,7 +60,8 @@ export const Score = (props) => {
           onClose={() => setOpenScoreModal(false)}
         >
           <Modal.Header>
-            Score explanation for <span className="font-bold">{plugin.name}</span>
+            Score explanation for{' '}
+            <span className="font-bold">{plugin.name}</span>
           </Modal.Header>
           <Modal.Body>
             <Table>
@@ -79,9 +77,13 @@ export const Score = (props) => {
                   <Table.Cell>
                     {parseFloat(reasonMap['stargazers'].value).toLocaleString()}
                   </Table.Cell>
-                  <Table.Cell>{reasonMap['stargazers'].weight * 100}%</Table.Cell>
+                  <Table.Cell>
+                    {reasonMap['stargazers'].weight * 100}%
+                  </Table.Cell>
                   <Table.Cell className="text-right">
-                    {(parseFloat(reasonMap['stargazers'].score) * 100).toFixed(2)}
+                    {(parseFloat(reasonMap['stargazers'].score) * 100).toFixed(
+                      2
+                    )}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
@@ -107,7 +109,9 @@ export const Score = (props) => {
                     </Tooltip>
                   </Table.Cell>
                   <Table.Cell>
-                    {parseFloat(reasonMap['closedIssuesRatio'].value).toFixed(2)}
+                    {parseFloat(reasonMap['closedIssuesRatio'].value).toFixed(
+                      2
+                    )}
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['closedIssuesRatio'].weight * 100}%
@@ -145,9 +149,9 @@ export const Score = (props) => {
                 <Table.Row>
                   <Table.Cell>Commits Last Year</Table.Cell>
                   <Table.Cell>
-                    {parseFloat(reasonMap['commitCountInLastYear'].value).toFixed(
-                      2
-                    )}
+                    {parseFloat(
+                      reasonMap['commitCountInLastYear'].value
+                    ).toFixed(2)}
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['commitCountInLastYear'].weight * 100}%
@@ -191,9 +195,13 @@ export const Score = (props) => {
                 <Table.Row>
                   <Table.Cell>Created</Table.Cell>
                   <Table.Cell>{moment(plugin.createdAt).fromNow()}</Table.Cell>
-                  <Table.Cell>{reasonMap['createdAt'].weight * 100}%</Table.Cell>
+                  <Table.Cell>
+                    {reasonMap['createdAt'].weight * 100}%
+                  </Table.Cell>
                   <Table.Cell className="text-right">
-                    {(parseFloat(reasonMap['createdAt'].score) * 100).toFixed(2)}
+                    {(parseFloat(reasonMap['createdAt'].score) * 100).toFixed(
+                      2
+                    )}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>

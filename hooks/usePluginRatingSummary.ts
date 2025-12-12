@@ -34,7 +34,7 @@ interface UsePluginRatingSummaryReturn {
 
 /**
  * Custom hook to fetch plugin rating summary from backend
- * 
+ *
  * @param pluginId - The ID of the plugin to fetch ratings for
  * @param isAuthenticated - Whether the user is authenticated
  * @returns Object containing rating data, loading state, and error
@@ -59,7 +59,7 @@ export const usePluginRatingSummary = (
     const fetchRatingSummary = async () => {
       setLoading(true);
       setError(null);
-      
+
       try {
         const response = await backendGet<PluginRatingSummary>(
           `/reviews/plugins/${pluginId}/summary`
@@ -82,7 +82,7 @@ export const usePluginRatingSummary = (
   }, [pluginId, isAuthenticated, refetchTrigger]);
 
   const refetch = useCallback(() => {
-    setRefetchTrigger(prev => prev + 1);
+    setRefetchTrigger((prev) => prev + 1);
   }, []);
 
   return { data, loading, error, refetch };

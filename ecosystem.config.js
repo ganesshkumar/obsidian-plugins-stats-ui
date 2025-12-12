@@ -2,13 +2,13 @@
 module.exports = {
   apps: [
     {
-      name: "os-ui",
-      script: "yarn",
-      args: "start",
-      exec_mode: "cluster",
-      instances: "max",
+      name: 'os-ui',
+      script: 'yarn',
+      args: 'start',
+      exec_mode: 'cluster',
+      instances: 'max',
       env: {
-        NODE_ENV: "production",
+        NODE_ENV: 'production',
       },
       // Critical for zero-downtime
       wait_ready: true,
@@ -17,9 +17,9 @@ module.exports = {
       // Stability settings
       max_restarts: 10,
       min_uptime: '10s',
-      max_memory_restart: "1G",
+      max_memory_restart: '1G',
       autorestart: true,
       watch: false,
-    }
-  ]
+    },
+  ],
 };

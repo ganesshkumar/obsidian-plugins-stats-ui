@@ -115,7 +115,7 @@ export const getStaticProps = async ({ params }) => {
       osTags: plugin.osTags,
       osDescription: plugin.osDescription,
       description: plugin.description,
-    }
+    };
   });
 
   return {

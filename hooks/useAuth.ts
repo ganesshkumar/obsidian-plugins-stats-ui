@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { 
-  isAuthenticated, 
-  getAuthToken, 
-  initiateLogin, 
+import {
+  isAuthenticated,
+  getAuthToken,
+  initiateLogin,
   logout as logoutUtil,
-  scheduleTokenRefresh
+  scheduleTokenRefresh,
 } from '@/lib/auth';
 
 interface UseAuthReturn {
@@ -32,14 +32,14 @@ interface UseAuthReturn {
 
 /**
  * Custom hook for managing authentication state with custom backend OAuth
- * 
+ *
  * @example
  * ```tsx
  * function MyComponent() {
  *   const { isAuthenticated, token, loading, login, logout } = useAuth();
- * 
+ *
  *   if (loading) return <div>Loading...</div>;
- * 
+ *
  *   return (
  *     <div>
  *       {isAuthenticated ? (
@@ -65,7 +65,7 @@ export function useAuth(): UseAuthReturn {
     const checkAuth = () => {
       const authStatus = isAuthenticated();
       const authToken = getAuthToken();
-      
+
       setAuthenticated(authStatus);
       setToken(authToken);
       setLoading(false);

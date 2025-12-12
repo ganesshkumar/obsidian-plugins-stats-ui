@@ -314,14 +314,7 @@ const Themes = (props: IPageProps) => {
     });
 
     return queriedThemes;
-  }, [
-    filter,
-    favoritesFilter,
-    sortby,
-    favorites,
-    filterCategory,
-    themes
-  ]);
+  }, [filter, favoritesFilter, sortby, favorites, filterCategory, themes]);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -418,9 +411,7 @@ const Themes = (props: IPageProps) => {
                           {filterCategoryOptions['any']}
                         </Dropdown.Item>
                         <Dropdown.Item
-                          onClick={() =>
-                            handleFilterCategoryChange('darkMode')
-                          }
+                          onClick={() => handleFilterCategoryChange('darkMode')}
                         >
                           {filterCategoryOptions['darkMode']}
                         </Dropdown.Item>
@@ -529,9 +520,7 @@ const Themes = (props: IPageProps) => {
 
 export const getStaticProps = async () => {
   const themes = await ThemesCache.get();
-  themes.sort((a, b) =>
-    a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
-  );
+  themes.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
 
   const title = `Obsidian Themes - Comprehensive List and Detailed Summaries of ${themes.length} Themes`;
   const description = `Explore all ${themes.length} Obsidian themes with detailed summaries, scores, ratings, and more. Filter by favorites, categories, tags, and sort by score, downloads, and new themes.`;

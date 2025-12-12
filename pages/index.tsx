@@ -115,11 +115,15 @@ const Home = (props: IHomeProps) => {
           <section className="max-w-6xl mx-auto text-gray-800 flex flex-col justify-center items-center text-center py-4 lg:py-20">
             <h1 className="text-4xl 2xl:text-5xl font-bold tracking-tight mb-8 text-gray-800">
               Personalize Obsidian with the{' '}
-              <span className="text-violet-800">best‑fit Plugins and Themes</span> for you.
+              <span className="text-violet-800">
+                best‑fit Plugins and Themes
+              </span>{' '}
+              for you.
             </h1>
             <p className="text-xl max-w-lg lg:max-w-3xl text-gray-600">
-              Discover the latest Obsidian plugins and themes. Stay ahead with updates,
-              downloads, and ratings that help you build your perfect setup.
+              Discover the latest Obsidian plugins and themes. Stay ahead with
+              updates, downloads, and ratings that help you build your perfect
+              setup.
             </p>
             <TextInput
               className="mt-8 w-full max-w-3xl rounded-xl"

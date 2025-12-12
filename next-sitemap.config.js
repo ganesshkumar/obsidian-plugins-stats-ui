@@ -24,7 +24,7 @@ module.exports = {
         categoriesSet.add(plugin.osCategory);
       }
       if (plugin.osTags) {
-        (plugin?.osTags?.split(',') || []).forEach(tag => {
+        (plugin?.osTags?.split(',') || []).forEach((tag) => {
           const sanitizedTag = sanitizeTag(tag.trim());
           if (!tagDenyList.includes(sanitizedTag)) {
             tagsSet.add(sanitizedTag);

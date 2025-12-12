@@ -1,38 +1,12 @@
-import React from 'react';
-import Link from 'next/link';
-import moment from 'moment';
-import Favorites from './Favorites';
-import { memo } from 'react';
-import { VList } from 'virtua';
-import { getDescription, sanitizeTag, tagDenyList } from '../utils/plugins';
-import { CategoryIcon } from './Category';
-import { Score } from './Score';
-import { getScoreBgClass } from '../lib/customThemes';
-import { Plugin, Theme } from '@prisma/client';
-import { Virtuoso } from 'react-virtuoso';
-import plugins from '@/pages/beta/plugins';
-import { Moon, Sun } from 'react-feather';
 import { EntityType } from '@/domain/Entity';
-
-const highlightMatch = (text: string, query: string) => {
-  if (!text || !query) return text;
-
-  query = query.toLowerCase();
-  text = text.toLowerCase();
-
-  const tokens = query.toLowerCase().trim().split(/\s+/);
-
-  const parts = text.split(new RegExp(`(${query})`, 'gi'));
-  return parts.map((part, index) => {
-    if (part === query) {
-      return (
-        <span key={index} style={{ backgroundColor: 'yellow' }}>
-          {part}
-        </span>
-      );
-    }
-  });
-};
+import plugins from '@/pages/beta/plugins';
+import { Theme } from '@prisma/client';
+import moment from 'moment';
+import Link from 'next/link';
+import { memo } from 'react';
+import { Moon, Sun } from 'react-feather';
+import { Virtuoso } from 'react-virtuoso';
+import Favorites from './Favorites';
 
 function highlightMatchesV2(text: string, query: string): string {
   if (!query || !query.length || !text || !text.length) {
@@ -245,12 +219,24 @@ const UnindexedThemeListItemInternal = (props) => {
           </div>
         </div>
       )} */}
-      <div className='my-4'>
+      <div className="my-4">
         <div>
-          {theme.isDark ?  <div className='flex gap-x-2 items-center'><Moon size={16} /> <span>Supports dark mode</span></div> : ''}
+          {theme.isDark ? (
+            <div className="flex gap-x-2 items-center">
+              <Moon size={16} /> <span>Supports dark mode</span>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
         <div>
-          {theme.isLight ?  <div className='flex gap-x-2 items-center'><Sun size={16} /> <span>Supports light mode</span></div> : ''}
+          {theme.isLight ? (
+            <div className="flex gap-x-2 items-center">
+              <Sun size={16} /> <span>Supports light mode</span>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </div>
       <Link
@@ -283,10 +269,13 @@ const UnindexedThemeTableItemInternal = (props) => {
         />
       </div>
       <div key={`${theme.repo}-dark-mode`} className="col-span-8 md:col-span-3">
-        {theme.isDark ?  '✅' : ''}
+        {theme.isDark ? '✅' : ''}
       </div>
-      <div key={`${theme.repo}-light-mode`} className="col-span-8 md:col-span-3">
-        {theme.isLight ?  '✅' : ''}
+      <div
+        key={`${theme.repo}-light-mode`}
+        className="col-span-8 md:col-span-3"
+      >
+        {theme.isLight ? '✅' : ''}
       </div>
       <div key={`${theme.repo}-link`} className="col-span-2 md:col-span-3">
         <a

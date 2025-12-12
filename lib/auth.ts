@@ -66,7 +66,8 @@ export const getAndClearReturnUrl = (): string => {
  * Get the backend OAuth URL from environment variables
  */
 export const getOAuthUrl = (): string => {
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
+  const backendUrl =
+    process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
   return `${backendUrl}/auth/google`;
 };
 
@@ -182,7 +183,7 @@ export const cancelTokenRefresh = (): void => {
  */
 export const initializeAuth = async (): Promise<void> => {
   if (typeof window === 'undefined') return;
-  
+
   const token = getAuthToken();
   if (token) {
     // Check if token is still valid
@@ -190,7 +191,7 @@ export const initializeAuth = async (): Promise<void> => {
     if (payload && payload.exp) {
       const expiresAt = payload.exp * 1000;
       const now = Date.now();
-      
+
       if (expiresAt > now) {
         // Token is still valid, schedule refresh
         scheduleTokenRefresh();
@@ -198,14 +199,16 @@ export const initializeAuth = async (): Promise<void> => {
         // Token expired, try to refresh using refresh token (httpOnly cookie)
         console.log('Access token expired on app load, attempting refresh...');
         const refreshed = await refreshAccessToken();
-        
+
         if (refreshed) {
           // Successfully refreshed, schedule next refresh
           console.log('Token refreshed successfully on app load');
           scheduleTokenRefresh();
         } else {
           // Refresh failed (refresh token also expired or invalid), clear token
-          console.warn('Token refresh failed on app load, clearing expired token');
+          console.warn(
+            'Token refresh failed on app load, clearing expired token'
+          );
           removeAuthToken();
         }
       }
@@ -221,7 +224,7 @@ export const initiateLogin = (): void => {
   if (typeof window !== 'undefined') {
     // Save current page to return to after login
     setReturnUrl(window.location.pathname + window.location.search);
-    
+
     // Redirect to OAuth provider
     window.location.href = getOAuthUrl();
   }
@@ -233,10 +236,10 @@ export const initiateLogin = (): void => {
  */
 export const logout = async (redirectTo?: string): Promise<void> => {
   const token = getAuthToken();
-  
+
   // Cancel any scheduled token refresh
   cancelTokenRefresh();
-  
+
   // Call backend logout endpoint if we have a token
   if (token) {
     try {
@@ -244,7 +247,7 @@ export const logout = async (redirectTo?: string): Promise<void> => {
         method: 'POST',
         credentials: 'include', // Required to clear refresh token cookie
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
     } catch (error) {
@@ -254,11 +257,11 @@ export const logout = async (redirectTo?: string): Promise<void> => {
 
   // Clear local storage
   removeAuthToken();
-  
+
   if (typeof window !== 'undefined') {
     // Also clear user email from localStorage
     localStorage.removeItem('userEmail');
-    
+
     if (redirectTo) {
       window.location.href = redirectTo;
     } else {
@@ -273,17 +276,17 @@ export const logout = async (redirectTo?: string): Promise<void> => {
  */
 export const logoutAll = async (redirectTo?: string): Promise<void> => {
   const token = getAuthToken();
-  
+
   // Cancel any scheduled token refresh
   cancelTokenRefresh();
-  
+
   if (token) {
     try {
       await fetch(`${getBackendUrl()}/auth/logout-all`, {
         method: 'POST',
         credentials: 'include',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
     } catch (error) {
@@ -293,11 +296,11 @@ export const logoutAll = async (redirectTo?: string): Promise<void> => {
 
   // Clear local storage
   removeAuthToken();
-  
+
   if (typeof window !== 'undefined') {
     // Also clear user email from localStorage
     localStorage.removeItem('userEmail');
-    
+
     if (redirectTo) {
       window.location.href = redirectTo;
     } else {

@@ -79,10 +79,10 @@ const Plugin = (props: IPluginProps) => {
   const [readmeContent, setReadmeContent] = useState('');
 
   const { isAuthenticated } = useAuth();
-  const { 
-    data: ratingSummary, 
-    isLoading: ratingSummaryLoading, 
-    error: ratingSummaryError 
+  const {
+    data: ratingSummary,
+    isLoading: ratingSummaryLoading,
+    error: ratingSummaryError,
   } = useEntityRatingSummary('plugin', props.plugin.pluginId, isAuthenticated);
 
   const now = moment();
@@ -132,8 +132,7 @@ const Plugin = (props: IPluginProps) => {
   return (
     <div>
       <Header {...props} />
-      <AppNavbar current={`plugin:${props.plugin.pluginId}`}>
-      </AppNavbar>
+      <AppNavbar current={`plugin:${props.plugin.pluginId}`}></AppNavbar>
       <div className="bg-white pt-5">
         <ResponsiveLayout sidebar={sidebar}>
           <Card theme={customCardTheme}>
@@ -153,26 +152,32 @@ const Plugin = (props: IPluginProps) => {
                 />
                 <div className="flex flex-col gap-y-2 my-4 mb-8 max-w-sm">
                   {ratingSummaryLoading && (
-                    <div className="text-sm text-gray-500">Loading rating data...</div>
+                    <div className="text-sm text-gray-500">
+                      Loading rating data...
+                    </div>
                   )}
                   {ratingSummaryError && (
-                    <div className="text-sm text-red-500">Error loading ratings</div>
+                    <div className="text-sm text-red-500">
+                      Error loading ratings
+                    </div>
                   )}
                   {ratingSummary && (
-                    <StarRating ratingInfo={{
-                      avgRating: ratingSummary.stats.averageRating,
-                      ratingCount: ratingSummary.stats.totalReviews,
-                      star1Count: ratingSummary.stats.ratingCounts[1],
-                      star2Count: ratingSummary.stats.ratingCounts[2],
-                      star3Count: ratingSummary.stats.ratingCounts[3],
-                      star4Count: ratingSummary.stats.ratingCounts[4],
-                      star5Count: ratingSummary.stats.ratingCounts[5],
-                    }} />
+                    <StarRating
+                      ratingInfo={{
+                        avgRating: ratingSummary.stats.averageRating,
+                        ratingCount: ratingSummary.stats.totalReviews,
+                        star1Count: ratingSummary.stats.ratingCounts[1],
+                        star2Count: ratingSummary.stats.ratingCounts[2],
+                        star3Count: ratingSummary.stats.ratingCounts[3],
+                        star4Count: ratingSummary.stats.ratingCounts[4],
+                        star5Count: ratingSummary.stats.ratingCounts[5],
+                      }}
+                    />
                   )}
                   {!ratingSummaryLoading && !ratingSummary && (
                     <StarRating ratingInfo={props.plugin.ratingInfo} />
                   )}
-                  <GiveReview 
+                  <GiveReview
                     entityType="plugin"
                     entityId={props.plugin.pluginId}
                   />
@@ -310,27 +315,41 @@ const Plugin = (props: IPluginProps) => {
             />
           </Card>
           <PluginSection plugin={props.plugin} />
-          
+
           {/* Review */}
           <Card theme={customCardTheme} className="relative mt-4">
             <div className="text-2xl">Reviews</div>
-            {props.plugin.reviews.length === 0 &&
-              <div className="mt-4 text-gray-500">No reviews yet.</div>}
-            {props.plugin.reviews.length > 0 &&
+            {props.plugin.reviews.length === 0 && (
+              <div className="mt-4 text-gray-500">No reviews yet.</div>
+            )}
+            {props.plugin.reviews.length > 0 && (
               <List className="mt-4">
                 {props.plugin.reviews.map((review: any) => (
-                  <ListItem key={review.id} className="border-b border-gray-200 pb-4 mb-4 list-none">
-                    <div className='flex gap-2 items-center'>
-                      <User size={24} className="inline text-white bg-gray-400 rounded-full p-1" />
-                      <div className="text-xs">{review?.user?.name || 'Anonymous'}</div>
+                  <ListItem
+                    key={review.id}
+                    className="border-b border-gray-200 pb-4 mb-4 list-none"
+                  >
+                    <div className="flex gap-2 items-center">
+                      <User
+                        size={24}
+                        className="inline text-white bg-gray-400 rounded-full p-1"
+                      />
+                      <div className="text-xs">
+                        {review?.user?.name || 'Anonymous'}
+                      </div>
                     </div>
-                    <div className="text-xs">Reviewed on {moment(review.createdAt).format('MMM Do, YYYY')}</div>
+                    <div className="text-xs">
+                      Reviewed on{' '}
+                      {moment(review.createdAt).format('MMM Do, YYYY')}
+                    </div>
                     <StarRatingDisplay rating={review.rating} size="medium" />
-                    <div className="mt-2 text-gray-700">{review.reviewText || <i>No review text provided.</i>}</div>
+                    <div className="mt-2 text-gray-700">
+                      {review.reviewText || <i>No review text provided.</i>}
+                    </div>
                   </ListItem>
                 ))}
               </List>
-            }
+            )}
           </Card>
 
           <Card theme={customCardTheme} className="relative mt-4">
@@ -628,9 +647,9 @@ export const getStaticPaths = async () => {
   const plugins = await PluginsCache.get();
 
   return {
-    paths: [], /* Array.from(plugins).map((plugin: any) => ({
+    paths: [] /* Array.from(plugins).map((plugin: any) => ({
       params: { slug: plugin.pluginId },
-    })), */
+    })), */,
     fallback: 'blocking',
   };
 };

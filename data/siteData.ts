@@ -5,7 +5,8 @@ export const SiteData = {
     {
       title: 'Rate Plugins with Stars ⭐',
       image: '/images/star.gif',
-      description: 'You can now rate Obsidian plugins using a 5-star rating system! This feature allows you to provide feedback on your favorite plugins and helps others discover high quality tools. Simply navigate to a plugin\'s detail page and select the number of stars you wish to give. Your ratings will contribute to the overall score of the plugin, making it easier for the community to find the best plugins available. Start rating today and help shape the Obsidian plugin ecosystem! 🌟',
+      description:
+        "You can now rate Obsidian plugins using a 5-star rating system! This feature allows you to provide feedback on your favorite plugins and helps others discover high quality tools. Simply navigate to a plugin's detail page and select the number of stars you wish to give. Your ratings will contribute to the overall score of the plugin, making it easier for the community to find the best plugins available. Start rating today and help shape the Obsidian plugin ecosystem! 🌟",
       link: '/plugins',
       ctaText: 'Rate your favorite plugins',
       bgClasses: 'bg-linear-to-tr from-green-400 to-emerald-400 text-black',
@@ -13,15 +14,15 @@ export const SiteData = {
     {
       title: 'Now supporting Themes',
       image: '/images/swatch.jpg',
-      description: 'Now you can explore and discover Obsidian themes on the website! For now there is a new `/themes` page, individual page for each theme (in testing mode), and themes are also integrated into the existing `/new` page - to make new themes easier to find. More features will be added over time based on your feedback. 🎨',
+      description:
+        'Now you can explore and discover Obsidian themes on the website! For now there is a new `/themes` page, individual page for each theme (in testing mode), and themes are also integrated into the existing `/new` page - to make new themes easier to find. More features will be added over time based on your feedback. 🎨',
       link: '/themes',
       ctaText: 'Explore Themes',
       bgClasses: 'bg-linear-to-tr from-pink-400 to-rose-400 text-black',
     },
     {
       title: 'Catalog of BETA Plugins',
-      image:
-        '/images/beta.svg',
+      image: '/images/beta.svg',
       description:
         'I am cataloging the BETA plugins that are not yet available in the Obsidian community plugins list. If you know a BETA plugin that you would like to be listed here, please submit it using the GitHub Issue.',
       link: 'https://github.com/ganesshkumar/awesome-obsidian-beta-plugins',
@@ -38,7 +39,7 @@ export const SiteData = {
     {
       question: '2. What is the source of plugin description?',
       answer:
-        'Plugin descriptions are written based on the README content of each plugin\'s GitHub repository to provide more detailed and informative summaries. If a custom description cannot be generated from the README, we fall back to using the description from the `community-plugins.json` file.',
+        "Plugin descriptions are written based on the README content of each plugin's GitHub repository to provide more detailed and informative summaries. If a custom description cannot be generated from the README, we fall back to using the description from the `community-plugins.json` file.",
     } as Faq,
     {
       question: '3. What is the source of release changelog?',

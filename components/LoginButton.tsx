@@ -19,26 +19,26 @@ interface LoginButtonProps {
 /**
  * Login button component that triggers OAuth flow
  * Saves current page URL and redirects back after authentication
- * 
+ *
  * @example
  * ```tsx
  * // Simple usage
  * <LoginButton />
- * 
+ *
  * // With custom styling
  * <LoginButton className="my-custom-class" />
- * 
+ *
  * // With custom content
  * <LoginButton>Sign in with Google</LoginButton>
- * 
+ *
  * // Show logout button when authenticated
  * <LoginButton showLogout />
  * ```
  */
-export default function LoginButton({ 
-  className = '', 
+export default function LoginButton({
+  className = '',
   children,
-  showLogout = false 
+  showLogout = false,
 }: LoginButtonProps) {
   const [authenticated, setAuthenticated] = React.useState(false);
 

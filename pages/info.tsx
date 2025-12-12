@@ -6,7 +6,6 @@ import { getStaticProps as getMostDownloadedProps } from './most-downloaded';
 import { getStaticProps as getFavoritesProps } from './favorites';
 import { getStaticProps as getTimelineProps } from './timeline';
 import { getStaticProps as getShareProps } from './share';
-//import { getStaticProps as getMigrateProps } from "./migrate";
 import {
   getStaticPaths as getPostPaths,
   getStaticProps as getPostProps,

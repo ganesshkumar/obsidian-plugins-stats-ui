@@ -9,25 +9,30 @@ Obsidian Stats is a Next.js web application that provides analytics, statistics,
 ## Tech Stack
 
 ### Core Framework
+
 - **Next.js 15** with Pages Router (not App Router)
 - **React 19** with TypeScript
 - **Prisma ORM** with MongoDB database
 
 ### Styling
+
 - **Tailwind CSS 4** for utility-first styling
 - **shadcn/ui** components (New York style) in `components/ui/` (Prefer these over flowbite react for new components)
 - **Flowbite React** for UI component library
 - **Framer Motion** for animations
 
 ### State Management
+
 - **Zustand** for global state management (see `store/` directory)
 - **TanStack React Query** for server state and data fetching
 
 ### Testing
+
 - **Jest** with React Testing Library
 - Test files are co-located with components using `.test.tsx` suffix
 
 ### Authentication
+
 - Custom OAuth implementation with JWT tokens
 - Auth utilities in `lib/auth.ts`
 - `useAuth` hook for authentication state
@@ -63,29 +68,34 @@ Obsidian Stats is a Next.js web application that provides analytics, statistics,
 ## Coding Conventions
 
 ### TypeScript
+
 - Use TypeScript for all new code
 - Prefer interfaces over types for object shapes
 - Use explicit return types for functions
 - Follow existing naming conventions: `I` prefix for interfaces (e.g., `IHeaderProps`)
 
 ### React Components
+
 - Use functional components with hooks
 - Co-locate test files with components (e.g., `Component.tsx` and `Component.test.tsx`)
 - Use named exports for components when appropriate
 - Props interfaces should be named `I{ComponentName}Props`
 
 ### Styling
+
 - Use Tailwind CSS utility classes
 - Follow the existing color scheme: violet/purple for primary accents
 - Use `className` prop with template literals for conditional classes
 - Use `clsx` or `tailwind-merge` for complex class composition
 
 ### State Management
+
 - Use Zustand for global client-side state
 - Use React Query for server state and API calls
 - Use React Context for dependency injection (auth, user context)
 
 ### Testing
+
 - Write tests for all new components
 - Use React Testing Library's user-centric queries
 - Mock Prisma client in tests
@@ -94,6 +104,7 @@ Obsidian Stats is a Next.js web application that provides analytics, statistics,
 ## Database Schema (Prisma/MongoDB)
 
 Key models:
+
 - `Plugin` - Obsidian plugin metadata with stats (downloads, stars, forks, etc.)
 - `Theme` - Obsidian theme metadata
 - Scoring fields: `score`, `healthScore`, `popularityScore`, `zScoreTrending`
@@ -101,6 +112,7 @@ Key models:
 ## Common Patterns
 
 ### Data Fetching
+
 ```tsx
 // Use getStaticProps or getServerSideProps for page data
 export const getStaticProps: GetStaticProps = async () => {
@@ -110,6 +122,7 @@ export const getStaticProps: GetStaticProps = async () => {
 ```
 
 ### Component Structure
+
 ```tsx
 interface IComponentProps {
   plugin: Plugin;
@@ -117,17 +130,14 @@ interface IComponentProps {
 }
 
 const Component = ({ plugin, showDescription }: IComponentProps) => {
-  return (
-    <div className="...">
-      {/* Component content */}
-    </div>
-  );
+  return <div className="...">{/* Component content */}</div>;
 };
 
 export default Component;
 ```
 
 ### Zustand Store
+
 ```tsx
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -149,6 +159,7 @@ export const useStore = create<IStoreState>()(
 ```
 
 ### Authenticated API Calls
+
 ```tsx
 import { authenticatedFetch } from '@/lib/api';
 
@@ -161,6 +172,7 @@ const response = await authenticatedFetch('/api/endpoint', {
 ## Import Aliases
 
 Use the `@/` alias for imports:
+
 - `@/components` - Components
 - `@/lib` - Library utilities
 - `@/hooks` - Custom hooks
@@ -187,6 +199,7 @@ npm run prettier     # Format code
 ## Environment Variables
 
 Required environment variables:
+
 - `DATABASE_URL` - MongoDB connection string
 - `NEXT_PUBLIC_SUPABASE_URL` - Supabase URL (for auth)
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anon key

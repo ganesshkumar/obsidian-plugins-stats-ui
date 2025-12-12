@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { getAuthToken, initiateLogin, logout as authLogout, scheduleTokenRefresh } from '@/lib/auth';
+import {
+  getAuthToken,
+  initiateLogin,
+  logout as authLogout,
+  scheduleTokenRefresh,
+} from '@/lib/auth';
 import { authenticatedFetch, getBackendUrl } from '@/lib/api';
 
 interface User {
@@ -14,7 +19,9 @@ interface User {
  */
 const fetchUserProfile = async (): Promise<User | null> => {
   try {
-    const response = await authenticatedFetch(`${getBackendUrl()}/auth/profile`);
+    const response = await authenticatedFetch(
+      `${getBackendUrl()}/auth/profile`
+    );
     if (response.ok) {
       return await response.json();
     }
@@ -33,18 +40,18 @@ const useUser = () => {
     const initAuth = async () => {
       setLoading(true);
       const token = getAuthToken();
-      
+
       if (token) {
         // Schedule token refresh
         scheduleTokenRefresh();
-        
+
         // Fetch user profile
         const userProfile = await fetchUserProfile();
         setUser(userProfile);
       } else {
         setUser(null);
       }
-      
+
       setLoading(false);
     };
 

@@ -2,7 +2,15 @@ import { Post } from '../../../lib/abstractions';
 import { Plugin, Theme } from '@prisma/client';
 
 export type PageInfo = {
-  type: 'posts' | 'post' | 'plugins' | 'plugin' | 'tool' | 'page' | 'theme' | 'themes';
+  type:
+    | 'posts'
+    | 'post'
+    | 'plugins'
+    | 'plugin'
+    | 'tool'
+    | 'page'
+    | 'theme'
+    | 'themes';
   slug: string;
 };
 

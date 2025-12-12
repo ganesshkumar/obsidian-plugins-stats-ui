@@ -7,15 +7,8 @@ import { Footer } from '../../components/Footer';
 import { setupFavorites } from '../../utils/favorites';
 import Favorites from '../../components/Favorites';
 import { isNotXDaysOld } from '../../utils/datetime';
-import {
-  GitHub,
-  Moon,
-  Sun,
-} from 'react-feather';
-import {
-  Card,
-  CustomFlowbiteTheme,
-} from 'flowbite-react';
+import { GitHub, Moon, Sun } from 'react-feather';
+import { Card, CustomFlowbiteTheme } from 'flowbite-react';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
 import EthicalAd from '../../components/EthicalAd';
@@ -60,46 +53,51 @@ const ThemeView = (props: IThemeProps) => {
 
   const { isAuthenticated } = useAuth();
   const themeId = props.theme.repo.split('/')[1];
-  const { 
-    data: ratingSummary, 
-    isLoading: ratingSummaryLoading, 
-    error: ratingSummaryError 
+  const {
+    data: ratingSummary,
+    isLoading: ratingSummaryLoading,
+    error: ratingSummaryError,
   } = useEntityRatingSummary('theme', themeId, isAuthenticated);
 
   const now = moment();
 
   let defaultBranch = '';
   useEffect(() => {
-  setupFavorites(setFavorites);
-  fetch(`https://api.github.com/repos/${props.theme.repo}`)
-    .then((response) => response.json())
-    .then((data) => {
-      const defaultBranch = data.default_branch;
-      return fetch(
-        `https://raw.githubusercontent.com/${props.theme.repo}/${defaultBranch}/README.md`
-      ).then((response) => response.text())
-        .then((data) => {
-          const baseUrl = `https://raw.githubusercontent.com/${props.theme.repo}/${defaultBranch}/`;
-          // Markdown image links: only match relative paths
-          const mdRegex = /!\[([^\]]*)\]\(\s*(?!https?:\/\/|\/\/|\/)(?:\.\.\/|\.\/)?([^)\s]+)\s*\)/g;
-          let newData = data.replace(mdRegex, (match, alt, relPath) => {
-            return `![${alt}](${baseUrl}${relPath})`;
-          });
+    setupFavorites(setFavorites);
+    fetch(`https://api.github.com/repos/${props.theme.repo}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const defaultBranch = data.default_branch;
+        return fetch(
+          `https://raw.githubusercontent.com/${props.theme.repo}/${defaultBranch}/README.md`
+        )
+          .then((response) => response.text())
+          .then((data) => {
+            const baseUrl = `https://raw.githubusercontent.com/${props.theme.repo}/${defaultBranch}/`;
+            // Markdown image links: only match relative paths
+            const mdRegex =
+              /!\[([^\]]*)\]\(\s*(?!https?:\/\/|\/\/|\/)(?:\.\.\/|\.\/)?([^)\s]+)\s*\)/g;
+            let newData = data.replace(mdRegex, (match, alt, relPath) => {
+              return `![${alt}](${baseUrl}${relPath})`;
+            });
 
-          // HTML <img> tags: only match relative src attributes
-          const htmlImgRegex = /<img\s+([^>]*?)src=(["'])(?!https?:\/\/|\/\/|\/)(?:\.\.\/|\.\/)?([^"'>\s]+)\2([^>]*?)>/gi;
-          newData = newData.replace(htmlImgRegex, (match, before, quote, relPath, after) => {
-            return `<img ${before}src=${quote}${baseUrl}${relPath}${quote}${after}>`;
-          });
+            // HTML <img> tags: only match relative src attributes
+            const htmlImgRegex =
+              /<img\s+([^>]*?)src=(["'])(?!https?:\/\/|\/\/|\/)(?:\.\.\/|\.\/)?([^"'>\s]+)\2([^>]*?)>/gi;
+            newData = newData.replace(
+              htmlImgRegex,
+              (match, before, quote, relPath, after) => {
+                return `<img ${before}src=${quote}${baseUrl}${relPath}${quote}${after}>`;
+              }
+            );
 
-          setReadmeContent(newData);
-        });
-    })
-    .catch((err) => {
-      console.error("Error fetching README:", err);
-    });
+            setReadmeContent(newData);
+          });
+      })
+      .catch((err) => {
+        console.error('Error fetching README:', err);
+      });
   }, []);
-
 
   const isFavorite = favorites.includes(props.theme.repo);
   const isNotADayOld = isNotXDaysOld(props.theme.createdAt, 1);
@@ -145,29 +143,32 @@ const ThemeView = (props: IThemeProps) => {
                 />
                 <div className="flex flex-col gap-y-2 my-4 mb-8 max-w-sm">
                   {ratingSummaryLoading && (
-                    <div className="text-sm text-gray-500">Loading rating data...</div>
+                    <div className="text-sm text-gray-500">
+                      Loading rating data...
+                    </div>
                   )}
                   {ratingSummaryError && (
-                    <div className="text-sm text-red-500">Error loading ratings</div>
+                    <div className="text-sm text-red-500">
+                      Error loading ratings
+                    </div>
                   )}
                   {ratingSummary && (
-                    <StarRating ratingInfo={{
-                      avgRating: ratingSummary.stats.averageRating,
-                      ratingCount: ratingSummary.stats.totalReviews,
-                      star1Count: ratingSummary.stats.ratingCounts[1],
-                      star2Count: ratingSummary.stats.ratingCounts[2],
-                      star3Count: ratingSummary.stats.ratingCounts[3],
-                      star4Count: ratingSummary.stats.ratingCounts[4],
-                      star5Count: ratingSummary.stats.ratingCounts[5],
-                    }} />
+                    <StarRating
+                      ratingInfo={{
+                        avgRating: ratingSummary.stats.averageRating,
+                        ratingCount: ratingSummary.stats.totalReviews,
+                        star1Count: ratingSummary.stats.ratingCounts[1],
+                        star2Count: ratingSummary.stats.ratingCounts[2],
+                        star3Count: ratingSummary.stats.ratingCounts[3],
+                        star4Count: ratingSummary.stats.ratingCounts[4],
+                        star5Count: ratingSummary.stats.ratingCounts[5],
+                      }}
+                    />
                   )}
                   {!ratingSummaryLoading && !ratingSummary && (
                     <StarRating ratingInfo={props.theme.ratingInfo} />
                   )}
-                  <GiveReview 
-                    entityType="theme"
-                    entityId={themeId}
-                  />
+                  <GiveReview entityType="theme" entityId={themeId} />
                 </div>
                 <div className="flex gap-x-2 mb-2">
                   {isFavorite && (
@@ -196,7 +197,7 @@ const ThemeView = (props: IThemeProps) => {
                   )}
                 </div>
                 {/* <div className='my-2'>{props.plugin.description}</div> */}
-                <div className="flex flex-wrap space-x-4 mt-6"> 
+                <div className="flex flex-wrap space-x-4 mt-6">
                   <a
                     href={`https://github.com/${props.theme.repo}`}
                     target="_blank"
@@ -570,18 +571,20 @@ export const getStaticPaths = async () => {
   const themes = await ThemesCache.get();
 
   return {
-    paths: [], /* Array.from(themes).map((theme: Theme) => ({
+    paths: [] /* Array.from(themes).map((theme: Theme) => ({
       params: { slug: theme.repo.split('/')[1] },
-    })) */
+    })) */,
     fallback: 'blocking',
   };
 };
 
 export const getStaticProps = async ({ params }) => {
   const themes = await ThemesCache.get();
-  const theme = themes.find((theme) => theme.repo.split('/')[1] === params.slug);
+  const theme = themes.find(
+    (theme) => theme.repo.split('/')[1] === params.slug
+  );
   const title = `${theme.name} - Obsidian Theme by ${theme.repo.split('/')[0]}`;
-  const description = `Obsidian Theme: ${theme.name} - by ${theme.repo.split('/')[0]} ${ theme.isDark || theme.isLight ? 'supports ' + (theme.isDark && theme.isLight ? 'both dark and light modes.' : theme.isDark ? 'dark mode.' : 'light mode.') : '' }`;
+  const description = `Obsidian Theme: ${theme.name} - by ${theme.repo.split('/')[0]} ${theme.isDark || theme.isLight ? 'supports ' + (theme.isDark && theme.isLight ? 'both dark and light modes.' : theme.isDark ? 'dark mode.' : 'light mode.') : ''}`;
   const canonical = `https://www.obsidianstats.com/themes/${theme.repo.split('/')[1]}`;
   const image = '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getThemePageSchema(

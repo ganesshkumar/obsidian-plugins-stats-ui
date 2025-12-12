@@ -14,7 +14,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { StarRatingInput } from '@/components/StarRatingInput';
 import { Spinner } from './ui/spinner';
 import { useAuth } from '@/hooks/useAuth';
-import { useUserEntityRating, useSubmitEntityRating, EntityType } from '@/hooks/queries/useEntityRating';
+import {
+  useUserEntityRating,
+  useSubmitEntityRating,
+  EntityType,
+} from '@/hooks/queries/useEntityRating';
 
 interface GiveReviewProps {
   entityType: EntityType;
@@ -63,14 +67,20 @@ const GiveRatingDialog = ({
   const entityLabel = entityType === 'plugin' ? 'plugin' : 'theme';
   const EntityLabel = entityType === 'plugin' ? 'Plugin' : 'Theme';
 
-  const { isAuthenticated, token, loading: isAuthenticatedLoading, login, logout } = useAuth();
+  const {
+    isAuthenticated,
+    token,
+    loading: isAuthenticatedLoading,
+    login,
+    logout,
+  } = useAuth();
 
   const [authInitiated, setAuthInitiated] = useState(false);
-  
+
   // Local form state
   const [selectedRating, setSelectedRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
-  
+
   // Ref for textarea to control cursor position
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -95,7 +105,7 @@ const GiveRatingDialog = ({
     if (ratingData) {
       setSelectedRating(ratingData.rating || 0);
       setReviewText(ratingData.reviewText || '');
-      
+
       // Set cursor to end of text after a short delay to ensure textarea is rendered
       if (ratingData.reviewText) {
         setTimeout(() => {
@@ -120,9 +130,9 @@ const GiveRatingDialog = ({
       return;
     }
     const trimmedReview = reviewText.trim();
-    submitRating({ 
-      rating: selectedRating, 
-      reviewText: trimmedReview || undefined 
+    submitRating({
+      rating: selectedRating,
+      reviewText: trimmedReview || undefined,
     });
   }, [selectedRating, reviewText, submitRating]);
 
@@ -138,17 +148,17 @@ const GiveRatingDialog = ({
   // Character count validation
   const remainingChars = 2000 - reviewText.length;
   const isTextTooLong = reviewText.length > 2000;
-  const hasChanges = ratingData && (
-    selectedRating !== (ratingData.rating || 0) || 
-    reviewText.trim() !== (ratingData.reviewText || '')
-  );
+  const hasChanges =
+    ratingData &&
+    (selectedRating !== (ratingData.rating || 0) ||
+      reviewText.trim() !== (ratingData.reviewText || ''));
 
   // Derive display values
-  const errorMessage = isError 
+  const errorMessage = isError
     ? 'An error occurred while saving your review. Please try again later.'
     : ratingError
-    ? 'An error occurred while fetching your review. Please try again later.'
-    : '';
+      ? 'An error occurred while fetching your review. Please try again later.'
+      : '';
 
   let description;
   let content;
@@ -163,13 +173,23 @@ const GiveRatingDialog = ({
         <p className="text-sm text-gray-700">
           You need to be logged in to rate and review a {entityLabel}.
         </p>
-        {authInitiated ? 
-          <Spinner className="mt-2 text-violet-700" /> :
-          <Button onClick={() => triggerGoogleAuth()} className="mt-2 border border-gray-700 py-1 cursor-pointer hover:bg-gray-100 flex items-center gap-2">
-            <Image src='/images/logos/google.png' alt="Google logo" width={32} height={32} className='w-8' />
+        {authInitiated ? (
+          <Spinner className="mt-2 text-violet-700" />
+        ) : (
+          <Button
+            onClick={() => triggerGoogleAuth()}
+            className="mt-2 border border-gray-700 py-1 cursor-pointer hover:bg-gray-100 flex items-center gap-2"
+          >
+            <Image
+              src="/images/logos/google.png"
+              alt="Google logo"
+              width={32}
+              height={32}
+              className="w-8"
+            />
             <span>Sign in with Google</span>
           </Button>
-        }
+        )}
       </div>
     );
   } else {
@@ -181,19 +201,24 @@ const GiveRatingDialog = ({
           <label className="text-sm font-medium text-gray-700">
             Rating <span className="text-red-500">*</span>
           </label>
-          <StarRatingInput 
-            rating={selectedRating} 
+          <StarRatingInput
+            rating={selectedRating}
             setRating={setSelectedRating}
             disabled={isSuccess}
           />
           {selectedRating === 0 && !isSuccess && (
-            <p className="text-xs text-gray-500">Please select a rating (required)</p>
+            <p className="text-xs text-gray-500">
+              Please select a rating (required)
+            </p>
           )}
         </div>
 
         {/* Review Text */}
         <div className="w-full flex flex-col gap-2">
-          <label htmlFor="review-text" className="text-sm font-medium text-gray-700">
+          <label
+            htmlFor="review-text"
+            className="text-sm font-medium text-gray-700"
+          >
             Review <span className="text-gray-400">(optional)</span>
           </label>
           <Textarea
@@ -208,11 +233,15 @@ const GiveRatingDialog = ({
             disabled={isSaving || isSuccess}
           />
           <div className="flex justify-between items-center text-xs">
-            <span className={`${
-              remainingChars < 100 ? 'text-orange-600' : 
-              remainingChars < 0 ? 'text-red-600' : 
-              'text-gray-500'
-            }`}>
+            <span
+              className={`${
+                remainingChars < 100
+                  ? 'text-orange-600'
+                  : remainingChars < 0
+                    ? 'text-red-600'
+                    : 'text-gray-500'
+              }`}
+            >
               {remainingChars} characters remaining
             </span>
           </div>
@@ -227,15 +256,20 @@ const GiveRatingDialog = ({
 
         {/* Error Message */}
         {errorMessage && (
-          <p className="text-red-600 text-sm w-full text-center">{errorMessage}</p>
+          <p className="text-red-600 text-sm w-full text-center">
+            {errorMessage}
+          </p>
         )}
 
         {/* Success Message */}
         {isSuccess && (
           <div className="text-center w-full">
-            <p className="text-green-600 text-sm font-medium">Review saved successfully!</p>
+            <p className="text-green-600 text-sm font-medium">
+              Review saved successfully!
+            </p>
             <p className="text-gray-600 text-xs mt-1">
-              It will take some time to update the aggregated rating on the {entityLabel} page.
+              It will take some time to update the aggregated rating on the{' '}
+              {entityLabel} page.
             </p>
             <div
               style={{
@@ -275,8 +309,10 @@ const GiveRatingDialog = ({
                   <Spinner className="mr-2" size="small" />
                   Submitting...
                 </>
+              ) : hasChanges ? (
+                'Update Review'
               ) : (
-                hasChanges ? 'Update Review' : 'Submit Review'
+                'Submit Review'
               )}
             </Button>
           </>
@@ -303,7 +339,7 @@ const GiveRatingDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className='bg-white max-w-2xl'>
+      <DialogContent className="bg-white max-w-2xl">
         <DialogHeader className="relative">
           <DialogTitle>Rate & Review {EntityLabel}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>

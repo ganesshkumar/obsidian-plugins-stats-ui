@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-11-02 to 2025-11-08
-description: "From 2025-11-02 to 2025-11-08 there are 0 newly released plugins and 36 plugin updates"
-excerpt:  There are no new plugins and 36 plugin updates during the week 2025-11-02 to 2025-11-08.
-publishedDate: "2025-11-09"
-modifiedDate: "2025-12-03"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+description: 'From 2025-11-02 to 2025-11-08 there are 0 newly released plugins and 36 plugin updates'
+excerpt: There are no new plugins and 36 plugin updates during the week 2025-11-02 to 2025-11-08.
+publishedDate: '2025-11-09'
+modifiedDate: '2025-12-03'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 

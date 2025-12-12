@@ -155,7 +155,9 @@ const pickSimilarPlugins = async (pageInfo: PageInfo) => {
 
 const pickSimilarThemes = async (pageInfo: PageInfo) => {
   const themes = (await ThemesCache.get()) ?? [];
-  const currentTheme = themes.find((theme) => theme.repo.split('/')[1] === pageInfo.slug);
+  const currentTheme = themes.find(
+    (theme) => theme.repo.split('/')[1] === pageInfo.slug
+  );
 
   const similarThemes = themes.filter(
     (theme) =>
@@ -179,7 +181,7 @@ const pickSimilarThemes = async (pageInfo: PageInfo) => {
     themes: suggestedThemes,
     hasMore: false,
   };
-}
+};
 
 export const generateSuggestions = async (
   pageInfo: PageInfo

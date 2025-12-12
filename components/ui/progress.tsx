@@ -3,8 +3,9 @@ import * as ProgressPrimitive from '@radix-ui/react-progress';
 
 import { cn } from '@/lib/utils';
 
-interface CustomProgressProps
-  extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
+interface CustomProgressProps extends React.ComponentPropsWithoutRef<
+  typeof ProgressPrimitive.Root
+> {
   indicatorColor: string;
 }
 

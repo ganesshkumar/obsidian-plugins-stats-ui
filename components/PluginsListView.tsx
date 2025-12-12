@@ -36,30 +36,29 @@ export const PluginsListView = ({
         unstyled
         className="w-full divide-y divide-gray-200 dark:divide-gray-700"
       >
-        {entities && entities.length ? 
-          entities.map((entity, idx) => (
-            <EntityView
-              idx={idx + 1}
-              pad={pad}
-              key={entity.id}
-              entity={entity}
-              favorites={favorites}
-              setFavorites={setFavorites}
-              showDownloadStat={showDownloadStat}
-            />
-          )) :
-          plugins.map((plugin, idx) => (
-            <PluginView
-              idx={idx + 1}
-              pad={pad}
-              key={plugin.pluginId}
-              plugin={plugin}
-              favorites={favorites}
-              setFavorites={setFavorites}
-              showDownloadStat={showDownloadStat}
-            />
-          ))
-        }
+        {entities && entities.length
+          ? entities.map((entity, idx) => (
+              <EntityView
+                idx={idx + 1}
+                pad={pad}
+                key={entity.id}
+                entity={entity}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                showDownloadStat={showDownloadStat}
+              />
+            ))
+          : plugins.map((plugin, idx) => (
+              <PluginView
+                idx={idx + 1}
+                pad={pad}
+                key={plugin.pluginId}
+                plugin={plugin}
+                favorites={favorites}
+                setFavorites={setFavorites}
+                showDownloadStat={showDownloadStat}
+              />
+            ))}
       </List>
     </div>
   );
@@ -128,29 +127,31 @@ const UnindexedPlugin = (props) => {
   const { key, plugin, favorites, setFavorites, showDownloadStat } = props;
   return (
     <div key={key} className="flex flex-col w-full">
-      <div className='border-0 border-l-6 border-violet-600 pl-2'>
-      <div className='flex items-center'>
-        <Link
-          href={`/plugins/${plugin.pluginId}`}
-          className="text-xl font-semibold text-gray-800 hover:underline"
-          prefetch={false}
-        >
-          {plugin.name}
-        </Link>
-        <div className='ml-4 px-2 py-0.5 uppercase rounded-full text-[10px] font-semibold bg-violet-600 text-violet-100'>Plugin</div>
-      </div>
-      <div className="flex items-center space-x-2 text-sm text-gray-700">
-        <span>
-          {moment(plugin.createdAt).fromNow()} by{' '}
-          <span className="text-gray-700">{plugin.author}</span>
-        </span>
-        <Favorites
-          entityType={EntityType.Plugin}
-          entityId={plugin.pluginId}
-          isFavorite={favorites.includes(plugin.pluginId)}
-          setFavorites={setFavorites}
-        />
-      </div>
+      <div className="border-0 border-l-6 border-violet-600 pl-2">
+        <div className="flex items-center">
+          <Link
+            href={`/plugins/${plugin.pluginId}`}
+            className="text-xl font-semibold text-gray-800 hover:underline"
+            prefetch={false}
+          >
+            {plugin.name}
+          </Link>
+          <div className="ml-4 px-2 py-0.5 uppercase rounded-full text-[10px] font-semibold bg-violet-600 text-violet-100">
+            Plugin
+          </div>
+        </div>
+        <div className="flex items-center space-x-2 text-sm text-gray-700">
+          <span>
+            {moment(plugin.createdAt).fromNow()} by{' '}
+            <span className="text-gray-700">{plugin.author}</span>
+          </span>
+          <Favorites
+            entityType={EntityType.Plugin}
+            entityId={plugin.pluginId}
+            isFavorite={favorites.includes(plugin.pluginId)}
+            setFavorites={setFavorites}
+          />
+        </div>
       </div>
       <Score redirectForReason={true} plugin={plugin} />
       {showDownloadStat && (
@@ -202,14 +203,14 @@ const UnindexedPlugin = (props) => {
         </div>
       )}
       <div className="my-4 text-gray-700">{getDescription(plugin)}</div>
-      <div className='flex gap-x-2'>
+      <div className="flex gap-x-2">
         <LinkButton
-          className='hover:cursor-pointer'
+          className="hover:cursor-pointer"
           href={`/plugins/${plugin.pluginId}`}
           content="View Plugin Details"
         />
         <RepoButton
-          className='hover:cursor-pointer'
+          className="hover:cursor-pointer"
           href={`https://github.com/${plugin.repo}`}
         />
       </div>
@@ -222,8 +223,8 @@ const UnindexedTheme = (props) => {
   const [author, repo] = theme.repo.split('/');
   return (
     <div key={key} className="flex flex-col w-full">
-      <div className='border-0 border-l-6 border-emerald-600 pl-2'>
-        <div className='flex items-center'>
+      <div className="border-0 border-l-6 border-emerald-600 pl-2">
+        <div className="flex items-center">
           <Link
             href={`/themes/${repo}`}
             className="text-xl font-semibold text-gray-800 hover:underline"
@@ -231,7 +232,9 @@ const UnindexedTheme = (props) => {
           >
             {theme.name}
           </Link>
-          <div className='ml-4 flex justify-center items-center px-2 py-0.5 uppercase rounded-full text-[10px] font-semibold bg-emerald-600 text-emerald-100'>Theme</div>
+          <div className="ml-4 flex justify-center items-center px-2 py-0.5 uppercase rounded-full text-[10px] font-semibold bg-emerald-600 text-emerald-100">
+            Theme
+          </div>
         </div>
         <div className="flex items-center space-x-2 text-sm text-gray-700">
           <span>
@@ -246,11 +249,11 @@ const UnindexedTheme = (props) => {
           />
         </div>
       </div>
-      <div className='my-4'>
+      <div className="my-4">
         <img
           src={`https://raw.githubusercontent.com/${author}/${repo}/HEAD/${theme.screenshot}`}
           alt={repo}
-          className='w-100 aspect-video rounded-lg'
+          className="w-100 aspect-video rounded-lg"
         />
       </div>
       {/* <Score plugin={plugin} /> */}
@@ -264,10 +267,7 @@ const UnindexedTheme = (props) => {
           </span>
         </div>
       )} */}
-      <LinkButton
-        href={`/themes/${repo}`}
-        content="View Theme Details"
-      />
+      <LinkButton href={`/themes/${repo}`} content="View Theme Details" />
     </div>
   );
 };

@@ -14,7 +14,7 @@ export const StarRatingDisplay = ({
   showCount = false,
 }: StarRatingDisplayProps) => {
   const stars = [];
-  
+
   const sizeClasses = {
     small: 'text-sm',
     medium: 'text-xl',
@@ -37,9 +37,7 @@ export const StarRatingDisplay = ({
     <div className="flex items-center gap-1">
       <div className="flex">{stars}</div>
       {showCount && (
-        <span className={`text-gray-600 ${sizeClasses[size]}`}>
-          ({rating})
-        </span>
+        <span className={`text-gray-600 ${sizeClasses[size]}`}>({rating})</span>
       )}
     </div>
   );

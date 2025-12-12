@@ -543,7 +543,7 @@ const Plugins = (props: IPageProps) => {
                   placementId="plugins-fixed-footer"
                 />
               )}
-              <div className='mt-2'></div>
+              <div className="mt-2"></div>
               <AllPluginsMultiView
                 highlight={Array.isArray(filter) ? filter[0] : filter}
                 plugins={filteredPlugins}
