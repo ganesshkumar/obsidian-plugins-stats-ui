@@ -19,6 +19,7 @@ import { generateSuggestions } from '../../domain/suggestions';
 import { Suggestions } from '../../domain/suggestions/models';
 import { Sidebar } from '../../components/Sidebar';
 import { Checkbox } from '@/components/ui/checkbox';
+import { ListIcon, TableIcon } from 'lucide-react';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
