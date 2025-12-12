@@ -21,10 +21,16 @@ We also released [Obsidian Wrapped 2025](https://www.obsidianstats.com/posts/202
 
 Released on 2025-12-07 by [protoavatar](https://github.com/protoavatar)
 
-null 
+The **newslog** plugin connects your vault to the newslog service, letting you pull in curated daily digests, full articles and synced Kindle highlights without dealing with scattered emails or multiple reading apps. It fetches Markdown versions of your newsletter bundles, keeps a clean history of what you’ve downloaded and brings in processed highlights after you upload your Kindle clippings. This workflow gives you a simple way to review summaries, store full texts and maintain long-term references. 
 
 [View Details](/plugins/newslog), [Github](https://github.com/protoavatar/obsidian-newsletters)
 
+
+```plugin-image
+description: 
+url: https://raw.githubusercontent.com/protoavatar/obsidian-newsletters/main/newslog-commands.png
+source:github
+```
 
 
 ---
@@ -35,7 +41,7 @@ null
 
 Released on 2025-12-07 by [Peter Yanase](https://github.com/peter-yanase)
 
-null 
+The **Advanced Ruby** plugin focuses on rendering and editing ruby annotations for any type of text, not just East Asian scripts. It interprets the familiar markdown pattern for ruby and converts it to proper HTML tags during reading without altering the underlying note. In the editor, it adds commands to wrap selections in ruby syntax and to switch between markdown and HTML forms, which helps when preparing detailed phonetic or semantic glosses. Its parser is fast, skips code blocks and handles nested markup reliably. Styling can be fine tuned through the Style Settings plugin, allowing multi layer annotation designs. 
 
 [View Details](/plugins/advanced-ruby), [Github](https://github.com/peter-yanase/obsidian-advanced-ruby)
 
@@ -49,7 +55,7 @@ null
 
 Released on 2025-12-07 by [Luster](https://github.com/myluster)
 
-null 
+The **LaTeX Helper** plugin offers a structured symbol panel designed for users who frequently work with mathematical or scientific notation. It brings a large, category based library of LaTeX symbols into an accessible interface that can sit in the sidebar or float as a pop out window. Searching for symbols is fast and insertion is smooth with the cursor returning to the editor automatically to maintain flow. The panel itself is fully customisable through a JSON configuration letting you extend or reorganise categories as needed. It also adapts its interface language based on your app settings, switching between English and Chinese without manual input. 
 
 [View Details](/plugins/latex-panel-helper), [Github](https://github.com/myluster/Obsidian-LaTeX-Helper)
 
@@ -63,7 +69,7 @@ null
 
 Released on 2025-12-07 by [Spiderpig86](https://github.com/Spiderpig86)
 
-null 
+The **SlashComplete** plugin introduces a Notion style autocomplete that appears the moment you type a slash, offering quick access to Markdown blocks, formatting elements and common commands. It aims to streamline writing by letting you summon headings, lists, quotes and code blocks without breaking flow or reaching for menus. The suggestions are customisable, so you can tune the palette to match your own style of writing. Keyboard navigation keeps the interaction fast and fluid, making it easy to stay focused while drafting long notes or structuring information. 
 
 [View Details](/plugins/slash-complete), [Github](https://github.com/Spiderpig86/slash-complete)
 
@@ -77,7 +83,7 @@ null
 
 Released on 2025-12-04 by [Luis8492](https://github.com/Luis8492)
 
-null 
+The **ShogiView** plugin lets you replay shogi games directly from KIF formatted records embedded in your notes, turning a simple code block into an interactive board. It parses moves, highlights origins and destinations, updates captured pieces and displays metadata such as event, opening, and elapsed time. Navigation feels smooth through buttons, keyboard shortcuts and autoplay. Complex game lines with branching variations are handled through breadcrumbs, a return to parent control and an expandable tree view that helps you explore alternative paths. Comments attached to moves appear in a dedicated panel, making the note work as both a viewer and a study tool. 
 
 [View Details](/plugins/shogi-kif-viewer), [Github](https://github.com/Luis8492/ShogiView)
 
@@ -91,7 +97,7 @@ null
 
 Released on 2025-12-04 by [Vansh Kumar](https://github.com/vanshkumar)
 
-null 
+The **Dangerous Mode** plugin recreates the behaviour of the Most Dangerous Writing App directly inside a note, forcing continuous writing through a timed session. Once the timer starts, the plugin watches for real text input and if you stop typing for five seconds, it wipes the note’s body while keeping the frontmatter safe. This creates a high pressure writing environment where hesitation has consequences. Visual cues signal rising risk as the idle limit approaches and common editing actions like copy, undo, or drag-drop are blocked to maintain intensity. The session ends cleanly when the timer runs out, provided you kept typing. 
 
 [View Details](/plugins/dangerous-mode), [Github](https://github.com/vanshkumar/dangerous-obsidian)
 
@@ -222,7 +228,6 @@ source:github
 
 
 ---
-
 
 
 ## 🔁 Plugin Updates

@@ -570,10 +570,10 @@ export const getStaticPaths = async () => {
   const themes = await ThemesCache.get();
 
   return {
-    paths: Array.from(themes).map((theme: Theme) => ({
+    paths: [], /* Array.from(themes).map((theme: Theme) => ({
       params: { slug: theme.repo.split('/')[1] },
-    })),
-    fallback: false,
+    })) */
+    fallback: 'blocking',
   };
 };
 
@@ -606,6 +606,7 @@ export const getStaticProps = async ({ params }) => {
       theme,
       suggestions,
     },
+    revalidate: 7200,
   };
 };
 

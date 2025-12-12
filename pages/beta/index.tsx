@@ -191,7 +191,7 @@ export const getStaticProps = async () => {
     );
     return {
       props: { title, description, canonical, image, entries, jsonLdSchema },
-      revalidate: 3600, 
+      revalidate: 7200, 
     };
   } catch (e) {
     console.error('Error fetching beta entries', e);
@@ -204,7 +204,7 @@ export const getStaticProps = async () => {
         entries: [],
         jsonLdSchema: null,
       },
-      revalidate: 3600,
+      revalidate: 7200,
     };
   } finally {
     await prisma.$disconnect();

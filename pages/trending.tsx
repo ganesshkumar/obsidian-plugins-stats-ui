@@ -89,6 +89,7 @@ export const getStaticProps = async () => {
       jsonLdSchema,
       plugins: trendingPlugins,
     },
+    revalidate: 7200,
   };
 };
 

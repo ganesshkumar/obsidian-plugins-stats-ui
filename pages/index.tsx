@@ -624,6 +624,7 @@ export const getStaticProps = async () => {
       trendingPlugins,
       newPosts,
     },
+    revalidate: 7200,
   };
 };
 
