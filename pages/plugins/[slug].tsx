@@ -77,6 +77,7 @@ const Plugin = (props: IPluginProps) => {
 
   const [favorites, setFavorites] = useState([]);
   const [readmeContent, setReadmeContent] = useState('');
+  const [openRatingOnLoad, setOpenRatingOnLoad] = useState(false);
 
   const { isAuthenticated } = useAuth();
   const {
@@ -109,6 +110,12 @@ const Plugin = (props: IPluginProps) => {
 
         setReadmeContent(newData);
       });
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash === '#rate-plugin') {
+      setOpenRatingOnLoad(true);
+    }
   }, []);
 
   const isFavorite = favorites.includes(props.plugin.pluginId);
@@ -150,7 +157,10 @@ const Plugin = (props: IPluginProps) => {
                   isFavorite={isFavorite}
                   setFavorites={setFavorites}
                 />
-                <div className="flex flex-col gap-y-2 my-4 mb-8 max-w-sm">
+                <div
+                  id="rate-plugin"
+                  className="flex flex-col gap-y-2 my-4 mb-8 max-w-sm"
+                >
                   {ratingSummaryLoading && (
                     <div className="text-sm text-gray-500">
                       Loading rating data...
@@ -180,6 +190,7 @@ const Plugin = (props: IPluginProps) => {
                   <GiveReview
                     entityType="plugin"
                     entityId={props.plugin.pluginId}
+                    defaultOpen={openRatingOnLoad}
                   />
                 </div>
                 {props.plugin.score && props.plugin.scoreReason && (

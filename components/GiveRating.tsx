@@ -23,10 +23,21 @@ import {
 interface GiveReviewProps {
   entityType: EntityType;
   entityId: string;
+  defaultOpen?: boolean;
 }
 
-export const GiveReview = ({ entityType, entityId }: GiveReviewProps) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+export const GiveReview = ({
+  entityType,
+  entityId,
+  defaultOpen = false,
+}: GiveReviewProps) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(defaultOpen);
+
+  useEffect(() => {
+    if (defaultOpen) {
+      setIsDialogOpen(true);
+    }
+  }, [defaultOpen]);
   const entityLabel = entityType === 'plugin' ? 'Plugin' : 'Theme';
 
   return (

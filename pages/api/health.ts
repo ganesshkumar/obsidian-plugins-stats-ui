@@ -29,7 +29,7 @@ export default async function handler(
     environment: process.env.NODE_ENV || 'development',
   };
 
-  try {    
+  try {
     return res.status(200).json(healthcheck);
   } catch (error) {
     return res.status(503).json({

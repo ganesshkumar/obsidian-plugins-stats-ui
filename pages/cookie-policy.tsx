@@ -1,9 +1,7 @@
 ﻿import { Card } from 'flowbite-react';
 import Link from 'next/link';
 import React from 'react';
-import {
-  User,
-} from 'react-feather';
+import { User } from 'react-feather';
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';

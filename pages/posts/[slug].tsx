@@ -21,6 +21,7 @@ import Comments from '../../components/Comments';
 import ResponsiveLayout from '../_responsive-layout';
 import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
 import { remarkPluginHandler } from '../../domain/remark/plugin-hander';
+import { remarkThemeHandler } from '../../domain/remark/theme-handler';
 import { remarkPluginImageHandler } from '../../domain/remark/plugin-image-handler';
 import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
@@ -50,6 +51,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     .use(remarkParse)
     //.use(remarkPostAd)
     .use(remarkPluginHandler)
+    .use(remarkThemeHandler)
     .use(remarkPluginImageHandler)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
