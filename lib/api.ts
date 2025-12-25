@@ -10,6 +10,15 @@ export async function authenticatedFetch(
   url: string,
   options: RequestInit = {}
 ): Promise<Response> {
+  const parsedUrl = new URL(
+    url,
+    typeof window !== 'undefined' ? window.location.origin : getBackendUrl()
+  );
+
+  if (parsedUrl.pathname === '/api/graphql') {
+    throw new Error('Use Apollo Client for GraphQL requests instead of fetch.');
+  }
+
   const token = getAuthToken();
 
   if (!token) {

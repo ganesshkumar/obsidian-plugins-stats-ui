@@ -1,33 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLazyQuery } from '@apollo/client';
 import { Modal, Table, Tooltip } from 'flowbite-react';
 import moment from 'moment';
 import { Info } from 'react-feather';
 import { getScoreTextClass } from '../lib/customThemes';
-
-type ScoreDetails = {
-  scoreReason?: string | null;
-  closedIssues?: number | null;
-  openIssues?: number | null;
-  totalIssues?: number | null;
-  mergedPR?: number | null;
-  closedPR?: number | null;
-  openPR?: number | null;
-  totalPR?: number | null;
-  commitCountInLastYear?: number | null;
-  stargazers?: number | null;
-  subscribers?: number | null;
-  forks?: number | null;
-  totalDownloads?: number | null;
-  latestReleaseAt?: number | null;
-  createdAt?: number | null;
-  score?: number | null;
-};
+import {
+  GET_PLUGIN_SCORE_DETAILS_QUERY,
+  type IPluginScoreDetails,
+  type IPluginScoreDetailsResult,
+} from '@/lib/graphql/queries';
 
 export const Score = (props) => {
   const { plugin, redirectForReason } = props;
   const [openScoreModal, setOpenScoreModal] = useState(false);
-  const [details, setDetails] = useState<ScoreDetails | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [details, setDetails] = useState<IPluginScoreDetails | null>(null);
+
+  const [loadDetails, { data, loading: isLoading, error }] = useLazyQuery<IPluginScoreDetailsResult>(
+    GET_PLUGIN_SCORE_DETAILS_QUERY,
+    {
+      fetchPolicy: 'cache-first',
+      nextFetchPolicy: 'cache-first',
+    }
+  );
+
+  useEffect(() => {
+    if (data?.pluginScoreDetails) {
+      setDetails(data.pluginScoreDetails);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      console.error('Failed to load score details', error);
+    }
+  }, [error]);
 
   const scoreValue = plugin.score ?? details?.score ?? 0;
   const scoreClass = getScoreTextClass(scoreValue);
@@ -58,44 +64,7 @@ export const Score = (props) => {
     }
 
     if (!details && !isLoading) {
-      setIsLoading(true);
-      try {
-        const response = await fetch('/api/graphql', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query: `query PluginScoreDetails($pluginId: ID!) {
-              pluginScoreDetails(pluginId: $pluginId) {
-                scoreReason
-                closedIssues
-                openIssues
-                totalIssues
-                mergedPR
-                closedPR
-                openPR
-                totalPR
-                commitCountInLastYear
-                stargazers
-                subscribers
-                forks
-                totalDownloads
-                latestReleaseAt
-                createdAt
-                score
-              }
-            }`,
-            variables: { pluginId: plugin.pluginId },
-          }),
-        });
-        const data = await response.json();
-        if (data?.data?.pluginScoreDetails) {
-          setDetails(data.data.pluginScoreDetails as ScoreDetails);
-        }
-      } catch (err) {
-        console.error('Failed to load score details', err);
-      } finally {
-        setIsLoading(false);
-      }
+      loadDetails({ variables: { pluginId: plugin.pluginId } });
     }
 
     setOpenScoreModal(!openScoreModal);

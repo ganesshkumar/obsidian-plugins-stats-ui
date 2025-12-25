@@ -26,6 +26,29 @@ export interface IBetaEntriesQueryResult {
   betaEntries: IBetaEntry[];
 }
 
+export interface IPluginScoreDetails {
+  scoreReason?: string | null;
+  closedIssues?: number | null;
+  openIssues?: number | null;
+  totalIssues?: number | null;
+  mergedPR?: number | null;
+  closedPR?: number | null;
+  openPR?: number | null;
+  totalPR?: number | null;
+  commitCountInLastYear?: number | null;
+  stargazers?: number | null;
+  subscribers?: number | null;
+  forks?: number | null;
+  totalDownloads?: number | null;
+  latestReleaseAt?: number | null;
+  createdAt?: number | null;
+  score?: number | null;
+}
+
+export interface IPluginScoreDetailsResult {
+  pluginScoreDetails: IPluginScoreDetails | null;
+}
+
 export const GET_PLUGINS_QUERY = gql`
   query GetPlugins {
     plugins {
@@ -129,6 +152,29 @@ export const GET_BETA_ENTRIES_QUERY = gql`
       needManualReview
       manualReviewReason
       createdAt
+    }
+  }
+`;
+
+export const GET_PLUGIN_SCORE_DETAILS_QUERY = gql`
+  query PluginScoreDetails($pluginId: ID!) {
+    pluginScoreDetails(pluginId: $pluginId) {
+      scoreReason
+      closedIssues
+      openIssues
+      totalIssues
+      mergedPR
+      closedPR
+      openPR
+      totalPR
+      commitCountInLastYear
+      stargazers
+      subscribers
+      forks
+      totalDownloads
+      latestReleaseAt
+      createdAt
+      score
     }
   }
 `;
