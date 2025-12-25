@@ -1,4 +1,5 @@
 import { createYoga, createSchema } from 'graphql-yoga';
+import { GraphQLError } from 'graphql';
 import { PrismaClient, PullRequestEntry } from '@prisma/client';
 import { PluginsCache } from '@/cache/plugins-cache';
 import { toPluginsListItem } from '@/utils/plugins';
@@ -6,6 +7,93 @@ import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 import { getMostDownloadedPlugins } from '@/lib/plugins';
 
 const prisma = new PrismaClient();
+
+// Validation constants
+const ALLOWED_BETA_TYPES = ['plugin', 'theme'] as const;
+const PLUGIN_ID_REGEX = /^[a-zA-Z0-9-_]+$/;
+const MAX_LIMIT = 100;
+const MIN_LIMIT = 1;
+const MIN_DAYS = 1;
+const MAX_DAYS = 365;
+
+// Validation helper functions
+function validateBetaType(type?: string): void {
+  if (type && !ALLOWED_BETA_TYPES.includes(type as any)) {
+    throw new GraphQLError(
+      `Invalid type parameter. Allowed values are: ${ALLOWED_BETA_TYPES.join(', ')}`,
+      { extensions: { code: 'BAD_USER_INPUT' } }
+    );
+  }
+}
+
+function sanitizePluginId(pluginId: string): string {
+  if (!pluginId || typeof pluginId !== 'string') {
+    throw new GraphQLError('Plugin ID is required and must be a string', {
+      extensions: { code: 'BAD_USER_INPUT' },
+    });
+  }
+
+  const trimmedId = pluginId.trim();
+  if (!trimmedId) {
+    throw new GraphQLError('Plugin ID cannot be empty', {
+      extensions: { code: 'BAD_USER_INPUT' },
+    });
+  }
+
+  if (!PLUGIN_ID_REGEX.test(trimmedId)) {
+    throw new GraphQLError(
+      'Plugin ID can only contain alphanumeric characters, hyphens, and underscores',
+      { extensions: { code: 'BAD_USER_INPUT' } }
+    );
+  }
+
+  return trimmedId;
+}
+
+function validateLimit(limit?: number): number {
+  const validatedLimit = limit ?? 25;
+  if (typeof validatedLimit !== 'number' || !Number.isFinite(validatedLimit)) {
+    throw new GraphQLError('Limit must be a valid number', {
+      extensions: { code: 'BAD_USER_INPUT' },
+    });
+  }
+
+  if (validatedLimit < MIN_LIMIT) {
+    throw new GraphQLError(`Limit must be at least ${MIN_LIMIT}`, {
+      extensions: { code: 'BAD_USER_INPUT' },
+    });
+  }
+
+  if (validatedLimit > MAX_LIMIT) {
+    throw new GraphQLError(`Limit cannot exceed ${MAX_LIMIT}`, {
+      extensions: { code: 'BAD_USER_INPUT' },
+    });
+  }
+
+  return Math.floor(validatedLimit);
+}
+
+function validateDays(days: number): number {
+  if (typeof days !== 'number' || !Number.isFinite(days)) {
+    throw new GraphQLError('Days must be a valid number', {
+      extensions: { code: 'BAD_USER_INPUT' },
+    });
+  }
+
+  if (days < MIN_DAYS) {
+    throw new GraphQLError(`Days must be at least ${MIN_DAYS}`, {
+      extensions: { code: 'BAD_USER_INPUT' },
+    });
+  }
+
+  if (days > MAX_DAYS) {
+    throw new GraphQLError(`Days cannot exceed ${MAX_DAYS}`, {
+      extensions: { code: 'BAD_USER_INPUT' },
+    });
+  }
+
+  return Math.floor(days);
+}
 
 const typeDefs = /* GraphQL */ `
   type PluginRatingInfo {
@@ -161,8 +249,9 @@ const resolvers = {
       });
     },
     pluginScoreDetails: async (_: unknown, args: { pluginId: string }) => {
+      const sanitizedPluginId = sanitizePluginId(args.pluginId);
       const plugins = await PluginsCache.get();
-      const plugin = plugins.find((p) => p.pluginId === args.pluginId);
+      const plugin = plugins.find((p) => p.pluginId === sanitizedPluginId);
       if (!plugin) return null;
       return {
         scoreReason: plugin.scoreReason,
@@ -184,20 +273,24 @@ const resolvers = {
       };
     },
     mostDownloaded: async (_: unknown, args: { limit?: number }) => {
+      const validatedLimit = validateLimit(args.limit);
       const plugins = await PluginsCache.get();
       const sorted = [...plugins]
         .sort((a, b) => (b.totalDownloads ?? 0) - (a.totalDownloads ?? 0))
-        .slice(0, args.limit ?? 25);
+        .slice(0, validatedLimit);
       return sorted.map(toPluginsListItem);
     },
     mostDownloadedInDays: async (
       _: unknown,
       args: { days: number; limit?: number }
     ) => {
-      const top = await getMostDownloadedPlugins(args.days, args.limit ?? 25);
+      const validatedDays = validateDays(args.days);
+      const validatedLimit = validateLimit(args.limit);
+      const top = await getMostDownloadedPlugins(validatedDays, validatedLimit);
       return top.map(toPluginsListItem);
     },
     betaEntries: async (_: unknown, args: { type?: string }) => {
+      validateBetaType(args.type);
       const entries = await prisma.pullRequestEntry.findMany({
         where: {
           prStatus: 'open',
