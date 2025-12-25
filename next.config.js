@@ -56,7 +56,17 @@ module.exports = withBundleAnalyzer({
           },
         ], // 180 days
       },
-      // 5. All HTML pages - no cache (catch-all)
+      // 5. GET API
+      {
+        source: '/api/graphql',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 's-maxage=3600, stale-while-revalidate=3600',
+          },
+        ],
+      },
+      // 6. All HTML pages - no cache (catch-all)
       {
         source: '/:path*',
         headers: [
