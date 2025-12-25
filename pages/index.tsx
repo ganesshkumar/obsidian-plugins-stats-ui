@@ -288,7 +288,7 @@ const Home = (props: IHomeProps) => {
       />
 
       <div className="mt-20 max-w-md mx-auto text-center p-4 border rounded-2xl bg-white/60 backdrop-blur-md shadow-md">
-        <a href="https://obsidian.md/blog/2024-goty-winners/" target="_blank">
+        <a href="https://obsidian.md/blog/2024-goty-winners/" target="_blank" rel="noreferrer">
           <div className="text-2xl">🏆</div>
           <p className="font-semibold text-gray-800">
             Runner-Up — Tool Category

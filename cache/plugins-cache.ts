@@ -159,7 +159,7 @@ export class PluginsCache {
    * @private
    */
   private static async fetch(): Promise<Plugin[]> {
-    let prisma: PrismaClient = new PrismaClient();
+    const prisma: PrismaClient = new PrismaClient();
     let pluginRecords: Plugin[];
 
     if (process.env.NODE_ENV == 'development') {

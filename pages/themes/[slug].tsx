@@ -61,7 +61,7 @@ const ThemeView = (props: IThemeProps) => {
 
   const now = moment();
 
-  let defaultBranch = '';
+  const defaultBranch = '';
   useEffect(() => {
     setupFavorites(setFavorites);
     fetch(`https://api.github.com/repos/${props.theme.repo}`)
@@ -201,7 +201,7 @@ const ThemeView = (props: IThemeProps) => {
                   <a
                     href={`https://github.com/${props.theme.repo}`}
                     target="_blank"
-                    className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110"
+                    className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110" rel="noreferrer"
                   >
                     <GitHub className="text-gray-800 inline mr-2" size={18} />{' '}
                     Code

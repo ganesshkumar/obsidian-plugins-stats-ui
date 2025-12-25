@@ -45,7 +45,7 @@ const canSuggestTool = (
 const pickTools = (pageInfo: PageInfo, count: number): ToolSuggestion[] => {
   const selectedTools: ToolSuggestion[] = [];
 
-  let suggestionsCount = Math.min(
+  const suggestionsCount = Math.min(
     count,
     pageInfo.type === 'tool' ? tools.length - 1 : tools.length
   );
@@ -137,7 +137,7 @@ const pickSimilarPlugins = async (pageInfo: PageInfo) => {
   );
 
   const suggestedPlugins = [];
-  let suggestionsCount = Math.min(5, similarPlugins.length);
+  const suggestionsCount = Math.min(5, similarPlugins.length);
 
   while (suggestedPlugins.length < suggestionsCount) {
     const randomIndex = Math.floor(Math.random() * similarPlugins.length);
@@ -166,7 +166,7 @@ const pickSimilarThemes = async (pageInfo: PageInfo) => {
       theme.isLight === currentTheme.isLight
   );
 
-  let suggestionsCount = Math.min(5, similarThemes.length);
+  const suggestionsCount = Math.min(5, similarThemes.length);
   const suggestedThemes = [];
 
   while (suggestedThemes.length < suggestionsCount) {

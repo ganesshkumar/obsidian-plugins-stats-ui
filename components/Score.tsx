@@ -322,7 +322,7 @@ export const Score = (props) => {
             <a
               href="https://github.com/ganesshkumar/obsidian-plugins-stats-ui/discussions/52"
               target="_blank"
-              className="underline"
+              className="underline" rel="noreferrer"
             >
               Github discussion
             </a>

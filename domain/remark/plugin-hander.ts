@@ -24,7 +24,7 @@ export const remarkPluginHandler = () => {
         const { avg: avgRating, count: ratingCount } = getPluginRating(plugin);
 
         node.type = 'html';
-        if (!!plugin) {
+        if (plugin) {
           const header = buildPluginHeader(
             plugin,
             index,

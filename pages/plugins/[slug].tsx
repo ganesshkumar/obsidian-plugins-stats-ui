@@ -241,7 +241,7 @@ const Plugin = (props: IPluginProps) => {
                     <a
                       href={`${props.plugin.website}`}
                       target="_blank"
-                      className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110"
+                      className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110" rel="noreferrer"
                     >
                       <Globe className="text-gray-800 inline mr-2" size={18} />{' '}
                       Website
@@ -250,7 +250,7 @@ const Plugin = (props: IPluginProps) => {
                   <a
                     href={`https://github.com/${props.plugin.repo}`}
                     target="_blank"
-                    className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110"
+                    className="text-gray-800 flex justify-center items-center space-x-2s my-2 py-1 border border-gray-800 px-2 rounded-md transition hover:scale-110" rel="noreferrer"
                   >
                     <GitHub className="text-gray-800 inline mr-2" size={18} />{' '}
                     Code
@@ -700,7 +700,7 @@ export const getStaticProps = async ({ params }) => {
     osCategory: p.osCategory,
   }));
 
-  const title = `${plugin.name} ${!!plugin.description ? `- ${plugin.description}` : ''}`;
+  const title = `${plugin.name} ${plugin.description ? `- ${plugin.description}` : ''}`;
   const description = `Obsidian Plugin: ${plugin.name} - ${plugin.description} by ${plugin.author}. Latest version: ${plugin.latestRelease} released on ${moment(plugin.latestReleaseAt).fromNow()}`;
   const canonical = `https://www.obsidianstats.com/plugins/${plugin.pluginId}`;
   const image = '/images/obsidian-stats-ogImage.png';

@@ -8,7 +8,6 @@ import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Link from 'next/link';
 import { BetaEntryCard } from '../../components/BetaEntryCard';
 import EthicalAd from '@/components/EthicalAd';
-import { IBetaEntry } from '@/components/BetaEntryCard';
 import { Card } from '@/components/ui/card';
 import {
   GET_BETA_ENTRIES_QUERY,

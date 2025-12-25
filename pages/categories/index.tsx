@@ -9,7 +9,6 @@ import InfoBar from '../../components/InfoBar';
 import { CategoryIcon } from '../../components/Category';
 import { LinkButton } from '../../components/LinkButton';
 import { Card } from 'flowbite-react';
-import { PluginsCache } from '../../cache/plugins-cache';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import {
   GET_CATEGORIES_LITE_QUERY,

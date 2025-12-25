@@ -10,11 +10,12 @@
     "start": "next start",
     "postinstall": "prisma generate",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
-    "prettier": "prettier --write .",
     "test": "jest",
     "analyze": "next build",
     "analyze:server": "next build",
-    "analyze:browser": "next build"
+    "analyze:browser": "next build",
+    "prettier": "prettier --write .",
+    "lint": "eslint . --ext ts,tsx,js,jsx"
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
