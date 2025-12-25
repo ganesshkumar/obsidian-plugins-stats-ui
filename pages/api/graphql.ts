@@ -1,29 +1,46 @@
 import { createYoga, createSchema } from 'graphql-yoga';
+import { createComplexityRule, simpleEstimator, fieldExtensionsEstimator } from 'graphql-query-complexity';
+import depthLimit from 'graphql-depth-limit';
+import type { ValidationRule } from 'graphql';
 import { PrismaClient, PullRequestEntry } from '@prisma/client';
+
 import { PluginsCache } from '@/cache/plugins-cache';
 import { toPluginsListItem } from '@/utils/plugins';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 import { getMostDownloadedPlugins } from '@/lib/plugins';
-import { createComplexityRule, simpleEstimator, fieldExtensionsEstimator } from 'graphql-query-complexity';
-import depthLimit from 'graphql-depth-limit';
-import type { ValidationRule } from 'graphql';
 
 const prisma = new PrismaClient();
 
 // Rate limiting configuration
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
 const RATE_LIMIT_MAX_REQUESTS = 100; // 100 requests per minute
+const RATE_LIMIT_STORE_CLEANUP_THRESHOLD = 10000; // Clean up when store exceeds this size
 
-// Store for rate limiting (in-memory, consider Redis for production)
+// Query security configuration
+const MAX_QUERY_DEPTH = 10; // Maximum nesting depth for queries
+const MAX_QUERY_COMPLEXITY = 2000; // Maximum complexity score for queries
+
+// Store for rate limiting (in-memory)
+// Note: For production deployments with multiple instances, replace with Redis
+// or another distributed cache to ensure consistent rate limiting across all instances.
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
+
+// Extract client IP address from request headers
+function getClientIP(request: Request): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) {
+    return forwarded.split(',')[0].trim();
+  }
+  return request.headers.get('x-real-ip') || 'unknown';
+}
 
 // Rate limiting function
 function checkRateLimit(identifier: string): { allowed: boolean; resetTime: number } {
   const now = Date.now();
   const record = rateLimitStore.get(identifier);
 
-  // Clean up expired entries periodically
-  if (rateLimitStore.size > 10000) {
+  // Clean up expired entries periodically to prevent memory leaks
+  if (rateLimitStore.size > RATE_LIMIT_STORE_CLEANUP_THRESHOLD) {
     for (const [key, value] of rateLimitStore.entries()) {
       if (value.resetTime < now) {
         rateLimitStore.delete(key);
@@ -270,10 +287,10 @@ export default createYoga({
   // Add validation rules for query complexity and depth limiting
   validationRules: [
     // Limit query depth to prevent deeply nested queries
-    depthLimit(10) as unknown as ValidationRule,
+    depthLimit(MAX_QUERY_DEPTH) as unknown as ValidationRule,
     // Analyze query complexity to prevent expensive operations
     createComplexityRule({
-      maximumComplexity: 2000,
+      maximumComplexity: MAX_QUERY_COMPLEXITY,
       estimators: [
         // Custom estimator for fields with complexity metadata
         fieldExtensionsEstimator(),
@@ -301,10 +318,7 @@ export default createYoga({
     {
       onRequest({ request, fetchAPI }) {
         // Get client identifier (IP address from headers or connection)
-        const forwarded = request.headers.get('x-forwarded-for');
-        const ip = forwarded ? forwarded.split(',')[0].trim() : 
-                   request.headers.get('x-real-ip') || 
-                   'unknown';
+        const ip = getClientIP(request);
         
         const { allowed, resetTime } = checkRateLimit(ip);
         
@@ -343,10 +357,7 @@ export default createYoga({
       },
       onResponse({ response, request }) {
         // Add rate limit headers to response
-        const forwarded = request.headers.get('x-forwarded-for');
-        const ip = forwarded ? forwarded.split(',')[0].trim() : 
-                   request.headers.get('x-real-ip') || 
-                   'unknown';
+        const ip = getClientIP(request);
         
         const record = rateLimitStore.get(ip);
         if (record) {
