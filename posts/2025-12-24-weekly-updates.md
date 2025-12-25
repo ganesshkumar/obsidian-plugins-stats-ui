@@ -15,7 +15,7 @@ Merry christmas! The holiday mood is in full swing. During the last week 3 new p
 
 I have updated [Obsidian Wrapped 2025](https://www.obsidianstats.com/posts/2025-12-04-wrapped-2025) with the latest metrics.
 
-David V. Kimball released [Sample Plugin Plus](https://github.com/davidvkimball/obsidian-sample-plugin-plus) and [Sample Theme Plus](https://github.com/davidvkimball/obsidian-sample-theme-plus)
+David V. Kimball released [Sample Plugin Plus](https://github.com/davidvkimball/obsidian-sample-plugin-plus) and [Sample Theme Plus](https://github.com/davidvkimball/obsidian-sample-theme-plus) - powerful templates for plugin and theme development in AI assisted environment. 
 
 
 ## ⭐ New Plugins
