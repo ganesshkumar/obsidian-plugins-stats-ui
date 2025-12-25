@@ -27,13 +27,18 @@ const TTL_CACHED_FIELDS = [
   'pluginScoreDetails',
 ] as const;
 
+// Internal format for cached values with TTL
+interface TTLCachedValue<T> {
+  value: T;
+  ts: number;
+}
+
 const ttlFieldPolicy = <T,>(): FieldPolicy<T> => ({
   read(existing) {
     if (!existing) return undefined;
-    const value = (existing as any).value as T | undefined;
-    const ts = (existing as any).ts as number | undefined;
-    if (!ts || Date.now() - ts > ONE_HOUR_MS) return undefined;
-    return value;
+    const cached = existing as unknown as TTLCachedValue<T>;
+    if (!cached.ts || Date.now() - cached.ts > ONE_HOUR_MS) return undefined;
+    return cached.value;
   },
   merge(_, incoming) {
     return { value: incoming, ts: Date.now() } as any;
@@ -87,11 +92,10 @@ const evictExpiredEntries = (client: ApolloClient<NormalizedCacheObject>) => {
       const rootQuery = cacheData['ROOT_QUERY'];
       
       if (rootQuery && rootQuery[fieldName]) {
-        const cached = rootQuery[fieldName];
-        const ts = (cached as any).ts as number | undefined;
+        const cached = rootQuery[fieldName] as TTLCachedValue<any>;
         
         // If timestamp exists and entry is expired, evict it
-        if (ts && Date.now() - ts > ONE_HOUR_MS) {
+        if (cached.ts && Date.now() - cached.ts > ONE_HOUR_MS) {
           cache.evict({
             id: 'ROOT_QUERY',
             fieldName,
