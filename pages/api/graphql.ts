@@ -1,5 +1,9 @@
 import { createYoga, createSchema } from 'graphql-yoga';
+import { createComplexityRule, simpleEstimator, fieldExtensionsEstimator } from 'graphql-query-complexity';
+import depthLimit from 'graphql-depth-limit';
+import type { ValidationRule } from 'graphql';
 import { PrismaClient, PullRequestEntry } from '@prisma/client';
+
 import { PluginsCache } from '@/cache/plugins-cache';
 import { toPluginsListItem } from '@/utils/plugins';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
@@ -12,6 +16,58 @@ import {
 } from '@/lib/graphql/validation';
 
 const prisma = new PrismaClient();
+
+// Rate limiting configuration
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 100; // 100 requests per minute
+const RATE_LIMIT_STORE_CLEANUP_THRESHOLD = 10000; // Clean up when store exceeds this size
+
+// Query security configuration
+const MAX_QUERY_DEPTH = 10; // Maximum nesting depth for queries
+const MAX_QUERY_COMPLEXITY = 2000; // Maximum complexity score for queries
+
+// Store for rate limiting (in-memory)
+// Note: For production deployments with multiple instances, replace with Redis
+// or another distributed cache to ensure consistent rate limiting across all instances.
+const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
+
+// Extract client IP address from request headers
+function getClientIP(request: Request): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded) {
+    return forwarded.split(',')[0].trim();
+  }
+  return request.headers.get('x-real-ip') || 'unknown';
+}
+
+// Rate limiting function
+function checkRateLimit(identifier: string): { allowed: boolean; resetTime: number } {
+  const now = Date.now();
+  const record = rateLimitStore.get(identifier);
+
+  // Clean up expired entries periodically to prevent memory leaks
+  if (rateLimitStore.size > RATE_LIMIT_STORE_CLEANUP_THRESHOLD) {
+    for (const [key, value] of rateLimitStore.entries()) {
+      if (value.resetTime < now) {
+        rateLimitStore.delete(key);
+      }
+    }
+  }
+
+  if (!record || record.resetTime < now) {
+    // Create new record
+    const resetTime = now + RATE_LIMIT_WINDOW;
+    rateLimitStore.set(identifier, { count: 1, resetTime });
+    return { allowed: true, resetTime };
+  }
+
+  if (record.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return { allowed: false, resetTime: record.resetTime };
+  }
+
+  record.count++;
+  return { allowed: true, resetTime: record.resetTime };
+}
 
 const typeDefs = /* GraphQL */ `
   type PluginRatingInfo {
@@ -239,10 +295,87 @@ export default createYoga({
     credentials: false,
   },
   maskedErrors: false,
+  // Add validation rules for query complexity and depth limiting
+  validationRules: [
+    // Limit query depth to prevent deeply nested queries
+    depthLimit(MAX_QUERY_DEPTH) as unknown as ValidationRule,
+    // Analyze query complexity to prevent expensive operations
+    createComplexityRule({
+      maximumComplexity: MAX_QUERY_COMPLEXITY,
+      estimators: [
+        // Custom estimator for fields with complexity metadata
+        fieldExtensionsEstimator(),
+        // Default complexity of 1 per field
+        simpleEstimator({ defaultComplexity: 1 }),
+      ],
+      onComplete: (complexity: number) => {
+        console.log(`Query complexity: ${complexity}`);
+      },
+      createError: (max: number, actual: number) => {
+        return new Error(
+          `Query is too complex: ${actual}. Maximum allowed complexity: ${max}. ` +
+          `Please simplify your query by requesting fewer fields or reducing nesting depth.`
+        );
+      },
+    }) as unknown as ValidationRule,
+  ],
   plugins: [
     {
       onResponse({ response }) {
         response.headers.set('Cache-Control', 's-maxage=3600, stale-while-revalidate=3600');
+      },
+    },
+    // Rate limiting plugin
+    {
+      onRequest({ request, fetchAPI }) {
+        // Get client identifier (IP address from headers or connection)
+        const ip = getClientIP(request);
+        
+        const { allowed, resetTime } = checkRateLimit(ip);
+        
+        if (!allowed) {
+          const retryAfter = Math.ceil((resetTime - Date.now()) / 1000);
+          return new fetchAPI.Response(
+            JSON.stringify({
+              errors: [{
+                message: `Rate limit exceeded. Please try again in ${retryAfter} seconds.`,
+                extensions: {
+                  code: 'RATE_LIMIT_EXCEEDED',
+                  retryAfter,
+                },
+              }],
+            }),
+            {
+              status: 429,
+              headers: {
+                'Content-Type': 'application/json',
+                'Retry-After': retryAfter.toString(),
+                'X-RateLimit-Limit': RATE_LIMIT_MAX_REQUESTS.toString(),
+                'X-RateLimit-Remaining': '0',
+                'X-RateLimit-Reset': new Date(resetTime).toISOString(),
+              },
+            }
+          );
+        }
+
+        // Add rate limit headers to successful requests
+        const record = rateLimitStore.get(ip);
+        if (record) {
+          request.headers.set('X-RateLimit-Limit', RATE_LIMIT_MAX_REQUESTS.toString());
+          request.headers.set('X-RateLimit-Remaining', (RATE_LIMIT_MAX_REQUESTS - record.count).toString());
+          request.headers.set('X-RateLimit-Reset', new Date(record.resetTime).toISOString());
+        }
+      },
+      onResponse({ response, request }) {
+        // Add rate limit headers to response
+        const ip = getClientIP(request);
+        
+        const record = rateLimitStore.get(ip);
+        if (record) {
+          response.headers.set('X-RateLimit-Limit', RATE_LIMIT_MAX_REQUESTS.toString());
+          response.headers.set('X-RateLimit-Remaining', Math.max(0, RATE_LIMIT_MAX_REQUESTS - record.count).toString());
+          response.headers.set('X-RateLimit-Reset', new Date(record.resetTime).toISOString());
+        }
       },
     },
   ],
