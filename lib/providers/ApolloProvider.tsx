@@ -8,24 +8,40 @@ import {
   type FieldPolicy,
   type NormalizedCacheObject,
 } from '@apollo/client';
-import { useState, type ReactNode } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 
 interface IApolloProviderProps {
   children: ReactNode;
 }
 
 const ONE_HOUR_MS = 60 * 60 * 1000;
+const GC_INTERVAL_MS = 15 * 60 * 1000; // Run garbage collection every 15 minutes
 
-const ttlFieldPolicy = <T>(): FieldPolicy<T> => ({
+// Fields that use TTL caching
+const TTL_CACHED_FIELDS = [
+  'plugins',
+  'categoriesLite',
+  'mostDownloaded',
+  'mostDownloadedInDays',
+  'betaEntries',
+  'pluginScoreDetails',
+] as const;
+
+// Internal format for cached values with TTL
+interface TTLCachedValue<T> {
+  value: T;
+  ts: number;
+}
+
+const ttlFieldPolicy = <T,>(): FieldPolicy<T> => ({
   read(existing) {
     if (!existing) return undefined;
-    const value = (existing as any).value as T | undefined;
-    const ts = (existing as any).ts as number | undefined;
-    if (!ts || Date.now() - ts > ONE_HOUR_MS) return undefined;
-    return value;
+    const cached = existing as unknown as TTLCachedValue<T>;
+    if (!cached.ts || Date.now() - cached.ts > ONE_HOUR_MS) return undefined;
+    return cached.value;
   },
   merge(_, incoming) {
-    return { value: incoming, ts: Date.now() };
+    return { value: incoming, ts: Date.now() } as any;
   },
 });
 
@@ -54,7 +70,6 @@ const createApolloClient = (): ApolloClient<NormalizedCacheObject> =>
     defaultOptions: {
       query: {
         fetchPolicy: 'cache-first',
-        nextFetchPolicy: 'cache-first',
       },
       watchQuery: {
         fetchPolicy: 'cache-first',
@@ -66,7 +81,49 @@ const createApolloClient = (): ApolloClient<NormalizedCacheObject> =>
     },
   });
 
+// Garbage collection function to evict expired cache entries
+const evictExpiredEntries = (client: ApolloClient<NormalizedCacheObject>) => {
+  const cache = client.cache as InMemoryCache;
+  
+  TTL_CACHED_FIELDS.forEach((fieldName) => {
+    try {
+      // Use extract to inspect cache without triggering queries
+      const cacheData = cache.extract();
+      const rootQuery = cacheData['ROOT_QUERY'];
+      
+      if (rootQuery && rootQuery[fieldName]) {
+        const cached = rootQuery[fieldName] as TTLCachedValue<any>;
+        
+        // If timestamp exists and entry is expired, evict it
+        if (cached.ts && Date.now() - cached.ts > ONE_HOUR_MS) {
+          cache.evict({
+            id: 'ROOT_QUERY',
+            fieldName,
+          });
+        }
+      }
+    } catch (error) {
+      // Silently handle errors - entry might not exist or be malformed
+      console.debug(`Could not check/evict cache for ${fieldName}:`, error);
+    }
+  });
+
+  // Remove dangling references
+  cache.gc();
+};
+
 export const ApolloProvider = ({ children }: IApolloProviderProps) => {
   const [client] = useState(() => createApolloClient());
+
+  useEffect(() => {
+    // Set up periodic garbage collection
+    const intervalId = setInterval(() => {
+      evictExpiredEntries(client);
+    }, GC_INTERVAL_MS);
+
+    // Clean up on unmount
+    return () => clearInterval(intervalId);
+  }, [client]);
+
   return <BaseApolloProvider client={client}>{children}</BaseApolloProvider>;
 };
