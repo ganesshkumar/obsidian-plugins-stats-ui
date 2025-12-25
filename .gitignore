@@ -47,5 +47,9 @@ sync.md
 docker/
 deploy.log
 
+# TypeScript
 tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# Package lock files (using yarn)
 package-lock.json

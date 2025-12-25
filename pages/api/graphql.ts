@@ -4,6 +4,12 @@ import { PluginsCache } from '@/cache/plugins-cache';
 import { toPluginsListItem } from '@/utils/plugins';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 import { getMostDownloadedPlugins } from '@/lib/plugins';
+import {
+  validateBetaType,
+  sanitizePluginId,
+  validateLimit,
+  validateDays,
+} from '@/lib/graphql/validation';
 
 const prisma = new PrismaClient();
 
@@ -161,8 +167,9 @@ const resolvers = {
       });
     },
     pluginScoreDetails: async (_: unknown, args: { pluginId: string }) => {
+      const sanitizedPluginId = sanitizePluginId(args.pluginId);
       const plugins = await PluginsCache.get();
-      const plugin = plugins.find((p) => p.pluginId === args.pluginId);
+      const plugin = plugins.find((p) => p.pluginId === sanitizedPluginId);
       if (!plugin) return null;
       return {
         scoreReason: plugin.scoreReason,
@@ -184,20 +191,24 @@ const resolvers = {
       };
     },
     mostDownloaded: async (_: unknown, args: { limit?: number }) => {
+      const validatedLimit = validateLimit(args.limit);
       const plugins = await PluginsCache.get();
       const sorted = [...plugins]
         .sort((a, b) => (b.totalDownloads ?? 0) - (a.totalDownloads ?? 0))
-        .slice(0, args.limit ?? 25);
+        .slice(0, validatedLimit);
       return sorted.map(toPluginsListItem);
     },
     mostDownloadedInDays: async (
       _: unknown,
       args: { days: number; limit?: number }
     ) => {
-      const top = await getMostDownloadedPlugins(args.days, args.limit ?? 25);
+      const validatedDays = validateDays(args.days);
+      const validatedLimit = validateLimit(args.limit);
+      const top = await getMostDownloadedPlugins(validatedDays, validatedLimit);
       return top.map(toPluginsListItem);
     },
     betaEntries: async (_: unknown, args: { type?: string }) => {
+      validateBetaType(args.type);
       const entries = await prisma.pullRequestEntry.findMany({
         where: {
           prStatus: 'open',
