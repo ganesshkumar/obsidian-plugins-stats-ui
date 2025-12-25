@@ -46,3 +46,6 @@ get-assets
 sync.md
 docker/
 deploy.log
+
+tsconfig.tsbuildinfo
+package-lock.json
