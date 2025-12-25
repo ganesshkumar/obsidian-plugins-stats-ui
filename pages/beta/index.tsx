@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
 import Navbar from '../../components/Navbar';
 import Header, { IHeaderProps } from '../../components/Header';
 import { Footer } from '../../components/Footer';
@@ -9,10 +10,9 @@ import { BetaEntryCard } from '../../components/BetaEntryCard';
 import EthicalAd from '@/components/EthicalAd';
 import { IBetaEntry } from '@/components/BetaEntryCard';
 import { Card } from '@/components/ui/card';
+import { GET_BETA_ENTRIES_QUERY, type IBetaEntriesQueryResult } from '@/lib/graphql/queries';
 
-interface IBetaPageProps extends IHeaderProps {
-  pluginsDataUrl: string;
-}
+interface IBetaPageProps extends IHeaderProps {}
 
 /**
  * Beta page shows prospective plugins & themes sourced from open pull requests.
@@ -21,55 +21,21 @@ interface IBetaPageProps extends IHeaderProps {
 const BetaIndex = (props: IBetaPageProps) => {
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const [entries, setEntries] = useState<IBetaEntry[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, loading, error } = useQuery<IBetaEntriesQueryResult>(GET_BETA_ENTRIES_QUERY, {
+    ssr: false,
+  });
+  const entries = data?.betaEntries ?? [];
+  const isLoading = loading;
 
   useEffect(() => {
     if (inputRef.current) inputRef.current.focus();
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
-    const load = async () => {
-      try {
-        const response = await fetch(props.pluginsDataUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query: `{
-              betaEntries {
-                id
-                prNumber
-                name
-                description
-                author
-                repo
-                type
-                prStatus
-                prLabels
-                needManualReview
-                manualReviewReason
-                createdAt
-              }
-            }`,
-          }),
-        });
-        const data = await response.json();
-        if (!cancelled) {
-          setEntries(data?.data?.betaEntries ?? []);
-        }
-      } catch (err) {
-        console.error('Failed to load beta entries', err);
-        if (!cancelled) setEntries([]);
-      } finally {
-        if (!cancelled) setIsLoading(false);
-      }
-    };
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, [props.pluginsDataUrl]);
+    if (error) {
+      console.error('Failed to load beta entries', error);
+    }
+  }, [error]);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -239,7 +205,6 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      pluginsDataUrl: '/api/graphql',
     },
     revalidate: 7200,
   };

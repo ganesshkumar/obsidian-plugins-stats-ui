@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@apollo/client';
 import Header, { IHeaderProps } from '../components/Header';
 import Navbar from '../components/Navbar';
 
@@ -12,96 +13,30 @@ import { CustomTheme } from '../lib/customThemes';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 import { PluginItem } from '@/domain/plugins/models/PluginItem';
 import { Card } from '@/components/ui/card';
+import { GET_MOST_DOWNLOADED_QUERY, type IMostDownloadedQueryResult } from '@/lib/graphql/queries';
 
-interface IMostDownloadedProps extends IHeaderProps {
-  pluginsDataUrl: string;
-}
+interface IMostDownloadedProps extends IHeaderProps {}
 
 const MostDownloaded = (props: IMostDownloadedProps) => {
   const [favorites, setFavorites] = useState([]);
   const [view, setView] = useState<'list' | 'table'>('list');
-  const [allTime, setAllTime] = useState<IPluginsListItem[]>([]);
-  const [last30, setLast30] = useState<IPluginsListItem[]>([]);
-  const [last7, setLast7] = useState<IPluginsListItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, loading, error } = useQuery<IMostDownloadedQueryResult>(GET_MOST_DOWNLOADED_QUERY, {
+    ssr: false,
+  });
+  const allTime = data?.mostDownloaded ?? [];
+  const last30 = data?.last30 ?? [];
+  const last7 = data?.last7 ?? [];
+  const isLoading = loading;
 
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
-    const load = async () => {
-      try {
-        const response = await fetch(props.pluginsDataUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query: `{
-              mostDownloaded(limit: 25) {
-                pluginId
-                name
-                author
-                description
-                osDescription
-                osCategory
-                osTags
-                repo
-                createdAt
-                totalDownloads
-                score
-              }
-              last30: mostDownloadedInDays(days: 30, limit: 25) {
-                pluginId
-                name
-                author
-                description
-                osDescription
-                osCategory
-                osTags
-                repo
-                createdAt
-                totalDownloads
-                score
-              }
-              last7: mostDownloadedInDays(days: 7, limit: 25) {
-                pluginId
-                name
-                author
-                description
-                osDescription
-                osCategory
-                osTags
-                repo
-                createdAt
-                totalDownloads
-                score
-              }
-            }`,
-          }),
-        });
-        const data = await response.json();
-        if (!cancelled) {
-          setAllTime(data?.data?.mostDownloaded ?? []);
-          setLast30(data?.data?.last30 ?? []);
-          setLast7(data?.data?.last7 ?? []);
-        }
-      } catch (err) {
-        console.error('Failed to load most downloaded data', err);
-        if (!cancelled) {
-          setAllTime([]);
-          setLast30([]);
-          setLast7([]);
-        }
-      } finally {
-        if (!cancelled) setIsLoading(false);
-      }
-    };
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, [props.pluginsDataUrl]);
+    if (error) {
+      console.error('Failed to load most downloaded data', error);
+    }
+  }, [error]);
 
   const toPluginItems = (items: IPluginsListItem[]): PluginItem[] =>
     items.map((p) => ({
@@ -224,7 +159,6 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      pluginsDataUrl: '/api/graphql',
     },
     revalidate: 7200,
   };

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@apollo/client';
 import Navbar from '../../components/Navbar';
 import { useRouter } from 'next/router';
 import { Footer } from '../../components/Footer';
@@ -21,6 +22,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { ListIcon, TableIcon } from 'lucide-react';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 import { toPluginsListItem } from '@/utils/plugins';
+import { GET_PLUGINS_QUERY, type IPluginsQueryResult } from '@/lib/graphql/queries';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -115,7 +117,6 @@ const queryPluginsV2 = (
 
 interface IPageProps extends IHeaderProps {
   pluginsCount: number;
-  pluginsDataUrl: string;
   suggestions: Suggestions;
 }
 
@@ -131,70 +132,23 @@ const Plugins = (props: IPageProps) => {
   const [sortby, setSortby] = useState('createdAt_desc');
   const [filterCategory, setFilterCategory] = useState('all');
   const [view, setView] = useState('list');
-  const [plugins, setPlugins] = useState<IPluginsListItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const { data, loading, error } = useQuery<IPluginsQueryResult>(GET_PLUGINS_QUERY, {
+    ssr: false,
+  });
+  const plugins = data?.plugins ?? [];
+  const isLoading = loading;
+
+  useEffect(() => {
+    if (error) {
+      console.error('Failed to load plugins data', error);
+    }
+  }, [error]);
 
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-    const loadPlugins = async () => {
-      try {
-        const response = await fetch(props.pluginsDataUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query: `{
-              plugins {
-                pluginId
-                name
-                author
-                description
-                osDescription
-                osCategory
-                osTags
-                repo
-                createdAt
-                totalDownloads
-                score
-                ratingInfo {
-                  avgRating
-                  ratingCount
-                  star5Count
-                  star4Count
-                  star3Count
-                  star2Count
-                  star1Count
-                }
-              }
-            }`,
-          }),
-        });
-        const data = await response.json();
-        const parsedPlugins = data?.data?.plugins ?? [];
-        if (!cancelled) {
-          setPlugins(parsedPlugins as IPluginsListItem[]);
-        }
-      } catch (err) {
-        console.error('Failed to load plugins data', err);
-        if (!cancelled) {
-          setPlugins([]);
-        }
-      } finally {
-        if (!cancelled) {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    loadPlugins();
-    return () => {
-      cancelled = true;
-    };
-  }, [props.pluginsDataUrl]);
 
   const updateQuery = (newQuery) => {
     const updatedQuery = { ...query, ...newQuery };
@@ -671,7 +625,6 @@ export const getStaticProps = async () => {
       image,
       jsonLdSchema,
       pluginsCount: plugins.length,
-      pluginsDataUrl: '/api/graphql',
       suggestions,
     },
     revalidate: 7200,

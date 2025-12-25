@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
 import Navbar from '../../components/Navbar';
 import Header, { IHeaderProps } from '../../components/Header';
 import { Footer } from '../../components/Footer';
@@ -9,16 +10,19 @@ import { BetaEntryCard } from '../../components/BetaEntryCard';
 import EthicalAd from '@/components/EthicalAd';
 import { IBetaEntry } from '@/components/BetaEntryCard';
 import { Card } from '@/components/ui/card';
+import { GET_BETA_ENTRIES_QUERY, type IBetaEntriesQueryResult } from '@/lib/graphql/queries';
 
-interface IProps extends IHeaderProps {
-  pluginsDataUrl: string;
-}
+interface IProps extends IHeaderProps {}
 
 const BetaPlugins = (props: IProps) => {
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const [entries, setEntries] = useState<IBetaEntry[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, loading, error } = useQuery<IBetaEntriesQueryResult>(GET_BETA_ENTRIES_QUERY, {
+    variables: { type: 'plugin' },
+    ssr: false,
+  });
+  const entries = data?.betaEntries ?? [];
+  const isLoading = loading;
   useEffect(() => {
     if (inputRef.current) inputRef.current.focus();
   }, []);
@@ -42,47 +46,10 @@ const BetaPlugins = (props: IProps) => {
   }, [entries, query, tokens]);
 
   useEffect(() => {
-    let cancelled = false;
-    const load = async () => {
-      try {
-        const response = await fetch(props.pluginsDataUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query: `{
-              betaEntries(type: "plugin") {
-                id
-                prNumber
-                name
-                description
-                author
-                repo
-                type
-                prStatus
-                prLabels
-                needManualReview
-                manualReviewReason
-                createdAt
-              }
-            }`,
-          }),
-        });
-        const data = await response.json();
-        if (!cancelled) {
-          setEntries(data?.data?.betaEntries ?? []);
-        }
-      } catch (err) {
-        console.error('Failed to load beta plugins', err);
-        if (!cancelled) setEntries([]);
-      } finally {
-        if (!cancelled) setIsLoading(false);
-      }
-    };
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, [props.pluginsDataUrl]);
+    if (error) {
+      console.error('Failed to load beta plugins', error);
+    }
+  }, [error]);
 
   const renderSkeleton = () => (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -222,7 +189,6 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      pluginsDataUrl: '/api/graphql',
     },
     revalidate: 7200,
   };

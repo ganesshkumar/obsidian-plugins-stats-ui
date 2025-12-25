@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@apollo/client';
 import Navbar from '../components/Navbar';
 
 import { useSearchParams } from 'next/navigation';
@@ -19,6 +20,7 @@ import EthicalAd from '../components/EthicalAd';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 import { PluginItem } from '@/domain/plugins/models/PluginItem';
 import { Card } from '@/components/ui/card';
+import { GET_PLUGINS_QUERY, type IPluginsQueryResult } from '@/lib/graphql/queries';
 
 const customTheme: CustomFlowbiteTheme['tabs'] = {
   tablist: {
@@ -41,7 +43,6 @@ const customTheme: CustomFlowbiteTheme['tabs'] = {
 
 interface ISharePageProps extends IHeaderProps {
   pluginIds?: string[];
-  pluginsDataUrl: string;
 }
 
 const Plugins = (props: ISharePageProps) => {
@@ -60,54 +61,21 @@ const Plugins = (props: ISharePageProps) => {
   const title = searchParams.get('title');
 
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [plugins, setPlugins] = useState<IPluginsListItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, loading, error } = useQuery<IPluginsQueryResult>(GET_PLUGINS_QUERY, {
+    ssr: false,
+  });
+  const plugins = data?.plugins ?? [];
+  const isLoading = loading;
 
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
-    const load = async () => {
-      try {
-        const response = await fetch(props.pluginsDataUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query: `{
-              plugins {
-                pluginId
-                name
-                author
-                description
-                osDescription
-                osCategory
-                osTags
-                repo
-                createdAt
-                totalDownloads
-                score
-              }
-            }`,
-          }),
-        });
-        const data = await response.json();
-        if (!cancelled) {
-          setPlugins(data?.data?.plugins ?? []);
-        }
-      } catch (err) {
-        console.error('Failed to load plugins for share view', err);
-        if (!cancelled) setPlugins([]);
-      } finally {
-        if (!cancelled) setIsLoading(false);
-      }
-    };
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, [props.pluginsDataUrl]);
+    if (error) {
+      console.error('Failed to load plugins for share view', error);
+    }
+  }, [error]);
 
   const toPluginItems = (items: IPluginsListItem[]): PluginItem[] =>
     items.map((p) => ({
@@ -239,7 +207,6 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      pluginsDataUrl: '/api/graphql',
     },
     revalidate: 7200,
   };

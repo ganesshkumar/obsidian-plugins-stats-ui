@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { useQuery } from '@apollo/client';
 import Header, { IHeaderProps } from '../../components/Header';
 import Navbar from '../../components/Navbar';
 
@@ -10,6 +11,7 @@ import { LinkButton } from '../../components/LinkButton';
 import { Card } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
+import { GET_CATEGORIES_LITE_QUERY, type ICategoriesLiteQueryResult } from '@/lib/graphql/queries';
 
 interface ITopPluginLite {
   pluginId: string;
@@ -23,67 +25,41 @@ interface ICategoriesPayload {
 }
 
 interface ICategoriesPageProps extends IHeaderProps {
-  categoriesDataUrl: string;
   categoriesCount: number;
 }
 
 const Categories = (props: ICategoriesPageProps) => {
-  const [data, setData] = useState<ICategoriesPayload | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const {
+    data: categoriesResponse,
+    loading,
+    error,
+  } = useQuery<ICategoriesLiteQueryResult>(GET_CATEGORIES_LITE_QUERY, {
+    ssr: false,
+  });
+
+  const categoriesPayload = useMemo<ICategoriesPayload | null>(() => {
+    const payload = categoriesResponse?.categoriesLite;
+    if (!payload || !Array.isArray(payload)) return null;
+
+    const categories = payload.map((item) => item.name);
+    const pluginCountByCategories: Record<string, number> = {};
+    const topPluginsByCategories: Record<string, ITopPluginLite[]> = {};
+
+    payload.forEach((item) => {
+      pluginCountByCategories[item.name] = item.pluginCount;
+      topPluginsByCategories[item.name] = item.topPlugins ?? [];
+    });
+
+    return { categories, pluginCountByCategories, topPluginsByCategories };
+  }, [categoriesResponse]);
+
+  const isLoading = loading;
 
   useEffect(() => {
-    let cancelled = false;
-    const load = async () => {
-      try {
-        const res = await fetch(props.categoriesDataUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query: `{
-              categoriesLite {
-                name
-                pluginCount
-                topPlugins {
-                  pluginId
-                  name
-                  totalDownloads
-                }
-              }
-            }`,
-          }),
-        });
-        const json = await res.json();
-        const payload = json?.data?.categoriesLite;
-        if (!cancelled) {
-          if (Array.isArray(payload)) {
-            const categories = payload.map((item) => item.name);
-            const pluginCountByCategories: Record<string, number> = {};
-            const topPluginsByCategories: Record<string, ITopPluginLite[]> = {};
-            payload.forEach((item) => {
-              pluginCountByCategories[item.name] = item.pluginCount;
-              topPluginsByCategories[item.name] = item.topPlugins ?? [];
-            });
-            setData({ categories, pluginCountByCategories, topPluginsByCategories });
-          } else {
-            setData(null);
-          }
-        }
-      } catch (err) {
-        console.error('Failed to load categories data', err);
-        if (!cancelled) {
-          setData(null);
-        }
-      } finally {
-        if (!cancelled) {
-          setIsLoading(false);
-        }
-      }
-    };
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, [props.categoriesDataUrl]);
+    if (error) {
+      console.error('Failed to load categories data', error);
+    }
+  }, [error]);
 
   const renderSkeleton = () => (
     <div className="flex flex-col gap-y-4" aria-busy="true" aria-label="Loading categories">
@@ -101,9 +77,9 @@ const Categories = (props: ICategoriesPageProps) => {
     </div>
   );
 
-  const categories = data?.categories ?? [];
-  const pluginCountByCategories = data?.pluginCountByCategories ?? {};
-  const topPluginsByCategories = data?.topPluginsByCategories ?? {};
+  const categories = categoriesPayload?.categories ?? [];
+  const pluginCountByCategories = categoriesPayload?.pluginCountByCategories ?? {};
+  const topPluginsByCategories = categoriesPayload?.topPluginsByCategories ?? {};
 
   return (
     <div>
@@ -236,7 +212,6 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      categoriesDataUrl: '/api/graphql',
       categoriesCount: Object.keys(categoriesData).length,
     },
     revalidate: 7200,

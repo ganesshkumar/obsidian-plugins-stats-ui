@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@apollo/client';
 import Header, { IHeaderProps } from '../components/Header';
 import Navbar from '../components/Navbar';
 import { Footer } from '../components/Footer';
@@ -19,10 +20,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { setFavorite } from '../utils/favorites';
 import { useAnalytics } from '../lib/analytics/analytics';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
+import { GET_PLUGINS_QUERY, type IPluginsQueryResult } from '@/lib/graphql/queries';
 
-interface IFavoritePageProps extends IHeaderProps {
-  pluginsDataUrl: string;
-}
+interface IFavoritePageProps extends IHeaderProps {}
 
 type FavoritePlugin = IPluginsListItem & {
   latestRelease?: string | null;
@@ -33,8 +33,11 @@ const Favorites = (props: IFavoritePageProps) => {
   const [favorites, setFavorites] = useState([]);
   const [importMode, setImportMode] = useState(false);
   const [importTextError, setImportTextError] = useState<string | null>(null);
-  const [plugins, setPlugins] = useState<FavoritePlugin[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, loading, error } = useQuery<IPluginsQueryResult>(GET_PLUGINS_QUERY, {
+    ssr: false,
+  });
+  const plugins = (data?.plugins ?? []) as FavoritePlugin[];
+  const isLoading = loading;
 
   const pluginsListText = useRef<HTMLTextAreaElement>(null);
   const { trackEvent } = useAnalytics();
@@ -44,50 +47,10 @@ const Favorites = (props: IFavoritePageProps) => {
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
-    const loadPlugins = async () => {
-      try {
-        const response = await fetch(props.pluginsDataUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            query: `{
-              plugins {
-                pluginId
-                name
-                author
-                description
-                osDescription
-                osCategory
-                osTags
-                repo
-                createdAt
-                totalDownloads
-                score
-                latestRelease
-                latestReleaseAt
-                zScoreTrending
-              }
-            }`,
-          }),
-        });
-        const data = await response.json();
-        if (!cancelled && data?.data?.plugins) {
-          setPlugins(data.data.plugins as FavoritePlugin[]);
-        }
-      } catch (err) {
-        console.error('Failed to load favorites plugins data', err);
-        if (!cancelled) setPlugins([]);
-      } finally {
-        if (!cancelled) setIsLoading(false);
-      }
-    };
-
-    loadPlugins();
-    return () => {
-      cancelled = true;
-    };
-  }, [props.pluginsDataUrl]);
+    if (error) {
+      console.error('Failed to load favorites plugins data', error);
+    }
+  }, [error]);
 
   const renderSkeleton = () => (
     <div className="flex flex-col gap-y-4" aria-busy="true" aria-label="Loading favorite plugins">
@@ -380,7 +343,6 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      pluginsDataUrl: '/api/graphql',
     },
   };
 };
