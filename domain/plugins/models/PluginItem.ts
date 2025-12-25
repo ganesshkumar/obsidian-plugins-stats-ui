@@ -5,6 +5,7 @@ export interface PluginItem {
   createdAt: number;
   totalDownloads: number;
   repo: string;
+  score?: number;
   osCategory?: string;
   osTags?: string;
   osDescription?: string;

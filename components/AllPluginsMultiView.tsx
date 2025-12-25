@@ -6,10 +6,10 @@ import { memo } from 'react';
 import { getDescription } from '../utils/plugins';
 import { Score } from './Score';
 import { getScoreBgClass } from '../lib/customThemes';
-import { Plugin } from '@prisma/client';
 import { Virtuoso } from 'react-virtuoso';
 import { EntityType } from '@/domain/Entity';
 import { RepoButton } from './RepoButton';
+import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 
 function highlightMatches(text: string, query: string): string {
   if (!query || !query.length || !text || !text.length) {
@@ -36,7 +36,7 @@ function escapeRegex(str: string): string {
 }
 
 interface IAllPluginsMultiViewProps {
-  plugins: Plugin[];
+  plugins: IPluginsListItem[];
   favorites: string[];
   setFavorites: (favorites: string[]) => void;
   highlight: string;
@@ -111,11 +111,7 @@ export const AllPluginsMultiView = ({
         //       key={plugin.pluginId}
         //       plugin={plugins[index]}
         //       index={index}
-        //       favorites={favorites}
-        //       setFavorites={setFavorites}
         //       highlight={highlight}
-        //       showDescription={true}
-        //       showDownloadStat={false}
         //     />
         //   ))}
         // </VList>
@@ -129,11 +125,7 @@ export const AllPluginsMultiView = ({
                 key={plugin.pluginId}
                 plugin={plugins[index]}
                 index={index}
-                favorites={favorites}
-                setFavorites={setFavorites}
                 highlight={highlight}
-                showDescription={true}
-                showDownloadStat={false}
               />
             );
           }}
@@ -144,7 +136,13 @@ export const AllPluginsMultiView = ({
   );
 };
 
-const UnindexedPluginListItemInternal = (props) => {
+const UnindexedPluginListItemInternal = (props: {
+  plugin: IPluginsListItem;
+  favorites: string[];
+  setFavorites: (favorites: string[]) => void;
+  index: number;
+  highlight: string;
+}) => {
   const { plugin, favorites, setFavorites, index, highlight } = props;
   return (
     <div
@@ -255,8 +253,13 @@ const UnindexedPluginListItemInternal = (props) => {
 
 const PluginListItem = memo(UnindexedPluginListItemInternal);
 
-const UnindexedPluginTableItemInternal = (props) => {
+const UnindexedPluginTableItemInternal = (props: {
+  plugin: IPluginsListItem;
+  index: number;
+  highlight: string;
+}) => {
   const { plugin, index, highlight } = props;
+  const scoreValue = plugin.score ?? 0;
   return (
     <div
       key={plugin.pluginId}
@@ -276,8 +279,8 @@ const UnindexedPluginTableItemInternal = (props) => {
         className="col-span-2 md:col-span-1"
       >
         {!!plugin.score || plugin.score === 0 ? (
-          <span className={getScoreBgClass(plugin.score)}>
-            {Math.round(plugin.score.toFixed(4) * 100)}
+          <span className={getScoreBgClass(scoreValue)}>
+            {Math.round(Number(scoreValue.toFixed(4)) * 100)}
           </span>
         ) : undefined}
       </div>

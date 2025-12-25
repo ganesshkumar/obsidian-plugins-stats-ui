@@ -3,20 +3,22 @@ import Navbar from '../../components/Navbar';
 import Header, { IHeaderProps } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import InfoBar from '../../components/InfoBar';
-import { PullRequestEntry, PrismaClient } from '@prisma/client';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Link from 'next/link';
 import { BetaEntryCard } from '../../components/BetaEntryCard';
 import EthicalAd from '@/components/EthicalAd';
+import { IBetaEntry } from '@/components/BetaEntryCard';
+import { Card } from '@/components/ui/card';
 
 interface IProps extends IHeaderProps {
-  entries: PullRequestEntry[];
+  pluginsDataUrl: string;
 }
 
 const BetaPlugins = (props: IProps) => {
-  const { entries } = props;
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const [entries, setEntries] = useState<IBetaEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     if (inputRef.current) inputRef.current.focus();
   }, []);
@@ -38,6 +40,62 @@ const BetaPlugins = (props: IProps) => {
       return tokens.every((t) => txt.includes(t));
     });
   }, [entries, query, tokens]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const response = await fetch(props.pluginsDataUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `{
+              betaEntries(type: "plugin") {
+                id
+                prNumber
+                name
+                description
+                author
+                repo
+                type
+                prStatus
+                prLabels
+                needManualReview
+                manualReviewReason
+                createdAt
+              }
+            }`,
+          }),
+        });
+        const data = await response.json();
+        if (!cancelled) {
+          setEntries(data?.data?.betaEntries ?? []);
+        }
+      } catch (err) {
+        console.error('Failed to load beta plugins', err);
+        if (!cancelled) setEntries([]);
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    };
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [props.pluginsDataUrl]);
+
+  const renderSkeleton = () => (
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      {Array.from({ length: 18 }).map((_, idx) => (
+        <Card key={`beta-plugin-skel-${idx}`} className="animate-pulse px-4 py-5 h-full">
+          <div className="h-5 bg-gray-200 rounded w-2/3 mb-3"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/3 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-5/6 mb-1"></div>
+          <div className="h-4 bg-gray-200 rounded w-4/6"></div>
+        </Card>
+      ))}
+    </div>
+  );
   return (
     <div className="flex flex-col min-h-screen">
       <Header {...props} />
@@ -124,7 +182,8 @@ const BetaPlugins = (props: IProps) => {
               No beta plugins match your search.
             </div>
           )}
-          {!!filtered.length && (
+          {isLoading && renderSkeleton()}
+          {!isLoading && !!filtered.length && (
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {filtered.map((e) => (
                 <BetaEntryCard key={e.id} entry={e} highlight={query} />
@@ -144,53 +203,29 @@ const BetaPlugins = (props: IProps) => {
 };
 
 export const getStaticProps = async () => {
-  const prisma = new PrismaClient();
-  try {
-    const entries = await prisma.pullRequestEntry.findMany({
-      where: {
-        prStatus: 'open',
-        type: 'plugin',
-        name: { not: null },
-        needManualReview: false,
-        prLabels: {
-          mode: 'insensitive',
-          not: { contains: 'installation not recommended' },
-        },
-      },
-      orderBy: { createdAt: 'desc' },
-    });
-    const title = 'Beta Obsidian Plugins (Open PRs)';
-    const description =
-      'Browse prospective beta Obsidian plugins sourced from open GitHub PRs.';
-    const canonical = 'https://www.obsidianstats.com/beta/plugins';
-    const image = 'https://www.obsidianstats.com/images/new-og.webp';
-    const jsonLdSchema = JsonLdSchema.getBetaPluginsPageSchema(
-      entries,
+  const title = 'Beta Obsidian Plugins (Open PRs)';
+  const description =
+    'Browse prospective beta Obsidian plugins sourced from open GitHub PRs.';
+  const canonical = 'https://www.obsidianstats.com/beta/plugins';
+  const image = 'https://www.obsidianstats.com/images/new-og.webp';
+  const jsonLdSchema = JsonLdSchema.getBetaPluginsPageSchema(
+    [],
+    title,
+    description,
+    canonical,
+    image
+  );
+  return {
+    props: {
       title,
       description,
       canonical,
-      image
-    );
-    return {
-      props: { title, description, canonical, image, entries, jsonLdSchema },
-      revalidate: 7200,
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      props: {
-        title: 'Beta Plugins',
-        description: '',
-        canonical: '',
-        image: '',
-        entries: [],
-        jsonLdSchema: null,
-      },
-      revalidate: 7200,
-    };
-  } finally {
-    await prisma.$disconnect();
-  }
+      image,
+      jsonLdSchema,
+      pluginsDataUrl: '/api/graphql',
+    },
+    revalidate: 7200,
+  };
 };
 
 export default BetaPlugins;

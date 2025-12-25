@@ -9,9 +9,7 @@ import { daysAgo, isNotXDaysOld } from '../utils/datetime';
 import CardAnnotations from '../components/CardAnnotations';
 import InfoBar from '../components/InfoBar';
 import moment from 'moment';
-import { PluginsCache } from '../cache/plugins-cache';
 import { PluginsMultiView } from '../components/PluginsMultiView';
-import { Plugin } from '@prisma/client';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
 import EthicalAd from '../components/EthicalAd';
 import { Button } from '@/components/ui/button';
@@ -20,16 +18,23 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { setFavorite } from '../utils/favorites';
 import { useAnalytics } from '../lib/analytics/analytics';
+import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 
 interface IFavoritePageProps extends IHeaderProps {
-  plugins: Plugin[];
-  newReleases: Plugin[];
+  pluginsDataUrl: string;
 }
+
+type FavoritePlugin = IPluginsListItem & {
+  latestRelease?: string | null;
+  zScoreTrending?: number | null;
+};
 
 const Favorites = (props: IFavoritePageProps) => {
   const [favorites, setFavorites] = useState([]);
   const [importMode, setImportMode] = useState(false);
   const [importTextError, setImportTextError] = useState<string | null>(null);
+  const [plugins, setPlugins] = useState<FavoritePlugin[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const pluginsListText = useRef<HTMLTextAreaElement>(null);
   const { trackEvent } = useAnalytics();
@@ -38,13 +43,87 @@ const Favorites = (props: IFavoritePageProps) => {
     setupFavorites(setFavorites);
   }, []);
 
-  const favoritedPlugins = props.plugins.filter((plugin) =>
+  useEffect(() => {
+    let cancelled = false;
+    const loadPlugins = async () => {
+      try {
+        const response = await fetch(props.pluginsDataUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `{
+              plugins {
+                pluginId
+                name
+                author
+                description
+                osDescription
+                osCategory
+                osTags
+                repo
+                createdAt
+                totalDownloads
+                score
+                latestRelease
+                latestReleaseAt
+                zScoreTrending
+              }
+            }`,
+          }),
+        });
+        const data = await response.json();
+        if (!cancelled && data?.data?.plugins) {
+          setPlugins(data.data.plugins as FavoritePlugin[]);
+        }
+      } catch (err) {
+        console.error('Failed to load favorites plugins data', err);
+        if (!cancelled) setPlugins([]);
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    };
+
+    loadPlugins();
+    return () => {
+      cancelled = true;
+    };
+  }, [props.pluginsDataUrl]);
+
+  const renderSkeleton = () => (
+    <div className="flex flex-col gap-y-4" aria-busy="true" aria-label="Loading favorite plugins">
+      {Array.from({ length: 6 }).map((_, idx) => (
+        <Card key={`fav-skel-${idx}`} className="animate-pulse px-4 py-3">
+          <div className="h-5 bg-gray-200 rounded w-1/3 mb-3"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/4 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+        </Card>
+      ))}
+    </div>
+  );
+
+  const favoritedPlugins = plugins.filter((plugin) =>
     favorites.includes(plugin.pluginId)
   );
 
-  const updatesForFavPlugins = props.newReleases.filter((newRelease) =>
-    favorites.includes(newRelease.pluginId)
-  );
+  const favoritedPluginItems = favoritedPlugins.map((plugin) => ({
+    pluginId: plugin.pluginId,
+    name: plugin.name ?? '',
+    author: plugin.author ?? '',
+    createdAt: plugin.createdAt ?? 0,
+    totalDownloads: plugin.totalDownloads ?? 0,
+    repo: plugin.repo,
+    score: plugin.score ?? undefined,
+    osCategory: plugin.osCategory,
+    osTags: plugin.osTags,
+    osDescription: plugin.osDescription,
+    description: plugin.description,
+  }));
+
+  const updatesForFavPlugins = plugins
+    .filter((plugin) => plugin.latestReleaseAt && plugin.latestReleaseAt > daysAgo(10))
+    .filter((plugin) => favorites.includes(plugin.pluginId))
+    .sort((a, b) => (b.latestReleaseAt ?? 0) - (a.latestReleaseAt ?? 0));
 
   const handleImportPlugins = () => {
     const pluginListText = pluginsListText.current?.value;
@@ -57,9 +136,7 @@ const Favorites = (props: IFavoritePageProps) => {
       ) {
         parsed.forEach((pluginId: string) => {
           const isFavorite = favorites.includes(pluginId);
-          const pluginExists = props.plugins.some(
-            (plugin) => plugin.pluginId === pluginId
-          );
+          const pluginExists = plugins.some((plugin) => plugin.pluginId === pluginId);
           if (!isFavorite && pluginExists) {
             setFavorite(pluginId, setFavorites);
           }
@@ -189,7 +266,7 @@ const Favorites = (props: IFavoritePageProps) => {
                       const isTrending = newRelease.zScoreTrending > 10;
                       return (
                         <a
-                          key={newRelease.id}
+                          key={newRelease.pluginId}
                           href={`/plugins/${newRelease.pluginId}`}
                           target="_blank"
                           rel="noreferrer"
@@ -267,12 +344,16 @@ const Favorites = (props: IFavoritePageProps) => {
                     title={`Favorite Plugins ${favoritedPlugins && `(${favoritedPlugins.length})`}`}
                   />
                 </div>
-                <PluginsMultiView
-                  plugins={favoritedPlugins}
-                  favorites={favorites}
-                  setFavorites={setFavorites}
-                  showDescription={true}
-                />
+                {isLoading ? (
+                  renderSkeleton()
+                ) : (
+                  <PluginsMultiView
+                    plugins={favoritedPluginItems}
+                    favorites={favorites}
+                    setFavorites={setFavorites}
+                    showDescription={true}
+                  />
+                )}
               </div>
             )}
           </div>
@@ -284,16 +365,6 @@ const Favorites = (props: IFavoritePageProps) => {
 };
 
 export const getStaticProps = async () => {
-  const plugins = await PluginsCache.get();
-  plugins.sort((a, b) =>
-    a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
-  );
-
-  const newReleases = plugins.filter(
-    (plugin) => plugin.latestReleaseAt > daysAgo(10)
-  );
-  newReleases.sort((a, b) => b.latestReleaseAt - a.latestReleaseAt);
-
   const title =
     'Mark your favorite Obsidian plugins and stay updated on their latest releases';
   const description =
@@ -309,8 +380,7 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      plugins,
-      newReleases,
+      pluginsDataUrl: '/api/graphql',
     },
   };
 };

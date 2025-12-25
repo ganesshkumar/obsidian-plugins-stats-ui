@@ -1,24 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Table, Tooltip } from 'flowbite-react';
 import moment from 'moment';
-import { useState } from 'react';
 import { Info } from 'react-feather';
 import { getScoreTextClass } from '../lib/customThemes';
+
+type ScoreDetails = {
+  scoreReason?: string | null;
+  closedIssues?: number | null;
+  openIssues?: number | null;
+  totalIssues?: number | null;
+  mergedPR?: number | null;
+  closedPR?: number | null;
+  openPR?: number | null;
+  totalPR?: number | null;
+  commitCountInLastYear?: number | null;
+  stargazers?: number | null;
+  subscribers?: number | null;
+  forks?: number | null;
+  totalDownloads?: number | null;
+  latestReleaseAt?: number | null;
+  createdAt?: number | null;
+  score?: number | null;
+};
 
 export const Score = (props) => {
   const { plugin, redirectForReason } = props;
   const [openScoreModal, setOpenScoreModal] = useState(false);
+  const [details, setDetails] = useState<ScoreDetails | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const scoreClass = getScoreTextClass(plugin.score);
+  const scoreValue = plugin.score ?? details?.score ?? 0;
+  const scoreClass = getScoreTextClass(scoreValue);
 
-  if (!plugin.score || (!redirectForReason && !plugin.scoreReason)) {
+  const scoreReasonSource = details?.scoreReason ?? plugin.scoreReason;
+
+  if (!plugin.score && !details?.score && (!redirectForReason && !scoreReasonSource)) {
     return undefined;
   }
 
-  const reasonMap = {};
+  const reasonMap: Record<string, Record<string, string>> = {};
 
-  if (!redirectForReason) {
-    plugin.scoreReason?.split('\n').forEach((reason) => {
+  if (!redirectForReason && scoreReasonSource) {
+    scoreReasonSource.split('\n').forEach((reason) => {
       const reasonParts = reason.split(':');
       reasonMap[reasonParts[0]] = {};
       reasonMap[reasonParts[0]].value = reasonParts[1];
@@ -28,19 +51,61 @@ export const Score = (props) => {
     });
   }
 
-  const onClickHandler = () => {
+  const onClickHandler = async () => {
     if (redirectForReason) {
       window.open(`/plugins/${plugin.pluginId}?showScoreReason=true`, '_blank');
-    } else {
-      setOpenScoreModal(!openScoreModal);
+      return;
     }
+
+    if (!details && !isLoading) {
+      setIsLoading(true);
+      try {
+        const response = await fetch('/api/graphql', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `query PluginScoreDetails($pluginId: ID!) {
+              pluginScoreDetails(pluginId: $pluginId) {
+                scoreReason
+                closedIssues
+                openIssues
+                totalIssues
+                mergedPR
+                closedPR
+                openPR
+                totalPR
+                commitCountInLastYear
+                stargazers
+                subscribers
+                forks
+                totalDownloads
+                latestReleaseAt
+                createdAt
+                score
+              }
+            }`,
+            variables: { pluginId: plugin.pluginId },
+          }),
+        });
+        const data = await response.json();
+        if (data?.data?.pluginScoreDetails) {
+          setDetails(data.data.pluginScoreDetails as ScoreDetails);
+        }
+      } catch (err) {
+        console.error('Failed to load score details', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    setOpenScoreModal(!openScoreModal);
   };
 
   return (
     <div className="flex items-baseline mt-2">
       <span className="text-xl text-gray-600">Score: </span>
       <span className={`text-2xl font-sans font-bold ${scoreClass}`}>
-        {Math.round(plugin.score.toFixed(2) * 100)}
+        {Math.round(Number((scoreValue ?? 0).toFixed(2)) * 100)}
       </span>
       <span className="text-gray-600">/100</span>
       <span className="ml-2">
@@ -75,25 +140,33 @@ export const Score = (props) => {
                 <Table.Row>
                   <Table.Cell>Stars</Table.Cell>
                   <Table.Cell>
-                    {parseFloat(reasonMap['stargazers'].value).toLocaleString()}
+                    {parseFloat(String(reasonMap['stargazers']?.value ?? details?.stargazers ?? 0)).toLocaleString()}
                   </Table.Cell>
                   <Table.Cell>
-                    {reasonMap['stargazers'].weight * 100}%
+                    {reasonMap['stargazers']?.weight
+                      ? Number(reasonMap['stargazers'].weight) * 100
+                      : '-'}%
                   </Table.Cell>
                   <Table.Cell className="text-right">
-                    {(parseFloat(reasonMap['stargazers'].score) * 100).toFixed(
-                      2
-                    )}
+                    {reasonMap['stargazers']?.score
+                      ? (parseFloat(reasonMap['stargazers'].score) * 100).toFixed(2)
+                      : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Forks</Table.Cell>
                   <Table.Cell>
-                    {parseFloat(reasonMap['forks'].value).toLocaleString()}
+                    {parseFloat(String(reasonMap['forks']?.value ?? details?.forks ?? 0)).toLocaleString()}
                   </Table.Cell>
-                  <Table.Cell>{reasonMap['forks'].weight * 100}%</Table.Cell>
+                  <Table.Cell>
+                    {reasonMap['forks']?.weight
+                      ? Number(reasonMap['forks'].weight) * 100
+                      : '-'}%
+                  </Table.Cell>
                   <Table.Cell className="text-right">
-                    {(parseFloat(reasonMap['forks'].score) * 100).toFixed(2)}
+                    {reasonMap['forks']?.score
+                      ? (parseFloat(reasonMap['forks'].score) * 100).toFixed(2)
+                      : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
@@ -109,17 +182,19 @@ export const Score = (props) => {
                     </Tooltip>
                   </Table.Cell>
                   <Table.Cell>
-                    {parseFloat(reasonMap['closedIssuesRatio'].value).toFixed(
-                      2
-                    )}
+                    {reasonMap['closedIssuesRatio']?.value
+                      ? parseFloat(reasonMap['closedIssuesRatio'].value).toFixed(2)
+                      : '-'}
                   </Table.Cell>
                   <Table.Cell>
-                    {reasonMap['closedIssuesRatio'].weight * 100}%
+                    {reasonMap['closedIssuesRatio']?.weight
+                      ? Number(reasonMap['closedIssuesRatio'].weight) * 100
+                      : '-'}%
                   </Table.Cell>
                   <Table.Cell className="text-right">
-                    {(
-                      parseFloat(reasonMap['closedIssuesRatio'].score) * 100
-                    ).toFixed(2)}
+                    {reasonMap['closedIssuesRatio']?.score
+                      ? (parseFloat(reasonMap['closedIssuesRatio'].score) * 100).toFixed(2)
+                      : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
@@ -135,79 +210,91 @@ export const Score = (props) => {
                     </Tooltip>
                   </Table.Cell>
                   <Table.Cell>
-                    {parseFloat(reasonMap['resolvedPRRatio'].value).toFixed(2)}
+                    {reasonMap['resolvedPRRatio']?.value
+                      ? parseFloat(reasonMap['resolvedPRRatio'].value).toFixed(2)
+                      : '-'}
                   </Table.Cell>
                   <Table.Cell>
-                    {reasonMap['resolvedPRRatio'].weight * 100}%
+                    {reasonMap['resolvedPRRatio']?.weight
+                      ? Number(reasonMap['resolvedPRRatio'].weight) * 100
+                      : '-'}%
                   </Table.Cell>
                   <Table.Cell className="text-right">
-                    {(
-                      parseFloat(reasonMap['resolvedPRRatio'].score) * 100
-                    ).toFixed(2)}
+                    {reasonMap['resolvedPRRatio']?.score
+                      ? (parseFloat(reasonMap['resolvedPRRatio'].score) * 100).toFixed(2)
+                      : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Commits Last Year</Table.Cell>
                   <Table.Cell>
-                    {parseFloat(
-                      reasonMap['commitCountInLastYear'].value
-                    ).toFixed(2)}
+                    {reasonMap['commitCountInLastYear']?.value
+                      ? parseFloat(reasonMap['commitCountInLastYear'].value).toFixed(2)
+                      : details?.commitCountInLastYear ?? '-'}
                   </Table.Cell>
                   <Table.Cell>
-                    {reasonMap['commitCountInLastYear'].weight * 100}%
+                    {reasonMap['commitCountInLastYear']?.weight
+                      ? Number(reasonMap['commitCountInLastYear'].weight) * 100
+                      : '-'}%
                   </Table.Cell>
                   <Table.Cell className="text-right">
-                    {(
-                      parseFloat(reasonMap['commitCountInLastYear'].score) * 100
-                    ).toFixed(2)}
+                    {reasonMap['commitCountInLastYear']?.score
+                      ? (parseFloat(reasonMap['commitCountInLastYear'].score) * 100).toFixed(2)
+                      : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Total Downloads</Table.Cell>
                   <Table.Cell>
                     {parseFloat(
-                      reasonMap['totalDownloads'].value
+                      String(reasonMap['totalDownloads']?.value ?? details?.totalDownloads ?? 0)
                     ).toLocaleString()}
                   </Table.Cell>
                   <Table.Cell>
-                    {reasonMap['totalDownloads'].weight * 100}%
+                    {reasonMap['totalDownloads']?.weight
+                      ? Number(reasonMap['totalDownloads'].weight) * 100
+                      : '-'}%
                   </Table.Cell>
                   <Table.Cell className="text-right">
-                    {(
-                      parseFloat(reasonMap['totalDownloads'].score) * 100
-                    ).toFixed(2)}
+                    {reasonMap['totalDownloads']?.score
+                      ? (parseFloat(reasonMap['totalDownloads'].score) * 100).toFixed(2)
+                      : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Latest Release at</Table.Cell>
                   <Table.Cell>
-                    {moment(plugin.latestReleaseAt).fromNow()}
+                    {moment(details?.latestReleaseAt ?? plugin.latestReleaseAt).fromNow()}
                   </Table.Cell>
                   <Table.Cell>
-                    {reasonMap['latestReleaseAt'].weight * 100}%
+                    {reasonMap['latestReleaseAt']?.weight
+                      ? Number(reasonMap['latestReleaseAt'].weight) * 100
+                      : '-'}%
                   </Table.Cell>
                   <Table.Cell className="text-right">
-                    {(
-                      parseFloat(reasonMap['latestReleaseAt'].score) * 100
-                    ).toFixed(2)}
+                    {reasonMap['latestReleaseAt']?.score
+                      ? (parseFloat(reasonMap['latestReleaseAt'].score) * 100).toFixed(2)
+                      : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Created</Table.Cell>
-                  <Table.Cell>{moment(plugin.createdAt).fromNow()}</Table.Cell>
+                  <Table.Cell>{moment(details?.createdAt ?? plugin.createdAt).fromNow()}</Table.Cell>
                   <Table.Cell>
-                    {reasonMap['createdAt'].weight * 100}%
+                    {reasonMap['createdAt']?.weight
+                      ? Number(reasonMap['createdAt'].weight) * 100
+                      : '-'}%
                   </Table.Cell>
                   <Table.Cell className="text-right">
-                    {(parseFloat(reasonMap['createdAt'].score) * 100).toFixed(
-                      2
-                    )}
+                    {reasonMap['createdAt']?.score
+                      ? (parseFloat(reasonMap['createdAt'].score) * 100).toFixed(2)
+                      : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Score</Table.Cell>
                   <Table.Cell className="text-right font-bold" colSpan={3}>
-                    {plugin.score.toFixed(4) * 100}
+                    {Number((scoreValue ?? 0).toFixed(4)) * 100}
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>

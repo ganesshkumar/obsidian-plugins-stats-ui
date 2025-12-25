@@ -1,4 +1,5 @@
 import { Plugin } from '@prisma/client';
+import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 
 export const tagDenyList = [
   '',
@@ -347,6 +348,39 @@ export const toPluginItem = (plugin: Plugin) => {
     osTags: plugin.osTags,
     osDescription: plugin.osDescription,
     description: plugin.description,
+  };
+};
+
+export const toPluginsListItem = (plugin: Plugin): IPluginsListItem => {
+  return {
+    pluginId: plugin.pluginId,
+    name: plugin.name,
+    author: plugin.author,
+    description: plugin.description,
+    osDescription: plugin.osDescription,
+    osCategory: plugin.osCategory,
+    osTags: plugin.osTags,
+    repo: plugin.repo,
+    createdAt: plugin.createdAt,
+    latestReleaseAt: plugin.latestReleaseAt,
+    latestRelease: plugin.latestRelease,
+    totalDownloads: plugin.totalDownloads,
+    zScoreTrending: plugin.zScoreTrending,
+    score: plugin.score,
+    scoreReason: plugin.scoreReason,
+    closedIssues: plugin.closedIssues,
+    openIssues: plugin.openIssues,
+    totalIssues: plugin.totalIssues,
+    mergedPR: plugin.mergedPR,
+    closedPR: plugin.closedPR,
+    openPR: plugin.openPR,
+    totalPR: plugin.totalPR,
+    commitCountInLastYear: plugin.commitCountInLastYear,
+    stargazers: plugin.stargazers,
+    subscribers: plugin.subscribers,
+    forks: plugin.forks,
+    ratingInfo: (plugin as unknown as { ratingInfo?: IPluginsListItem['ratingInfo'] })
+      .ratingInfo,
   };
 };
 

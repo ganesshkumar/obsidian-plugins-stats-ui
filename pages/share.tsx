@@ -1,13 +1,12 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Navbar from '../components/Navbar';
 
 import { useSearchParams } from 'next/navigation';
 import { Footer } from '../components/Footer';
 import { setupFavorites } from '../utils/favorites';
 import { Tabs } from 'flowbite-react';
-import { PluginsCache } from '../cache/plugins-cache';
 import { PluginsListView } from '../components/PluginsListView';
 import InfoBar from '../components/InfoBar';
 import { List, Table } from 'react-feather';
@@ -17,6 +16,9 @@ import { CustomFlowbiteTheme } from 'flowbite-react';
 import { JsonLdSchema } from '../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../components/Header';
 import EthicalAd from '../components/EthicalAd';
+import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
+import { PluginItem } from '@/domain/plugins/models/PluginItem';
+import { Card } from '@/components/ui/card';
 
 const customTheme: CustomFlowbiteTheme['tabs'] = {
   tablist: {
@@ -38,31 +40,113 @@ const customTheme: CustomFlowbiteTheme['tabs'] = {
 };
 
 interface ISharePageProps extends IHeaderProps {
-  plugins: any[];
   pluginIds?: string[];
+  pluginsDataUrl: string;
 }
 
 const Plugins = (props: ISharePageProps) => {
   const searchParams = useSearchParams();
-  const pluginIds: string[] =
-    (props?.pluginIds ||
-      searchParams
-        .get('plugins')
-        ?.split(',')
-        .map((p) => p.trim())) ??
-    [];
+  const pluginIds: string[] = useMemo(() => {
+    if (props?.pluginIds?.length) return props.pluginIds;
+    const param = searchParams.get('plugins');
+    return param
+      ? param
+          .split(',')
+          .map((p) => p.trim())
+          .filter(Boolean)
+      : [];
+  }, [props?.pluginIds, searchParams]);
   const author = searchParams.get('author');
   const title = searchParams.get('title');
 
-  const filteredPlugins =
-    pluginIds
-      .map((pluginId) => props.plugins.find((p) => p.pluginId === pluginId))
-      .filter((p) => !!p) ?? [];
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [plugins, setPlugins] = useState<IPluginsListItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const response = await fetch(props.pluginsDataUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `{
+              plugins {
+                pluginId
+                name
+                author
+                description
+                osDescription
+                osCategory
+                osTags
+                repo
+                createdAt
+                totalDownloads
+                score
+              }
+            }`,
+          }),
+        });
+        const data = await response.json();
+        if (!cancelled) {
+          setPlugins(data?.data?.plugins ?? []);
+        }
+      } catch (err) {
+        console.error('Failed to load plugins for share view', err);
+        if (!cancelled) setPlugins([]);
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    };
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [props.pluginsDataUrl]);
+
+  const toPluginItems = (items: IPluginsListItem[]): PluginItem[] =>
+    items.map((p) => ({
+      pluginId: p.pluginId,
+      name: p.name ?? '',
+      author: p.author ?? '',
+      createdAt: p.createdAt ?? 0,
+      totalDownloads: p.totalDownloads ?? 0,
+      repo: p.repo,
+      osCategory: p.osCategory,
+      osTags: p.osTags,
+      osDescription: p.osDescription,
+      description: p.description,
+      score: p.score ?? undefined,
+    }));
+
+  const filteredPlugins: PluginItem[] = useMemo(() => {
+    if (!pluginIds?.length) return [];
+    const matches = pluginIds
+      .map((pluginId) => plugins.find((p) => p.pluginId === pluginId))
+      .filter((p): p is IPluginsListItem => !!p);
+    return toPluginItems(matches);
+  }, [pluginIds, plugins]);
+
+  const renderSkeleton = () => (
+    <div
+      className="flex flex-col gap-y-4"
+      aria-busy="true"
+      aria-label="Loading shared plugins"
+    >
+      {Array.from({ length: 5 }).map((_, idx) => (
+        <Card key={`share-skel-${idx}`} className="animate-pulse px-4 py-3">
+          <div className="h-5 bg-gray-200 rounded w-1/3 mb-3"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+        </Card>
+      ))}
+    </div>
+  );
 
   return (
     <div className="flex flex-col">
@@ -83,12 +167,18 @@ const Plugins = (props: ISharePageProps) => {
               style="fixed-footer"
               placementId="share-text"
             />
-            <PluginsShareView
-              pluginIds={pluginIds}
-              filteredPlugins={filteredPlugins}
-              favorites={favorites}
-              setFavorites={setFavorites}
-            />
+            {pluginIds && pluginIds.length ? (
+              isLoading ? (
+                renderSkeleton()
+              ) : (
+                <PluginsShareView
+                  pluginIds={pluginIds}
+                  plugins={filteredPlugins}
+                  favorites={favorites}
+                  setFavorites={setFavorites}
+                />
+              )
+            ) : null}
           </div>
         </div>
         <Footer />
@@ -97,11 +187,18 @@ const Plugins = (props: ISharePageProps) => {
   );
 };
 
-export const PluginsShareView = (props) => {
+interface IPluginsShareViewProps {
+  pluginIds: string[];
+  plugins: PluginItem[];
+  favorites: string[];
+  setFavorites: (favorites: string[]) => void;
+}
+
+export const PluginsShareView = (props: IPluginsShareViewProps) => {
   const { pluginIds, plugins, favorites, setFavorites } = props;
   return (
     <>
-      {pluginIds && pluginIds.length && (
+      {pluginIds && pluginIds.length > 0 && (
         <div className="mt-4">
           <Tabs aria-label="View" variant="underline" theme={customTheme}>
             <Tabs.Item active title="List" icon={List}>
@@ -123,11 +220,6 @@ export const PluginsShareView = (props) => {
 };
 
 export const getStaticProps = async () => {
-  const plugins = await PluginsCache.get();
-  plugins.sort((a, b) =>
-    a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
-  );
-
   const title = 'Obsidian Plugins Share - Compare and Discover Plugins';
   const description =
     'Add a list of plugins and compare them. Use this to share a list of plugins with others for quick comparison and discovery.';
@@ -147,8 +239,9 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      plugins,
+      pluginsDataUrl: '/api/graphql',
     },
+    revalidate: 7200,
   };
 };
 

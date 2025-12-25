@@ -11,7 +11,6 @@ import { PluginsCache } from '../../cache/plugins-cache';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
 import { useScoreListStore } from '../../store/scorer-store';
-import { Plugin } from '@prisma/client';
 import EthicalAd from '../../components/EthicalAd';
 import ResponsiveLayout from '../_responsive-layout';
 import { useIsLessThanLarge } from '../../hooks/useIsLessThanLarge';
@@ -20,6 +19,8 @@ import { Suggestions } from '../../domain/suggestions/models';
 import { Sidebar } from '../../components/Sidebar';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ListIcon, TableIcon } from 'lucide-react';
+import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
+import { toPluginsListItem } from '@/utils/plugins';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -55,13 +56,16 @@ function countOccurrences(text: string, token: string): number {
   return (text.match(regex) || []).length;
 }
 
-const queryPluginsV2 = (query: string, plugins: Plugin[] = []): Plugin[] => {
+const queryPluginsV2 = (
+  query: string,
+  plugins: IPluginsListItem[] = []
+): IPluginsListItem[] => {
   if (!query) {
     return plugins;
   }
 
   const results: {
-    plugin: Plugin;
+    plugin: IPluginsListItem;
     score: number;
   }[] = [];
 
@@ -73,7 +77,7 @@ const queryPluginsV2 = (query: string, plugins: Plugin[] = []): Plugin[] => {
     .filter((t) => t.length > 0);
 
   plugins.forEach((plugin) => {
-    const nameLower = plugin.name.toLowerCase();
+    const nameLower = (plugin.name ?? '').toLowerCase();
     const descriptionLower = (plugin.description ?? '').toLowerCase();
     const authorLower = (plugin.author ?? '').toLowerCase();
 
@@ -110,7 +114,8 @@ const queryPluginsV2 = (query: string, plugins: Plugin[] = []): Plugin[] => {
 };
 
 interface IPageProps extends IHeaderProps {
-  plugins: Plugin[];
+  pluginsCount: number;
+  pluginsDataUrl: string;
   suggestions: Suggestions;
 }
 
@@ -126,13 +131,70 @@ const Plugins = (props: IPageProps) => {
   const [sortby, setSortby] = useState('createdAt_desc');
   const [filterCategory, setFilterCategory] = useState('all');
   const [view, setView] = useState('list');
+  const [plugins, setPlugins] = useState<IPluginsListItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const inputRef = React.useRef<HTMLInputElement>(null);
-
-  const plugins = props.plugins;
 
   useEffect(() => {
     setupFavorites(setFavorites);
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadPlugins = async () => {
+      try {
+        const response = await fetch(props.pluginsDataUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `{
+              plugins {
+                pluginId
+                name
+                author
+                description
+                osDescription
+                osCategory
+                osTags
+                repo
+                createdAt
+                totalDownloads
+                score
+                ratingInfo {
+                  avgRating
+                  ratingCount
+                  star5Count
+                  star4Count
+                  star3Count
+                  star2Count
+                  star1Count
+                }
+              }
+            }`,
+          }),
+        });
+        const data = await response.json();
+        const parsedPlugins = data?.data?.plugins ?? [];
+        if (!cancelled) {
+          setPlugins(parsedPlugins as IPluginsListItem[]);
+        }
+      } catch (err) {
+        console.error('Failed to load plugins data', err);
+        if (!cancelled) {
+          setPlugins([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadPlugins();
+    return () => {
+      cancelled = true;
+    };
+  }, [props.pluginsDataUrl]);
 
   const updateQuery = (newQuery) => {
     const updatedQuery = { ...query, ...newQuery };
@@ -197,10 +259,10 @@ const Plugins = (props: IPageProps) => {
     updateQuery({ view: value });
   };
 
-  const isPluginInFavorites = (plugin: Plugin) =>
+  const isPluginInFavorites = (plugin: IPluginsListItem) =>
     favoritesFilter ? favorites.includes(plugin.pluginId) : true;
 
-  const isPluginInFilterCategory = (plugin: Plugin) => {
+  const isPluginInFilterCategory = (plugin: IPluginsListItem) => {
     if (filterCategory === 'all') {
       return true;
     }
@@ -264,6 +326,24 @@ const Plugins = (props: IPageProps) => {
     />
   );
 
+  const totalPlugins = plugins.length || props.pluginsCount;
+  const renderSkeleton = () => (
+    <div className="flex-col space-y-4" aria-busy="true" aria-label="Loading plugins">
+      {Array.from({ length: 6 }).map((_, idx) => (
+        <div
+          key={`skeleton-${idx}`}
+          className="animate-pulse border border-gray-200 rounded-md p-4 bg-white"
+        >
+          <div className="h-5 bg-gray-200 rounded w-1/3 mb-3"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-5/6 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col min-h-screen">
@@ -273,8 +353,8 @@ const Plugins = (props: IPageProps) => {
           <ResponsiveLayout sidebar={sidebar}>
             <div className="flex flex-col">
               <div className="text-xl py-2 px-2 text-semibold text-gray-800">
-                Showing {filteredPlugins.length} / {plugins.length} plugins
-                available from the community.
+                Showing {isLoading ? 0 : filteredPlugins.length} / {totalPlugins}{' '}
+                plugins available from the community.
               </div>
               <div className="px-2 py-2 bg-white relative">
                 <div className="absolute pointer-events-auto">
@@ -544,13 +624,17 @@ const Plugins = (props: IPageProps) => {
                 />
               )}
               <div className="mt-2"></div>
-              <AllPluginsMultiView
-                highlight={Array.isArray(filter) ? filter[0] : filter}
-                plugins={filteredPlugins}
-                favorites={favorites}
-                setFavorites={setFavorites}
-                view={view}
-              />
+              {isLoading ? (
+                renderSkeleton()
+              ) : (
+                <AllPluginsMultiView
+                  highlight={Array.isArray(filter) ? filter[0] : filter}
+                  plugins={filteredPlugins}
+                  favorites={favorites}
+                  setFavorites={setFavorites}
+                  view={view}
+                />
+              )}
             </div>
           </ResponsiveLayout>
         </div>
@@ -586,7 +670,8 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      plugins,
+      pluginsCount: plugins.length,
+      pluginsDataUrl: '/api/graphql',
       suggestions,
     },
     revalidate: 7200,

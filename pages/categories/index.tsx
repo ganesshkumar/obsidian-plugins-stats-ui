@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header, { IHeaderProps } from '../../components/Header';
 import Navbar from '../../components/Navbar';
 
@@ -11,13 +11,100 @@ import { Card } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 
-interface ICategoriesPageProps extends IHeaderProps {
+interface ITopPluginLite {
+  pluginId: string;
+  name: string;
+}
+
+interface ICategoriesPayload {
   categories: string[];
   pluginCountByCategories: Record<string, number>;
-  topPluginsByCategories: Record<string, any[]>;
+  topPluginsByCategories: Record<string, ITopPluginLite[]>;
+}
+
+interface ICategoriesPageProps extends IHeaderProps {
+  categoriesDataUrl: string;
+  categoriesCount: number;
 }
 
 const Categories = (props: ICategoriesPageProps) => {
+  const [data, setData] = useState<ICategoriesPayload | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch(props.categoriesDataUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: `{
+              categoriesLite {
+                name
+                pluginCount
+                topPlugins {
+                  pluginId
+                  name
+                  totalDownloads
+                }
+              }
+            }`,
+          }),
+        });
+        const json = await res.json();
+        const payload = json?.data?.categoriesLite;
+        if (!cancelled) {
+          if (Array.isArray(payload)) {
+            const categories = payload.map((item) => item.name);
+            const pluginCountByCategories: Record<string, number> = {};
+            const topPluginsByCategories: Record<string, ITopPluginLite[]> = {};
+            payload.forEach((item) => {
+              pluginCountByCategories[item.name] = item.pluginCount;
+              topPluginsByCategories[item.name] = item.topPlugins ?? [];
+            });
+            setData({ categories, pluginCountByCategories, topPluginsByCategories });
+          } else {
+            setData(null);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to load categories data', err);
+        if (!cancelled) {
+          setData(null);
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      }
+    };
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [props.categoriesDataUrl]);
+
+  const renderSkeleton = () => (
+    <div className="flex flex-col gap-y-4" aria-busy="true" aria-label="Loading categories">
+      {Array.from({ length: 6 }).map((_, idx) => (
+        <Card key={`cat-skel-${idx}`} className="animate-pulse px-4 py-3">
+          <div className="h-5 bg-gray-200 rounded w-1/3 mb-3"></div>
+          <div className="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
+          <div className="grid grid-cols-2 gap-3">
+            {Array.from({ length: 4 }).map((__, jdx) => (
+              <div key={`cat-skel-row-${idx}-${jdx}`} className="h-4 bg-gray-200 rounded"></div>
+            ))}
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
+
+  const categories = data?.categories ?? [];
+  const pluginCountByCategories = data?.pluginCountByCategories ?? {};
+  const topPluginsByCategories = data?.topPluginsByCategories ?? {};
+
   return (
     <div>
       <Header {...props} />
@@ -28,66 +115,69 @@ const Categories = (props: ICategoriesPageProps) => {
         <div className="max-w-6xl mx-auto px-2">
           <InfoBar title="Categories" />
           <div className="flex flex-col flex-wrap bg-white py-5 gap-y-4">
-            {props.categories.sort().map((category) => {
-              return (
-                <Card
-                  className="group px-4 py-2 hover:bg-gray-100 h-full"
-                  id={`category-${category}`}
-                >
-                  <div className="flex items-start">
-                    <div className="basis-1/2 flex flex-col justify-center">
-                      <div className="flex gap-x-2 items-center">
-                        <CategoryIcon category={category} size={24} />
-                        <Link
-                          key={category}
-                          href={`/categories/${category}`}
-                          id={`category-${category}`}
-                          className="text-xl font-bold underline text-gray-800"
-                          prefetch={false}
-                        >
-                          {category}
-                        </Link>
-                      </div>
-                      <div className="ml-8">
-                        has {props.pluginCountByCategories[category]} plugins
-                      </div>
-                    </div>
-                    <div className="basis-1/2">
-                      <div className="text-gray-700 font-semibold">
-                        Top plugins:{' '}
-                      </div>
-                      <div className="grid grid-cols-2 mt-4 mb-8">
-                        {props.topPluginsByCategories[category].map(
-                          (plugin, idx) => {
-                            return (
-                              <Link
-                                href={`/plugins/${plugin.pluginId}`}
-                                key={plugin.pluginId}
-                                className="flex items-center space-x-2 px-1 cursor-pointer text-sm text-gray-700 hover:bg-gray-700 hover:text-slate-100"
-                                prefetch={false}
-                              >
-                                <span>
-                                  {idx + 1}. {plugin.name}
-                                </span>
-                              </Link>
-                            );
-                          }
-                        )}
-                      </div>
-                      {props.topPluginsByCategories[category].length === 10 && (
-                        <div className="self-end">
-                          <LinkButton
-                            href={`/categories/${category}`}
-                            content="View all plugins"
-                            size="small"
-                          />
+            {isLoading
+              ? renderSkeleton()
+              : categories.sort().map((category) => {
+                  return (
+                    <Card
+                      key={category}
+                      className="group px-4 py-2 hover:bg-gray-100 h-full"
+                      id={`category-${category}`}
+                    >
+                      <div className="flex items-start">
+                        <div className="basis-1/2 flex flex-col justify-center">
+                          <div className="flex gap-x-2 items-center">
+                            <CategoryIcon category={category} size={24} />
+                            <Link
+                              key={category}
+                              href={`/categories/${category}`}
+                              id={`category-${category}`}
+                              className="text-xl font-bold underline text-gray-800"
+                              prefetch={false}
+                            >
+                              {category}
+                            </Link>
+                          </div>
+                          <div className="ml-8">
+                            has {pluginCountByCategories[category] ?? 0} plugins
+                          </div>
                         </div>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-              );
-            })}
+                        <div className="basis-1/2">
+                          <div className="text-gray-700 font-semibold">
+                            Top plugins:{' '}
+                          </div>
+                          <div className="grid grid-cols-2 mt-4 mb-8">
+                            {topPluginsByCategories[category]?.map(
+                              (plugin, idx) => {
+                                return (
+                                  <Link
+                                    href={`/plugins/${plugin.pluginId}`}
+                                    key={plugin.pluginId}
+                                    className="flex items-center space-x-2 px-1 cursor-pointer text-sm text-gray-700 hover:bg-gray-700 hover:text-slate-100"
+                                    prefetch={false}
+                                  >
+                                    <span>
+                                      {idx + 1}. {plugin.name}
+                                    </span>
+                                  </Link>
+                                );
+                              }
+                            )}
+                          </div>
+                          {topPluginsByCategories[category]?.length === 10 && (
+                            <div className="self-end">
+                              <LinkButton
+                                href={`/categories/${category}`}
+                                content="View all plugins"
+                                size="small"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </Card>
+                  );
+                })}
           </div>
         </div>
       </div>
@@ -146,9 +236,8 @@ export const getStaticProps = async () => {
       canonical,
       image,
       jsonLdSchema,
-      categories: Object.keys(categoriesData),
-      pluginCountByCategories: categoriesData,
-      topPluginsByCategories: topPluginsByCategories,
+      categoriesDataUrl: '/api/graphql',
+      categoriesCount: Object.keys(categoriesData).length,
     },
     revalidate: 7200,
   };

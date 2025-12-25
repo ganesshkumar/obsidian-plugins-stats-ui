@@ -1,11 +1,25 @@
-import { PullRequestEntry } from '@prisma/client';
 import { Card, CustomFlowbiteTheme } from 'flowbite-react';
 import moment from 'moment';
 import { GitBranch, GitHub } from 'react-feather';
 
 interface IBetaEntryCardProps {
-  entry: PullRequestEntry;
+  entry: IBetaEntry;
   highlight?: string;
+}
+
+export interface IBetaEntry {
+  id: number | string;
+  prNumber?: number | null;
+  name?: string | null;
+  description?: string | null;
+  author?: string | null;
+  repo?: string | null;
+  type?: string | null;
+  prStatus?: string | null;
+  prLabels?: string | null;
+  needManualReview?: boolean | null;
+  manualReviewReason?: string | null;
+  createdAt?: number | string | Date | null;
 }
 
 const customPluginCardTheme: CustomFlowbiteTheme['card'] = {
