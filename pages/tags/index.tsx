@@ -120,7 +120,7 @@ export const getStaticProps = async () => {
   });
 
   const title = 'Tags of Obsidian Plugins';
-  const description = `Explore the tags of Obsidian plugins. Find the best plugins for your needs. ${Object.keys(tagsData).join(', ')}`;
+  const description = `Explore the tags of Obsidian plugins add find the best plugins for your needs.`;
   const canonical = 'https://obsidianstats.com/tags';
   const image = '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getTagsPageSchema(
