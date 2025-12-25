@@ -379,8 +379,9 @@ export const toPluginsListItem = (plugin: Plugin): IPluginsListItem => {
     stargazers: plugin.stargazers,
     subscribers: plugin.subscribers,
     forks: plugin.forks,
-    ratingInfo: (plugin as unknown as { ratingInfo?: IPluginsListItem['ratingInfo'] })
-      .ratingInfo,
+    ratingInfo: (
+      plugin as unknown as { ratingInfo?: IPluginsListItem['ratingInfo'] }
+    ).ratingInfo,
   };
 };
 

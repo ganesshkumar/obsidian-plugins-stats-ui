@@ -15,7 +15,11 @@ export interface IMostDownloadedQueryResult {
 interface ICategoryLite {
   name: string;
   pluginCount: number;
-  topPlugins: Array<{ pluginId: string; name: string; totalDownloads?: number | null }>;
+  topPlugins: Array<{
+    pluginId: string;
+    name: string;
+    totalDownloads?: number | null;
+  }>;
 }
 
 export interface ICategoriesLiteQueryResult {

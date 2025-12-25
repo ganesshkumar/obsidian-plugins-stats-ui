@@ -1,6 +1,6 @@
 /**
  * Tests for GraphQL API rate limiting and query complexity
- * 
+ *
  * These tests verify that:
  * 1. Rate limiting is properly enforced
  * 2. Query complexity analysis prevents expensive queries
@@ -52,4 +52,3 @@ describe('GraphQL API Documentation', () => {
     expect(true).toBe(true);
   });
 });
-

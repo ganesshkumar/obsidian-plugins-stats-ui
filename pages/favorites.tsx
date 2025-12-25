@@ -20,7 +20,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { setFavorite } from '../utils/favorites';
 import { useAnalytics } from '../lib/analytics/analytics';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
-import { GET_PLUGINS_QUERY, type IPluginsQueryResult } from '@/lib/graphql/queries';
+import {
+  GET_PLUGINS_QUERY,
+  type IPluginsQueryResult,
+} from '@/lib/graphql/queries';
 
 interface IFavoritePageProps extends IHeaderProps {}
 
@@ -33,9 +36,12 @@ const Favorites = (props: IFavoritePageProps) => {
   const [favorites, setFavorites] = useState([]);
   const [importMode, setImportMode] = useState(false);
   const [importTextError, setImportTextError] = useState<string | null>(null);
-  const { data, loading, error } = useQuery<IPluginsQueryResult>(GET_PLUGINS_QUERY, {
-    ssr: false,
-  });
+  const { data, loading, error } = useQuery<IPluginsQueryResult>(
+    GET_PLUGINS_QUERY,
+    {
+      ssr: false,
+    }
+  );
   const plugins = (data?.plugins ?? []) as FavoritePlugin[];
   const isLoading = loading;
 
@@ -53,7 +59,11 @@ const Favorites = (props: IFavoritePageProps) => {
   }, [error]);
 
   const renderSkeleton = () => (
-    <div className="flex flex-col gap-y-4" aria-busy="true" aria-label="Loading favorite plugins">
+    <div
+      className="flex flex-col gap-y-4"
+      aria-busy="true"
+      aria-label="Loading favorite plugins"
+    >
       {Array.from({ length: 6 }).map((_, idx) => (
         <Card key={`fav-skel-${idx}`} className="animate-pulse px-4 py-3">
           <div className="h-5 bg-gray-200 rounded w-1/3 mb-3"></div>
@@ -84,7 +94,9 @@ const Favorites = (props: IFavoritePageProps) => {
   }));
 
   const updatesForFavPlugins = plugins
-    .filter((plugin) => plugin.latestReleaseAt && plugin.latestReleaseAt > daysAgo(10))
+    .filter(
+      (plugin) => plugin.latestReleaseAt && plugin.latestReleaseAt > daysAgo(10)
+    )
     .filter((plugin) => favorites.includes(plugin.pluginId))
     .sort((a, b) => (b.latestReleaseAt ?? 0) - (a.latestReleaseAt ?? 0));
 
@@ -99,7 +111,9 @@ const Favorites = (props: IFavoritePageProps) => {
       ) {
         parsed.forEach((pluginId: string) => {
           const isFavorite = favorites.includes(pluginId);
-          const pluginExists = plugins.some((plugin) => plugin.pluginId === pluginId);
+          const pluginExists = plugins.some(
+            (plugin) => plugin.pluginId === pluginId
+          );
           if (!isFavorite && pluginExists) {
             setFavorite(pluginId, setFavorites);
           }

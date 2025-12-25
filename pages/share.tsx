@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@apollo/client';
@@ -20,7 +20,10 @@ import EthicalAd from '../components/EthicalAd';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 import { PluginItem } from '@/domain/plugins/models/PluginItem';
 import { Card } from '@/components/ui/card';
-import { GET_PLUGINS_QUERY, type IPluginsQueryResult } from '@/lib/graphql/queries';
+import {
+  GET_PLUGINS_QUERY,
+  type IPluginsQueryResult,
+} from '@/lib/graphql/queries';
 
 const customTheme: CustomFlowbiteTheme['tabs'] = {
   tablist: {
@@ -61,9 +64,12 @@ const Plugins = (props: ISharePageProps) => {
   const title = searchParams.get('title');
 
   const [favorites, setFavorites] = useState<string[]>([]);
-  const { data, loading, error } = useQuery<IPluginsQueryResult>(GET_PLUGINS_QUERY, {
-    ssr: false,
-  });
+  const { data, loading, error } = useQuery<IPluginsQueryResult>(
+    GET_PLUGINS_QUERY,
+    {
+      ssr: false,
+    }
+  );
   const plugins = data?.plugins ?? [];
   const isLoading = loading;
 

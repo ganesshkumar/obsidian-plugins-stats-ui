@@ -464,9 +464,7 @@
         "author": "incantatem2",
         "repo": "incantatem2/Obsidian-aged-whisky",
         "screenshot": "images/aged-whisky-thumbnail.jpg",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -474,9 +472,7 @@
         "author": "incantatem2",
         "repo": "incantatem2/Obsidian-cocoa",
         "screenshot": "images/cocoa-thumbnail.jpg",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-10-17"
       },
       {
@@ -484,9 +480,7 @@
         "author": "incantatem2",
         "repo": "incantatem2/Obsidian-parfait",
         "screenshot": "images/parfait-thumbnail.jpg",
-        "modes": [
-          "light"
-        ],
+        "modes": ["light"],
         "publishedAt": "2025-10-20"
       },
       {
@@ -494,9 +488,7 @@
         "author": "incantatem2",
         "repo": "incantatem2/Obsidian-deep-submerge",
         "screenshot": "images/deep-submerge-thumbnail.jpg",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -504,9 +496,7 @@
         "author": "incantatem2",
         "repo": "incantatem2/Obsidian-dashboard",
         "screenshot": "images/thumbnail.jpg",
-        "modes": [
-          "light"
-        ],
+        "modes": ["light"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -514,9 +504,7 @@
         "author": "incantatem2",
         "repo": "incantatem2/Obsidian-blood-rush",
         "screenshot": "images/bloodrush-thumbnail.jpg",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -524,10 +512,7 @@
         "author": "incantatem2",
         "repo": "incantatem2/Obsidian-antique-flowers",
         "screenshot": "images/antique-flowers-dark-thumbnail.jpg",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -535,10 +520,7 @@
         "author": "incantatem2",
         "repo": "incantatem2/Obsidian-desserts",
         "screenshot": "images/desserts-light-thumbnail.jpg",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       }
     ],
@@ -548,10 +530,7 @@
         "author": "Isabelle Basso",
         "repo": "BelleBasso/MinimalistsParadise",
         "screenshot": "screenshot.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-06-20"
       }
     ],
@@ -561,10 +540,7 @@
         "author": "monoooki",
         "repo": "monoooki/obsidian-hydra-pressure-theme",
         "screenshot": "assets/screenshot.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -572,10 +548,7 @@
         "author": "monoooki",
         "repo": "monoooki/obsidian-neo-sploosh-theme",
         "screenshot": "assets/screenshot.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -583,10 +556,7 @@
         "author": "monoooki",
         "repo": "monoooki/obsidian-planetz-roller-theme",
         "screenshot": "assets/screenshot.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       }
     ],
@@ -596,9 +566,7 @@
         "author": "AfonsoMiranda02",
         "repo": "AfonsoMiranda02/Obsidian-MinimalRed",
         "screenshot": "cover.png",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-09-12"
       }
     ],
@@ -608,10 +576,7 @@
         "author": "agodlyman",
         "repo": "GodlyMan-bit/Serif",
         "screenshot": "screenshot.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -619,10 +584,7 @@
         "author": "agodlyman",
         "repo": "GodlyMan-bit/SoliDeoGloria",
         "screenshot": "screenshot.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       }
     ],
@@ -632,10 +594,7 @@
         "author": "Paralloid",
         "repo": "MrParalloid/obsidian-things",
         "screenshot": "things-screenshot.jpg",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -643,10 +602,7 @@
         "author": "Paralloid",
         "repo": "MrParalloid/pomme-notes",
         "screenshot": "images/screenshot.jpg",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       }
     ],
@@ -656,10 +612,7 @@
         "author": "LennZone",
         "repo": "LennZone/enhanced-file-explorer-tree",
         "screenshot": "thumbnail.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -667,10 +620,7 @@
         "author": "LennZone",
         "repo": "LennZone/Neumorphism",
         "screenshot": "thumbnail.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       }
     ],
@@ -680,10 +630,7 @@
         "author": "ThePharaohArt",
         "repo": "ThePharaohArt/Obsidian-CyberGlow",
         "screenshot": "Screenshot.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -691,10 +638,7 @@
         "author": "ThePharaohArt",
         "repo": "ThePharaohArt/Obsidian-RetroOS98",
         "screenshot": "screen.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       }
     ],
@@ -704,10 +648,7 @@
         "author": "fabdub",
         "repo": "dubefab/obsidian-TerraFlow",
         "screenshot": "Terraflow-cover.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -715,9 +656,7 @@
         "author": "fabdub",
         "repo": "dubefab/Matrix",
         "screenshot": "cover.png",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-11-28"
       }
     ],
@@ -727,9 +666,7 @@
         "author": "konnta0",
         "repo": "konnta0/obsidian-noctis-theme",
         "screenshot": "screenshot_512x228.png",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -737,9 +674,7 @@
         "author": "konnta0",
         "repo": "konnta0/obsidian-noctis-viola-theme",
         "screenshot": "screenshot_512x288.png",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-11-28"
       }
     ],
@@ -749,9 +684,7 @@
         "author": "RastGame",
         "repo": "RastGame/Noctilux",
         "screenshot": "Assets/preview.png",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-09-12"
       }
     ],
@@ -761,10 +694,7 @@
         "author": "HotAndCold",
         "screenshot": "grotto-screenshot.png",
         "repo": "HotAndCold245/Hidden-Grotto-Theme",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-10-17"
       }
     ],
@@ -774,9 +704,7 @@
         "author": "Vinit Kumar",
         "repo": "vinitkumar/oscura-obsidian",
         "screenshot": "screenshot.png",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -784,9 +712,7 @@
         "author": "Vinit Kumar",
         "repo": "vinitkumar/monokai-ristretto-obsidian",
         "screenshot": "screenshot.png",
-        "modes": [
-          "dark"
-        ],
+        "modes": ["dark"],
         "publishedAt": "2025-11-28"
       }
     ],
@@ -796,10 +722,7 @@
         "author": "wulflo",
         "repo": "wulflo/obsidian-universitario",
         "screenshot": "cover.jpg",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-10-17"
       }
     ],
@@ -809,10 +732,7 @@
         "author": "Phemelo Modiga",
         "repo": "modigaphemelo/Dedication-obsidian-theme",
         "screenshot": "Dark.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       },
       {
@@ -820,10 +740,7 @@
         "author": "Phemelo Modiga",
         "repo": "modigaphemelo/Dedication-2-Obsidian-Theme",
         "screenshot": "Dark.png",
-        "modes": [
-          "dark",
-          "light"
-        ],
+        "modes": ["dark", "light"],
         "publishedAt": "2025-11-28"
       }
     ]

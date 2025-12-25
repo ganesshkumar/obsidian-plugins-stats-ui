@@ -11,7 +11,10 @@ import { LinkButton } from '../../components/LinkButton';
 import { Card } from 'flowbite-react';
 import { PluginsCache } from '../../cache/plugins-cache';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
-import { GET_CATEGORIES_LITE_QUERY, type ICategoriesLiteQueryResult } from '@/lib/graphql/queries';
+import {
+  GET_CATEGORIES_LITE_QUERY,
+  type ICategoriesLiteQueryResult,
+} from '@/lib/graphql/queries';
 
 interface ITopPluginLite {
   pluginId: string;
@@ -62,14 +65,21 @@ const Categories = (props: ICategoriesPageProps) => {
   }, [error]);
 
   const renderSkeleton = () => (
-    <div className="flex flex-col gap-y-4" aria-busy="true" aria-label="Loading categories">
+    <div
+      className="flex flex-col gap-y-4"
+      aria-busy="true"
+      aria-label="Loading categories"
+    >
       {Array.from({ length: 6 }).map((_, idx) => (
         <Card key={`cat-skel-${idx}`} className="animate-pulse px-4 py-3">
           <div className="h-5 bg-gray-200 rounded w-1/3 mb-3"></div>
           <div className="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
           <div className="grid grid-cols-2 gap-3">
             {Array.from({ length: 4 }).map((__, jdx) => (
-              <div key={`cat-skel-row-${idx}-${jdx}`} className="h-4 bg-gray-200 rounded"></div>
+              <div
+                key={`cat-skel-row-${idx}-${jdx}`}
+                className="h-4 bg-gray-200 rounded"
+              ></div>
             ))}
           </div>
         </Card>
@@ -78,8 +88,10 @@ const Categories = (props: ICategoriesPageProps) => {
   );
 
   const categories = categoriesPayload?.categories ?? [];
-  const pluginCountByCategories = categoriesPayload?.pluginCountByCategories ?? {};
-  const topPluginsByCategories = categoriesPayload?.topPluginsByCategories ?? {};
+  const pluginCountByCategories =
+    categoriesPayload?.pluginCountByCategories ?? {};
+  const topPluginsByCategories =
+    categoriesPayload?.topPluginsByCategories ?? {};
 
   return (
     <div>

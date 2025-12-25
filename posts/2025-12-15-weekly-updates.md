@@ -1,11 +1,11 @@
 ---
 title: Obsidian Plugin Updates 2025-12-07 to 2025-12-13
-description: "From 2025-12-07 to 2025-12-13 there are 4 newly released plugins and 57 plugin updates"
+description: 'From 2025-12-07 to 2025-12-13 there are 4 newly released plugins and 57 plugin updates'
 excerpt: There are 4 new plugins and 57 plugin updates during the week 2025-12-07 to 2025-12-13.
-publishedDate: "2025-12-15"
-modifiedDate: "2025-12-15"
-bannerImage: "/images/obsidian-weekly-updates.webp"
-tags: 
+publishedDate: '2025-12-15'
+modifiedDate: '2025-12-15'
+bannerImage: '/images/obsidian-weekly-updates.webp'
+tags:
   - weekly-updates
 ---
 
@@ -14,7 +14,6 @@ tags:
 Last week felt like a calm December evening and the Obsidian plugin space quietly shipped some solid upgrades. We saw 4 new plugins land alongside 57 updates and this post cuts straight to what matters. From exporting notes cleanly into DOCX, to clipping book metadata, designing APIs visually and fixing messy math syntax, these new plugins solve real, everyday pain points. No fluff, just tools that respect how we actually write and think. Grab a coffee, scroll on and let your vault start the new year sharper than ever.
 
 ## ⭐ New Plugins
-
 
 ```plugin
 index=1
@@ -43,8 +42,6 @@ pluginId=fix-math
 ```
 
 ---
-
-
 
 ## 🔁 Plugin Updates
 

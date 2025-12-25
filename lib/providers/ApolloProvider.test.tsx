@@ -58,7 +58,7 @@ describe('ApolloProvider', () => {
 
   test('sets up periodic garbage collection', async () => {
     const consoleDebugSpy = jest.spyOn(console, 'debug').mockImplementation();
-    
+
     render(
       <ApolloProvider>
         <div>Test</div>
@@ -79,7 +79,7 @@ describe('ApolloProvider', () => {
 
   test('cleans up interval on unmount', () => {
     const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
-    
+
     const { unmount } = render(
       <ApolloProvider>
         <div>Test</div>

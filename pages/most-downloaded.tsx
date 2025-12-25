@@ -13,16 +13,22 @@ import { CustomTheme } from '../lib/customThemes';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 import { PluginItem } from '@/domain/plugins/models/PluginItem';
 import { Card } from '@/components/ui/card';
-import { GET_MOST_DOWNLOADED_QUERY, type IMostDownloadedQueryResult } from '@/lib/graphql/queries';
+import {
+  GET_MOST_DOWNLOADED_QUERY,
+  type IMostDownloadedQueryResult,
+} from '@/lib/graphql/queries';
 
 interface IMostDownloadedProps extends IHeaderProps {}
 
 const MostDownloaded = (props: IMostDownloadedProps) => {
   const [favorites, setFavorites] = useState([]);
   const [view, setView] = useState<'list' | 'table'>('list');
-  const { data, loading, error } = useQuery<IMostDownloadedQueryResult>(GET_MOST_DOWNLOADED_QUERY, {
-    ssr: false,
-  });
+  const { data, loading, error } = useQuery<IMostDownloadedQueryResult>(
+    GET_MOST_DOWNLOADED_QUERY,
+    {
+      ssr: false,
+    }
+  );
   const allTime = data?.mostDownloaded ?? [];
   const last30 = data?.last30 ?? [];
   const last7 = data?.last7 ?? [];
@@ -58,7 +64,11 @@ const MostDownloaded = (props: IMostDownloadedProps) => {
   const last7Items = useMemo(() => toPluginItems(last7), [last7]);
 
   const renderSkeleton = () => (
-    <div className="flex flex-col gap-y-4" aria-busy="true" aria-label="Loading most downloaded">
+    <div
+      className="flex flex-col gap-y-4"
+      aria-busy="true"
+      aria-label="Loading most downloaded"
+    >
       {Array.from({ length: 6 }).map((_, idx) => (
         <Card key={`md-skel-${idx}`} className="animate-pulse px-4 py-3">
           <div className="h-5 bg-gray-200 rounded w-1/3 mb-3"></div>

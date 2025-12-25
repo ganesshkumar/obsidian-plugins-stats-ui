@@ -84,16 +84,16 @@ const createApolloClient = (): ApolloClient<NormalizedCacheObject> =>
 // Garbage collection function to evict expired cache entries
 const evictExpiredEntries = (client: ApolloClient<NormalizedCacheObject>) => {
   const cache = client.cache as InMemoryCache;
-  
+
   TTL_CACHED_FIELDS.forEach((fieldName) => {
     try {
       // Use extract to inspect cache without triggering queries
       const cacheData = cache.extract();
       const rootQuery = cacheData['ROOT_QUERY'];
-      
+
       if (rootQuery && rootQuery[fieldName]) {
         const cached = rootQuery[fieldName] as TTLCachedValue<any>;
-        
+
         // If timestamp exists and entry is expired, evict it
         if (cached.ts && Date.now() - cached.ts > ONE_HOUR_MS) {
           cache.evict({

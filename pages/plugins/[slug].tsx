@@ -113,7 +113,10 @@ const Plugin = (props: IPluginProps) => {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.location.hash === '#rate-plugin') {
+    if (
+      typeof window !== 'undefined' &&
+      window.location.hash === '#rate-plugin'
+    ) {
       setOpenRatingOnLoad(true);
     }
   }, []);

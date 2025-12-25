@@ -35,7 +35,13 @@ export const remarkThemeHandler = () => {
       const { avg: avgRating, count: ratingCount } = getThemeRating(theme);
       const author = theme.repo.split('/')[0];
       const themeSlug = theme.repo.split('/')[1];
-      const header = buildThemeHeader(theme, index, avgRating, ratingCount, themeSlug);
+      const header = buildThemeHeader(
+        theme,
+        index,
+        avgRating,
+        ratingCount,
+        themeSlug
+      );
 
       let modeBlock = '';
       if (theme.isDark && theme.isLight) {

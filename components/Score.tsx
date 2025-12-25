@@ -15,13 +15,11 @@ export const Score = (props) => {
   const [openScoreModal, setOpenScoreModal] = useState(false);
   const [details, setDetails] = useState<IPluginScoreDetails | null>(null);
 
-  const [loadDetails, { data, loading: isLoading, error }] = useLazyQuery<IPluginScoreDetailsResult>(
-    GET_PLUGIN_SCORE_DETAILS_QUERY,
-    {
+  const [loadDetails, { data, loading: isLoading, error }] =
+    useLazyQuery<IPluginScoreDetailsResult>(GET_PLUGIN_SCORE_DETAILS_QUERY, {
       fetchPolicy: 'cache-first',
       nextFetchPolicy: 'cache-first',
-    }
-  );
+    });
 
   useEffect(() => {
     if (data?.pluginScoreDetails) {
@@ -40,7 +38,12 @@ export const Score = (props) => {
 
   const scoreReasonSource = details?.scoreReason ?? plugin.scoreReason;
 
-  if (!plugin.score && !details?.score && (!redirectForReason && !scoreReasonSource)) {
+  if (
+    !plugin.score &&
+    !details?.score &&
+    !redirectForReason &&
+    !scoreReasonSource
+  ) {
     return undefined;
   }
 
@@ -109,28 +112,40 @@ export const Score = (props) => {
                 <Table.Row>
                   <Table.Cell>Stars</Table.Cell>
                   <Table.Cell>
-                    {parseFloat(String(reasonMap['stargazers']?.value ?? details?.stargazers ?? 0)).toLocaleString()}
+                    {parseFloat(
+                      String(
+                        reasonMap['stargazers']?.value ??
+                          details?.stargazers ??
+                          0
+                      )
+                    ).toLocaleString()}
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['stargazers']?.weight
                       ? Number(reasonMap['stargazers'].weight) * 100
-                      : '-'}%
+                      : '-'}
+                    %
                   </Table.Cell>
                   <Table.Cell className="text-right">
                     {reasonMap['stargazers']?.score
-                      ? (parseFloat(reasonMap['stargazers'].score) * 100).toFixed(2)
+                      ? (
+                          parseFloat(reasonMap['stargazers'].score) * 100
+                        ).toFixed(2)
                       : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Forks</Table.Cell>
                   <Table.Cell>
-                    {parseFloat(String(reasonMap['forks']?.value ?? details?.forks ?? 0)).toLocaleString()}
+                    {parseFloat(
+                      String(reasonMap['forks']?.value ?? details?.forks ?? 0)
+                    ).toLocaleString()}
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['forks']?.weight
                       ? Number(reasonMap['forks'].weight) * 100
-                      : '-'}%
+                      : '-'}
+                    %
                   </Table.Cell>
                   <Table.Cell className="text-right">
                     {reasonMap['forks']?.score
@@ -152,17 +167,22 @@ export const Score = (props) => {
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['closedIssuesRatio']?.value
-                      ? parseFloat(reasonMap['closedIssuesRatio'].value).toFixed(2)
+                      ? parseFloat(
+                          reasonMap['closedIssuesRatio'].value
+                        ).toFixed(2)
                       : '-'}
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['closedIssuesRatio']?.weight
                       ? Number(reasonMap['closedIssuesRatio'].weight) * 100
-                      : '-'}%
+                      : '-'}
+                    %
                   </Table.Cell>
                   <Table.Cell className="text-right">
                     {reasonMap['closedIssuesRatio']?.score
-                      ? (parseFloat(reasonMap['closedIssuesRatio'].score) * 100).toFixed(2)
+                      ? (
+                          parseFloat(reasonMap['closedIssuesRatio'].score) * 100
+                        ).toFixed(2)
                       : '-'}
                   </Table.Cell>
                 </Table.Row>
@@ -180,17 +200,22 @@ export const Score = (props) => {
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['resolvedPRRatio']?.value
-                      ? parseFloat(reasonMap['resolvedPRRatio'].value).toFixed(2)
+                      ? parseFloat(reasonMap['resolvedPRRatio'].value).toFixed(
+                          2
+                        )
                       : '-'}
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['resolvedPRRatio']?.weight
                       ? Number(reasonMap['resolvedPRRatio'].weight) * 100
-                      : '-'}%
+                      : '-'}
+                    %
                   </Table.Cell>
                   <Table.Cell className="text-right">
                     {reasonMap['resolvedPRRatio']?.score
-                      ? (parseFloat(reasonMap['resolvedPRRatio'].score) * 100).toFixed(2)
+                      ? (
+                          parseFloat(reasonMap['resolvedPRRatio'].score) * 100
+                        ).toFixed(2)
                       : '-'}
                   </Table.Cell>
                 </Table.Row>
@@ -198,17 +223,23 @@ export const Score = (props) => {
                   <Table.Cell>Commits Last Year</Table.Cell>
                   <Table.Cell>
                     {reasonMap['commitCountInLastYear']?.value
-                      ? parseFloat(reasonMap['commitCountInLastYear'].value).toFixed(2)
-                      : details?.commitCountInLastYear ?? '-'}
+                      ? parseFloat(
+                          reasonMap['commitCountInLastYear'].value
+                        ).toFixed(2)
+                      : (details?.commitCountInLastYear ?? '-')}
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['commitCountInLastYear']?.weight
                       ? Number(reasonMap['commitCountInLastYear'].weight) * 100
-                      : '-'}%
+                      : '-'}
+                    %
                   </Table.Cell>
                   <Table.Cell className="text-right">
                     {reasonMap['commitCountInLastYear']?.score
-                      ? (parseFloat(reasonMap['commitCountInLastYear'].score) * 100).toFixed(2)
+                      ? (
+                          parseFloat(reasonMap['commitCountInLastYear'].score) *
+                          100
+                        ).toFixed(2)
                       : '-'}
                   </Table.Cell>
                 </Table.Row>
@@ -216,47 +247,64 @@ export const Score = (props) => {
                   <Table.Cell>Total Downloads</Table.Cell>
                   <Table.Cell>
                     {parseFloat(
-                      String(reasonMap['totalDownloads']?.value ?? details?.totalDownloads ?? 0)
+                      String(
+                        reasonMap['totalDownloads']?.value ??
+                          details?.totalDownloads ??
+                          0
+                      )
                     ).toLocaleString()}
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['totalDownloads']?.weight
                       ? Number(reasonMap['totalDownloads'].weight) * 100
-                      : '-'}%
+                      : '-'}
+                    %
                   </Table.Cell>
                   <Table.Cell className="text-right">
                     {reasonMap['totalDownloads']?.score
-                      ? (parseFloat(reasonMap['totalDownloads'].score) * 100).toFixed(2)
+                      ? (
+                          parseFloat(reasonMap['totalDownloads'].score) * 100
+                        ).toFixed(2)
                       : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Latest Release at</Table.Cell>
                   <Table.Cell>
-                    {moment(details?.latestReleaseAt ?? plugin.latestReleaseAt).fromNow()}
+                    {moment(
+                      details?.latestReleaseAt ?? plugin.latestReleaseAt
+                    ).fromNow()}
                   </Table.Cell>
                   <Table.Cell>
                     {reasonMap['latestReleaseAt']?.weight
                       ? Number(reasonMap['latestReleaseAt'].weight) * 100
-                      : '-'}%
+                      : '-'}
+                    %
                   </Table.Cell>
                   <Table.Cell className="text-right">
                     {reasonMap['latestReleaseAt']?.score
-                      ? (parseFloat(reasonMap['latestReleaseAt'].score) * 100).toFixed(2)
+                      ? (
+                          parseFloat(reasonMap['latestReleaseAt'].score) * 100
+                        ).toFixed(2)
                       : '-'}
                   </Table.Cell>
                 </Table.Row>
                 <Table.Row>
                   <Table.Cell>Created</Table.Cell>
-                  <Table.Cell>{moment(details?.createdAt ?? plugin.createdAt).fromNow()}</Table.Cell>
+                  <Table.Cell>
+                    {moment(details?.createdAt ?? plugin.createdAt).fromNow()}
+                  </Table.Cell>
                   <Table.Cell>
                     {reasonMap['createdAt']?.weight
                       ? Number(reasonMap['createdAt'].weight) * 100
-                      : '-'}%
+                      : '-'}
+                    %
                   </Table.Cell>
                   <Table.Cell className="text-right">
                     {reasonMap['createdAt']?.score
-                      ? (parseFloat(reasonMap['createdAt'].score) * 100).toFixed(2)
+                      ? (
+                          parseFloat(reasonMap['createdAt'].score) * 100
+                        ).toFixed(2)
                       : '-'}
                   </Table.Cell>
                 </Table.Row>

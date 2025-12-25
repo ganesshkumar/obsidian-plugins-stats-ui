@@ -10,7 +10,10 @@ import { BetaEntryCard } from '../../components/BetaEntryCard';
 import EthicalAd from '@/components/EthicalAd';
 import { IBetaEntry } from '@/components/BetaEntryCard';
 import { Card } from '@/components/ui/card';
-import { GET_BETA_ENTRIES_QUERY, type IBetaEntriesQueryResult } from '@/lib/graphql/queries';
+import {
+  GET_BETA_ENTRIES_QUERY,
+  type IBetaEntriesQueryResult,
+} from '@/lib/graphql/queries';
 
 interface IBetaPageProps extends IHeaderProps {}
 
@@ -21,9 +24,12 @@ interface IBetaPageProps extends IHeaderProps {}
 const BetaIndex = (props: IBetaPageProps) => {
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const { data, loading, error } = useQuery<IBetaEntriesQueryResult>(GET_BETA_ENTRIES_QUERY, {
-    ssr: false,
-  });
+  const { data, loading, error } = useQuery<IBetaEntriesQueryResult>(
+    GET_BETA_ENTRIES_QUERY,
+    {
+      ssr: false,
+    }
+  );
   const entries = data?.betaEntries ?? [];
   const isLoading = loading;
 
@@ -57,7 +63,10 @@ const BetaIndex = (props: IBetaPageProps) => {
   const renderSkeleton = () => (
     <div className="mt-2 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
       {Array.from({ length: 18 }).map((_, idx) => (
-        <Card key={`beta-skel-${idx}`} className="animate-pulse px-4 py-5 h-full">
+        <Card
+          key={`beta-skel-${idx}`}
+          className="animate-pulse px-4 py-5 h-full"
+        >
           <div className="h-5 bg-gray-200 rounded w-2/3 mb-3"></div>
           <div className="h-4 bg-gray-200 rounded w-1/3 mb-2"></div>
           <div className="h-4 bg-gray-200 rounded w-5/6 mb-1"></div>

@@ -5,6 +5,7 @@ This document describes the security measures implemented for the GraphQL API en
 ## Overview
 
 The GraphQL API has been hardened against common attack vectors including:
+
 - **Denial of Service (DoS)** attacks via excessive requests
 - **Resource exhaustion** via expensive or deeply nested queries
 - **API abuse** through malicious automation
@@ -14,11 +15,13 @@ The GraphQL API has been hardened against common attack vectors including:
 ### 1. Rate Limiting
 
 **Configuration:**
+
 - **Limit:** 100 requests per minute per IP address
 - **Window:** 60 seconds (sliding window)
 - **Identifier:** Client IP address (from `x-forwarded-for` or `x-real-ip` headers)
 
 **Implementation:**
+
 - In-memory store with automatic cleanup of expired entries
 - Returns HTTP 429 (Too Many Requests) when limit is exceeded
 - Provides standard rate limit headers:
@@ -28,15 +31,18 @@ The GraphQL API has been hardened against common attack vectors including:
   - `Retry-After`: Seconds to wait before retrying
 
 **Response on Rate Limit:**
+
 ```json
 {
-  "errors": [{
-    "message": "Rate limit exceeded. Please try again in X seconds.",
-    "extensions": {
-      "code": "RATE_LIMIT_EXCEEDED",
-      "retryAfter": 30
+  "errors": [
+    {
+      "message": "Rate limit exceeded. Please try again in X seconds.",
+      "extensions": {
+        "code": "RATE_LIMIT_EXCEEDED",
+        "retryAfter": 30
+      }
     }
-  }]
+  ]
 }
 ```
 
@@ -46,6 +52,7 @@ For production deployments with multiple server instances, consider replacing th
 ### 2. Query Complexity Analysis
 
 **Configuration:**
+
 - **Maximum Complexity:** 2000 points
 - **Default Field Cost:** 1 point per field
 
@@ -56,13 +63,15 @@ Each field in a GraphQL query has an associated cost (complexity). The total com
 A simple query requesting a few fields might have a complexity of 10-50 points, while a query requesting all plugins with all fields would have a higher complexity.
 
 **Response on Complexity Limit:**
+
 ```
-Query is too complex: 2500. Maximum allowed complexity: 2000. 
+Query is too complex: 2500. Maximum allowed complexity: 2000.
 Please simplify your query by requesting fewer fields or reducing nesting depth.
 ```
 
 **Customization:**
 Field-specific complexity can be configured using the `fieldExtensionsEstimator`, allowing you to assign higher costs to expensive operations like:
+
 - Queries that return large lists
 - Fields that require database joins
 - Computationally expensive calculations
@@ -70,12 +79,14 @@ Field-specific complexity can be configured using the `fieldExtensionsEstimator`
 ### 3. Query Depth Limiting
 
 **Configuration:**
+
 - **Maximum Depth:** 10 levels
 
 **How It Works:**
 Prevents deeply nested queries that could cause excessive database queries or memory consumption. The depth is calculated by counting the levels of nesting in the GraphQL query.
 
 **Example of Rejected Query:**
+
 ```graphql
 query {
   plugins {
@@ -107,6 +118,7 @@ query {
 The security measures can be tested using the following approaches:
 
 ### Rate Limiting Test
+
 ```bash
 # Send multiple requests rapidly to trigger rate limiting
 for i in {1..150}; do
@@ -117,24 +129,52 @@ done
 ```
 
 ### Query Complexity Test
+
 ```graphql
 # Query with many fields to test complexity limit
 query ExpensiveQuery {
   plugins {
-    pluginId name author description osDescription osCategory osTags
-    repo createdAt latestReleaseAt latestRelease totalDownloads
-    score scoreReason closedIssues openIssues totalIssues
-    mergedPR closedPR openPR totalPR commitCountInLastYear
-    stargazers subscribers forks zScoreTrending
+    pluginId
+    name
+    author
+    description
+    osDescription
+    osCategory
+    osTags
+    repo
+    createdAt
+    latestReleaseAt
+    latestRelease
+    totalDownloads
+    score
+    scoreReason
+    closedIssues
+    openIssues
+    totalIssues
+    mergedPR
+    closedPR
+    openPR
+    totalPR
+    commitCountInLastYear
+    stargazers
+    subscribers
+    forks
+    zScoreTrending
     ratingInfo {
-      avgRating ratingCount star5Count star4Count 
-      star3Count star2Count star1Count
+      avgRating
+      ratingCount
+      star5Count
+      star4Count
+      star3Count
+      star2Count
+      star1Count
     }
   }
 }
 ```
 
 ### Query Depth Test
+
 ```graphql
 # Deeply nested query to test depth limit
 query DeepQuery {
@@ -152,11 +192,13 @@ query DeepQuery {
 ## Monitoring and Logging
 
 The implementation logs query complexity to the console for monitoring:
+
 ```
 Query complexity: 150
 ```
 
 In production, you should:
+
 1. Send these logs to a centralized logging system
 2. Set up alerts for:
    - High rate limit violations

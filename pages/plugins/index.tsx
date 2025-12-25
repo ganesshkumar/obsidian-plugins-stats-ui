@@ -22,7 +22,10 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { ListIcon, TableIcon } from 'lucide-react';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 import { toPluginsListItem } from '@/utils/plugins';
-import { GET_PLUGINS_QUERY, type IPluginsQueryResult } from '@/lib/graphql/queries';
+import {
+  GET_PLUGINS_QUERY,
+  type IPluginsQueryResult,
+} from '@/lib/graphql/queries';
 
 const sortByOptions = {
   alphabet_asc: 'Alphabetical (A-Z)',
@@ -134,9 +137,12 @@ const Plugins = (props: IPageProps) => {
   const [view, setView] = useState('list');
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const { data, loading, error } = useQuery<IPluginsQueryResult>(GET_PLUGINS_QUERY, {
-    ssr: false,
-  });
+  const { data, loading, error } = useQuery<IPluginsQueryResult>(
+    GET_PLUGINS_QUERY,
+    {
+      ssr: false,
+    }
+  );
   const plugins = data?.plugins ?? [];
   const isLoading = loading;
 
@@ -282,7 +288,11 @@ const Plugins = (props: IPageProps) => {
 
   const totalPlugins = plugins.length || props.pluginsCount;
   const renderSkeleton = () => (
-    <div className="flex-col space-y-4" aria-busy="true" aria-label="Loading plugins">
+    <div
+      className="flex-col space-y-4"
+      aria-busy="true"
+      aria-label="Loading plugins"
+    >
       {Array.from({ length: 6 }).map((_, idx) => (
         <div
           key={`skeleton-${idx}`}
@@ -307,8 +317,8 @@ const Plugins = (props: IPageProps) => {
           <ResponsiveLayout sidebar={sidebar}>
             <div className="flex flex-col">
               <div className="text-xl py-2 px-2 text-semibold text-gray-800">
-                Showing {isLoading ? 0 : filteredPlugins.length} / {totalPlugins}{' '}
-                plugins available from the community.
+                Showing {isLoading ? 0 : filteredPlugins.length} /{' '}
+                {totalPlugins} plugins available from the community.
               </div>
               <div className="px-2 py-2 bg-white relative">
                 <div className="absolute pointer-events-auto">

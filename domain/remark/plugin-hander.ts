@@ -25,17 +25,24 @@ export const remarkPluginHandler = () => {
 
         node.type = 'html';
         if (!!plugin) {
-          const header = buildPluginHeader(plugin, index, avgRating, ratingCount);
+          const header = buildPluginHeader(
+            plugin,
+            index,
+            avgRating,
+            ratingCount
+          );
 
-          const images = plugin.osImages && plugin.osImages.length > 0
-            ? `<div class="plugin-images mt-2 mb-2 flex flex-col items-center">
+          const images =
+            plugin.osImages && plugin.osImages.length > 0
+              ? `<div class="plugin-images mt-2 mb-2 flex flex-col items-center">
                 ${plugin.osImages
                   .map(
-                    (img) => `<img src="${img.url}" alt="${img.description + ' screenshot' || plugin.name} " class="inline-block border border-gray-300 rounded mb-2" />`
+                    (img) =>
+                      `<img src="${img.url}" alt="${img.description + ' screenshot' || plugin.name} " class="inline-block border border-gray-300 rounded mb-2" />`
                   )
                   .join('\\n')}
               </div>`
-            : '';
+              : '';
 
           node.value = `<div class="plugin-container" data-plugin-id="${plugin.name}">
             ${header}
@@ -76,10 +83,10 @@ export const remarkPluginHandler = () => {
         node.type = 'html';
         node.value = `<div class="plugin-list-container">
           ${filteredPlugins
-            .map(
-              (plugin, index) => {
-                const { avg: avgRating, count: ratingCount } = getPluginRating(plugin);
-                return `
+            .map((plugin, index) => {
+              const { avg: avgRating, count: ratingCount } =
+                getPluginRating(plugin);
+              return `
             <div class="plugin-container" data-plugin-id="${plugin.name}">
               <div class="plugin-header">
                 <h3><span class="text-gray-500">${index + 1}.</span> <span class="text-red-700 font-bold text-2xl tracking-tight">${plugin.name}</span></h3>
@@ -89,7 +96,9 @@ export const remarkPluginHandler = () => {
                         <button type="button" class="flex items-center gap-2 hover:opacity-80" onclick="window.location.href='/plugins/${plugin.pluginId}#rate-plugin'">
                           <span class="flex items-center" aria-hidden="true">${renderStarIcons(avgRating)}</span>
                           <span>${avgRating.toFixed(1)} / 5 ${
-                            ratingCount ? `<span class="text-gray-600 font-normal">(${ratingCount} review${ratingCount > 1 ? 's' : ''})</span>` : ''
+                            ratingCount
+                              ? `<span class="text-gray-600 font-normal">(${ratingCount} review${ratingCount > 1 ? 's' : ''})</span>`
+                              : ''
                           }</span>
                         </button>
                         <button type="button" class="text-xs px-2 py-0.5 rounded border border-violet-700 text-violet-700 hover:bg-violet-50" onclick="window.location.href='/plugins/${plugin.pluginId}#rate-plugin'">Rate</button>
@@ -111,8 +120,7 @@ export const remarkPluginHandler = () => {
             </div>
             <hr />
           `;
-              }
-            )
+            })
             .join('\n')}
           </div>
         `;
@@ -123,9 +131,7 @@ export const remarkPluginHandler = () => {
 
 function getPluginRating(plugin: any): { avg: number | null; count: number } {
   const avg =
-    plugin?.ratingInfo?.avgRating ??
-    plugin?.ratingInfo?.averageRating ??
-    null;
+    plugin?.ratingInfo?.avgRating ?? plugin?.ratingInfo?.averageRating ?? null;
   const count =
     plugin?.ratingInfo?.ratingCount ??
     plugin?.ratingInfo?.reviewsCount ??
@@ -189,7 +195,11 @@ function buildPluginHeader(
     ? `<span class="text-red-700 font-bold text-2xl tracking-tight hover:text-red-800">${index}.&nbsp;</span>`
     : '';
 
-  const ratingSummary = buildRatingSummary(plugin.pluginId, avgRating, ratingCount);
+  const ratingSummary = buildRatingSummary(
+    plugin.pluginId,
+    avgRating,
+    ratingCount
+  );
 
   return `<div class="plugin-header">
     <h3>
