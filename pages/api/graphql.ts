@@ -1,99 +1,17 @@
 import { createYoga, createSchema } from 'graphql-yoga';
-import { GraphQLError } from 'graphql';
 import { PrismaClient, PullRequestEntry } from '@prisma/client';
 import { PluginsCache } from '@/cache/plugins-cache';
 import { toPluginsListItem } from '@/utils/plugins';
 import { IPluginsListItem } from '@/domain/plugins/models/PluginsListItem';
 import { getMostDownloadedPlugins } from '@/lib/plugins';
+import {
+  validateBetaType,
+  sanitizePluginId,
+  validateLimit,
+  validateDays,
+} from '@/lib/graphql/validation';
 
 const prisma = new PrismaClient();
-
-// Validation constants
-const ALLOWED_BETA_TYPES = ['plugin', 'theme'] as const;
-const PLUGIN_ID_REGEX = /^[a-zA-Z0-9-_]+$/;
-const MAX_LIMIT = 100;
-const MIN_LIMIT = 1;
-const MIN_DAYS = 1;
-const MAX_DAYS = 365;
-
-// Validation helper functions
-function validateBetaType(type?: string): void {
-  if (type && !ALLOWED_BETA_TYPES.includes(type as any)) {
-    throw new GraphQLError(
-      `Invalid type parameter. Allowed values are: ${ALLOWED_BETA_TYPES.join(', ')}`,
-      { extensions: { code: 'BAD_USER_INPUT' } }
-    );
-  }
-}
-
-function sanitizePluginId(pluginId: string): string {
-  if (!pluginId || typeof pluginId !== 'string') {
-    throw new GraphQLError('Plugin ID is required and must be a string', {
-      extensions: { code: 'BAD_USER_INPUT' },
-    });
-  }
-
-  const trimmedId = pluginId.trim();
-  if (!trimmedId) {
-    throw new GraphQLError('Plugin ID cannot be empty', {
-      extensions: { code: 'BAD_USER_INPUT' },
-    });
-  }
-
-  if (!PLUGIN_ID_REGEX.test(trimmedId)) {
-    throw new GraphQLError(
-      'Plugin ID can only contain alphanumeric characters, hyphens, and underscores',
-      { extensions: { code: 'BAD_USER_INPUT' } }
-    );
-  }
-
-  return trimmedId;
-}
-
-function validateLimit(limit?: number): number {
-  const validatedLimit = limit ?? 25;
-  if (typeof validatedLimit !== 'number' || !Number.isFinite(validatedLimit)) {
-    throw new GraphQLError('Limit must be a valid number', {
-      extensions: { code: 'BAD_USER_INPUT' },
-    });
-  }
-
-  if (validatedLimit < MIN_LIMIT) {
-    throw new GraphQLError(`Limit must be at least ${MIN_LIMIT}`, {
-      extensions: { code: 'BAD_USER_INPUT' },
-    });
-  }
-
-  if (validatedLimit > MAX_LIMIT) {
-    throw new GraphQLError(`Limit cannot exceed ${MAX_LIMIT}`, {
-      extensions: { code: 'BAD_USER_INPUT' },
-    });
-  }
-
-  return Math.floor(validatedLimit);
-}
-
-function validateDays(days: number): number {
-  if (typeof days !== 'number' || !Number.isFinite(days)) {
-    throw new GraphQLError('Days must be a valid number', {
-      extensions: { code: 'BAD_USER_INPUT' },
-    });
-  }
-
-  if (days < MIN_DAYS) {
-    throw new GraphQLError(`Days must be at least ${MIN_DAYS}`, {
-      extensions: { code: 'BAD_USER_INPUT' },
-    });
-  }
-
-  if (days > MAX_DAYS) {
-    throw new GraphQLError(`Days cannot exceed ${MAX_DAYS}`, {
-      extensions: { code: 'BAD_USER_INPUT' },
-    });
-  }
-
-  return Math.floor(days);
-}
 
 const typeDefs = /* GraphQL */ `
   type PluginRatingInfo {
