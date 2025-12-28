@@ -145,7 +145,7 @@ const AuthorPage = (props: IAuthorPageProps) => {
               </div>
             </div>
 
-            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 shadow-sm">
+            <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
               <div className="space-y-3">
                 <div className="text-base font-semibold text-gray-900">About</div>
                 <div className="text-sm text-gray-700 leading-relaxed">{author.bio}</div>
@@ -197,16 +197,6 @@ const AuthorPage = (props: IAuthorPageProps) => {
                   </li>
                 ))}
               </ul>
-            </div>
-
-            <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-              <div className="text-base font-semibold text-gray-900">How we publish</div>
-              <div className="text-sm text-gray-700 mt-2 leading-relaxed">
-                Every post is written with a focus on accurate plugin data and reproducible
-                steps. Metrics are derived from the public Obsidian community index and GitHub,
-                and dates are verified before publishing. Contact the author if you spot an
-                issue or need a correction.
-              </div>
             </div>
           </div>
         </ResponsiveLayout>

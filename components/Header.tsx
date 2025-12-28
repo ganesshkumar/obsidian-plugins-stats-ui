@@ -23,6 +23,11 @@ const Header = ({
       <title key="title">{title}</title>
       <link key="icon" rel="icon" href="/favicon-64.png" />
       <meta key="description" name="description" content={description} />
+      <meta
+        key="robots"
+        name="robots"
+        content="index, follow, max-image-preview:large"
+      />
       <link key="canonical" rel="canonical" href={canonical} />
       <link key="sitemap" rel="sitemap" href="/sitemap.xml" />
       <link
