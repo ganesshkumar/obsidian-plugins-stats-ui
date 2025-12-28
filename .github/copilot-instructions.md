@@ -183,9 +183,8 @@ Use the `@/` alias for imports:
 1. **Plugin Discovery** - New plugins, trending, most downloaded
 2. **Favorites** - User can favorite plugins and track updates
 3. **Custom Scoring** - Users can create custom scoring functions
-4. **Plugin Timeline** - Historical view of plugin ecosystem
-5. **Themes** - Similar features for Obsidian themes
-6. **Blog/Posts** - Markdown-based blog with weekly updates
+4. **Themes** - Similar features for Obsidian themes
+5. **Blog/Posts** - Markdown-based blog with weekly updates
 
 ## Commands
 

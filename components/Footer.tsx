@@ -186,12 +186,6 @@ export const Footer = () => {
                   >
                     Migrate/Sync
                   </FlowbiteFooter.Link>
-                  <FlowbiteFooter.Link
-                    className={footerLinkClass}
-                    href="/timeline"
-                  >
-                    Timeline
-                  </FlowbiteFooter.Link>
                 </FlowbiteFooter.LinkGroup>
               </div>
               {/* <div>

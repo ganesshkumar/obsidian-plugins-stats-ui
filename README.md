@@ -19,12 +19,10 @@ Explore [Obsidian](https://obsidian.md) plugins with these powerful features:
 - **[Trending Plugins](https://www.obsidianstats.com/trending)** – Check out the top 10 trending plugins based on downloads and engagement.
 - **[Most Downloaded](https://obsidianstats.com/most-downloaded)** – View the most downloaded plugins over last week, last month and overall timeline.
 - **[Favorites](https://www.obsidianstats.com/favorites)** – Track your favorite plugins and get notified of new updates.
-- **[Plugin Timeline](https://www.obsidianstats.com/timeline)** – Track additions, removals, and updates over time.
 - **[Plugin Sharing](https://obsidianstats.com/share)** – Compare and share plugin lists with others.
 - **[Migration Guide](https://www.obsidianstats.com/migrate)** – Export and import your favorite plugin lists across devices.
 - **[Scoring System](https://www.obsidianstats.com/scorer)** – Build custom scoring functions to rank plugins based on your criteria.
 - **[Tags](https://www.obsidianstats.com/tags)** – Browse plugins by tags to find exactly what you need.
-- **[Timeline](https://www.obsidianstats.com/timeline)** – Visualize the history of plugin updates and releases.
 - **[Share](https://www.obsidianstats.com/share)** – Share your favorite plugin lists with the community.
 
 ## Screenshots
