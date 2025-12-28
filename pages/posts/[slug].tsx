@@ -1,5 +1,7 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import Navbar from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
@@ -8,7 +10,7 @@ import { PluginsCache } from '../../cache/plugins-cache';
 import { PluginsShareView } from '../share';
 import { useState } from 'react';
 import { Button } from 'flowbite-react';
-import { Post as PostData } from '../../lib/abstractions';
+import { Author, Post as PostData } from '../../lib/abstractions';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
 import { unified } from 'unified';
@@ -26,8 +28,10 @@ import { remarkPluginImageHandler } from '../../domain/remark/plugin-image-handl
 import { Suggestions } from '../../domain/suggestions/models';
 import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
-import WavesBackground from '@/components/background/wave-background';
 import rehypeToc from 'rehype-toc';
+import { SiteData } from '../../data/siteData';
+import { User } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface IPostPageProps extends IHeaderProps {
   postData: PostData;
@@ -36,9 +40,8 @@ interface IPostPageProps extends IHeaderProps {
 }
 
 export const getStaticPaths: GetStaticPaths = () => {
-  const paths = getAllPostIds();
   return {
-    paths: [], // paths,
+    paths: [],
     fallback: 'blocking',
   };
 };
@@ -112,7 +115,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const title = postData.title;
   const description = postData.description;
   const canonical = `https://www.obsidianstats.com/posts/${postData.id}`;
-  const image = postData.ogImage || `/images/obsidian-stats-ogImage.png`;
+  const image = postData.ogImage || (postData.tags.includes('weekly-updates') ? postData.ogImage : '/images/obsidian-stats-ogImage.png');
   const jsonLdSchema = JsonLdSchema.getPostPageSchema(
     postData,
     title,
@@ -149,6 +152,14 @@ const Post = (props: IPostPageProps) => {
 
   const isLessThanLarge = useIsLessThanLarge();
 
+  const authors = SiteData.authors as Record<string, Author>;
+  const defaultAuthor = authors.ganesshkumar;
+  const authorSlug = postData.author || defaultAuthor.slug;
+  const author = authors[authorSlug] || defaultAuthor;
+  const publishedLabel = moment(postData.publishedDate).format('DD-MMM-YYYY');
+  const updatedLabel = moment(postData.modifiedDate).format('DD-MMM-YYYY');
+  const hasUpdates = postData.publishedDate !== postData.modifiedDate;
+
   const sidebar = (
     <Sidebar
       pageInfo={{ type: 'post', slug: postData.id }}
@@ -157,22 +168,72 @@ const Post = (props: IPostPageProps) => {
   );
 
   const title = (
-    <h1 className="mt-2 mb-0 text-3xl font-heading leading-20">
+    <h1 className="mt-2 mb-0 text-3xl font-heading leading-10">
       {postData.title}
     </h1>
+  );
+
+  const authorInfo = (
+    <div className="mt-3 mb-6 space-y-2">
+      <div className="hidden md:flex md:items-start md:gap-3">
+        <Avatar className="h-14 w-14">
+          <AvatarImage src={author.avatar || undefined} alt={author.name} />
+          <AvatarFallback
+            className="bg-gray-100 text-gray-700"
+            style={{
+              backgroundColor: `hsl(${hashStringToHue(author.name)}, 70%, 90%)`,
+              color: `hsl(${hashStringToHue(author.name)}, 70%, 30%)`,
+            }}
+          >
+            {author.name.charAt(0).toUpperCase()}
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex-1 space-y-1">
+          <div className="flex flex-wrap items-center gap-2 text-gray-800">
+            <span>By</span>
+            <Link
+              href={`/authors/${author.slug}`}
+              className="font-semibold text-gray-900 hover:underline"
+            >
+              {author.name}
+            </Link>
+            <span aria-hidden="true">•</span>
+            <span>Published {publishedLabel}</span>
+            {hasUpdates && (
+              <>
+                <span aria-hidden="true">•</span>
+                <span>Updated {updatedLabel}</span>
+              </>
+            )}
+          </div>
+          <div className="text-sm text-gray-600 line-clamp-2">{author.bio}</div>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2 text-sm text-gray-700 md:hidden">
+        <span>By</span>
+        <Link
+          href={`/authors/${author.slug}`}
+          className="font-semibold text-gray-900 hover:underline"
+        >
+          {author.name}
+        </Link>
+        <span aria-hidden="true">•</span>
+        <span>Published {publishedLabel}</span>
+        {hasUpdates && (
+          <>
+            <span aria-hidden="true">•</span>
+            <span>Updated {updatedLabel}</span>
+          </>
+        )}
+      </div>
+    </div>
   );
 
   const introduction = (
     <>
       {title}
-      <div className="text-md">
-        Published: {moment(postData.publishedDate).format('DD-MMM-YYYY')}
-      </div>
-      {postData.publishedDate !== postData.modifiedDate && (
-        <div className="text-md">
-          Updated: {moment(postData.modifiedDate).format('DD-MMM-YYYY')}
-        </div>
-      )}
+      {authorInfo}
       {postData.tags && (
         <>
           <ul className="flex gap-x-2 list-none ml-0 pl-0">
@@ -189,10 +250,14 @@ const Post = (props: IPostPageProps) => {
         </>
       )}
       {postData.bannerImage && (
-        <img
+        <Image
           src={postData.bannerImage}
           alt={postData.title}
+          width={2240}          // use the image’s real width if you know it
+          height={1260}         // use the image’s real height
+          sizes="(min-width: 1024px) 960px, 100vw"
           className="w-full h-auto rounded-lg mb-4"
+          priority
         />
       )}
     </>
@@ -245,4 +310,14 @@ const Post = (props: IPostPageProps) => {
   );
 };
 
+function hashStringToHue(name: string) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash % 360);
+}
+
 export default Post;
+
+
