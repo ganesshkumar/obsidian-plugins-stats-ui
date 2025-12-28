@@ -4,7 +4,6 @@ import { getStaticProps as getUpdatesProps } from './updates';
 import { getStaticProps as getTrendingProps } from './trending';
 import { getStaticProps as getMostDownloadedProps } from './most-downloaded';
 import { getStaticProps as getFavoritesProps } from './favorites';
-import { getStaticProps as getTimelineProps } from './timeline';
 import { getStaticProps as getShareProps } from './share';
 import {
   getStaticPaths as getPostPaths,
@@ -47,11 +46,6 @@ export const getStaticProps = async () => {
     description: favoritesDescription,
     canonical: favoritesCanonical,
   } = (await getFavoritesProps()).props;
-  const {
-    title: timelineTitle,
-    description: timelineDescription,
-    canonical: timelineCanonical,
-  } = (await getTimelineProps()).props;
   const {
     title: shareTitle,
     description: shareDescription,
@@ -102,11 +96,6 @@ export const getStaticProps = async () => {
       title: favoritesTitle,
       description: favoritesDescription,
       canonical: favoritesCanonical,
-    },
-    timeline: {
-      title: timelineTitle,
-      description: timelineDescription,
-      canonical: timelineCanonical,
     },
     share: {
       title: shareTitle,
