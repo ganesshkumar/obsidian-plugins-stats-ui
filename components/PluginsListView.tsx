@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, Tooltip } from 'flowbite-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import moment from 'moment';
 import Favorites from './Favorites';
 import { memo } from 'react';
@@ -250,10 +251,12 @@ const UnindexedTheme = (props) => {
         </div>
       </div>
       <div className="my-4">
-        <img
+        <Image
           src={`https://raw.githubusercontent.com/${author}/${repo}/HEAD/${theme.screenshot}`}
           alt={repo}
-          className="w-100 aspect-video rounded-lg"
+          width={400}
+          height={400}
+          className="aspect-video rounded-lg"
         />
       </div>
       {/* <Score plugin={plugin} /> */}

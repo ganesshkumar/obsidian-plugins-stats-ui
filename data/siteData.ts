@@ -1,6 +1,22 @@
-import { Faq } from '../lib/abstractions';
+import { Author, Faq } from '../lib/abstractions';
 
 export const SiteData = {
+  authors: {
+    ganesshkumar: {
+      slug: 'ganesshkumar',
+      name: 'Ganesh Kumar',
+      title: 'Creator of Obsidian Stats',
+      bio: 'Ganessh Kumar R P is a software developer and a long-time Obsidian user who enjoys building tools that make knowledge management easier. After using Obsidian for several years, he gained strong hands-on experience with its plugin and theme ecosystem, both as a user and as a developer. He has built a few Obsidian plugins and created ObsidianStats to explore, track, and understand plugins and themes in one place. Through ObsidianStats, Ganessh focuses on making plugin and theme information simple and easy to access. The site helps users discover new tools, follow updates, and understand trends without going through multiple sources. His work reflects a practical approach to software development, driven by real usage and community needs.',
+      avatar: '/images/authors/ganesshkumar.png',
+      social: {
+        website: 'https://www.ganesshkumar.com',
+        twitter: 'https://x.com/ganesshkumar',
+        github: 'https://github.com/ganesshkumar',
+        email: 'rpganesshkumar@gmail.com',
+      },
+      questions: {},
+    } as Author,
+  },
   highlights: [
     {
       title: 'Rate Plugins with Stars ⭐',

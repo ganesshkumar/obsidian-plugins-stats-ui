@@ -193,15 +193,6 @@ const NavBar = ({ current, children }: INavbarProps) => {
                         Migrate/Sync
                       </Link>
                     </li>
-                    <li>
-                      <Link
-                        href="/timeline"
-                        className={`hover:text-primary-600 dark:hover:text-primary-500 hover:text-violet-800 flex items-center gap-x-4 text-lg ${current === 'timeline' ? 'text-purple-700 dark:text-primary-500' : ''}`}
-                      >
-                        <Calendar size={18} />
-                        Timeline
-                      </Link>
-                    </li>
                   </div>
                 </ul>
               </MegaMenu.Dropdown>

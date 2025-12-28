@@ -987,29 +987,6 @@ export const JsonLdSchema = {
       ],
     };
   },
-  getTimelinePageSchema: () => {
-    return {
-      '@context': 'https://schema.org',
-      '@type': 'Dataset',
-      name: 'Daily Plugin Changes Dataset',
-      description:
-        'A JSON dataset tracking daily plugin changes, including additions, removals, and updates by date.',
-      url: 'https://www.obsidianstats.com/data/plugins-history.json',
-      sameAs:
-        'https://github.com/ganesshkumar/obsidian-stats-dataset/plugins-history.json',
-      creator: organization,
-      keywords: 'plugins, dataset, changes, version control, daily updates',
-      license: 'https://creativecommons.org/licenses/by/4.0/',
-      dateModified: '2025-01-14',
-      distribution: [
-        {
-          '@type': 'DataDownload',
-          encodingFormat: 'application/json',
-          contentUrl: 'https://www.obsidianstats.com/data/plugins-history.json',
-        },
-      ],
-    };
-  },
   getToolPageSchema: (
     title: string,
     description: string,

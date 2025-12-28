@@ -251,13 +251,6 @@ const Home = (props: IHomeProps) => {
                     <HiOutlineSwitchVertical />
                     Migrate
                   </li>
-                  <li
-                    className="underline cursor-pointer flex items-center gap-x-1"
-                    onClick={() => goToPage('timeline')}
-                  >
-                    {' '}
-                    <HiOutlineCalendar /> Timeline
-                  </li>
                 </ul>
               </div>
               <div className="grid content-center">

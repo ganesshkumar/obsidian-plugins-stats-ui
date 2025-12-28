@@ -49,7 +49,7 @@ export const Footer = () => {
                 </a>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 lg:grid-cols-4 sm:gap-6">
+            <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 lg:grid-cols-5 sm:gap-6">
               <div>
                 <FlowbiteFooter.Title
                   as="div"
@@ -126,6 +126,27 @@ export const Footer = () => {
                 <FlowbiteFooter.Title
                   as="div"
                   className="text-gray-900"
+                  title="About"
+                />
+                <FlowbiteFooter.LinkGroup col>
+                  <FlowbiteFooter.Link
+                    className={footerLinkClass}
+                    href="/about"
+                  >
+                    About the site
+                  </FlowbiteFooter.Link>
+                  <FlowbiteFooter.Link
+                    className={footerLinkClass}
+                    href="mailto:rpganesshkumar@gmail.com"
+                  >
+                    Contact
+                  </FlowbiteFooter.Link>
+                </FlowbiteFooter.LinkGroup>
+              </div>
+              <div>
+                <FlowbiteFooter.Title
+                  as="div"
+                  className="text-gray-900"
                   title="Posts"
                 />
                 <FlowbiteFooter.LinkGroup col>
@@ -164,12 +185,6 @@ export const Footer = () => {
                     href="/migrate"
                   >
                     Migrate/Sync
-                  </FlowbiteFooter.Link>
-                  <FlowbiteFooter.Link
-                    className={footerLinkClass}
-                    href="/timeline"
-                  >
-                    Timeline
                   </FlowbiteFooter.Link>
                 </FlowbiteFooter.LinkGroup>
               </div>

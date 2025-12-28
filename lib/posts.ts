@@ -6,6 +6,7 @@ import { Post } from './abstractions';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 const postsJsxDirectory = path.join(process.cwd(), 'pages', 'posts');
+const DEFAULT_AUTHOR = 'ganesshkumar';
 
 const isLocal = process.env.NODE_ENV === 'development';
 
@@ -18,9 +19,14 @@ export function getSortedPostsData(): Post[] {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const matterResult = matter(fileContents);
 
-    return {
+    const post = {
       id,
       ...matterResult.data,
+    } as Post;
+
+    return {
+      ...post,
+      author: post.author || DEFAULT_AUTHOR,
     } as Post;
   });
 
@@ -43,6 +49,7 @@ export function getPostData(id: string): Post {
     id,
     content: matterResult.content,
     ...matterResult.data,
+    author: (matterResult.data as Post).author || DEFAULT_AUTHOR,
   } as Post;
 }
 

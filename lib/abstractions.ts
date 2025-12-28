@@ -13,6 +13,22 @@ export interface Post {
   plugins?: string[];
   contentHtml?: string;
   content: string;
+  author?: string;
+}
+
+export interface Author {
+  slug: string;
+  name: string;
+  title?: string;
+  bio: string;
+  avatar?: string;
+  social?: {
+    website?: string;
+    twitter?: string;
+    github?: string;
+    email?: string;
+  };
+  questions?: Record<string, string>;
 }
 
 export interface Highlight {
