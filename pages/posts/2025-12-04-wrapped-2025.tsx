@@ -14,9 +14,10 @@ import {
 import { Button, Popover } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react';
 import { CategoryIcon } from '../../components/Category';
-import { Post } from '../../lib/abstractions';
+import { Author, Post } from '../../lib/abstractions';
 import { JsonLdSchema } from '../../lib/jsonLdSchema';
 import Header, { IHeaderProps } from '../../components/Header';
+import { SiteData } from '../../data/siteData';
 
 interface IWrapped2025PageProps extends IHeaderProps {}
 
@@ -674,6 +675,9 @@ export const getStaticProps = async () => {
     'https://www.obsidianstats.com/posts/2025-12-04-wrapped-2025';
   const image = '/images/obsidian-stats-ogImage.png';
 
+  const authors = SiteData.authors as Record<string, Author>;
+  const defaultAuthor = authors.ganesshkumar;
+
   const post: Post = {
     id: '2025-12-04-wrapped-2025',
     title:
@@ -685,6 +689,7 @@ export const getStaticProps = async () => {
     publishedDate: '2025-12-04',
     modifiedDate: '2025-12-04',
     content: '',
+    authors: [defaultAuthor.slug],
   };
 
   const jsonLdSchema = JsonLdSchema.getPostPageSchema(
@@ -692,7 +697,8 @@ export const getStaticProps = async () => {
     title,
     description,
     canonical,
-    image
+    image,
+    [defaultAuthor]
   );
 
   return {

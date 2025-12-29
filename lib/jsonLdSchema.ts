@@ -1,5 +1,5 @@
 import { Plugin, PullRequestEntry, Theme } from '@prisma/client';
-import { Post } from './abstractions';
+import { Author, Post } from './abstractions';
 import Constants from '../constants';
 
 const author = {
@@ -818,17 +818,104 @@ export const JsonLdSchema = {
     title: string,
     description: string,
     canonical: string,
-    image: string
+    image: string,
+    authors: Author[]
   ) => {
+    const images = [
+      {
+        '@type': 'ImageObject',
+        url: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=2048&q=75`,
+        contentUrl: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=2048&q=75`,
+        width: '2048',
+        height: '1152',
+        caption: post.title,
+      },
+      {
+        '@type': 'ImageObject',
+        url: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=1920&q=75`,
+        contentUrl: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=1920&q=75`,
+        width: '1920',
+        height: '1080',
+        caption: post.title,
+      },
+      {
+        '@type': 'ImageObject',
+        url: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=1200&q=75`,
+        contentUrl: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=1200&q=75`,
+        width: '1200',
+        height: '675',
+        caption: post.title,
+      },
+      {
+        '@type': 'ImageObject',
+        url: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=1080&q=75`,
+        contentUrl: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=1080&q=75`,
+        width: '1080',
+        height: '608',
+        caption: post.title,
+      },
+      {
+        '@type': 'ImageObject',
+        url: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=828&q=75`,
+        contentUrl: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=828&q=75`,
+        width: '828',
+        height: '466',
+        caption: post.title,
+      },
+      {
+        '@type': 'ImageObject',
+        url: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=750&q=75`,
+        contentUrl: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=750&q=75`,
+        width: '750',
+        height: '422',
+        caption: post.title,
+      },
+      {
+        '@type': 'ImageObject',
+        url: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=640&q=75`,
+        contentUrl: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+          image
+        )}&w=640&q=75`,
+        width: '640',
+        height: '360',
+        caption: post.title,
+      }
+    ];
+
     return {
       '@context': 'https://schema.org',
       '@graph': [
         {
-          '@type': 'BlogPosting',
+          '@type': 'Article',
           '@id': canonical,
+          headline: post.title,
           url: canonical,
-          name: title,
-          description: description,
           inLanguage: 'en-US',
           isPartOf: {
             '@id': 'https://www.obsidianstats.com/#website',
@@ -836,17 +923,39 @@ export const JsonLdSchema = {
             name: Constants.AppName,
             url: 'https://www.obsidianstats.com',
           },
-          author,
-          headline: post.title,
+          about: post.tags.map((tag) => ({
+            '@type': 'Thing',
+            name: tag.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
+          })),
           datePublished: post.publishedDate,
           dateModified: post.modifiedDate,
-          articleBody: post.content,
-          image: {
-            '@type': 'ImageObject',
-            url: image,
-            width: '512',
-            height: '512',
-          },
+          author: authors.map((a) => ({
+            '@type': 'Person',
+            "@id": `https://www.obsidianstats.com/author/${a.slug}/#author`,
+            name: a.name,
+            url: `https://www.obsidianstats.com/authors/${a.slug}/`,
+            description: a.bio.split('.')[0],
+            jobTitle: a.title || 'Obsidian Editor',
+            image: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+              a.avatar ||
+                'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'
+            )}&w=750&q=75`,
+            sameAs: Object.values(a.social || {}),
+          })),
+          thumbnailUrl: `https://www.obsidianstats.com/_next/image?url=${encodeURIComponent(
+            image
+          )}&w=1200&q=75`,
+          image: images,
+          articleSection: post.tags.map(tag => tag.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')) || [],
+          description: "",
+          "isAccessibleForFree": true,
+          "hasPart": [
+            {
+              "@type": "WebPageElement",
+              "isAccessibleForFree": true,
+              "cssSelector": ".article-body"
+            }
+          ],
         },
         breadcrumbs.post(post.title, canonical),
       ],

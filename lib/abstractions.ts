@@ -13,7 +13,7 @@ export interface Post {
   plugins?: string[];
   contentHtml?: string;
   content: string;
-  author?: string;
+  authors?: string[];
 }
 
 export interface Author {

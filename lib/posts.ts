@@ -8,7 +8,20 @@ const postsDirectory = path.join(process.cwd(), 'posts');
 const postsJsxDirectory = path.join(process.cwd(), 'pages', 'posts');
 const DEFAULT_AUTHOR = 'ganesshkumar';
 
+type PostFrontMatter = {
+  authors?: string[];
+};
+
 const isLocal = process.env.NODE_ENV === 'development';
+
+const resolveAuthors = (frontMatter: PostFrontMatter): string[] => {
+  const fromArray = (frontMatter.authors || []).filter(Boolean).map((a) => a.trim());
+  if (fromArray.length > 0) {
+    return fromArray;
+  }
+
+  return [DEFAULT_AUTHOR];
+};
 
 export function getSortedPostsData(): Post[] {
   const fileNames = fs.readdirSync(postsDirectory);
@@ -22,11 +35,14 @@ export function getSortedPostsData(): Post[] {
     const post = {
       id,
       ...matterResult.data,
-    } as Post;
+    } as Post & PostFrontMatter;
+
+    const authors = resolveAuthors(post);
+    const { authors: _legacyAuthors, ...rest } = post;
 
     return {
-      ...post,
-      author: post.author || DEFAULT_AUTHOR,
+      ...rest,
+      authors,
     } as Post;
   });
 
@@ -45,11 +61,15 @@ export function getPostData(id: string): Post {
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const matterResult = matter(fileContents);
 
+  const frontMatter = matterResult.data as Post & PostFrontMatter;
+  const authors = resolveAuthors(frontMatter);
+  const { authors: _legacyAuthors, ...rest } = frontMatter;
+
   return {
     id,
     content: matterResult.content,
-    ...matterResult.data,
-    author: (matterResult.data as Post).author || DEFAULT_AUTHOR,
+    ...rest,
+    authors,
   } as Post;
 }
 
