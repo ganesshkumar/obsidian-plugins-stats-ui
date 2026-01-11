@@ -44,6 +44,11 @@ export function getSortedPostsData(): Post[] {
       ...rest,
       authors,
     } as Post;
+
+    return {
+      ...post,
+      author: post.author || DEFAULT_AUTHOR,
+    } as Post;
   });
 
   const now = new Date();
