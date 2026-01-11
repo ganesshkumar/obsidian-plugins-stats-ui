@@ -821,6 +821,8 @@ export const JsonLdSchema = {
     image: string,
     authors: Author[]
   ) => {
+    const safeAuthors = (authors || []).filter((a) => Boolean(a));
+    const tags = Array.isArray(post.tags) ? post.tags : [];
     const images = [
       {
         '@type': 'ImageObject',
@@ -923,13 +925,13 @@ export const JsonLdSchema = {
             name: Constants.AppName,
             url: 'https://www.obsidianstats.com',
           },
-          about: post.tags.map((tag) => ({
+          about: tags.map((tag) => ({
             '@type': 'Thing',
             name: tag.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
           })),
           datePublished: post.publishedDate,
           dateModified: post.modifiedDate,
-          author: authors.map((a) => ({
+          author: safeAuthors.map((a) => ({
             '@type': 'Person',
             "@id": `https://www.obsidianstats.com/author/${a.slug}/#author`,
             name: a.name,
@@ -946,7 +948,7 @@ export const JsonLdSchema = {
             image
           )}&w=1200&q=75`,
           image: images,
-          articleSection: post.tags.map(tag => tag.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')) || [],
+          articleSection: tags.map(tag => tag.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')) || [],
           description: "",
           "isAccessibleForFree": true,
           "hasPart": [
