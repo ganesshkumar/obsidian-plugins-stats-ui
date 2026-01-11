@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://www.obsidianstats.com/tags/symbol-search</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/vectors</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/task-progress</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/mpv</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/ironsworn</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/starforged</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/tabletop-rpg</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/accounting</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/grammar</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/browser-integration</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/chrome-extension</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/nextcloud</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/classical-music</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/vikunja</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/messaging</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/gif</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
@@ -1404,6 +1417,9 @@
 <url><loc>https://www.obsidianstats.com/tags/japanese-text</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/novel-writing</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/ruby-characters</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/asciinema</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/folder-templates</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/rules</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/posts/2024-11-10-weekly-plugin-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
 <url><loc>https://www.obsidianstats.com/posts/2024-11-17-weekly-plugin-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
 <url><loc>https://www.obsidianstats.com/posts/2024-11-24-weekly-plugin-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>

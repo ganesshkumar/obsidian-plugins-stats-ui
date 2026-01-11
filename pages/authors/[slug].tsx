@@ -41,7 +41,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const allPosts = getSortedPostsData();
   const posts = allPosts.filter(
-    (post) => (post.author || authors.ganesshkumar.slug) === author.slug
+    (post) => {
+      const postAuthors =
+        (post.authors && post.authors.length > 0)
+          ? post.authors
+          : [authors.ganesshkumar.slug];
+
+      return postAuthors.includes(author.slug);
+    }
   );
 
   const title = `${author.name} - Author at Obsidian Stats`;

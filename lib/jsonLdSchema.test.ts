@@ -1,4 +1,5 @@
 import { Plugin } from '@prisma/client';
+import { Author } from './abstractions';
 import { JsonLdSchema } from './jsonLdSchema';
 
 const plugin: Plugin = {
@@ -132,18 +133,27 @@ describe('JsonLdSchema', () => {
       publishedDate: '2023-04-01',
       modifiedDate: '2023-04-02',
       content: 'Content of the post',
+      tags: ['updates'],
+      authors: ['john-doe'],
     };
     const title = 'Sample Post';
     const description = 'A blog post example';
     const canonical = 'https://www.obsidianstats.com/posts/sample-post';
     const image = 'https://example.com/post-image.png';
+    const author: Author = {
+      slug: 'john-doe',
+      name: 'John Doe',
+      title: 'Editor',
+      bio: 'Writes about plugins',
+    };
 
     const schema = JsonLdSchema.getPostPageSchema(
       post,
       title,
       description,
       canonical,
-      image
+      image,
+      [author]
     );
 
     expect(schema).toHaveProperty('@type', 'BlogPosting');

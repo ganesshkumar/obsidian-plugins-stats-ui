@@ -2,7 +2,7 @@ import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import { getPostData } from '../../lib/posts';
 import Navbar from '../../components/Navbar';
 import { Footer } from '../../components/Footer';
 import moment from 'moment';
@@ -30,13 +30,13 @@ import { generateSuggestions } from '../../domain/suggestions';
 import { Sidebar } from '../../components/Sidebar';
 import rehypeToc from 'rehype-toc';
 import { SiteData } from '../../data/siteData';
-import { User } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface IPostPageProps extends IHeaderProps {
   postData: PostData;
   plugins: any[];
   suggestions: Suggestions;
+  authors: Author[];
 }
 
 export const getStaticPaths: GetStaticPaths = () => {
@@ -112,16 +112,30 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       ?.map((pluginId) => plugins.find((p) => p.pluginId === pluginId))
       .filter((plugin) => !!plugin) ?? [];
 
+  const authors = SiteData.authors as Record<string, Author>;
+  const defaultAuthor = authors.ganesshkumar;
+  const authorSlugs =
+    (postData.authors && postData.authors.length > 0)
+      ? postData.authors
+      : [defaultAuthor.slug];
+
+  const resolvedAuthors = authorSlugs
+    .map((slug) => authors[slug])
+    .filter((a): a is Author => Boolean(a));
+
+  const postAuthors = resolvedAuthors.length > 0 ? resolvedAuthors : [defaultAuthor];
+
   const title = postData.title;
   const description = postData.description;
   const canonical = `https://www.obsidianstats.com/posts/${postData.id}`;
-  const image = postData.ogImage ?? '/images/obsidian-stats-ogImage.png';
+  const image = postData.tags.includes('weekly-updates') ? postData.bannerImage : postData.ogImage ?? '/images/obsidian-stats-ogImage.png';
   const jsonLdSchema = JsonLdSchema.getPostPageSchema(
     postData,
     title,
     description,
     canonical,
-    image
+    image,
+    postAuthors,
   );
   const suggestions = await generateSuggestions({
     type: 'post',
@@ -141,21 +155,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
       plugins: filteredPlugins,
       suggestions,
+      authors: postAuthors,
     },
     revalidate: 604800, // 7 days
   };
 };
 
 const Post = (props: IPostPageProps) => {
-  const { postData, plugins, suggestions } = props;
+  const { authors, postData, plugins, suggestions } = props;
   const [comparePlugins, setComparePlugins] = useState(false);
 
   const isLessThanLarge = useIsLessThanLarge();
 
-  const authors = SiteData.authors as Record<string, Author>;
-  const defaultAuthor = authors.ganesshkumar;
-  const authorSlug = postData.author || defaultAuthor.slug;
-  const author = authors[authorSlug] || defaultAuthor;
   const publishedLabel = moment(postData.publishedDate).format('DD-MMM-YYYY');
   const updatedLabel = moment(postData.modifiedDate).format('DD-MMM-YYYY');
   const hasUpdates = postData.publishedDate !== postData.modifiedDate;
@@ -174,50 +185,20 @@ const Post = (props: IPostPageProps) => {
   );
 
   const authorInfo = (
-    <div className="mt-3 mb-6 space-y-2">
-      <div className="hidden md:flex md:items-start md:gap-3">
-        <Avatar className="h-14 w-14">
-          <AvatarImage src={author.avatar || undefined} alt={author.name} />
-          <AvatarFallback
-            className="bg-gray-100 text-gray-700"
-            style={{
-              backgroundColor: `hsl(${hashStringToHue(author.name)}, 70%, 90%)`,
-              color: `hsl(${hashStringToHue(author.name)}, 70%, 30%)`,
-            }}
-          >
-            {author.name.charAt(0).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
-        <div className="flex-1 space-y-1">
-          <div className="flex flex-wrap items-center gap-2 text-gray-800">
-            <span>By</span>
+    <div className="mt-3 mb-6 space-y-3">
+      <div className="flex flex-wrap items-center gap-2 text-sm text-gray-700 md:text-base md:text-gray-800">
+        <span>By</span>
+        {authors.map((author, index) => (
+          <React.Fragment key={author.slug}>
             <Link
               href={`/authors/${author.slug}`}
               className="font-semibold text-gray-900 hover:underline"
             >
               {author.name}
             </Link>
-            <span aria-hidden="true">•</span>
-            <span>Published {publishedLabel}</span>
-            {hasUpdates && (
-              <>
-                <span aria-hidden="true">•</span>
-                <span>Updated {updatedLabel}</span>
-              </>
-            )}
-          </div>
-          <div className="text-sm text-gray-600 line-clamp-2">{author.bio}</div>
-        </div>
-      </div>
-
-      <div className="flex flex-wrap items-center gap-2 text-sm text-gray-700 md:hidden">
-        <span>By</span>
-        <Link
-          href={`/authors/${author.slug}`}
-          className="font-semibold text-gray-900 hover:underline"
-        >
-          {author.name}
-        </Link>
+            {index < authors.length - 1 && <span aria-hidden="true">•</span>}
+          </React.Fragment>
+        ))}
         <span aria-hidden="true">•</span>
         <span>Published {publishedLabel}</span>
         {hasUpdates && (
@@ -226,6 +207,39 @@ const Post = (props: IPostPageProps) => {
             <span>Updated {updatedLabel}</span>
           </>
         )}
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2">
+        {authors.map((author) => (
+          <div key={author.slug} className="flex items-start gap-3">
+            <Avatar className="h-14 w-14">
+              <AvatarImage src={author.avatar || undefined} alt={author.name} />
+              <AvatarFallback
+                className="bg-gray-100 text-gray-700"
+                style={{
+                  backgroundColor: `hsl(${hashStringToHue(author.name)}, 70%, 90%)`,
+                  color: `hsl(${hashStringToHue(author.name)}, 70%, 30%)`,
+                }}
+              >
+                {author.name.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1 space-y-1">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2">
+                <Link
+                  href={`/authors/${author.slug}`}
+                  className="font-semibold text-gray-900 hover:underline"
+                >
+                  {author.name}
+                </Link>
+                {author.title && (
+                  <span className="text-sm text-gray-600">{author.title}</span>
+                )}
+              </div>
+              <div className="text-sm text-gray-600 line-clamp-2">{author.bio}</div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -257,7 +271,8 @@ const Post = (props: IPostPageProps) => {
           height={1260}         // use the image’s real height
           sizes="(min-width: 1024px) 960px, 100vw"
           className="w-full h-auto rounded-lg mb-4"
-          priority
+          placeholder="blur"
+          blurDataURL="automatic"
         />
       )}
     </>
@@ -300,7 +315,7 @@ const Post = (props: IPostPageProps) => {
                 )}
               </>
             ) : null}
-            <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+            <div className='article-body' dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
             <Comments />
           </article>
         </ResponsiveLayout>

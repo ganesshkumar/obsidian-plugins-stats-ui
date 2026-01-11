@@ -47,6 +47,7 @@ export const getStaticProps: GetStaticProps = async () => {
       allPostsData,
       suggestions,
     },
+    revalidate: 43200, // twelve hours
   };
 };
 

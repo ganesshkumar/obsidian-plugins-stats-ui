@@ -7,6 +7,8 @@ modifiedDate: "2025-12-28"
 bannerImage: "/images/obsidian-weekly-updates.webp"
 tags: 
   - weekly-updates
+  - obsidian-plugins
+  - obsidian-themes
 ---
 
 > There are 6 new plugins and 84 plugin updates during the week 2025-12-21 to 2025-12-27.
