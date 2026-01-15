@@ -1,142 +1,142 @@
 {
   "year": "2025",
   "milestone": {
-    "totalPlugins": 2692,
-    "totalPluginDownloads": 97695154,
-    "totalThemes": 414
+    "totalPlugins": 2713,
+    "totalPluginDownloads": 101487612,
+    "totalThemes": 418
   },
   "stats": {
-    "newPluginsCount": 792,
-    "newPluginsDevCount": 666,
-    "updatedPluginsCount": 11591,
-    "pluginDownloadCount": 31352705,
-    "newThemesCount": 139,
-    "newThemesDevCount": 116
+    "newPluginsCount": 821,
+    "newPluginsDevCount": 688,
+    "updatedPluginsCount": 12366,
+    "pluginDownloadCount": 33666019,
+    "newThemesCount": 140,
+    "newThemesDevCount": 117
   },
   "mostDownloadedPlugins": {
     "obsidian-excalidraw-plugin": {
       "name": "Excalidraw",
-      "delta": 1780406
+      "delta": 1933535
     },
     "templater-obsidian": {
       "name": "Templater",
-      "delta": 1405280
+      "delta": 1511761
     },
     "dataview": {
       "name": "Dataview",
-      "delta": 1112084
+      "delta": 1185926
     },
     "obsidian-tasks-plugin": {
       "name": "Tasks",
-      "delta": 1023697
+      "delta": 1076615
     },
     "obsidian-git": {
       "name": "Git",
-      "delta": 699981
+      "delta": 753302
     },
     "calendar": {
       "name": "Calendar",
-      "delta": 690796
+      "delta": 741424
     },
     "obsidian-style-settings": {
       "name": "Style Settings",
-      "delta": 616437
+      "delta": 664144
     },
     "copilot": {
       "name": "Copilot",
-      "delta": 587219
+      "delta": 633421
     },
     "remotely-save": {
       "name": "Remotely Save",
-      "delta": 578974
+      "delta": 623737
     },
-    "obsidian-icon-folder": {
-      "name": "Icon Folder",
-      "delta": 561668
+    "quickadd": {
+      "name": "QuickAdd",
+      "delta": 615423
     }
   },
   "mostUpdatedPlugins": {
     "note-toolbar": {
       "name": "Note Toolbar",
-      "totalUpdated": 184
+      "totalUpdated": 193
     },
     "obsidian-task-progress-bar": {
       "name": "Task Progress Bar",
-      "totalUpdated": 160
+      "totalUpdated": 168
     },
     "obsidian-custom-attachment-location": {
       "name": "Custom Attachment Location",
-      "totalUpdated": 142
+      "totalUpdated": 159
     },
     "notes-to-strapi-export-article-ai": {
       "name": "Strapi Exporter AI",
-      "totalUpdated": 125
+      "totalUpdated": 131
     },
     "system3-relay": {
       "name": "Relay",
-      "totalUpdated": 125
+      "totalUpdated": 131
     },
     "notebook-navigator": {
       "name": "Notebook Navigator",
-      "totalUpdated": 124
+      "totalUpdated": 130
     },
     "gridexplorer": {
       "name": "GridExplorer",
-      "totalUpdated": 119
+      "totalUpdated": 121
     },
     "tasknotes": {
       "name": "TaskNotes",
-      "totalUpdated": 106
-    },
-    "fix-require-modules": {
-      "name": "Fix Require Modules",
-      "totalUpdated": 101
+      "totalUpdated": 108
     },
     "smart-connections": {
       "name": "Smart Connections",
-      "totalUpdated": 97
+      "totalUpdated": 104
+    },
+    "fix-require-modules": {
+      "name": "Fix Require Modules",
+      "totalUpdated": 102
     }
   },
   "mostDownloadedFromNewPlugins": {
-    "datacore": {
-      "name": "Datacore",
-      "totalDownloads": 184978
-    },
     "notebook-navigator": {
       "name": "Notebook Navigator",
-      "totalDownloads": 167530
+      "totalDownloads": 206866
+    },
+    "datacore": {
+      "name": "Datacore",
+      "totalDownloads": 198390
+    },
+    "obsidian-custom-attachment-location": {
+      "name": "Custom Attachment Location",
+      "totalDownloads": 133285
     },
     "tasknotes": {
       "name": "TaskNotes",
-      "totalDownloads": 101354
+      "totalDownloads": 117477
     },
     "pretty-properties": {
       "name": "Pretty Properties",
-      "totalDownloads": 81880
-    },
-    "obsidian-imgur-plugin": {
-      "name": "Imgur",
-      "totalDownloads": 57883
+      "totalDownloads": 100341
     },
     "obsidian-image-toolkit": {
       "name": "Image Toolkit",
-      "totalDownloads": 56082
+      "totalDownloads": 64412
+    },
+    "obsidian-imgur-plugin": {
+      "name": "Imgur",
+      "totalDownloads": 58216
     },
     "any-block": {
       "name": "AnyBlock",
-      "totalDownloads": 46655
-    },
-    "obsidian-timestamper": {
-      "name": "TimeStamper",
-      "totalDownloads": 38834
+      "totalDownloads": 48761
     },
     "manual-sorting": {
       "name": "Manual Sorting",
-      "totalDownloads": 35633
+      "totalDownloads": 41524
     },
-    "fantasy-name": {
-      "name": "Fantasy name generator",
-      "totalDownloads": 28313
+    "obsidian-timestamper": {
+      "name": "TimeStamper",
+      "totalDownloads": 39575
     }
   },
   "mostPluginsByAuthor": {
@@ -155,7 +155,7 @@
         "author": "Boninall",
         "description": "Set start and end marker, and then fold any text anywhere in live preview mode.",
         "repo": "Quorafind/Obsidian-Fold-Anywhere",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "file-property-enhancer",
@@ -163,7 +163,7 @@
         "author": "Boninall",
         "description": "Add icons to the file property, and customize the display of the file property.",
         "repo": "Quorafind/Obsidian-File-Property-Enhancer",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "collapse-node",
@@ -171,7 +171,7 @@
         "author": "Boninall",
         "description": "Collapse node in canvas.",
         "repo": "Quorafind/Obsidian-Collapse-Node",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "better-order-list",
@@ -179,7 +179,7 @@
         "author": "Boninall",
         "description": "Support new line order list like 1、 or (1)., etc.",
         "repo": "Quorafind/Obsidian-Better-Order-List",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "templify",
@@ -187,7 +187,7 @@
         "description": "Enables flexible conversion of note views into various layout (Closed source).",
         "author": "Boninall",
         "repo": "Quorafind/Obsidian-Templify",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "search-in-canvas",
@@ -195,7 +195,7 @@
         "author": "Boninall",
         "description": "Search text in canvas.",
         "repo": "Quorafind/Obsidian-Search-In-Canvas",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "node-auto-resize",
@@ -203,7 +203,7 @@
         "author": "Boninall",
         "description": "Automatically resize the node when the content changes.",
         "repo": "Quorafind/Obsidian-Node-Auto-Resize",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "pdf-annotator",
@@ -211,7 +211,7 @@
         "author": "Boninall",
         "description": "Simple but powerful pdf annotator.",
         "repo": "Quorafind/Obsidian-PDF-Annotator",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       }
     ],
     "mnaoumov": [
@@ -221,7 +221,7 @@
         "author": "mnaoumov",
         "description": "Allows to do a lot of things with JavaScript/TypeScript scripts from inside the Obsidian itself",
         "repo": "mnaoumov/obsidian-codescript-toolkit",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "external-rename-handler",
@@ -229,7 +229,7 @@
         "author": "mnaoumov",
         "description": "Handles renames made outside of the app.",
         "repo": "mnaoumov/obsidian-external-rename-handler",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "frontmatter-markdown-links",
@@ -237,7 +237,7 @@
         "author": "mnaoumov",
         "description": "Adds support for markdown links in frontmatter.",
         "repo": "mnaoumov/obsidian-frontmatter-markdown-links",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "new-note-fixer",
@@ -245,7 +245,7 @@
         "author": "mnaoumov",
         "description": "Unifies the way non-existing notes are created when clicking on their links.",
         "repo": "mnaoumov/obsidian-new-note-fixer",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "backlink-full-path",
@@ -253,7 +253,7 @@
         "author": "mnaoumov",
         "description": "Shows the backlink's full path in the backlinks panel.",
         "repo": "mnaoumov/obsidian-backlink-full-path",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "advanced-debug-mode",
@@ -261,7 +261,7 @@
         "author": "mnaoumov",
         "description": "Enhances debugging experience.",
         "repo": "mnaoumov/obsidian-advanced-debug-mode",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "advanced-note-composer",
@@ -269,7 +269,7 @@
         "author": "mnaoumov",
         "description": "Enhances Note composer core plugin.",
         "repo": "mnaoumov/obsidian-advanced-note-composer",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "refresh-preview",
@@ -277,7 +277,7 @@
         "author": "mnaoumov",
         "description": "Allows to refresh any view without reopening it.",
         "repo": "mnaoumov/obsidian-refresh-any-view",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       }
     ],
     "Mara-Li": [
@@ -295,7 +295,7 @@
         "author": "Mara-Li",
         "description": "Automagically adds tags based on a simple csv file or a Markdown table.",
         "repo": "Mara-Li/obsidian-my-thesaurus",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "simple-colored-folder",
@@ -303,7 +303,7 @@
         "author": "Mara-Li",
         "description": "Automagically add color to roots folders, and customize it with Style Settings.",
         "repo": "Mara-Li/obsidian-simple-colored-folder",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "alpha-bullet",
@@ -311,7 +311,7 @@
         "author": "Mara-Li",
         "description": "Sorts bulleted lists alphabetically.",
         "repo": "Mara-Li/obsidian-alpha-bullet",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "dataview-properties",
@@ -319,7 +319,7 @@
         "author": "Mara-Li",
         "description": "Automagically copy dataview inline field (and their values, even calculated!) into frontmatter properties and keep them sync.",
         "repo": "Mara-Li/obsidian-dataview-properties",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "explorer-hider",
@@ -327,7 +327,7 @@
         "author": "Mara-Li",
         "description": "Hide a file or a folder from the explorer (and bookmarks) using a little bit of auto-managed CSS.",
         "repo": "Mara-Li/obsidian-explorer-hider",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       }
     ],
     "wenlzhang": [
@@ -337,7 +337,7 @@
         "author": "wenlzhang",
         "description": "Convert URIs to internal links.",
         "repo": "wenlzhang/obsidian-uri-converter",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "file-title-updater",
@@ -345,7 +345,7 @@
         "author": "wenlzhang",
         "description": "Synchronize titles between filename, frontmatter, and first heading in notes.",
         "repo": "wenlzhang/obsidian-file-title-updater",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "canvas-format-brush",
@@ -353,7 +353,7 @@
         "author": "wenlzhang",
         "description": "Copy and paste formatting attributes (size and color) between canvas elements, similar to the format painter in Word.",
         "repo": "wenlzhang/obsidian-canvas-format-brush",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "folder-navigator",
@@ -361,7 +361,7 @@
         "author": "wenlzhang",
         "description": "Quickly navigate to folders in your vault using fuzzy search.",
         "repo": "wenlzhang/obsidian-folder-navigator",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "tag-index",
@@ -369,7 +369,7 @@
         "description": "Create a curated list of important tags to serve as meaningful entry points to your knowledge base.",
         "author": "wenlzhang",
         "repo": "wenlzhang/obsidian-tag-index",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "send-to-canvas",
@@ -377,7 +377,7 @@
         "author": "wenlzhang",
         "description": "Send tasks, blocks, and notes to Canvas files as plain text, links, and embeds.",
         "repo": "wenlzhang/obsidian-send-to-canvas",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       }
     ],
     "Nick Felker": [
@@ -395,7 +395,7 @@
         "author": "Nick Felker",
         "description": "Syncs your public Letterboxd diary.",
         "repo": "Fleker/letterboxd-for-obsidian",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "trakt-tv",
@@ -403,7 +403,7 @@
         "author": "Nick Felker",
         "description": "Syncs your watched Trakt.tv shows to a file.",
         "repo": "Fleker/trakt-for-obsidian",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "setlist-fm-sync",
@@ -411,7 +411,7 @@
         "author": "Nick Felker",
         "description": "Syncs your setlist.fm attended concerts.",
         "repo": "Fleker/setlist-for-obsidian",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       }
     ],
     "d7sd6u": [
@@ -421,7 +421,7 @@
         "author": "d7sd6u",
         "description": "Automagically convert the note to a folder note when pasting or drag'n'dropping an attachment.",
         "repo": "d7sd6u/obsidian-auto-folder-note-paste",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "hide-index-files",
@@ -429,7 +429,7 @@
         "description": "Hide index files (folder notes) more reliably.",
         "author": "d7sd6u",
         "repo": "d7sd6u/obsidian-hide-index-files",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "crosslink-advanced",
@@ -437,7 +437,7 @@
         "description": "Tag files using folders and symlinks system (ftags).",
         "author": "d7sd6u",
         "repo": "d7sd6u/obsidian-crosslink-advanced",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "reveal-folded",
@@ -445,7 +445,7 @@
         "description": "Reveal the current file in the file explorer while collapsing all other tree items.",
         "author": "d7sd6u",
         "repo": "d7sd6u/obsidian-reveal-folded",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       },
       {
         "id": "viewer-ftags",
@@ -453,7 +453,7 @@
         "author": "d7sd6u",
         "description": "Add file's ftags as chips at the top of the markdown view.",
         "repo": "d7sd6u/obsidian-viewer-ftags",
-        "publisedAt": "2025-12-04"
+        "publisedAt": "2026-01-07"
       }
     ]
   },
@@ -467,7 +467,7 @@
         "modes": [
           "dark"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "cocoa",
@@ -497,7 +497,7 @@
         "modes": [
           "dark"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "dashboard",
@@ -507,7 +507,7 @@
         "modes": [
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Blood Rush",
@@ -517,7 +517,7 @@
         "modes": [
           "dark"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Antique Flowers",
@@ -528,7 +528,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Desserts",
@@ -539,7 +539,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       }
     ],
     "Isabelle Basso": [
@@ -565,7 +565,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Neo Sploosh",
@@ -576,7 +576,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Planetz Roller",
@@ -587,7 +587,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       }
     ],
     "AfonsoMiranda02": [
@@ -612,7 +612,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Soli Deo Gloria",
@@ -623,7 +623,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       }
     ],
     "Paralloid": [
@@ -636,7 +636,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Pomme Notes",
@@ -647,7 +647,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       }
     ],
     "LennZone": [
@@ -660,7 +660,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Neumorphism",
@@ -671,7 +671,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       }
     ],
     "ThePharaohArt": [
@@ -684,7 +684,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "RetroOS 98",
@@ -695,7 +695,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       }
     ],
     "fabdub": [
@@ -708,7 +708,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Matrix",
@@ -718,7 +718,7 @@
         "modes": [
           "dark"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       }
     ],
     "konnta0": [
@@ -730,7 +730,7 @@
         "modes": [
           "dark"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Noctis Viola",
@@ -740,7 +740,7 @@
         "modes": [
           "dark"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       }
     ],
     "RastGame": [
@@ -777,7 +777,7 @@
         "modes": [
           "dark"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Monokai Ristretto",
@@ -787,7 +787,7 @@
         "modes": [
           "dark"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       }
     ],
     "wulflo": [
@@ -813,7 +813,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       },
       {
         "name": "Dedication 2",
@@ -824,7 +824,7 @@
           "dark",
           "light"
         ],
-        "publishedAt": "2025-11-28"
+        "publishedAt": "2026-01-03"
       }
     ]
   }
