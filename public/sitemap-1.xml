@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://www.obsidianstats.com/tags/entity</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/datepicker</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/conversational-ai</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/sidebar-customization</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/layout-management</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/ui-adjustment</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/refresh</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/hashing</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/file-renaming</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/markdown-sync</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/note-summarization</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/docbase</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/fabric</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/code-navigation</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/symbol-search</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/vectors</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/task-progress</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
@@ -775,6 +789,7 @@
 <url><loc>https://www.obsidianstats.com/tags/poetry</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/songwriting</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/outlook</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/meeting</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/msg-files</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/claude</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/markitdown</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
@@ -1268,6 +1283,7 @@
 <url><loc>https://www.obsidianstats.com/tags/fen-support</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/game-visualization</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/yandex-tracker</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/gantt-chart</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/query-filter</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/file-link</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/interactive-tables</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
@@ -1419,7 +1435,16 @@
 <url><loc>https://www.obsidianstats.com/tags/ruby-characters</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/asciinema</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/folder-templates</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/minimalist</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/tags/rules</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/weiqi</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/baduk</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/character-count</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/genkouyoushi</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/streaks</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/wordnet</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/glsl</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.obsidianstats.com/tags/shader</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.obsidianstats.com/posts/2024-11-10-weekly-plugin-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
 <url><loc>https://www.obsidianstats.com/posts/2024-11-17-weekly-plugin-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
 <url><loc>https://www.obsidianstats.com/posts/2024-11-24-weekly-plugin-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
@@ -1490,4 +1515,7 @@
 <url><loc>https://www.obsidianstats.com/posts/2025-12-15-weekly-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
 <url><loc>https://www.obsidianstats.com/posts/2025-12-24-weekly-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
 <url><loc>https://www.obsidianstats.com/posts/2025-12-28-weekly-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
+<url><loc>https://www.obsidianstats.com/posts/2026-01-13-weekly-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
+<url><loc>https://www.obsidianstats.com/posts/2026-01-15-weekly-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
+<url><loc>https://www.obsidianstats.com/posts/2026-02-05-weekly-updates</loc><changefreq>weekly</changefreq><priority>0.4</priority></url>
 </urlset>
