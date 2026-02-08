@@ -1,10 +1,10 @@
 ---
 title: Obsidian Plugin Updates 2026-01-11 to 2026-01-17
-description: 'From 2026-01-11 to 2026-01-17 there are 4 newly released plugins, 1 new theme and 58 plugin updates'
-excerpt: 'There are 4 new plugins, 1 new theme and 58 plugin updates during the week 2026-01-11 to 2026-01-17.'
-publishedDate: '2026-01-18'
-modifiedDate: '2026-02-05'
-bannerImage: '/images/obsidian-weekly-updates.webp'
+description: "From 2026-01-11 to 2026-01-17 there are 4 newly released plugins, 1 new theme and 58 plugin updates"
+excerpt: "There are 4 new plugins, 1 new theme and 58 plugin updates during the week 2026-01-11 to 2026-01-17."
+publishedDate: "2026-01-18"
+modifiedDate: "2026-02-05"
+bannerImage: "/images/obsidian-weekly-updates.webp"
 tags:
   - weekly-updates
 ---
@@ -48,6 +48,7 @@ We got 58 plugin updates in the last one week's time. You can see all the plugin
 ### Notable Updates
 
 - **Editing Toolbar** - v3.2.2 - [Changelog](https://github.com/PKM-er/obsidian-editing-toolbar/releases/tag/3.2.2)
+- **Notebook Navigator** - v2.1.0 - [Changelog](https://github.com/johansan/notebook-navigator/releases/tag/2.1.0)
 
 ---
 
